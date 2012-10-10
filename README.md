@@ -1,3 +1,2 @@
 socialDj
-que pasa amijo
 ==============
