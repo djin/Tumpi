@@ -3,6 +3,7 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\gen\lista\android\R.ja
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-ldpi\ic_launcher.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-mdpi\ic_launcher.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\main.xml \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\menu\menuactionbar.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_list.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_options.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_star.png \

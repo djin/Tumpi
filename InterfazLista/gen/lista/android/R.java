@@ -14,12 +14,14 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int tab1=0x7f070000;
-        public static final int tab2=0x7f070001;
-        public static final int tab3=0x7f070002;
+        public static final int btnSettings=0x7f080001;
+        public static final int texto=0x7f080000;
     }
     public static final class layout {
         public static final int main=0x7f030000;
+    }
+    public static final class menu {
+        public static final int menuactionbar=0x7f070000;
     }
     public static final class raw {
         public static final int ico_medium_list=0x7f040000;

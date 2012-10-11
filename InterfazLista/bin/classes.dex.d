@@ -5,6 +5,7 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\andr
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$drawable.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$id.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$layout.class \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$menu.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$raw.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$string.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$style.class \
