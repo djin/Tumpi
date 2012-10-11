@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -23,26 +24,26 @@ public class ListaCanciones extends Activity
         
         TabHost.TabSpec spec = tabs.newTabSpec("Pestaña1");
         spec.setContent(R.id.tab1);
-        spec.setIndicator(specStyle("Lista", res.getDrawable(R.raw.ico_music)));
+        spec.setIndicator(specStyle("Lista", R.raw.ico_music));
         tabs.addTab(spec);
         
         spec = tabs.newTabSpec("Pestaña2");
         spec.setContent(R.id.tab2);
-        spec.setIndicator(specStyle("Home", res.getDrawable(R.raw.ico_home)));
+        spec.setIndicator(specStyle("Home", R.raw.ico_home));
         tabs.addTab(spec);
         
         spec = tabs.newTabSpec("Pestaña3");
         spec.setContent(R.id.tab3);
-        spec.setIndicator(specStyle("Options", res.getDrawable(android.R.drawable.ic_media_rew)));
+        spec.setIndicator(specStyle("Options", android.R.drawable.ic_media_rew));
         tabs.addTab(spec);
         
         tabs.setCurrentTab(0);
     }
     
-    public View specStyle(String name, Drawable icon){
+    public View specStyle(String name, int icon){
         View view = getLayoutInflater().inflate(R.layout.specstyle, null);
-        TextView text = (TextView)view.findViewById(R.id.LblTitulo);
-        text.setText(name);
+        ImageView ico = (ImageView)view.findViewById(R.id.image);
+        ico.setBackgroundResource(icon);
         return view;
     }
 }

@@ -13,7 +13,8 @@
         android:id="@android:id/tabs" />
         <FrameLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@android:id/tabcontent" >
+        android:id="@android:id/tabcontent"
+        >
             <LinearLayout android:id="@+id/tab1"
             android:orientation="vertical"
             android:layout_width="match_parent"
