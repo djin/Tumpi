@@ -21,6 +21,6 @@ public class ListaCanciones extends Activity
        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menuactionbar, menu);
         return true;
-    } 
-    
+    }
+
 }
