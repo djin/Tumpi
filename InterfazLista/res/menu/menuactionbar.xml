@@ -3,6 +3,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/btnSettings"
     android:icon="@raw/ico_medium_options"
-    android:title="Settigns"
+    android:title="Settings"
     android:showAsAction="ifRoom|withText" />
 </menu>
