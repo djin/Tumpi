@@ -1,9 +1,11 @@
 package lista.android;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,6 +94,15 @@ public void onCreate(Bundle savedInstanceState) {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menuactionbar, menu);
+        MenuItem btn = menu.findItem(R.id.btnSettings);
+        btn.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(ListaCanciones.this, Settings.class);
+                startActivity(intent);
+                return true;
+            }
+        });
         return true;
     }
 }
