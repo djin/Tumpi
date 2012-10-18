@@ -99,6 +99,7 @@ public void onCreate(Bundle savedInstanceState) {
 
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(ListaCanciones.this, Settings.class);
+                
                 startActivity(intent);
                 return true;
             }
