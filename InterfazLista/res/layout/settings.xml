@@ -13,7 +13,7 @@
 
     <ImageView android:id="@id/android:empty"
         android:background="@null"
-        android:src="@raw/ico_big_love"
+        android:src="@raw/ico_medium_love"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
     />
