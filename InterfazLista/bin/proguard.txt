@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:7
+-keep class lista.android.ListaCanciones { <init>(...); }
+
+# view AndroidManifest.xml #generated:14
+-keep class lista.android.Settings { <init>(...); }
+
