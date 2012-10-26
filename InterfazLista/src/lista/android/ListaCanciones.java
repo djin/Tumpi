@@ -80,7 +80,6 @@ public void onCreate(Bundle savedInstanceState) {
     //diseño de cada fila, Cadenas del HashMap, Ids del Fichero XML del diseño de cada fila)
     SimpleAdapter ListadoAdapter=new SimpleAdapter(this, Eventos, R.layout.rowstyle, from, to);
     setListAdapter(ListadoAdapter);
-    
 //    ImageButton btnVotado = (ImageButton)findViewById(R.id.btnSettings);
 //    
 //    btnVotado.setOnClickListener(new OnClickListener() {
