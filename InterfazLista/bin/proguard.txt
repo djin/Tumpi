@@ -4,3 +4,6 @@
 # view AndroidManifest.xml #generated:14
 -keep class lista.android.Settings { <init>(...); }
 
+# onClick res/layout/rowstyle.xml #generated:25
+-keepclassmembers class * { *** votado(...); }
+

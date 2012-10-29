@@ -13,6 +13,7 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_opt
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_star.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_love.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_share.png \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_star_focus.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\values\strings.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\values\styles.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\drawable-hdpi\ic_launcher.png \
@@ -24,4 +25,5 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_medium
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_medium_star.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_small_love.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_small_share.png \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_small_star_focus.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\AndroidManifest.xml \

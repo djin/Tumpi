@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,16 +80,8 @@ public void onCreate(Bundle savedInstanceState) {
     //creamos un elemento que nos facilitará la tarea:
     //SimpleAdapter(Actividad, Array de HashMap con elementos, Fichero XML del
     //diseño de cada fila, Cadenas del HashMap, Ids del Fichero XML del diseño de cada fila)
-    SimpleAdapter ListadoAdapter=new SimpleAdapter(this, Eventos, R.layout.rowstyle, from, to);
-    setListAdapter(ListadoAdapter);
-//    ImageButton btnVotado = (ImageButton)findViewById(R.id.btnSettings);
-//    
-//    btnVotado.setOnClickListener(new OnClickListener() {
-//
-//            public void onClick(View v) {
-//                v.setEnabled(false);
-//            }
-//        });
+    SimpleAdapter listadoAdapter=new SimpleAdapter(this, Eventos, R.layout.rowstyle, from, to);
+    setListAdapter(listadoAdapter);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,4 +99,15 @@ public void onCreate(Bundle savedInstanceState) {
         });
         return true;
     }
+    
+    public void votado(View v){
+        ImageButton img = (ImageButton)v.findViewById(R.id.btnVotar);
+        img.setImageResource(R.raw.ico_small_star_focus);
+        img.setEnabled(false);
+    }
+    
 }
+
+
+
+

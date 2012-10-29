@@ -6,7 +6,10 @@ package lista.android;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -57,5 +60,11 @@ public class Settings extends ListActivity {
         //diseño de cada fila, Cadenas del HashMap, Ids del Fichero XML del diseño de cada fila)
         SimpleAdapter ListadoAdapter=new SimpleAdapter(this, Eventos, R.layout.rowstylesettings, from, to);
         setListAdapter(ListadoAdapter);
+    }
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        TextView txt = (TextView)v.findViewById(R.id.txtSetting);
+        txt.setText("Seleccionado");
     }
 }

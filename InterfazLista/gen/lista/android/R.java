@@ -38,6 +38,7 @@ public final class R {
         public static final int ico_medium_star=0x7f040003;
         public static final int ico_small_love=0x7f040004;
         public static final int ico_small_share=0x7f040005;
+        public static final int ico_small_star_focus=0x7f040006;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
