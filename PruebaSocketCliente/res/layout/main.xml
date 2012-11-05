@@ -4,11 +4,42 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/conectar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Conectar"
+    android:onClick="conectar" />
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mandar_mensaje"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Mandar mensaje"
+    android:onClick="enviarMensaje" />
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cerrar_conexion"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Cerrar conexión"
+    android:onClick="cerrarConexion" />
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/limpiar_log"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Limpiar Log"
+    android:onClick="limpiarLog" />
+<EditText
+    android:id="@+id/mensaje"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:hint="Escribe aquí el mensaje"
+    android:inputType="text" />
 <TextView
-    android:id="@+id/main"
+    android:id="@+id/texto_log"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:text="@string/label"
     />
+    
 </LinearLayout>
 
