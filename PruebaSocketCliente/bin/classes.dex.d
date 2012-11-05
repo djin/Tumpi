@@ -3,6 +3,7 @@ C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classe
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\MainActivity.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$attr.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$drawable.class \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$id.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$layout.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$string.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R.class \

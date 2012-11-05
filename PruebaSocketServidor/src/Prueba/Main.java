@@ -20,11 +20,11 @@ public class Main {
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         ServerSocket server=new ServerSocket(22222);
-        new Runnable() {
+       /* new Runnable() {
             @Override
             public void run() {
                 try {
-                    SocketAddress dir_server=new InetSocketAddress("10.0.38.211",22222);
+                    SocketAddress dir_server=new InetSocketAddress("192.168.173.1",22222);
                     Socket cliente=new Socket();
                     do{
                         cliente.connect(dir_server);
@@ -39,7 +39,8 @@ public class Main {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }                
             }
-        }.run();
+        }.run();*/
+        System.out.println(server.getInetAddress());
         Socket socket_cliente=server.accept();
         InputStream input = socket_cliente.getInputStream();
         OutputStream output = socket_cliente.getOutputStream();
