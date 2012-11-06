@@ -15,7 +15,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:hint="Puerto"
-    android:inputType="text" />
+    android:inputType="number" />
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/conectar"
     android:layout_width="wrap_content"

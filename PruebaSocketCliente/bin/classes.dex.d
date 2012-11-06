@@ -7,4 +7,6 @@ C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classe
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$layout.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$string.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R.class \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\SocketCliente$1.class \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\SocketCliente.class \
 C:\Users\66785270\AppData\Local\Android\android-sdk\tools\support\annotations.jar \
