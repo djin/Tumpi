@@ -16,6 +16,8 @@ public class MainActivity extends Activity
     /** Called when the activity is first created. */
     TextView texto_main=null;
     EditText input_mensaje=null;
+    EditText input_ip=null;
+    EditText input_puerto=null;
     char[] texto_mensaje = null;
     Socket cliente=null;
     InputStream input = null;
@@ -29,12 +31,16 @@ public class MainActivity extends Activity
         setContentView(R.layout.main);
         texto_main=(TextView) findViewById(R.id.texto_log);
         input_mensaje=(EditText) findViewById(R.id.mensaje);
+        input_ip=(EditText) findViewById(R.id.ip_server);
+        input_puerto=(EditText) findViewById(R.id.puerto_server);
         texto_main.setText("Conéctate");
         
     }
     public void conectar(View view) {
-        try {            
-            cliente = new Socket("192.168.1.24",22222);
+        try {
+            String ip=input_ip.getText().toString();
+            String puerto=input_puerto.getText().toString();
+            cliente = new Socket(ip,Integer.parseInt(puerto));
             if(cliente.isConnected())
                 texto_main.append("\nConexión realizada con éxito!!");
         } catch (Exception ex) {
@@ -47,11 +53,8 @@ public class MainActivity extends Activity
                 input = cliente.getInputStream();
                 output = cliente.getOutputStream();
                 inputdata = new DataInputStream (input);
-                outputdata = new DataOutputStream (output);
-                Editable datos=input_mensaje.getText();
-                texto_mensaje=new char[250];
-                datos.getChars(0, datos.length(), texto_mensaje,0);
-                String mensaje=new String(texto_mensaje);
+                outputdata = new DataOutputStream (output);               
+                String mensaje=input_mensaje.getText().toString();
                 outputdata.writeUTF(mensaje);
                 input_mensaje.setText("");
                 outputdata.flush();

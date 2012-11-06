@@ -34,7 +34,7 @@ public class Main {
     public static void main(String[] args){
         // TODO code application logic here
         try {
-            server = new ServerSocket(22222);
+            server = new ServerSocket(2222);
             if(server.isBound()){
                 System.out.println("Socket creado con éxito");
                 escucharClientes.run();
