@@ -14,6 +14,7 @@ public class MainActivity extends Activity
     EditText input_mensaje=null;
     EditText input_ip=null;
     EditText input_puerto=null;
+    Thread thread_escuchar_server=null;
     char[] texto_mensaje = null;
     SocketCliente cliente=null;    
     @Override
@@ -28,19 +29,43 @@ public class MainActivity extends Activity
         texto_main.setText("Conéctate");
         
     }
-    public void conectar(View view) {
+    public void conectar(final View view) {
         try {
             String ip=input_ip.getText().toString();
             String puerto=input_puerto.getText().toString();
             cliente = new SocketCliente(ip,Integer.parseInt(puerto));
             cliente.conectar();
             if(cliente.socket_cliente.isConnected()){
-                texto_main.append("\nConexión realizada con éxito!!");
-                cliente.startListenServer(texto_main);
+                texto_main.setText("Conexión realizada con éxito!!");                
+                thread_escuchar_server=new Thread(){
+                    @Override
+                    public void run(){
+                        String texto_recivido="";
+                        Thread this_thread=Thread.currentThread();
+                        try{
+                            do{
+                                texto_recivido=cliente.listenServer();
+                                if(!texto_recivido.equals("close"))
+                                    log("\n"+texto_recivido);
+                            }while(!texto_recivido.equals("close") && thread_escuchar_server==this_thread);
+                        }catch(Exception ex){
+                            //log("\nError al escuchar al servidor: "+ex.toString()+ex.hashCode());
+                        }
+                    }
+                };
+                thread_escuchar_server.start();
             }
         } catch (Exception ex) {
              texto_main.append("\nError de conexion: "+ex.toString());
         }
+    }
+    private void log(final String cadena){
+        texto_main.post(new Runnable() {
+            @Override
+            public void run(){
+                texto_main.append(cadena);                
+            }
+        });
     }
     public void enviarMensaje(View view){
         try {              
@@ -53,7 +78,10 @@ public class MainActivity extends Activity
     }
     public void cerrarConexion(View view) {        
         try {
+            thread_escuchar_server.interrupt();
+            thread_escuchar_server=null;
             cliente.cerrarConexion();
+            texto_main.append("\nDesconectado del servidor");
         } catch (Exception ex) {
             texto_main.append("\nError al desconectar: "+ex.toString());
         }

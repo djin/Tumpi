@@ -7,6 +7,8 @@ import android.widget.TextView;
 import java.io.*;
 import java.net.*;
 import java.net.Socket.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author 66785270
@@ -39,28 +41,16 @@ public class SocketCliente {
         else
             throw new Exception("No esta conectado...");
     }
-    public void startListenServer(final TextView texto_main){
-        thread_escuchar_server=new Thread(){
-            private volatile Thread blinker;
-            @Override
-            public void run(){
-                String texto_recivido="";
-                Thread this_thread=Thread.currentThread();
-                try{
-                    do{
-                        texto_recivido=inputdata.readUTF();
-                        texto_main.append("\nServer: "+texto_recivido);
-                    }while(!texto_recivido.equals("close") && blinker==this_thread);
-                }catch(Exception ex){
-                    texto_main.append("Error al escuchar al servidor: "+ex.toString());
-                }
-            }
-        };
-        thread_escuchar_server.start();
+    public String listenServer() throws IOException{
+        if(inputdata!=null){
+                return inputdata.readUTF();
+        }
+        else
+            return "No esta abierto el stream";
     }
     public void cerrarConexion() throws IOException, Exception {
         if(socket_cliente.isConnected() && !socket_cliente.isClosed()){
-            thread_escuchar_server.interrupt();
+            enviarMensaje("exit");
             input.close();
             output.close();
             inputdata.close();

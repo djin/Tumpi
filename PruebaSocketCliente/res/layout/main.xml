@@ -4,6 +4,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
 <EditText
     android:id="@+id/ip_server"
     android:layout_width="fill_parent"
@@ -16,30 +21,43 @@
     android:layout_height="wrap_content"
     android:hint="Puerto"
     android:inputType="number" />
+</LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/conectar"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="110px"
+    android:layout_height="50px"
     android:text="Conectar"
     android:onClick="conectar" />
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mandar_mensaje"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="110px"
+    android:layout_height="50px"
     android:text="Mandar mensaje"
     android:onClick="enviarMensaje" />
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cerrar_conexion"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="100px"
+    android:layout_height="50px"
     android:text="Cerrar conexión"
     android:onClick="cerrarConexion" />
+</LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/limpiar_log"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="110px"
+    android:layout_height="50px"
     android:text="Limpiar Log"
     android:onClick="limpiarLog" />
+</LinearLayout>
 <EditText
     android:id="@+id/mensaje"
     android:layout_width="fill_parent"

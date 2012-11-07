@@ -44,7 +44,8 @@ public class SocketServidor {
                     System.out.println("Cliente conectado: "+socket_cliente.getInetAddress().getHostAddress());
                     Cliente cliente=new Cliente(socket_cliente);
                     clientes.add(cliente);
-                    enviarMensaje(cliente.ip_cliente,"clos");
+                    log("Número de clientes: "+clientes.size());
+                    cliente.enviarMensaje("Bienvenido al servicio de chat, yeah!!");
                     cliente.startListenClient();
                 }
             }
@@ -54,18 +55,25 @@ public class SocketServidor {
     public void finishSearchClients(){
         thread_buscar_clientes.interrupt();
     }
-    public void enviarMensaje(String ip_cliente,String mensaje){
+    public void enviarMensajeServer(String ip_cliente,String mensaje){
         Cliente cliente_aux=null;
         int cont=0;
-        for(cont=0;cont<clientes.size();cont++){
-            cliente_aux=clientes.get(cont);
-            if(cliente_aux.ip_cliente.equals(ip_cliente)){
-                cliente_aux.enviarMensaje(mensaje);
-                break;
+        if(!ip_cliente.equals("*")){
+            for(cont=0;cont<clientes.size();cont++){
+                cliente_aux=clientes.get(cont);
+                if(cliente_aux.ip_cliente.equals(ip_cliente)){
+                    cliente_aux.enviarMensaje(mensaje);
+                    break;
+                }
             }
+            if(cont==clientes.size())
+                log("No se encontro el cliente "+ip_cliente);
         }
-        if(cont==clientes.size())
-            log("No se encontro el cliente "+ip_cliente);
+        else
+            for(cont=0;cont<clientes.size();cont++){
+                cliente_aux=clientes.get(cont);
+                cliente_aux.enviarMensaje(mensaje);
+            }
     }
     public void closeSocket(){
         try {
@@ -105,8 +113,11 @@ public class SocketServidor {
                     String texto_recivido="";
                     try{
                         do{
-                                texto_recivido=input_stream.readUTF();
+                            texto_recivido=input_stream.readUTF();
+                            if(!texto_recivido.equals("exit")){
                                 log("- "+ip_cliente+": "+texto_recivido);
+                                enviarMensajeServer("*","- "+ip_cliente+": "+texto_recivido);
+                            }
                         }while(!texto_recivido.equals("exit"));
                     }catch (IOException ex) {
                     } finally {
@@ -119,6 +130,7 @@ public class SocketServidor {
         public void finishListenClient(){
             thread_escuchar_liente.interrupt();
             try {
+                enviarMensaje("close");
                 socket_cliente.close();
                 clientes.remove(this);
                 log("Cliente desconectado: "+ip_cliente+"\nNúmero de clientes: "+clientes.size());

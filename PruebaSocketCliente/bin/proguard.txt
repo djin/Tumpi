@@ -1,15 +1,15 @@
 # view AndroidManifest.xml #generated:11
 -keep class Prueba.Main.MainActivity { <init>(...); }
 
-# onClick res/layout/main.xml #generated:31
+# onClick res/layout/main.xml #generated:42
 -keepclassmembers class * { *** cerrarConexion(...); }
 
-# onClick res/layout/main.xml #generated:19
+# onClick res/layout/main.xml #generated:30
 -keepclassmembers class * { *** conectar(...); }
 
-# onClick res/layout/main.xml #generated:25
+# onClick res/layout/main.xml #generated:36
 -keepclassmembers class * { *** enviarMensaje(...); }
 
-# onClick res/layout/main.xml #generated:37
+# onClick res/layout/main.xml #generated:54
 -keepclassmembers class * { *** limpiarLog(...); }
 
