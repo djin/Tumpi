@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="50dp"
     android:orientation="horizontal"
     android:stretchColumns="0">
     <LinearLayout
@@ -12,7 +12,7 @@
         <TextView android:id="@+id/songName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:padding="3dp"
         />
     </LinearLayout>
@@ -23,11 +23,10 @@
         android:orientation="vertical"
         android:paddingBottom="5dp">
         <ImageButton android:id="@+id/btnVotar"
-            android:layout_width="wrap_content"
+            android:layout_marginRight="14dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:background="#00000000"
-            android:src="@raw/ico_medium_star"
-            android:onClick="votado"
         />
     </LinearLayout>
 </LinearLayout>

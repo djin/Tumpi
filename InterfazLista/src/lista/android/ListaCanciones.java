@@ -6,81 +6,26 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.SimpleAdapter;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ListaCanciones extends ListActivity
 {
-    //Mantenemos un Array de elementos en la que podremos guardar
-//más información de la que mostraremos en el listado
-ArrayList<HashMap<String,String>> Eventos;
-
-//Con los siguientes Arrays establecemos la correspondencia
-//entre los elementos del Array de HashMaps de eventos (from)
-//con los elementos del diseño en XML de cada una de las filas (to)
-String[] from=new String[] {"Name"};
-int[] to=new int[]{R.id.songName};
-
+static ArrayList<Cancion> listaCanciones;
+static Boolean noReiniciar = true;
 @Override
 public void onCreate(Bundle savedInstanceState) {
  
     super.onCreate(savedInstanceState);
     //Establecemos el diseño principal de la Actividad
     setContentView(R.layout.main);
- 
+    
     // Este método de obtención de elementos puede cambiarse por cualquier otro
     //como leerlos de una BBDD o de un servidor web con JSON
-    ArrayList<String[]> lista = new ArrayList<String[]>();
- 
-    String[] evento1 = {"Ofrenda de Flores y gonzalez de la juerga padre", "1"};
-    lista.add(evento1);
- 
-    String[] evento2 = {"Los Redondeles", "2"};
-    lista.add(evento2);
- 
-    String[] evento3 = {"Futbol","3"};
-    lista.add(evento3);
-    
-    String[] evento4 = {"Ofrenda de Flores y gonzalez de la juerga padre", "4"};
-    lista.add(evento4);
- 
-    String[] evento5 = {"Los Redondeles", "5"};
-    lista.add(evento5);
- 
-    String[] evento6 = {"Futbol","6"};
-    lista.add(evento6);
-    
-    String[] evento7 = {"Ofrenda de Flores y gonzalez de la juerga padre", "7"};
-    lista.add(evento7);
- 
-    String[] evento8 = {"Los Redondeles", "8"};
-    lista.add(evento8);
- 
-    String[] evento9 = {"Futbol","9"};
-    lista.add(evento9);
- 
-    // Transformamos los elementos String[] en HashMap para
-    //posteriormente incluirlos en el Array Global que se utilizará
-    //para rellenar la lista
-    Eventos = new ArrayList<HashMap<String, String>>();
-    for(String[] evento:lista){
-        HashMap<String,String> datosEvento=new HashMap<String, String>();
- 
-        // Aquí es dónde utilizamos las referencias creadas inicialmente
-        //en el elemento "from"
-        datosEvento.put("Name", evento[0]);
-        datosEvento.put("id", evento[1]);
- 
-        Eventos.add(datosEvento);
+    if(noReiniciar){
+        listaCanciones = interpretarLista();
+        noReiniciar = false;
     }
-    // Una vez tenemos toda la información necesaria para rellenar la lista
-    //creamos un elemento que nos facilitará la tarea:
-    //SimpleAdapter(Actividad, Array de HashMap con elementos, Fichero XML del
-    //diseño de cada fila, Cadenas del HashMap, Ids del Fichero XML del diseño de cada fila)
-    SimpleAdapter listadoAdapter=new SimpleAdapter(this, Eventos, R.layout.rowstyle, from, to);
+    AdaptadorLista listadoAdapter=new AdaptadorLista(this, listaCanciones, R.layout.rowstyle);
     setListAdapter(listadoAdapter);
     }
     @Override
@@ -100,10 +45,56 @@ public void onCreate(Bundle savedInstanceState) {
         return true;
     }
     
-    public void votado(View v){
-        ImageButton img = (ImageButton)v.findViewById(R.id.btnVotar);
-        img.setImageResource(R.raw.ico_small_star_focus);
-        img.setEnabled(false);
+    public ArrayList<Cancion> interpretarLista (){
+        
+        ArrayList<Cancion> lista = new ArrayList<Cancion>();
+        
+        Cancion evento1 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 1, false);
+        lista.add(evento1);
+
+        Cancion evento2 = new Cancion("Los Redondeles", 2, false);
+        lista.add(evento2);
+
+        Cancion evento3 = new Cancion("Futbol", 3, false);
+        lista.add(evento3);
+        
+        Cancion evento4 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 4, false);
+        lista.add(evento4);
+
+        Cancion evento5 = new Cancion("Los Redondeles", 5, false);
+        lista.add(evento5);
+
+        Cancion evento6 = new Cancion("Futbol", 6, false);
+        lista.add(evento6);
+
+        Cancion evento7 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 7, false);
+        lista.add(evento7);
+
+        Cancion evento8 = new Cancion("Los Redondeles", 8, false);
+        lista.add(evento8);
+
+        Cancion evento9 = new Cancion("Futbol", 9, false);
+        lista.add(evento9);
+        
+        Cancion evento10 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 10, false);
+        lista.add(evento10);
+
+        Cancion evento11 = new Cancion("Los Redondeles", 11, false);
+        lista.add(evento11);
+
+        Cancion evento12 = new Cancion("Futbol", 12, false);
+        lista.add(evento12);
+        
+        Cancion evento13 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 13, false);
+        lista.add(evento13);
+
+        Cancion evento14 = new Cancion("Los Redondeles", 14, false);
+        lista.add(evento14);
+
+        Cancion evento15 = new Cancion("Futbol", 15, false);
+        lista.add(evento15);
+        
+        return lista;
     }
     
 }

@@ -1,5 +1,8 @@
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes.dex : \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\AdaptadorLista$ClickListener.class \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\AdaptadorLista.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\BuildConfig.class \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\Cancion.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\ListaCanciones$1.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\ListaCanciones.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$attr.class \
