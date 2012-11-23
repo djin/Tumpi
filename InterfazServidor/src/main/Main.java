@@ -4,6 +4,7 @@ package main;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -40,11 +41,13 @@ public class Main extends JFrame{
     
     private JPanel panel = (JPanel) this.getContentPane();
     
+    private ModeloTabla modeloTablaSonando;
+    private ModeloTabla modeloTablaPendientes;
+    
     private String[] nombresColumnaSonando = {"Cancion", "Votos"};
     private String[] nombresColumnaPendientes = {"Cancion"};
-    private ModeloTabla modeloTablaSonando= new ModeloTabla(nombresColumnaSonando, 60);
-    private ModeloTabla modeloTablaPendientes= new ModeloTabla(nombresColumnaPendientes, 60);
-    
+    private ArrayList <String>  contenidos;
+        
     private Tabla listaSonando;
     private Tabla listasPendientes;
     
@@ -59,10 +62,20 @@ public class Main extends JFrame{
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
     
+    
     public Main(){
         
         menus=new JMenu[2];
         SetMenus();
+        
+        contenidos = new ArrayList();
+        contenidos.add("Los redondeles");
+        contenidos.add("HUEHUEHUEHUEHUEHUE");
+        contenidos.add("Never gonna give you up");
+        contenidos.add("Whenever you need somebody");
+        
+        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
+        modeloTablaPendientes = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
         
         FlowLayout fl = new FlowLayout();
         fl.setAlignment(FlowLayout.LEADING);
@@ -76,6 +89,7 @@ public class Main extends JFrame{
         this.add(scroll1);
         
         SetBotones();
+        
         botones.setPreferredSize(new Dimension (400,300));
         botones.setLocation(425, 5);
         this.add(botones);

@@ -5,6 +5,7 @@
 package main;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 import javax.swing.event.EventListenerList;
@@ -23,8 +24,10 @@ public class ModeloTabla implements TableModel {
     
     private String nombreColumnas[];
     private HashMap<Point, String> mapa;
-    protected transient EventListenerList listaListeners;
-     
+    private transient EventListenerList listaListeners;
+    
+    private ArrayList <String> contenidoTabla;
+    
     public ModeloTabla(String nombreColumns[], int numFilas){
         
         columnas = nombreColumns.length;
@@ -38,6 +41,27 @@ public class ModeloTabla implements TableModel {
             for(int y = 0; y < columnas; y++){
                 if(y==1) mapa.put(new Point(x, y), "0");
             }
+        }
+    }
+    
+    public ModeloTabla(String nombreColumns[], int numFilas, ArrayList <String> contenido){
+        
+        columnas = nombreColumns.length;
+        filas = numFilas;
+        nombreColumnas = nombreColumns;
+        mapa = new HashMap<Point, String>();
+        listaListeners = new EventListenerList();
+        contenidoTabla = contenido;
+        
+        for(int x = 0; x < filas; x++){
+            
+            for(int y = 0; y < columnas; y++){
+                if(y==1) mapa.put(new Point(x, y), "0");
+            }
+        }
+        for(int x = 0; x < contenidoTabla.size(); x++){
+            
+            mapa.put(new Point(x,0), contenidoTabla.get(x));
         }
     }
     
@@ -93,7 +117,7 @@ public class ModeloTabla implements TableModel {
      * @param nombreColumnas the nombreColumnas to set
      */
     public void setNombreColumnas(String[] nombreColumnas) {
-        this.nombreColumnas = nombreColumnas;
+        this.setNombreColumnas(nombreColumnas);
     }
 
     /**
@@ -107,30 +131,30 @@ public class ModeloTabla implements TableModel {
      * @param mapa the mapa to set
      */
     public void setMapa(HashMap<Point, String> mapa) {
-        this.mapa = mapa;
+        this.setMapa(mapa);
     }
 
     @Override
     public String getColumnName(int columna) {
-        return nombreColumnas[columna];
+        return getNombreColumnas()[columna];
     }
  
     
     @Override
     public Object getValueAt(int fila, int columna) {
-        return mapa.get(new Point(fila, columna));
+        return getMapa().get(new Point(fila, columna));
     }
 
     @Override
     public int getRowCount() {
         
-        return filas;
+        return getFilas();
     }
 
     @Override
     public int getColumnCount() {
         
-        return nombreColumnas.length;
+        return getNombreColumnas().length;
     }
     
     
@@ -152,26 +176,26 @@ public class ModeloTabla implements TableModel {
 
     @Override
     public void addTableModelListener(TableModelListener l) {
-        if(listaListeners == null) {
-            listaListeners = new EventListenerList();
+        if(getListaListeners() == null) {
+            setListaListeners(new EventListenerList());
         }
         
-	listaListeners.add(TableModelListener.class, l);
+	getListaListeners().add(TableModelListener.class, l);
     }
 
     @Override
     public void removeTableModelListener(TableModelListener l) {
-        if(listaListeners == null) {
-            listaListeners = new EventListenerList();
+        if(getListaListeners() == null) {
+            setListaListeners(new EventListenerList());
         }
-	listaListeners.remove(TableModelListener.class, l);
+	getListaListeners().remove(TableModelListener.class, l);
     }
 
     public TableModelListener[] getTableModelListeners() {
-        if(listaListeners == null) {
-            listaListeners = new EventListenerList();
+        if(getListaListeners() == null) {
+            setListaListeners(new EventListenerList());
         }
-        return (TableModelListener[])listaListeners.getListeners(
+        return (TableModelListener[])getListaListeners().getListeners(
                 TableModelListener.class);
     }
 
@@ -203,10 +227,10 @@ public class ModeloTabla implements TableModel {
     }
 
     public void fireTableChanged(TableModelEvent e) {
-        if(listaListeners == null) {
-            listaListeners = new EventListenerList();
+        if(getListaListeners() == null) {
+            setListaListeners(new EventListenerList());
         }
-	Object[] listeners = listaListeners.getListenerList();
+	Object[] listeners = getListaListeners().getListenerList();
         
 	for (int i = listeners.length-2; i>=0; i-=2) {
 	    if (listeners[i]==TableModelListener.class) {
@@ -216,7 +240,35 @@ public class ModeloTabla implements TableModel {
     }
     
     public <T extends EventListener> T[] getListeners(Class<T> listenerType) { 
-	return listaListeners.getListeners(listenerType); 
+	return getListaListeners().getListeners(listenerType); 
+    }
+
+    /**
+     * @return the listaListeners
+     */
+    public EventListenerList getListaListeners() {
+        return listaListeners;
+    }
+
+    /**
+     * @param listaListeners the listaListeners to set
+     */
+    public void setListaListeners(EventListenerList listaListeners) {
+        this.listaListeners = listaListeners;
+    }
+
+    /**
+     * @return the contenidoTabla
+     */
+    public ArrayList <String> getContenidoTabla() {
+        return contenidoTabla;
+    }
+
+    /**
+     * @param contenidoTabla the contenidoTabla to set
+     */
+    public void setContenidoTabla(ArrayList <String> contenidoTabla) {
+        this.contenidoTabla = contenidoTabla;
     }
 
 }
