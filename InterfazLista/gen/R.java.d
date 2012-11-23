@@ -6,6 +6,8 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\main.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\rowstyle.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\rowstylesettings.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\settings.xml \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\stylepantallaconexion.xml \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\stylepantallainicial.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\menu\menuactionbar.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_list.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_love.png \

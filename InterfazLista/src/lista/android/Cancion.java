@@ -14,8 +14,10 @@ public class Cancion {
     private String nombreAlbum;
     private int id;
     private Boolean votado;
-    public Cancion(String n, int i, Boolean v) {
+    public Cancion(String n, String a, String al, int i, Boolean v) {
         nombreCancion = n;
+        nombreAutor = a;
+        nombreAlbum = al;
         id = i;
         votado = v;
     }

@@ -49,49 +49,49 @@ public void onCreate(Bundle savedInstanceState) {
         
         ArrayList<Cancion> lista = new ArrayList<Cancion>();
         
-        Cancion evento1 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 1, false);
+        Cancion evento1 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre","", "", 1, false);
         lista.add(evento1);
 
-        Cancion evento2 = new Cancion("Los Redondeles", 2, false);
+        Cancion evento2 = new Cancion("Los Redondeles","", "", 2, false);
         lista.add(evento2);
 
-        Cancion evento3 = new Cancion("Futbol", 3, false);
+        Cancion evento3 = new Cancion("Futbol","", "", 3, false);
         lista.add(evento3);
         
-        Cancion evento4 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 4, false);
+        Cancion evento4 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre","", "", 4, false);
         lista.add(evento4);
 
-        Cancion evento5 = new Cancion("Los Redondeles", 5, false);
+        Cancion evento5 = new Cancion("Los Redondeles","", "", 5, false);
         lista.add(evento5);
 
-        Cancion evento6 = new Cancion("Futbol", 6, false);
+        Cancion evento6 = new Cancion("Futbol","", "", 6, false);
         lista.add(evento6);
 
-        Cancion evento7 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 7, false);
+        Cancion evento7 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre","", "", 7, false);
         lista.add(evento7);
 
-        Cancion evento8 = new Cancion("Los Redondeles", 8, false);
+        Cancion evento8 = new Cancion("Los Redondeles","", "", 8, false);
         lista.add(evento8);
 
-        Cancion evento9 = new Cancion("Futbol", 9, false);
+        Cancion evento9 = new Cancion("Futbol","", "", 9, false);
         lista.add(evento9);
         
-        Cancion evento10 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 10, false);
+        Cancion evento10 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre","", "", 10, false);
         lista.add(evento10);
 
-        Cancion evento11 = new Cancion("Los Redondeles", 11, false);
+        Cancion evento11 = new Cancion("Los Redondeles","", "", 11, false);
         lista.add(evento11);
 
-        Cancion evento12 = new Cancion("Futbol", 12, false);
+        Cancion evento12 = new Cancion("Futbol","", "", 12, false);
         lista.add(evento12);
         
-        Cancion evento13 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre", 13, false);
+        Cancion evento13 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre","", "", 13, false);
         lista.add(evento13);
 
-        Cancion evento14 = new Cancion("Los Redondeles", 14, false);
+        Cancion evento14 = new Cancion("Los Redondeles","", "", 14, false);
         lista.add(evento14);
 
-        Cancion evento15 = new Cancion("Futbol", 15, false);
+        Cancion evento15 = new Cancion("Futbol","", "", 15, false);
         lista.add(evento15);
         
         return lista;
