@@ -21,12 +21,11 @@ public class Musica {
             System.exit(1);
         }
         
-            Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 
-//        NativeLibrary.addSearchPath(
-//                RuntimeUtil.getLibVlcLibraryName(), "C:/Program Files/VideoLAN/VLC");
-//
-//        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+        NativeLibrary.addSearchPath(
+                RuntimeUtil.getLibVlcLibraryName(), "C:/Program Files/VideoLAN/VLC");
+
+        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 
         AudioMediaPlayerComponent reproductor = new AudioMediaPlayerComponent() {
             
