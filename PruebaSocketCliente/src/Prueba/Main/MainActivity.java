@@ -1,22 +1,23 @@
 package Prueba.Main;
 
 
+import Prueba.Main.Conexion.ServerMessageListener;
+import Prueba.Main.Conexion.SocketConnector;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends Activity
+public class MainActivity extends Activity implements ServerMessageListener
 {
     /** Called when the activity is first created. */
-    TextView texto_main=null;
+    static TextView texto_main=null;
     EditText input_mensaje=null;
     EditText input_ip=null;
     EditText input_puerto=null;
-    Thread thread_escuchar_server=null;
-    char[] texto_mensaje = null;
-    SocketCliente cliente=null;    
+    SocketConnector cliente=null;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -30,36 +31,21 @@ public class MainActivity extends Activity
         
     }
     public void conectar(final View view) {
-        try {
-            String ip=input_ip.getText().toString();
-            String puerto=input_puerto.getText().toString();
-            cliente = new SocketCliente(ip,Integer.parseInt(puerto));
+        String ip=input_ip.getText().toString();
+        String puerto=input_puerto.getText().toString();
+        try {            
+            cliente = new SocketConnector(ip,Integer.parseInt(puerto),this);
             cliente.conectar();
-            if(cliente.socket_cliente.isConnected()){
-                texto_main.setText("Conexión realizada con éxito!!");                
-                thread_escuchar_server=new Thread(){
-                    @Override
-                    public void run(){
-                        String texto_recivido="";
-                        Thread this_thread=Thread.currentThread();
-                        try{
-                            do{
-                                texto_recivido=cliente.listenServer();
-                                if(!texto_recivido.equals("close"))
-                                    log("\n"+texto_recivido);
-                            }while(!texto_recivido.equals("close") && thread_escuchar_server==this_thread);
-                        }catch(Exception ex){
-                            //log("\nError al escuchar al servidor: "+ex.toString()+ex.hashCode());
-                        }
-                    }
-                };
-                thread_escuchar_server.start();
+            if(cliente.isConnected()){
+                texto_main.setText("Conexión realizada con éxito!!");
+                cliente.addServerMessageListener(this);
+                cliente.startListeningServer();
             }
         } catch (Exception ex) {
-             texto_main.append("\nError de conexion: "+ex.toString());
+             texto_main.append("\nError de conexion: "+ex.getMessage());
         }
     }
-    private void log(final String cadena){
+    public static void log(final String cadena){
         texto_main.post(new Runnable() {
             @Override
             public void run(){
@@ -78,8 +64,6 @@ public class MainActivity extends Activity
     }
     public void cerrarConexion(View view) {        
         try {
-            thread_escuchar_server.interrupt();
-            thread_escuchar_server=null;
             cliente.cerrarConexion();
             texto_main.append("\nDesconectado del servidor");
         } catch (Exception ex) {
@@ -88,5 +72,9 @@ public class MainActivity extends Activity
     }
     public void limpiarLog(View view) {
         texto_main.setText("Conéctate!!");
+    }
+
+    public void onMessageReceive(String message) {
+        log("\n"+message);
     }
 }

@@ -1,7 +1,9 @@
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes.dex : \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\BuildConfig.class \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\Conexion\ServerMessageListener.class \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\Conexion\ServicioCliente.class \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\Conexion\SocketConnector.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\MainActivity$1.class \
-C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\MainActivity$2.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\MainActivity.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$attr.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$drawable.class \
@@ -9,5 +11,4 @@ C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classe
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$layout.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R$string.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\R.class \
-C:\Users\66785270\Documents\GitHub\proyecto-disco\PruebaSocketCliente\bin\classes\Prueba\Main\SocketCliente.class \
 C:\Users\66785270\AppData\Local\Android\android-sdk\tools\support\annotations.jar \
