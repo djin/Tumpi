@@ -10,6 +10,8 @@ package lista.android;
  */
 public class Cancion {
     private String nombreCancion;
+    private String nombreAutor;
+    private String nombreAlbum;
     private int id;
     private Boolean votado;
     public Cancion(String n, int i, Boolean v) {
@@ -58,6 +60,34 @@ public class Cancion {
      */
     public void setVotado(Boolean votado) {
         this.votado = votado;
+    }
+
+    /**
+     * @return the nombreAutor
+     */
+    public String getNombreAutor() {
+        return nombreAutor;
+    }
+
+    /**
+     * @param nombreAutor the nombreAutor to set
+     */
+    public void setNombreAutor(String nombreAutor) {
+        this.nombreAutor = nombreAutor;
+    }
+
+    /**
+     * @return the nombreAlbum
+     */
+    public String getNombreAlbum() {
+        return nombreAlbum;
+    }
+
+    /**
+     * @param nombreAlbum the nombreAlbum to set
+     */
+    public void setNombreAlbum(String nombreAlbum) {
+        this.nombreAlbum = nombreAlbum;
     }
     
 }
