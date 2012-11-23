@@ -14,11 +14,12 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
+        public static final int btnAntiguaConexion=0x7f08000a;
         public static final int btnConectar=0x7f080008;
         public static final int btnFav=0x7f080001;
-        public static final int btnSettings=0x7f08000b;
+        public static final int btnSettings=0x7f08000c;
         public static final int btnVotar=0x7f080004;
-        public static final int btnconexion=0x7f08000a;
+        public static final int btnconexion=0x7f08000b;
         public static final int btnshare=0x7f080002;
         public static final int fieldIp=0x7f080006;
         public static final int fieldPort=0x7f080007;
