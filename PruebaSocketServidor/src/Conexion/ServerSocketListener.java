@@ -1,6 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Interfaz de definicion de los eventos lanzados por la clase de comunicacion 
+ * del servidor.
+ * Resumen:
+ * - onMessageReceived: Se lanzara al recivir un mensaje de algun cliente y 
+ *                      se proporciona la ip del cliente y el mensaje.
+ * - onClientConnected: Se lanza con la conexion de un nuevo cliente al socket
+ *                      y se da la ip de este cliente.
+ * - onClientDisconnected: Se lanza con la desconexion de un cliente ya 
+ *                         conectado indicando la ip.
  */
 package Conexion;
 

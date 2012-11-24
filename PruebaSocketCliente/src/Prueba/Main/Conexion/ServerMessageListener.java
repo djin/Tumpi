@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Interfaz de listeners de la comunicación.
+ * Por ahora no se han requerido mas eventos que el 'onMessageReceive' pero
+ * si hiciera falta se podrian añadir sin problemas.
  */
 package Prueba.Main.Conexion;
 

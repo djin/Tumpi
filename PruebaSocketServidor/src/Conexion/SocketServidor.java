@@ -1,6 +1,30 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Clase de comunicacion por sockets en un servidor para varios clientes.
+ * Tambien se define la subclase Cliente.
+ * Resumen SocketServidor:
+ * - Constructor: unicamente crea y 'conecta' el socket.
+ * - isBound: devuelve si el socket esta o no 'conectado'.
+ * - startSearchClients: arranca un thread que busca clientes poniendose en un
+ *                       modo de espera. Cuando se conecta alguien lo añade a
+ *                       la lista de clientes y dispara el evento. Despues
+ *                       vuelve a esperar.
+ * - finishSearchClients: detiene la busqueda de clientes.
+ * - enviarMensajeServer: envia un mensaje a un destino en concreto o a todos
+ *                        los clientes de la lista si en la direccion de destino
+ *                        se pone un '*'.
+ * - getClientsCount: devuelve el numero de clientes conectados.
+ * - closeSocket: Cierra la comunicación. No se puede volver a conectar.
+ * - [add/remove]ServerSocketListener: añade o remueve un listener concreto de 
+ *                                     la lista de listeners.
+ * - fire[evento]: dispara el evento que sea.
+ * 
+ * Resumen Cliente:
+ * - Constructor: Dandole el socket ya conectado guarda los datos (ip) del
+ *                cliente y inicia los streams de comunicacion.
+ * - [start/stop]ListenClient: inicia o detiene el thread que escucha los
+ *                             mensajes del cliente en concreto.
+ * - enviarMensaje: envia un mensaje al cliente.
+ * - close: Cierra la conexion con el cliente.
  */
 package Conexion;
 import java.io.*;
@@ -28,17 +52,16 @@ public class SocketServidor {
         thread_buscar_clientes=new Thread(){
             @Override
             public void run(){
-                Cliente cliente=null;
-                while(true)
+                while(!socket_server.isClosed())
                 {
                     try {
+                        Cliente cliente=null;
                         cliente=new Cliente(socket_server.accept());
                         clientes.add(cliente);
                         cliente.startListenClient();
                         fireClientConnectedEvent(cliente.ip_cliente);
-                    } catch (IOException ex) {
-                    }
-                    
+                    } catch (IOException ex) {                        
+                    }                    
                 }
             }
         };
@@ -62,6 +85,9 @@ public class SocketServidor {
         else
             for(Cliente cliente : clientes)
                 cliente.enviarMensaje(mensaje);
+    }
+    public int getClientsCount(){
+        return clientes.size();
     }
     public void closeSocket() throws IOException{
         finishSearchClients();
@@ -116,11 +142,16 @@ public class SocketServidor {
                     try{
                         do{
                             texto_recivido=input_stream.readUTF();
-                            fireMessageReceivedEvent(ip_cliente, texto_recivido);
+                            if(!texto_recivido.equals("exit"))
+                                fireMessageReceivedEvent(ip_cliente, texto_recivido);
                         }while(!texto_recivido.equals("exit"));
                     }catch (IOException ex) {
                     } finally {
                         finishListenClient();
+                        try {
+                            close();
+                        } catch (IOException ex) {
+                        }
                     }
                 }
             };
@@ -137,6 +168,8 @@ public class SocketServidor {
         }
         public void close() throws IOException{
             socket_cliente.close();
+            clientes.remove(this);
+            fireClientDisconnectedEvent(ip_cliente);
         }
     }
 }

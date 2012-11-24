@@ -1,14 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Clase de definición del servicio de escucha al servidor.
+ * Es una forma especial que tiene android de declarar los servicios.
+ * En la practica es como si fuera un thread y el metodo 'Run' fuera el
+ * 'onHandleIntent'.
  */
 package Prueba.Main.Conexion;
 
-import Prueba.Main.Conexion.SocketConnector;
-import Prueba.Main.MainActivity;
 import android.app.*;
 import android.content.Intent;
-import android.os.IBinder;
 
 /**
  *
@@ -29,7 +28,6 @@ public class ServicioCliente extends IntentService{
                 SocketConnector.fireMessageEvent(texto_recivido);
             }while(true);
         }catch(Exception ex){
-            //log("\nError al escuchar al servidor: "+ex.toString()+ex.hashCode());
         }finally{
             this.stopSelf();            
         }

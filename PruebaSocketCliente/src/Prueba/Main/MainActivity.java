@@ -4,7 +4,6 @@ package Prueba.Main;
 import Prueba.Main.Conexion.ServerMessageListener;
 import Prueba.Main.Conexion.SocketConnector;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.EditText;
@@ -17,7 +16,7 @@ public class MainActivity extends Activity implements ServerMessageListener
     EditText input_mensaje=null;
     EditText input_ip=null;
     EditText input_puerto=null;
-    SocketConnector cliente=null;
+    public SocketConnector cliente=null;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
