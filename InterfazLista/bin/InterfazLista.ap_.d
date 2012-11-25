@@ -1,4 +1,4 @@
-C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\gen\lista\android\R.java \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\InterfazLista.ap_ \
  : C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\res\drawable-hdpi\ic_launcher.png \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\res\drawable-ldpi\ic_launcher.png \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\res\drawable-mdpi\ic_launcher.png \

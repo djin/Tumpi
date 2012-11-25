@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,6 +36,6 @@ public class PantallaPrincipal extends Activity {
                 
                 startActivity(intent);
             }
-        });
+        });                        
     }
 }

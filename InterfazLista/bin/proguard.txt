@@ -1,12 +1,15 @@
-# view AndroidManifest.xml #generated:14
+# view AndroidManifest.xml #generated:18
 -keep class lista.android.ListaCanciones { <init>(...); }
 
-# view AndroidManifest.xml #generated:17
+# view AndroidManifest.xml #generated:21
 -keep class lista.android.PantallaDatosServidor { <init>(...); }
 
-# view AndroidManifest.xml #generated:7
+# view AndroidManifest.xml #generated:11
 -keep class lista.android.PantallaPrincipal { <init>(...); }
 
-# view AndroidManifest.xml #generated:20
+# view AndroidManifest.xml #generated:24
 -keep class lista.android.Settings { <init>(...); }
+
+# view AndroidManifest.xml #generated:27
+-keep class lista.android.conexion.ServicioCliente { <init>(...); }
 
