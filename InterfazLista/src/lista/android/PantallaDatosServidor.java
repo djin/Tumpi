@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lista.android.conexion.ConnectionManager;
 import lista.android.conexion.SocketConnector;
 
 /**
@@ -24,7 +25,7 @@ import lista.android.conexion.SocketConnector;
  * @author 66785320
  */
 public class PantallaDatosServidor extends Activity {
-    public static SocketConnector conex;
+    ConnectionManager conex;
     EditText editIp;
     EditText editPort;
     /** Called when the activity is first created. */
@@ -50,48 +51,21 @@ public class PantallaDatosServidor extends Activity {
                         txtErr.setText("Tienes que especificar el puerto");
                     }
                 }else {
-                    /*final String ip = editIp.getText().toString();
+                    final String ip = editIp.getText().toString();
                     final int port = Integer.parseInt(editPort.getText().toString());
                     try {
-                        conex = new SocketConnector(ip, port, p);
-                        conex.conectar();
-                        if(conex.isConnected()){
+                        conex = new ConnectionManager();
+                        if(conex.conectar(ip,port,p)){
+                            conex.conexion.startListeningServer();
                             Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
                             startActivity(inte);
-                        }
-                        
+                        }                        
                     }catch (Exception ex){
                         TextView txtErr = (TextView)findViewById(R.id.txtMensageError);
                         txtErr.setText("No se ha podido realizar la conexion, intentelo mas tarde: "+ex.toString());
-                    }  */
-                    new conectar().execute(p);                           
+                    }                        
                 }
             }
         });
     }
-    class conectar extends AsyncTask<Activity, Void, Void> {
-
-    private Exception exception;
-
-
-    @Override
-    protected Void doInBackground(Activity... params) {
-        try {
-            final String ip = editIp.getText().toString();
-            final int port = Integer.parseInt(editPort.getText().toString());
-            conex = new SocketConnector(ip, port, params[0]);
-            conex.conectar();
-            if(conex.isConnected()){
-                Bundle b=new Bundle();
-                Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
-                startActivity(inte);
-            }
-
-        }catch (Exception ex){
-            TextView txtErr = (TextView)findViewById(R.id.txtMensageError);
-            txtErr.setText("No se ha podido realizar la conexion, intentelo mas tarde: "+ex.toString());
-        }
-        return null;
-    }
- }
 }

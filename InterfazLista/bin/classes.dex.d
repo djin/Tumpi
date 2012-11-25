@@ -3,6 +3,8 @@ C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\list
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\AdaptadorLista.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\BuildConfig.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\Cancion.class \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\ConnectionManager$conectar.class \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\ConnectionManager.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\ServerMessageListener.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\ServicioCliente.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\SocketConnector.class \

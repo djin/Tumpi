@@ -10,11 +10,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lista.android.conexion.*;
 
-public class ListaCanciones extends ListActivity
+public class ListaCanciones extends ListActivity implements ServerMessageListener
 {
 static ArrayList<Cancion> listaCanciones;
+AdaptadorLista listadoAdapter;
 static Boolean noReiniciar = true;
+ConnectionManager conex;
 @Override
 public void onCreate(Bundle savedInstanceState) {
  
@@ -25,11 +28,13 @@ public void onCreate(Bundle savedInstanceState) {
     // Este método de obtención de elementos puede cambiarse por cualquier otro
     //como leerlos de una BBDD o de un servidor web con JSON
     if(noReiniciar){
-        listaCanciones = interpretarLista();
+        listaCanciones = interpretarLista("".split(""));
         noReiniciar = false;
     }
-    AdaptadorLista listadoAdapter=new AdaptadorLista(this, listaCanciones, R.layout.rowstyle);
+    listadoAdapter=new AdaptadorLista(this, listaCanciones, R.layout.rowstyle);
     setListAdapter(listadoAdapter);
+    conex=new ConnectionManager();
+    conex.conexion.addServerMessageListener(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,13 +53,18 @@ public void onCreate(Bundle savedInstanceState) {
         return true;
     }
     
-    public ArrayList<Cancion> interpretarLista (){
+    public ArrayList<Cancion> interpretarLista (String[] canciones){
         
         ArrayList<Cancion> lista = new ArrayList<Cancion>();
+        /*
+        for(String cancion : canciones){
+            String[] datos_cancion=cancion.split("\\*");
+            lista.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false));
+        }*/
         
         Cancion evento1 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre","", "", 1, false);
         lista.add(evento1);
-
+        
         Cancion evento2 = new Cancion("Los Redondeles","", "", 2, false);
         lista.add(evento2);
 
@@ -98,8 +108,26 @@ public void onCreate(Bundle savedInstanceState) {
         lista.add(evento15);
         
         return lista;
+    }    
+    public void onMessageReceive(String message) {
+        int tipo=Integer.parseInt(message.split("\\|")[0]);
+        message=message.split("\\|")[1];
+        switch(tipo){
+            case 1:                
+                String[] canciones=message.split("\\;");
+                
+                break;
+        }
     }
-    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            conex.conexion.removeServerMessageListener(this);
+            conex.conexion.cerrarConexion();
+        } catch (Exception ex) {
+        }
+    }
 }
 
 
