@@ -7,14 +7,16 @@
     <EditText android:id="@+id/fieldIp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:hint="Direccion Ip"
         />
     <EditText android:id="@+id/fieldPort"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:hint="Puerto servicio"
         />
     <Button android:id="@+id/btnConectar"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Conectar"
         />

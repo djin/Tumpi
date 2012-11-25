@@ -45,18 +45,18 @@ public class PantallaDatosServidor extends Activity {
                 }else {
                     String ip = editIp.getText().toString();
                     int port = Integer.parseInt(editPort.getText().toString());
-    //                try {
-    //                    conex = new SocketConnector(ip, port, p);
-    //                    conex.conectar();
-    //                    if(conex.isConnected()){
+                    try {
+                        conex = new SocketConnector(ip, port, p);
+                        conex.conectar();
+                        if(conex.isConnected()){
                             Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
                             startActivity(inte);
-    //                    }
-    //                    
-    //                }catch (Exception ex){
-    //                    TextView txtErr = (TextView)findViewById(R.id.txtMensageError);
-    //                    txtErr.setText("No se ha podido realizar la conexion, intentelo mas tarde");
-    //                }
+                        }
+                        
+                    }catch (Exception ex){
+                        TextView txtErr = (TextView)findViewById(R.id.txtMensageError);
+                        txtErr.setText("No se ha podido realizar la conexion, intentelo mas tarde");
+                    }
                 }
             }
         });

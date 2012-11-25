@@ -40,7 +40,7 @@ public class Settings extends ListActivity {
         String[] evento3 = {"Mas opciones","3"};
         lista.add(evento3);
 
-        String[] evento4 = {"Salir", "4"};
+        String[] evento4 = {"Volver a lista", "4"};
         lista.add(evento4);
         
         Eventos = new ArrayList<HashMap<String, String>>();
@@ -65,6 +65,13 @@ public class Settings extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         TextView txt = (TextView)v.findViewById(R.id.txtSetting);
-        txt.setText("Seleccionado");
+        switch(position){
+            case 0: break;
+            case 1: break;
+            case 2: break;
+            case 3: System.exit(0);
+                break;
+                
+        }
     }
 }
