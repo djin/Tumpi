@@ -48,12 +48,12 @@ public class PantallaDatosServidor extends Activity {
                     final String ip = editIp.getText().toString();
                     final int port = Integer.parseInt(editPort.getText().toString());
                     try {
-//                        conex = new ConnectionManager();
-//                        if(conex.conectar(ip,port,p)){
-//                            conex.conexion.startListeningServer();
+                            conex = new ConnectionManager();
+                            if(conex.conectar(ip,port,p)){
+                            conex.conexion.startListeningServer();
                             Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
                             startActivity(inte);
-                        //}                        
+                        }                        
                     }catch (Exception ex){
                         TextView txtErr = (TextView)findViewById(R.id.txtMensageError);
                         txtErr.setText("No se ha podido realizar la conexion, intentelo mas tarde: "+ex.toString());

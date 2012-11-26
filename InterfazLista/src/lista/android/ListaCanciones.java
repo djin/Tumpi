@@ -31,8 +31,16 @@ public void onCreate(Bundle savedInstanceState) {
     //como leerlos de una BBDD o de un servidor web con JSON
     listadoAdapter = new AdaptadorLista(this, lista, R.layout.rowstyle);
     setListAdapter(listadoAdapter);
-    //conex=new ConnectionManager();
-    //conex.conexion.addServerMessageListener(this);
+    conex=new ConnectionManager();
+    
+        try {
+            conex.conexion.cerrarConexion();
+            conex.conectar("192.168.43.87", 2222, this);
+            conex.conexion.startListeningServer();
+        } catch (Exception ex) {
+            Logger.getLogger(ListaCanciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    conex.conexion.addServerMessageListener(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,9 +117,14 @@ public void onCreate(Bundle savedInstanceState) {
         int tipo=Integer.parseInt(message.split("\\|")[0]);
         message=message.split("\\|")[1];
         switch(tipo){
-            case 1:                
+            case 1:
+                int n = listadoAdapter.getDatos().size();
+                for(int i=0; i < n ; i++){
+                    listadoAdapter.getDatos().remove(0);
+                }
                 String[] canciones = message.split("\\;");
-                
+                interpretarLista(canciones);
+                listadoAdapter.notifyDataSetChanged();
                 break;
         }
     }
