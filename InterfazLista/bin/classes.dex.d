@@ -10,9 +10,7 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\andr
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\conexion\SocketConnector.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\ListaCanciones$1.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\ListaCanciones.class \
-C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaDatosServidor$1$1.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaDatosServidor$1.class \
-C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaDatosServidor$conectar.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaDatosServidor.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$1.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal.class \

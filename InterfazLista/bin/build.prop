@@ -1,11 +1,10 @@
 #Last build type
-#Mon, 26 Nov 2012 17:15:45 +0100
+#Mon, 26 Nov 2012 17:24:24 +0100
 
-
-build.last.target=debug
-
-build.last.is.signing.debug=true
+build.last.target=release
 
 build.last.is.instrumented=false
 
-build.last.is.packaging.debug=true
+build.last.is.packaging.debug=false
+
+build.last.is.signing.debug=false
