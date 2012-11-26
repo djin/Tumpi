@@ -40,7 +40,9 @@ public class AdaptadorLista extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
+    public void setDatos(ArrayList<Cancion> datos_aux){
+        datos=datos_aux;
+    }
     public View getView(int position, View convertView, ViewGroup parent) {
 //        View v = convertView;
 //        if (v == null) {
