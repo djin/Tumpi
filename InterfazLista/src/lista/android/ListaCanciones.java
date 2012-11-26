@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,7 +15,7 @@ import lista.android.conexion.*;
 
 public class ListaCanciones extends ListActivity implements ServerMessageListener
 {
-static ArrayList<Cancion> listaCanciones;
+static ArrayList<Cancion> lista = new ArrayList<Cancion>();
 AdaptadorLista listadoAdapter;
 static Boolean noReiniciar = true;
 ConnectionManager conex;
@@ -28,10 +29,10 @@ public void onCreate(Bundle savedInstanceState) {
     // Este método de obtención de elementos puede cambiarse por cualquier otro
     //como leerlos de una BBDD o de un servidor web con JSON
     if(noReiniciar){
-        listaCanciones = interpretarLista("".split(""));
+        listadoAdapter = interpretarLista("".split(""));
         noReiniciar = false;
     }
-    listadoAdapter=new AdaptadorLista(this, listaCanciones, R.layout.rowstyle);
+    
     setListAdapter(listadoAdapter);
     //conex=new ConnectionManager();
     //conex.conexion.addServerMessageListener(this);
@@ -53,14 +54,14 @@ public void onCreate(Bundle savedInstanceState) {
         return true;
     }
     
-    public ArrayList<Cancion> interpretarLista (String[] canciones){
+    public AdaptadorLista interpretarLista (String[] canciones){
         
-        ArrayList<Cancion> lista = new ArrayList<Cancion>();
+        //ArrayList<Cancion> lista = new ArrayList<Cancion>();
         /*
         for(String cancion : canciones){
             String[] datos_cancion=cancion.split("\\*");
             lista.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false));
-        }
+        }*/
         
         Cancion evento1 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre","", "", 1, false);
         lista.add(evento1);
@@ -105,9 +106,9 @@ public void onCreate(Bundle savedInstanceState) {
         lista.add(evento14);
 
         Cancion evento15 = new Cancion("Futbol","", "", 15, false);
-        lista.add(evento15);*/
-        
-        return lista;
+        lista.add(evento15);
+        AdaptadorLista adap = new AdaptadorLista(this, lista, R.layout.rowstyle);
+        return adap;
     }    
     public void onMessageReceive(String message) {
         int tipo=Integer.parseInt(message.split("\\|")[0]);
@@ -127,6 +128,11 @@ public void onCreate(Bundle savedInstanceState) {
             conex.conexion.cerrarConexion();
         } catch (Exception ex) {
         }
+    }
+    public void cambiarTxt(View v){
+        Cancion ca = (Cancion) listadoAdapter.getItem(1);
+        ca.setNombreCancion("Nombre Cambiado!");
+        listadoAdapter.notifyDataSetChanged();
     }
 }
 
