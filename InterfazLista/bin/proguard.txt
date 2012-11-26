@@ -13,6 +13,9 @@
 # view AndroidManifest.xml #generated:27
 -keep class lista.android.conexion.ServicioCliente { <init>(...); }
 
-# onClick res/layout/main.xml #generated:52
+# onClick res/layout/main.xml #generated:47
 -keepclassmembers class * { *** cambiarTxt(...); }
+
+# onClick res/layout/main.xml #generated:55
+-keepclassmembers class * { *** cambiarTxt1(...); }
 

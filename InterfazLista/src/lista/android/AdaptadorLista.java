@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class AdaptadorLista extends BaseAdapter {
 
     Context mContext;
-    ArrayList<Cancion> datos;
+    private ArrayList<Cancion> datos;
     int estiloFila;
 
     public AdaptadorLista(Context c, ArrayList<Cancion> d, int v) {
@@ -30,11 +30,11 @@ public class AdaptadorLista extends BaseAdapter {
     }
 
     public int getCount() {
-        return datos.size();
+        return getDatos().size();
     }
 
     public Object getItem(int position) {
-        return datos.get(position);
+        return getDatos().get(position);
     }
 
     public long getItemId(int position) {
@@ -49,9 +49,9 @@ public class AdaptadorLista extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = inflater.inflate(R.layout.rowstyle, parent, false);
             TextView txt = (TextView) v.findViewById(R.id.songName);
-            txt.setText(datos.get(position).getNombreCancion());
+            txt.setText(getDatos().get(position).getNombreCancion());
             ImageButton btn = (ImageButton) v.findViewById(R.id.btnVotar);
-            Boolean flag = datos.get(position).getVotado();
+            Boolean flag = getDatos().get(position).getVotado();
             if (flag) {
                 btn.setImageResource(R.raw.ico_small_star_focus);
                 btn.setEnabled(false);
@@ -61,6 +61,13 @@ public class AdaptadorLista extends BaseAdapter {
             }
       //  }
         return v;
+    }
+
+    /**
+     * @return the datos
+     */
+    public ArrayList<Cancion> getDatos() {
+        return datos;
     }
 
     private class ClickListener implements View.OnClickListener {
@@ -75,7 +82,7 @@ public class AdaptadorLista extends BaseAdapter {
             ImageButton votado = (ImageButton) v.findViewById(R.id.btnVotar);
             votado.setImageResource(R.raw.ico_small_star_focus);
             votado.setEnabled(false);
-            datos.get(position).setVotado(true);
+            getDatos().get(position).setVotado(true);
         }
     }
 }
