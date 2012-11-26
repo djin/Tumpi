@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListaCanciones"
-            android:label="@string/votar">
+            android:label="@string/app_name">
         </activity>
         <activity android:name=".PantallaDatosServidor"
             android:label="@string/datos">

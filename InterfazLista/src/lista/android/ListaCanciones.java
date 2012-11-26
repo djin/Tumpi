@@ -33,8 +33,8 @@ public void onCreate(Bundle savedInstanceState) {
     }
     listadoAdapter=new AdaptadorLista(this, listaCanciones, R.layout.rowstyle);
     setListAdapter(listadoAdapter);
-    conex=new ConnectionManager();
-    conex.conexion.addServerMessageListener(this);
+    //conex=new ConnectionManager();
+    //conex.conexion.addServerMessageListener(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,7 +60,7 @@ public void onCreate(Bundle savedInstanceState) {
         for(String cancion : canciones){
             String[] datos_cancion=cancion.split("\\*");
             lista.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false));
-        }*/
+        }
         
         Cancion evento1 = new Cancion("Ofrenda de Flores y gonzalez de la juerga padre","", "", 1, false);
         lista.add(evento1);
@@ -105,7 +105,7 @@ public void onCreate(Bundle savedInstanceState) {
         lista.add(evento14);
 
         Cancion evento15 = new Cancion("Futbol","", "", 15, false);
-        lista.add(evento15);
+        lista.add(evento15);*/
         
         return lista;
     }    
