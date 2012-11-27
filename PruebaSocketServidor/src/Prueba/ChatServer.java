@@ -60,7 +60,7 @@ public class ChatServer implements ServerSocketListener{
     public void onMessageReceived(String ip, String message) {
         log(ip+": "+message);
         try {
-            server.enviarMensajeServer("*","- "+ip+" : "+message);
+            server.enviarMensajeServer("*",/*"- "+ip+" : "+*/"2|"+message);
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

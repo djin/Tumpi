@@ -12,6 +12,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import lista.android.conexion.ConnectionManager;
 
 /**
  *
@@ -22,6 +25,7 @@ public class AdaptadorLista extends BaseAdapter {
     Context mContext;
     private ArrayList<Cancion> datos;
     int estiloFila;
+    ConnectionManager conex;
 
     public AdaptadorLista(Context c, ArrayList<Cancion> d, int v) {
         mContext = c;
@@ -79,10 +83,15 @@ public class AdaptadorLista extends BaseAdapter {
         }
 
         public void onClick(View v) {
-            ImageButton votado = (ImageButton) v.findViewById(R.id.btnVotar);
-            votado.setImageResource(R.raw.ico_small_star_focus);
-            votado.setEnabled(false);
-            getDatos().get(position).setVotado(true);
+            try {
+                conex.conexion.enviarMensaje(Integer.toString(getDatos().get(position).getId()));
+            } catch (Exception ex) {
+                
+            }
+//            ImageButton votado = (ImageButton) v.findViewById(R.id.btnVotar);
+//            votado.setImageResource(R.raw.ico_small_star_focus);
+//            votado.setEnabled(false);
+//            getDatos().get(position).setVotado(true);
         }
     }
 }
