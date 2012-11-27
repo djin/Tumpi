@@ -16,7 +16,7 @@ static ArrayList<Cancion> lista = new ArrayList<Cancion>();
 AdaptadorLista listadoAdapter;
 static Boolean noReiniciar = true;
 ConnectionManager conex;
-public static TextView t;
+public static TextView text_playing;
 @Override
 public void onCreate(Bundle savedInstanceState) {
  
@@ -25,7 +25,7 @@ public void onCreate(Bundle savedInstanceState) {
     
     listadoAdapter = new AdaptadorLista(this, lista, R.layout.rowstyle);
     setListAdapter(listadoAdapter);
-    t=(TextView) findViewById(R.id.txtPlaying);
+    text_playing=(TextView) findViewById(R.id.txtPlaying);
     conex=new ConnectionManager();        
     conex.conexion.addServerMessageListener(this);
     }
@@ -60,25 +60,37 @@ public void onCreate(Bundle savedInstanceState) {
                 String message=men;
                 int tipo=Integer.parseInt(message.split("\\|")[0]);
                 message=message.split("\\|")[1];
+                int n=0;
                 switch(tipo){
-                    case 1:
-                        int n = listadoAdapter.getDatos().size();
-                        for(int i=0; i < n ; i++){
-                            listadoAdapter.getDatos().remove(0);
-                        }
+                    case 0:
+                        listadoAdapter.limpiarDatos();
                         String[] canciones = message.split("\\;");
                         interpretarLista(canciones);
                         listadoAdapter.notifyDataSetChanged();
                         break;
-                    case 2:
-                        n=0;
-                        for(Cancion c : listadoAdapter.getDatos()){
-                            if(c.getId() == Integer.parseInt(message)){
-                                c.setVotado(true);
+                    case 1:
+                        n=Integer.parseInt(message);
+                        if(n!=0){
+                            for(Cancion c : listadoAdapter.getDatos()){
+                                if(c.getId() == n ){
+                                    c.setVotado(true);
+                                }
+                                else if(c.getVotado())
+                                    c.setVotado(false);
                             }
-                            n++;
+                            listadoAdapter.notifyDataSetChanged();
                         }
-                        listadoAdapter.notifyDataSetChanged();
+                        break;
+                    case 2:
+                        n=Integer.parseInt(message);
+                        Cancion cancion=null;
+                        for(Cancion c : listadoAdapter.getDatos()){
+                            if(c.getId() == n){
+                                cancion=c;
+                                break;
+                            }
+                        }
+                        text_playing.setText(cancion.getNombreCancion()+"\n"+cancion.getNombreAutor()+" - "+cancion.getNombreAlbum());
                         break;
                 }
             }

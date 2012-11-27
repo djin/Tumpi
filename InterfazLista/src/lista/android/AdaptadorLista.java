@@ -47,6 +47,16 @@ public class AdaptadorLista extends BaseAdapter {
     public void setDatos(ArrayList<Cancion> datos_aux){
         datos=datos_aux;
     }
+
+    public ArrayList<Cancion> getDatos() {
+        return datos;
+    }
+    public void limpiarDatos(){
+        int n = datos.size();
+        for(int i=0; i < n ; i++){
+            datos.remove(0);
+        }
+    }
     public View getView(int position, View convertView, ViewGroup parent) {
 //        View v = convertView;
 //        if (v == null) {
@@ -67,13 +77,6 @@ public class AdaptadorLista extends BaseAdapter {
         return v;
     }
 
-    /**
-     * @return the datos
-     */
-    public ArrayList<Cancion> getDatos() {
-        return datos;
-    }
-
     private class ClickListener implements View.OnClickListener {
 
         private int position;
@@ -84,7 +87,7 @@ public class AdaptadorLista extends BaseAdapter {
 
         public void onClick(View v) {
             try {
-                conex.conexion.enviarMensaje(Integer.toString(getDatos().get(position).getId()));
+                conex.conexion.enviarMensaje("1|"+Integer.toString(getDatos().get(position).getId()));
             } catch (Exception ex) {
                 
             }

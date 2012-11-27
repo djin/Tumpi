@@ -33,16 +33,16 @@ public class ChatServer implements ServerSocketListener{
             texto=input.next();
             if(texto.equals("lista")){
                 try {
-                    server.enviarMensajeServer("*", "1|1*Cancion 1*Autor 1*Album 1;2*Cancion 2*Autor 2*Album 2;3*Cancion 3*Autor 3*Album 3;4*Cancion 4*Autor 4*Album 4;5*Cancion 5*Autor 5*Album 5");
+                    server.enviarMensajeServer("*", "0|1*Cancion 1*Autor 1*Album 1;2*Cancion 2*Autor 2*Album 2;3*Cancion 3*Autor 3*Album 3;4*Cancion 4*Autor 4*Album 4;5*Cancion 5*Autor 5*Album 5");
                 } catch (IOException ex) {
                     log("Error al enviar lista: "+ex.toString());
                 }
             }
-            else{
+            else if(texto.split("\\_")[0].equals("cancion")){
                 try {
-                    server.enviarMensajeServer("*", texto);
+                    server.enviarMensajeServer("*", "2|"+texto.split("\\_")[1]);
                 } catch (IOException ex) {
-                    log("Error al enviar lista: "+ex.toString());
+                    log("Error al enviar la cancion sonando: "+ex.toString());
                 }
             }
         }while(!texto.equals("exit"));
@@ -57,11 +57,20 @@ public class ChatServer implements ServerSocketListener{
         System.out.println(cadena);
     }
     @Override
-    public void onMessageReceived(String ip, String message) {
-        log(ip+": "+message);
+    public void onMessageReceived(String ip, String men) {
+        log(ip+": "+men);
         try {
-            server.enviarMensajeServer("*",/*"- "+ip+" : "+*/"2|"+message);
-        } catch (IOException ex) {
+            String message=men;
+            int tipo=Integer.parseInt(message.split("\\|")[0]);
+            message=message.split("\\|")[1]; 
+            switch(tipo){
+                case 1:
+                    //Procesa la cancion que quiere votar el cliente y despues manda la confirmacion
+                    //que es un 0 para no o el id recivido para si.
+                    server.enviarMensajeServer(ip,"1|"+message);
+                    break;
+            }
+        } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
