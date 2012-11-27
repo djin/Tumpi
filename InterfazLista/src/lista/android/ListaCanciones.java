@@ -2,6 +2,7 @@ package lista.android;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ static ArrayList<Cancion> lista = new ArrayList<Cancion>();
 AdaptadorLista listadoAdapter;
 static Boolean noReiniciar = true;
 ConnectionManager conex;
+static Cancion cancion_sonando;
 public static TextView text_playing;
 @Override
 public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public void onCreate(Bundle savedInstanceState) {
     text_playing=(TextView) findViewById(R.id.txtPlaying);
     conex=new ConnectionManager();        
     conex.conexion.addServerMessageListener(this);
+    if(cancion_sonando==null)
+        cancion_sonando=new Cancion("Nombre canción", "Artista", "Album", 0, false);
+    refrescarCancionSonando();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,7 +50,13 @@ public void onCreate(Bundle savedInstanceState) {
         });
         return true;
     }
-    
+    private void refrescarCancionSonando(){
+        text_playing.post(new Runnable(){
+            public void run() {
+                text_playing.setText(cancion_sonando.getNombreCancion()+"\n"+cancion_sonando.getNombreAutor()+" - "+cancion_sonando.getNombreAlbum());
+            }
+        });
+    }
     public void interpretarLista (String[] canciones){
         
         for(String cancion : canciones){
@@ -90,20 +101,33 @@ public void onCreate(Bundle savedInstanceState) {
                                 break;
                             }
                         }
-                        text_playing.setText(cancion.getNombreCancion()+"\n"+cancion.getNombreAutor()+" - "+cancion.getNombreAlbum());
+                        cancion_sonando=cancion;
+                        refrescarCancionSonando();
                         break;
                 }
             }
         });
         
     }
+    /*@Override
+    public void onConfigurationChanged (Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        super.onBackPressed();
+    }*/
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onBackPressed() {
+        super.onBackPressed();
         try {
             conex.conexion.removeServerMessageListener(this);
             conex.conexion.cerrarConexion();
         } catch (Exception ex) {
         }
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+            
     }
 }
