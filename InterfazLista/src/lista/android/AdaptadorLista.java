@@ -88,10 +88,6 @@ public class AdaptadorLista extends BaseAdapter {
             } catch (Exception ex) {
                 
             }
-//            ImageButton votado = (ImageButton) v.findViewById(R.id.btnVotar);
-//            votado.setImageResource(R.raw.ico_small_star_focus);
-//            votado.setEnabled(false);
-//            getDatos().get(position).setVotado(true);
         }
     }
 }
