@@ -6,27 +6,28 @@ package lista.android.conexion;
 
 import android.app.*;
 import android.content.Intent;
+import lista.android.ListaCanciones;
+import lista.android.PantallaDatosServidor;
 
 /**
  *
  * @author 66785270
  */
 public class ServicioCliente extends IntentService{
-    
+    String texto_recivido;
     public ServicioCliente() {
         super("ServicioCliente");
     }
     
     @Override
     protected void onHandleIntent(Intent intent) {
-        String texto_recivido="";
+        texto_recivido="";
         try{
             do{
-                texto_recivido=SocketConnector.listenServer();
+                texto_recivido=SocketConnector.listenServer();            
                 SocketConnector.fireMessageEvent(texto_recivido);
             }while(true);
         }catch(Exception ex){
-            //log("\nError al escuchar al servidor: "+ex.toString()+ex.hashCode());
         }finally{
             this.stopSelf();            
         }

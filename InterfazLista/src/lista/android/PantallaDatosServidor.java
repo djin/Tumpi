@@ -12,16 +12,17 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import lista.android.conexion.ConnectionManager;
+import lista.android.conexion.*;
 
 /**
  *
  * @author 66785320
  */
-public class PantallaDatosServidor extends Activity {
+public class PantallaDatosServidor extends Activity{
     ConnectionManager conex;
     EditText editIp;
     EditText editPort;
+    public static TextView txtErr;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
@@ -29,6 +30,7 @@ public class PantallaDatosServidor extends Activity {
         // ToDo add your GUI initialization code here        
         setContentView(R.layout.stylepantallaconexion);
         Button btnConect = (Button)findViewById(R.id.btnConectar);
+        txtErr = (TextView)findViewById(R.id.txtMensageError);
         
         final PantallaDatosServidor p = this;
         btnConect.setOnClickListener(new OnClickListener() {
@@ -50,12 +52,11 @@ public class PantallaDatosServidor extends Activity {
                     try {
                             conex = new ConnectionManager();
                             if(conex.conectar(ip,port,p)){
-                            conex.conexion.startListeningServer();
-                            Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
-                            startActivity(inte);
-                        }                        
+                                conex.conexion.startListeningServer();
+                                Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
+                                startActivity(inte);
+                            }                        
                     }catch (Exception ex){
-                        TextView txtErr = (TextView)findViewById(R.id.txtMensageError);
                         txtErr.setText("No se ha podido realizar la conexion, intentelo mas tarde: "+ex.toString());
                     }                        
                 }

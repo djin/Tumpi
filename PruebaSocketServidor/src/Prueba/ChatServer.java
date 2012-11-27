@@ -38,6 +38,13 @@ public class ChatServer implements ServerSocketListener{
                     log("Error al enviar lista: "+ex.toString());
                 }
             }
+            else{
+                try {
+                    server.enviarMensajeServer("*", texto);
+                } catch (IOException ex) {
+                    log("Error al enviar lista: "+ex.toString());
+                }
+            }
         }while(!texto.equals("exit"));
         log("Se deja de recoger comandos...");
         try {
