@@ -5,7 +5,9 @@
 package actions;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.AbstractAction;
+import modelos.ListaCanciones;
 import tablas.ModeloTabla;
 
 /**
@@ -14,13 +16,13 @@ import tablas.ModeloTabla;
  */
 public class PromocionarLista extends AbstractAction{
     
-    private ModeloTabla tablaPendientes;
-    private ModeloTabla tablaSonando;
+    private int numLista;
+    private ArrayList <ListaCanciones> listasDeCanciones;
 
-    public PromocionarLista(ModeloTabla pendientes, ModeloTabla sonando){
+    public PromocionarLista(int numList, ArrayList <ListaCanciones> listasCanciones){
        
-        tablaPendientes = pendientes;
-        tablaSonando = sonando;
+        numLista = numList;
+        listasDeCanciones = listasCanciones;
     }
     
     @Override

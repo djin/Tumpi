@@ -146,7 +146,7 @@ public class Main extends JFrame{
         borrarCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(borrarCancion);
         
-        JButton promocionarLista = new JButton(new actions.PromocionarLista(modeloTablaPendientes, modeloTablaSonando));
+        JButton promocionarLista = new JButton(new actions.PromocionarLista(pestanasPendientes.getSelectedIndex(),listasDeCanciones));
         promocionarLista.setText("Promocionar lista");
         promocionarLista.setPreferredSize(new Dimension (150,100));
         getBotones().add(promocionarLista);
