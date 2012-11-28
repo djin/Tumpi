@@ -21,12 +21,12 @@ public class VtnReproductor extends JFrame {
 
     private static JLabel nombreCancion;
     private static JLabel artistaCancion;
-    private static JButton siguiente;
     private static JButton pausa;
     private static JPanel panelPrincipal;
     private static JPanel panelCentral;
     private static JPanel panelBotones;
     private static boolean pausaReproducir = false;
+    private static PlayerReproductor reproductor = new PlayerReproductor();
 
     VtnReproductor() {
         this.setSize(250, 150);
@@ -42,16 +42,8 @@ public class VtnReproductor extends JFrame {
         panelCentral.add(nombreCancion);
         panelCentral.add(artistaCancion);
 
-        siguiente = new JButton("Siguiente");
-        siguiente.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //mediaListPlayer.playNext();
-            }
-        });
-
-        pausa = new JButton("Pausa");
+        pausa = new JButton("Black Keys");
         pausa.setPreferredSize(new Dimension(110, 26));
 
         pausa.addActionListener(new ActionListener() {
@@ -60,11 +52,13 @@ public class VtnReproductor extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //mediaListPlayer.pause();
                 if (pausaReproducir == false) {
-                    pausa.setText("Reproducir");
+                    pausa.setText("RICK ROLL");
                     pausaReproducir = true;
+                    reproductor.reproducir("1.mp3");
                 } else {
-                    pausa.setText("Pausa");
+                    pausa.setText("Black Keys");
                     pausaReproducir = false;
+                    reproductor.reproducir("2.mp3");
                 }
             }
         });
@@ -73,8 +67,7 @@ public class VtnReproductor extends JFrame {
         panelPrincipal.add(panelCentral, BorderLayout.CENTER);
         panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
         panelBotones.add(pausa);
-        panelBotones.add(siguiente);
-
+        
         this.add(panelPrincipal);
 
     }

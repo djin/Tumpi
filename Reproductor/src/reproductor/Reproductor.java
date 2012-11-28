@@ -26,6 +26,6 @@ public class Reproductor {
                 ventana.setLocation(250, 150);
             }
         });
-
+        
     }
 }
