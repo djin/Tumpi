@@ -1,10 +1,14 @@
 
 package main;
 
+import tablas.Tabla;
+import tablas.ModeloTabla;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -51,13 +55,15 @@ public class Main extends JFrame{
     private Tabla listaSonando;
     private Tabla listasPendientes;
     
-    private JScrollPane scroll1;
-    private JScrollPane scroll2;
+    private JScrollPane scrollSonando;
+    private JScrollPane scrollPendientes;
+    private JTabbedPane pestanasPendientes;
     
     private JPanel botones;
+    private JPanel conjunto;
     
-    private JTabbedPane pestanas;
-    private int numeroListas = 5;
+    private BorderLayout border;
+    private int numeroListas = 1;
     
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
@@ -77,30 +83,79 @@ public class Main extends JFrame{
         modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
         modeloTablaPendientes = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
         
-        FlowLayout fl = new FlowLayout();
-        fl.setAlignment(FlowLayout.LEADING);
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-        panel.setLayout(fl);
+        
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 27, 20)); 
+        border = new BorderLayout();
         
         listaSonando = new Tabla(modeloTablaSonando);
-        scroll1 = new JScrollPane(listaSonando);
-        scroll1.setPreferredSize(new Dimension(400,650));
-        scroll1.setLocation(25, 25);
-        this.add(scroll1);
+        scrollSonando = new JScrollPane(listaSonando);
+        scrollSonando.setPreferredSize(new Dimension(500,700));
+        panel.add(scrollSonando, border.WEST);
+        
+        conjunto = new JPanel();
         
         SetBotones();
-        
-        botones.setPreferredSize(new Dimension (400,300));
-        botones.setLocation(425, 5);
-        this.add(botones);
+        botones.setPreferredSize(new Dimension (700,250));
+        conjunto.add(botones, border.NORTH);
         
         listasPendientes = new Tabla(modeloTablaPendientes);
-        scroll2 = new JScrollPane(listasPendientes);
-        scroll2.setPreferredSize(new Dimension(400,650));
-        scroll2.setLocation(425, 325);
-        this.add(scroll2);      
+        scrollPendientes = new JScrollPane(listasPendientes);
+        pestanasPendientes = new JTabbedPane();
+        
+        pestanasPendientes.add(scrollPendientes, "Predeterminada");
+        pestanasPendientes.setPreferredSize(new Dimension(700,400));
+        conjunto.add(pestanasPendientes, border.SOUTH);      
+        
+        panel.add(conjunto, border.CENTER);
         
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+    }
+    
+    private void SetBotones(){
+        
+        botones = new JPanel();
+        
+        JButton reproducirCancion = new JButton(new actions.ReproducirCancion());
+        reproducirCancion.setText("Reproducir cancion");
+        reproducirCancion.setPreferredSize(new Dimension (150,100));
+        botones.add(reproducirCancion);
+        
+        JButton siguienteCancion = new JButton(new actions.SiguienteCancion());
+        siguienteCancion.setText("Siguiente cancion");
+        siguienteCancion.setPreferredSize(new Dimension (150,100));
+        botones.add(siguienteCancion);    
+        
+        JButton anadirCanciones = new JButton(new actions.AnadirCanciones());
+        anadirCanciones.setText("Anadir canciones");
+        anadirCanciones.setPreferredSize(new Dimension (150,100));
+        botones.add(anadirCanciones);
+        
+        JButton borrarCancion = new JButton(new actions.BorrarCancion());
+        borrarCancion.setText("Borrar cancion");
+        borrarCancion.setPreferredSize(new Dimension (150,100));
+        botones.add(borrarCancion);
+        
+        JButton promocionarLista = new JButton(new actions.PromocionarLista());
+        promocionarLista.setText("Promocionar lista");
+        promocionarLista.setPreferredSize(new Dimension (150,100));
+        botones.add(promocionarLista);
+        
+        JButton anadirLista = new JButton(new actions.AnadirLista());
+        anadirLista.setText("Anadir lista");
+        anadirLista.setPreferredSize(new Dimension (150,100));
+        botones.add(anadirLista);
+        
+        JButton borrarLista = new JButton(new actions.BorrarLista());
+        borrarLista.setText("Borrar lista");
+        borrarLista.setPreferredSize(new Dimension (150,100));
+        botones.add(borrarLista);
+        
+        JButton salir = new JButton(new actions.Salir());
+        salir.setText("Salir");
+        salir.setPreferredSize(new Dimension (150,100));
+        botones.add(salir);    
         
     }
     
@@ -129,30 +184,6 @@ public class Main extends JFrame{
         barramenus.add(menus[1]);
         
         setJMenuBar(barramenus);
-        
-    }
-    
-    private void SetBotones(){
-        
-        botones = new JPanel();
-        
-        JButton anadirLista = new JButton("anadir lista");
-        botones.add(anadirLista);
-        
-        JButton promocionarLista = new JButton("promocionar lista");
-        botones.add(promocionarLista);
-        
-        JButton borrarLista = new JButton("borrar lista");
-        botones.add(borrarLista);
-        
-        JButton anadirCancion = new JButton("añadir canciones");
-        botones.add(anadirCancion);
-        
-        JButton reproducirCancion = new JButton("reproducir cancion");
-        botones.add(reproducirCancion);
-        
-        JButton borrarCancion = new JButton("borrar cancion");
-        botones.add(borrarCancion);        
         
     }
 }
