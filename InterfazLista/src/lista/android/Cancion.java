@@ -14,12 +14,14 @@ public class Cancion {
     private String nombreAlbum;
     private int id;
     private Boolean votado;
-    public Cancion(String n, String a, String al, int i, Boolean v) {
+    private Boolean sonado;
+    public Cancion(String n, String a, String al, int i, Boolean v, Boolean s) {
         nombreCancion = n;
         nombreAutor = a;
         nombreAlbum = al;
         id = i;
         votado = v;
+        sonado = s;
     }
 
     /**
@@ -90,6 +92,20 @@ public class Cancion {
      */
     public void setNombreAlbum(String nombreAlbum) {
         this.nombreAlbum = nombreAlbum;
+    }
+
+    /**
+     * @return the sonado
+     */
+    public Boolean getSonado() {
+        return sonado;
+    }
+
+    /**
+     * @param sonado the sonado to set
+     */
+    public void setSonado(Boolean sonado) {
+        this.sonado = sonado;
     }
     
 }

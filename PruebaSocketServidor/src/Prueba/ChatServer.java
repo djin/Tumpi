@@ -33,7 +33,7 @@ public class ChatServer implements ServerSocketListener{
             texto=input.next();
             if(texto.equals("lista")){
                 try {
-                    server.enviarMensajeServer("*", "0|1*Cancion 1*Autor 1*Album 1;2*Cancion 2*Autor 2*Album 2;3*Cancion 3*Autor 3*Album 3;4*Cancion 4*Autor 4*Album 4;5*Cancion 5*Autor 5*Album 5");
+                    server.enviarMensajeServer("*", "0|1*Cancion 1*Autor 1*Album 1;2*Cancion 2*Autor 2*Album 2;3*Cancion 3*Autor 3*Album 3;4*Cancion 4*Autor 4*Album 4;5*Cancion 5*Autor 5*Album 5;6*Cancion 6*Autor 6*Album 6;7*Cancion 7*Autor 7*Album 7;8*Cancion 8*Autor 8*Album 8;9*Cancion 9*Autor 9*Album 9;10*Cancion 10*Autor 10*Album 10;11*Cancion 11*Autor 11*Album 11;12*Cancion 12*Autor 12*Album 12;13*Cancion 13*Autor 13*Album 13");
                 } catch (IOException ex) {
                     log("Error al enviar lista: "+ex.toString());
                 }

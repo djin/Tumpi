@@ -5,6 +5,7 @@
 package lista.android;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,8 @@ public class AdaptadorLista extends BaseAdapter {
             View v = inflater.inflate(R.layout.rowstyle, parent, false);
             TextView txt = (TextView) v.findViewById(R.id.songName);
             txt.setText(getDatos().get(position).getNombreCancion());
+            TextView txtAutor = (TextView) v.findViewById(R.id.autorName);
+            txtAutor.setText(getDatos().get(position).getNombreAutor());
             ImageButton btn = (ImageButton) v.findViewById(R.id.btnVotar);
             Boolean flag = getDatos().get(position).getVotado();
             if (flag) {
@@ -72,6 +75,12 @@ public class AdaptadorLista extends BaseAdapter {
             } else {
                 btn.setImageResource(R.raw.ico_medium_star);
                 btn.setOnClickListener(new ClickListener(position));
+            }
+            if(getDatos().get(position).getSonado()){
+                txt.setTextColor(Color.parseColor("#ff848484"));
+                txtAutor.setTextColor(Color.parseColor("#ff848484"));
+                btn.setImageDrawable(null);
+                btn.setEnabled(false);
             }
       //  }
         return v;

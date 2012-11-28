@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Social Dj</string>
+    <string name="app_name">socialDj</string>
     <string name="settings">Settings</string>
-    <string name="datos">Conectar Dj</string>
+    <string name="datos">Conectar</string>
 </resources>

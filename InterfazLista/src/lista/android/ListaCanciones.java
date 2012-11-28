@@ -2,7 +2,6 @@ package lista.android;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +18,7 @@ static Boolean noReiniciar = true;
 ConnectionManager conex;
 static Cancion cancion_sonando;
 public static TextView text_playing;
+public static TextView text_autorPlaying;
 @Override
 public void onCreate(Bundle savedInstanceState) {
  
@@ -28,10 +28,11 @@ public void onCreate(Bundle savedInstanceState) {
     listadoAdapter = new AdaptadorLista(this, lista, R.layout.rowstyle);
     setListAdapter(listadoAdapter);
     text_playing=(TextView) findViewById(R.id.txtPlaying);
+    text_autorPlaying = (TextView)findViewById(R.id.txtPlayingAutor);
     conex=new ConnectionManager();        
     conex.conexion.addServerMessageListener(this);
     if(cancion_sonando==null)
-        cancion_sonando=new Cancion("Nombre canción", "Artista", "Album", 0, false);
+        cancion_sonando=new Cancion("Nombre canción", "Artista", "Album", 0, false, false);
     refrescarCancionSonando();
     }
     @Override
@@ -53,7 +54,8 @@ public void onCreate(Bundle savedInstanceState) {
     private void refrescarCancionSonando(){
         text_playing.post(new Runnable(){
             public void run() {
-                text_playing.setText(cancion_sonando.getNombreCancion()+"\n"+cancion_sonando.getNombreAutor()+" - "+cancion_sonando.getNombreAlbum());
+                text_playing.setText(cancion_sonando.getNombreCancion());
+                text_autorPlaying.setText(cancion_sonando.getNombreAutor());
             }
         });
     }
@@ -61,7 +63,7 @@ public void onCreate(Bundle savedInstanceState) {
         
         for(String cancion : canciones){
             String[] datos_cancion=cancion.split("\\*");
-            lista.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false));
+            lista.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, false));
         }
     }    
     public void onMessageReceive(final String men) {
@@ -94,14 +96,20 @@ public void onCreate(Bundle savedInstanceState) {
                         break;
                     case 2:
                         n=Integer.parseInt(message);
+                        int m = 0;
                         Cancion cancion=null;
                         for(Cancion c : listadoAdapter.getDatos()){
                             if(c.getId() == n){
                                 cancion=c;
                                 break;
                             }
+                            m++;
                         }
                         cancion_sonando=cancion;
+                        listadoAdapter.getDatos().remove(cancion);
+                        cancion.setSonado(true);
+                        listadoAdapter.getDatos().add(cancion);
+                        listadoAdapter.notifyDataSetChanged();
                         refrescarCancionSonando();
                         break;
                 }
