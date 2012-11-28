@@ -7,16 +7,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
 import modelos.Cancion;
 import modelos.ListaCanciones;
 
@@ -81,6 +74,8 @@ public class Main extends JFrame{
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 40, 20)); 
         border = new BorderLayout();
         
+        //Look and Feel de la aplicacion
+        SetLookAndFeel();     
         
         //Listas de canciones en el programa en este momento
         listasDeCanciones = new ArrayList();
@@ -98,11 +93,13 @@ public class Main extends JFrame{
         listasDeCanciones.add(listaPredeterminada);
         
         listaPredeterminada.getCanciones().add(new Cancion(1, "nevergonnagive", "lololol", "rick astley", "3:48", "c://nevergonna.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(2, "wheneveryouneed", "lolo2", "rick astley", "2:10", "c://wheneveryou.mp3"));
         
         contenidos = new ArrayList();
-        contenidos.add(listaPredeterminada.getCanciones().get(0).getNombre());
-        
-        
+        for(Cancion p: listaPredeterminada.getCanciones()){
+            
+            contenidos.add(p.getNombre());
+        }      
         
         //Se inicializa la tabla de canciones en la lista de reproduccion
         
@@ -112,8 +109,6 @@ public class Main extends JFrame{
         scrollSonando.setPreferredSize(new Dimension(500,700));
         panel.add(scrollSonando, border.WEST);
         
-        //Panel que almacena los botones y la tabla de listas de canciones pendientes
-        conjunto = new JPanel();
         
         //Se inicializa la tabla de listas de canciones pendientes
         
@@ -123,15 +118,17 @@ public class Main extends JFrame{
         pestanasPendientes = new JTabbedPane();
         
         pestanasPendientes.add(scrollPendientes, "Predeterminada");
-        pestanasPendientes.setPreferredSize(new Dimension(700,400));
-        conjunto.add(pestanasPendientes, border.SOUTH);      
+        pestanasPendientes.setPreferredSize(new Dimension(700,400));     
+        
         
         //Se inicializa el panel con los botones
-        
         SetBotones();
-        botones.setPreferredSize(new Dimension (700,250));
-        conjunto.add(botones, border.NORTH);
         
+        
+        //Se inicializa y añade el panel conjunto a la interfaz
+        conjunto = new JPanel();
+        conjunto.add(botones, border.NORTH);
+        conjunto.add(pestanasPendientes, border.SOUTH); 
         panel.add(conjunto, border.CENTER);
         
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -141,6 +138,7 @@ public class Main extends JFrame{
     private void SetBotones(){
         
         setBotones(new JPanel());
+        getBotones().setPreferredSize(new Dimension (700,250));
         
         JButton reproducirCancion = new JButton(new actions.ReproducirCancion());
         reproducirCancion.setText("Reproducir cancion");
@@ -210,6 +208,22 @@ public class Main extends JFrame{
         
         setJMenuBar(getBarramenus());
         
+    }
+    
+    private void SetLookAndFeel(){
+        
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
