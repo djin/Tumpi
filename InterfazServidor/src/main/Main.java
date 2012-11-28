@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
+import modelos.Cancion;
+import modelos.ListaCanciones;
 
 
 
@@ -44,6 +46,8 @@ public class Main extends JFrame{
     
     private JPanel panel = (JPanel) this.getContentPane();
     
+    private ArrayList <ListaCanciones> listasDeCanciones;
+    
     private ModeloTabla modeloTablaSonando;
     private ModeloTabla modeloTablaPendientes;
     
@@ -63,6 +67,7 @@ public class Main extends JFrame{
     
     private BorderLayout border;
     private int numeroListas = 1;
+    private ListaCanciones listaPredeterminada;
     
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
@@ -73,11 +78,16 @@ public class Main extends JFrame{
         menus=new JMenu[2];
         SetMenus();
         
+        listasDeCanciones = new ArrayList();
+        
+        //El siguiente fragmento es solo una prueba hasta que tengamos la busqueda de canciones terminada
+        //Servirá para meter a piñón el viernes la cancion con su path de la canción a la hora de reproducirla.
+        
+        listaPredeterminada = new ListaCanciones();
+        listaPredeterminada.getCanciones().add(new Cancion(1, "nevergonnagive", "lololol", "rick astley", "3:48", "c://nevergonna.mp3"));
         contenidos = new ArrayList();
-        contenidos.add("Los redondeles");
-        contenidos.add("HUEHUEHUEHUEHUEHUE");
-        contenidos.add("Never gonna give you up");
-        contenidos.add("Whenever you need somebody");
+        contenidos.add(listaPredeterminada.getCanciones().get(0).getNombre());
+        
         
         modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
         modeloTablaPendientes = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);

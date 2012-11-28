@@ -13,21 +13,24 @@ import java.util.ArrayList;
 public class ListaCanciones {
     
     private ArrayList<ListaCancionesChangedListener> listeners;
+    private ArrayList<Cancion> canciones;
     
     public ListaCanciones(){
     
         listeners = new ArrayList();
+        canciones = new ArrayList();
     }
+    
     public void addJAlimentoChangedListener(ListaCancionesChangedListener l){
-        if(listeners == null) {
-            listeners = new ArrayList();
+        if(getListeners() == null) {
+            setListeners((ArrayList<ListaCancionesChangedListener>) new ArrayList());
         }
         getListeners().add(l);
     }
     
     public void removeJAlimentoChangedListener(ListaCancionesChangedListener l){
-        if(listeners == null) {
-            listeners = new ArrayList();
+        if(getListeners() == null) {
+            setListeners((ArrayList<ListaCancionesChangedListener>) new ArrayList());
         }
         getListeners().remove(l);
     } 
@@ -50,6 +53,20 @@ public class ListaCanciones {
      */
     public void setListeners(ArrayList<ListaCancionesChangedListener> listeners) {
         this.listeners = listeners;
+    }
+
+    /**
+     * @return the canciones
+     */
+    public ArrayList<Cancion> getCanciones() {
+        return canciones;
+    }
+
+    /**
+     * @param canciones the canciones to set
+     */
+    public void setCanciones(ArrayList<Cancion> canciones) {
+        this.canciones = canciones;
     }
 }
 
