@@ -68,14 +68,15 @@ public class AdaptadorLista extends BaseAdapter {
             TextView txtAutor = (TextView) v.findViewById(R.id.autorName);
             txtAutor.setText(getDatos().get(position).getNombreAutor());
             ImageButton btn = (ImageButton) v.findViewById(R.id.btnVotar);
-            Boolean flag = getDatos().get(position).getVotado();
-            if (flag) {
+            btn.setOnClickListener(new ClickListener(position));
+            
+            if (getDatos().get(position).getVotado()) {
                 btn.setImageResource(R.raw.ico_small_star_focus);
-                btn.setEnabled(false);
+                
             } else {
                 btn.setImageResource(R.raw.ico_medium_star);
-                btn.setOnClickListener(new ClickListener(position));
             }
+            
             if(getDatos().get(position).getSonado()){
                 txt.setTextColor(Color.parseColor("#ff848484"));
                 txtAutor.setTextColor(Color.parseColor("#ff848484"));
@@ -95,10 +96,17 @@ public class AdaptadorLista extends BaseAdapter {
         }
 
         public void onClick(View v) {
-            try {
-                conex.conexion.enviarMensaje("1|"+Integer.toString(getDatos().get(position).getId()));
-            } catch (Exception ex) {
-                
+            if(getDatos().get(position).getVotado()){
+                try {
+                    conex.conexion.enviarMensaje("3|"+Integer.toString(getDatos().get(position).getId()));
+                } catch (Exception ex) {
+                }
+            }
+            else {
+                try {
+                    conex.conexion.enviarMensaje("1|"+Integer.toString(getDatos().get(position).getId()));
+                } catch (Exception ex) {
+                }
             }
         }
     }

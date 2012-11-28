@@ -69,7 +69,7 @@ public class Settings extends ListActivity {
             case 0: break;
             case 1: break;
             case 2: break;
-            case 3: System.exit(0);
+            case 3: 
                 break;
                 
         }

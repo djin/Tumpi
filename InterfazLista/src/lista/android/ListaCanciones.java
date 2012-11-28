@@ -87,23 +87,20 @@ public void onCreate(Bundle savedInstanceState) {
                             for(Cancion c : listadoAdapter.getDatos()){
                                 if(c.getId() == n ){
                                     c.setVotado(true);
+                                    break;
                                 }
-                                else if(c.getVotado())
-                                    c.setVotado(false);
                             }
                             listadoAdapter.notifyDataSetChanged();
                         }
                         break;
                     case 2:
                         n=Integer.parseInt(message);
-                        int m = 0;
                         Cancion cancion=null;
                         for(Cancion c : listadoAdapter.getDatos()){
                             if(c.getId() == n){
                                 cancion=c;
                                 break;
                             }
-                            m++;
                         }
                         cancion_sonando=cancion;
                         listadoAdapter.getDatos().remove(cancion);
@@ -111,6 +108,18 @@ public void onCreate(Bundle savedInstanceState) {
                         listadoAdapter.getDatos().add(cancion);
                         listadoAdapter.notifyDataSetChanged();
                         refrescarCancionSonando();
+                        break;
+                    case 3:
+                        n=Integer.parseInt(message);
+                        if(n!=0){
+                            for(Cancion c : listadoAdapter.getDatos()){
+                                if(c.getId() == n ){
+                                    c.setVotado(false);
+                                    break;
+                                }
+                            }
+                            listadoAdapter.notifyDataSetChanged();
+                        }
                         break;
                 }
             }

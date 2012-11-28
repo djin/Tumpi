@@ -69,6 +69,9 @@ public class ChatServer implements ServerSocketListener{
                     //que es un 0 para no o el id recivido para si.
                     server.enviarMensajeServer(ip,"1|"+message);
                     break;
+                case 3:
+                    server.enviarMensajeServer(ip,"3|"+message);
+                    break;
             }
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
