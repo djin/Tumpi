@@ -47,6 +47,7 @@ public class Main extends JFrame{
     private JPanel panel = (JPanel) this.getContentPane();
     
     private ArrayList <ListaCanciones> listasDeCanciones;
+    private ListaCanciones listaPredeterminada;
     
     private ModeloTabla modeloTablaSonando;
     private ModeloTabla modeloTablaPendientes;
@@ -67,7 +68,7 @@ public class Main extends JFrame{
     
     private BorderLayout border;
     private int numeroListas = 1;
-    private ListaCanciones listaPredeterminada;
+    
     
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
@@ -75,39 +76,48 @@ public class Main extends JFrame{
     
     public Main(){
         
+        
+        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 40, 20)); 
+        border = new BorderLayout();
+        
+        
+        //Listas de canciones en el programa en este momento
+        listasDeCanciones = new ArrayList();
+        
+        
+        //Se inicializan los menus
         menus=new JMenu[2];
         SetMenus();
         
-        listasDeCanciones = new ArrayList();
         
         //El siguiente fragmento es solo una prueba hasta que tengamos la busqueda de canciones terminada
         //Servirá para meter a piñón el viernes la cancion con su path de la canción a la hora de reproducirla.
         
         listaPredeterminada = new ListaCanciones();
+        listasDeCanciones.add(listaPredeterminada);
+        
         listaPredeterminada.getCanciones().add(new Cancion(1, "nevergonnagive", "lololol", "rick astley", "3:48", "c://nevergonna.mp3"));
+        
         contenidos = new ArrayList();
         contenidos.add(listaPredeterminada.getCanciones().get(0).getNombre());
         
         
-        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
-        modeloTablaPendientes = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
         
-        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        //Se inicializa la tabla de canciones en la lista de reproduccion
         
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 27, 20)); 
-        border = new BorderLayout();
-        
+        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);         
         listaSonando = new Tabla(modeloTablaSonando);
         scrollSonando = new JScrollPane(listaSonando);
         scrollSonando.setPreferredSize(new Dimension(500,700));
         panel.add(scrollSonando, border.WEST);
         
+        //Panel que almacena los botones y la tabla de listas de canciones pendientes
         conjunto = new JPanel();
         
-        SetBotones();
-        botones.setPreferredSize(new Dimension (700,250));
-        conjunto.add(botones, border.NORTH);
+        //Se inicializa la tabla de listas de canciones pendientes
         
+        modeloTablaPendientes = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
         listasPendientes = new Tabla(modeloTablaPendientes);
         scrollPendientes = new JScrollPane(listasPendientes);
         pestanasPendientes = new JTabbedPane();
@@ -115,6 +125,12 @@ public class Main extends JFrame{
         pestanasPendientes.add(scrollPendientes, "Predeterminada");
         pestanasPendientes.setPreferredSize(new Dimension(700,400));
         conjunto.add(pestanasPendientes, border.SOUTH);      
+        
+        //Se inicializa el panel con los botones
+        
+        SetBotones();
+        botones.setPreferredSize(new Dimension (700,250));
+        conjunto.add(botones, border.NORTH);
         
         panel.add(conjunto, border.CENTER);
         
@@ -146,7 +162,7 @@ public class Main extends JFrame{
         borrarCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(borrarCancion);
         
-        JButton promocionarLista = new JButton(new actions.PromocionarLista(pestanasPendientes.getSelectedIndex(),listasDeCanciones));
+        JButton promocionarLista = new JButton(new actions.PromocionarLista(pestanasPendientes.getSelectedIndex(),listasDeCanciones, listaSonando));
         promocionarLista.setText("Promocionar lista");
         promocionarLista.setPreferredSize(new Dimension (150,100));
         getBotones().add(promocionarLista);

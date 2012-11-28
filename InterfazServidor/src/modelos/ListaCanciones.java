@@ -21,21 +21,21 @@ public class ListaCanciones {
         canciones = new ArrayList();
     }
     
-    public void addJAlimentoChangedListener(ListaCancionesChangedListener l){
+    public void addListaChangedListener(ListaCancionesChangedListener l){
         if(getListeners() == null) {
             setListeners((ArrayList<ListaCancionesChangedListener>) new ArrayList());
         }
         getListeners().add(l);
     }
     
-    public void removeJAlimentoChangedListener(ListaCancionesChangedListener l){
+    public void removeListaChangedListener(ListaCancionesChangedListener l){
         if(getListeners() == null) {
             setListeners((ArrayList<ListaCancionesChangedListener>) new ArrayList());
         }
         getListeners().remove(l);
     } 
     
-    protected void fireJAlimentoChanged(){
+    protected void fireListaChanged(){
         for(ListaCancionesChangedListener l:getListeners()){
             l.listaChanged(this);
         }
