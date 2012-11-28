@@ -5,7 +5,6 @@ import tablas.Tabla;
 import tablas.ModeloTabla;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
@@ -115,75 +114,313 @@ public class Main extends JFrame{
     
     private void SetBotones(){
         
-        botones = new JPanel();
+        setBotones(new JPanel());
         
         JButton reproducirCancion = new JButton(new actions.ReproducirCancion());
         reproducirCancion.setText("Reproducir cancion");
         reproducirCancion.setPreferredSize(new Dimension (150,100));
-        botones.add(reproducirCancion);
+        getBotones().add(reproducirCancion);
         
         JButton siguienteCancion = new JButton(new actions.SiguienteCancion());
         siguienteCancion.setText("Siguiente cancion");
         siguienteCancion.setPreferredSize(new Dimension (150,100));
-        botones.add(siguienteCancion);    
+        getBotones().add(siguienteCancion);    
         
         JButton anadirCanciones = new JButton(new actions.AnadirCanciones());
         anadirCanciones.setText("Anadir canciones");
         anadirCanciones.setPreferredSize(new Dimension (150,100));
-        botones.add(anadirCanciones);
+        getBotones().add(anadirCanciones);
         
         JButton borrarCancion = new JButton(new actions.BorrarCancion());
         borrarCancion.setText("Borrar cancion");
         borrarCancion.setPreferredSize(new Dimension (150,100));
-        botones.add(borrarCancion);
+        getBotones().add(borrarCancion);
         
-        JButton promocionarLista = new JButton(new actions.PromocionarLista());
+        JButton promocionarLista = new JButton(new actions.PromocionarLista(modeloTablaPendientes, modeloTablaSonando));
         promocionarLista.setText("Promocionar lista");
         promocionarLista.setPreferredSize(new Dimension (150,100));
-        botones.add(promocionarLista);
+        getBotones().add(promocionarLista);
         
         JButton anadirLista = new JButton(new actions.AnadirLista());
         anadirLista.setText("Anadir lista");
         anadirLista.setPreferredSize(new Dimension (150,100));
-        botones.add(anadirLista);
+        getBotones().add(anadirLista);
         
         JButton borrarLista = new JButton(new actions.BorrarLista());
         borrarLista.setText("Borrar lista");
         borrarLista.setPreferredSize(new Dimension (150,100));
-        botones.add(borrarLista);
+        getBotones().add(borrarLista);
         
         JButton salir = new JButton(new actions.Salir());
         salir.setText("Salir");
         salir.setPreferredSize(new Dimension (150,100));
-        botones.add(salir);    
+        getBotones().add(salir);    
         
     }
     
     private void SetMenus(){
         
-        menus[0]= new JMenu("Archivo");
-        menus[0].setMnemonic('A');
+        getMenus()[0]= new JMenu("Archivo");
+        getMenus()[0].setMnemonic('A');
         
         JMenuItem hola = new JMenuItem("Hola");
         hola.setMnemonic('H');
-        menus[0].add(hola);
+        getMenus()[0].add(hola);
         
         JMenuItem adios = new JMenuItem("Adios");
         adios.setMnemonic('d');
-        menus[0].add(adios);
+        getMenus()[0].add(adios);
         
-        barramenus.add(menus[0]);
+        getBarramenus().add(getMenus()[0]);
         
-        menus[1] = new JMenu ("Sobre");
-        menus[1].setMnemonic('S');
+        getMenus()[1] = new JMenu ("Sobre");
+        getMenus()[1].setMnemonic('S');
         
         JMenuItem autores = new JMenuItem("autores");
         autores.setMnemonic('A');
-        menus[1].add(autores);
+        getMenus()[1].add(autores);
                 
-        barramenus.add(menus[1]);
+        getBarramenus().add(getMenus()[1]);
         
-        setJMenuBar(barramenus);
+        setJMenuBar(getBarramenus());
         
+    }
+
+    /**
+     * @return the panel
+     */
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    /**
+     * @param panel the panel to set
+     */
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
+
+    /**
+     * @return the modeloTablaSonando
+     */
+    public ModeloTabla getModeloTablaSonando() {
+        return modeloTablaSonando;
+    }
+
+    /**
+     * @param modeloTablaSonando the modeloTablaSonando to set
+     */
+    public void setModeloTablaSonando(ModeloTabla modeloTablaSonando) {
+        this.modeloTablaSonando = modeloTablaSonando;
+    }
+
+    /**
+     * @return the modeloTablaPendientes
+     */
+    public ModeloTabla getModeloTablaPendientes() {
+        return modeloTablaPendientes;
+    }
+
+    /**
+     * @param modeloTablaPendientes the modeloTablaPendientes to set
+     */
+    public void setModeloTablaPendientes(ModeloTabla modeloTablaPendientes) {
+        this.modeloTablaPendientes = modeloTablaPendientes;
+    }
+
+    /**
+     * @return the nombresColumnaSonando
+     */
+    public String[] getNombresColumnaSonando() {
+        return nombresColumnaSonando;
+    }
+
+    /**
+     * @param nombresColumnaSonando the nombresColumnaSonando to set
+     */
+    public void setNombresColumnaSonando(String[] nombresColumnaSonando) {
+        this.nombresColumnaSonando = nombresColumnaSonando;
+    }
+
+    /**
+     * @return the nombresColumnaPendientes
+     */
+    public String[] getNombresColumnaPendientes() {
+        return nombresColumnaPendientes;
+    }
+
+    /**
+     * @param nombresColumnaPendientes the nombresColumnaPendientes to set
+     */
+    public void setNombresColumnaPendientes(String[] nombresColumnaPendientes) {
+        this.nombresColumnaPendientes = nombresColumnaPendientes;
+    }
+
+    /**
+     * @return the contenidos
+     */
+    public ArrayList <String> getContenidos() {
+        return contenidos;
+    }
+
+    /**
+     * @param contenidos the contenidos to set
+     */
+    public void setContenidos(ArrayList <String> contenidos) {
+        this.contenidos = contenidos;
+    }
+
+    /**
+     * @return the listaSonando
+     */
+    public Tabla getListaSonando() {
+        return listaSonando;
+    }
+
+    /**
+     * @param listaSonando the listaSonando to set
+     */
+    public void setListaSonando(Tabla listaSonando) {
+        this.listaSonando = listaSonando;
+    }
+
+    /**
+     * @return the listasPendientes
+     */
+    public Tabla getListasPendientes() {
+        return listasPendientes;
+    }
+
+    /**
+     * @param listasPendientes the listasPendientes to set
+     */
+    public void setListasPendientes(Tabla listasPendientes) {
+        this.listasPendientes = listasPendientes;
+    }
+
+    /**
+     * @return the scrollSonando
+     */
+    public JScrollPane getScrollSonando() {
+        return scrollSonando;
+    }
+
+    /**
+     * @param scrollSonando the scrollSonando to set
+     */
+    public void setScrollSonando(JScrollPane scrollSonando) {
+        this.scrollSonando = scrollSonando;
+    }
+
+    /**
+     * @return the scrollPendientes
+     */
+    public JScrollPane getScrollPendientes() {
+        return scrollPendientes;
+    }
+
+    /**
+     * @param scrollPendientes the scrollPendientes to set
+     */
+    public void setScrollPendientes(JScrollPane scrollPendientes) {
+        this.scrollPendientes = scrollPendientes;
+    }
+
+    /**
+     * @return the pestanasPendientes
+     */
+    public JTabbedPane getPestanasPendientes() {
+        return pestanasPendientes;
+    }
+
+    /**
+     * @param pestanasPendientes the pestanasPendientes to set
+     */
+    public void setPestanasPendientes(JTabbedPane pestanasPendientes) {
+        this.pestanasPendientes = pestanasPendientes;
+    }
+
+    /**
+     * @return the botones
+     */
+    public JPanel getBotones() {
+        return botones;
+    }
+
+    /**
+     * @param botones the botones to set
+     */
+    public void setBotones(JPanel botones) {
+        this.botones = botones;
+    }
+
+    /**
+     * @return the conjunto
+     */
+    public JPanel getConjunto() {
+        return conjunto;
+    }
+
+    /**
+     * @param conjunto the conjunto to set
+     */
+    public void setConjunto(JPanel conjunto) {
+        this.conjunto = conjunto;
+    }
+
+    /**
+     * @return the border
+     */
+    public BorderLayout getBorder() {
+        return border;
+    }
+
+    /**
+     * @param border the border to set
+     */
+    public void setBorder(BorderLayout border) {
+        this.border = border;
+    }
+
+    /**
+     * @return the numeroListas
+     */
+    public int getNumeroListas() {
+        return numeroListas;
+    }
+
+    /**
+     * @param numeroListas the numeroListas to set
+     */
+    public void setNumeroListas(int numeroListas) {
+        this.numeroListas = numeroListas;
+    }
+
+    /**
+     * @return the barramenus
+     */
+    public JMenuBar getBarramenus() {
+        return barramenus;
+    }
+
+    /**
+     * @param barramenus the barramenus to set
+     */
+    public void setBarramenus(JMenuBar barramenus) {
+        this.barramenus = barramenus;
+    }
+
+    /**
+     * @return the menus
+     */
+    public JMenu[] getMenus() {
+        return menus;
+    }
+
+    /**
+     * @param menus the menus to set
+     */
+    public void setMenus(JMenu[] menus) {
+        this.menus = menus;
     }
 }

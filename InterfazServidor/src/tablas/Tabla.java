@@ -4,7 +4,6 @@
  */
 package tablas;
 
-import tablas.ModeloTabla;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.*;
@@ -19,7 +18,7 @@ public class Tabla extends JTable {
     
     public Tabla(ModeloTabla modeloTabla){
         
-        this.tabla = modeloTabla;
+        tabla = modeloTabla;
         
         setModel(tabla);
         setRowHeight(20);
