@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import main.Main;
 import modelos.Cancion;
 import modelos.ListaCanciones;
+import reproductor.PlayerReproductor;
 import tablas.Tabla;
 
 /**
@@ -22,6 +23,7 @@ public class ConnectionManager implements ServerSocketListener{
     int port; 
     private static ListaCanciones lista_sonando;//Variable basura para utilizar en la demo
     private static Tabla tabla_sonando;//Variable basura para utilizar en la demo
+    private static PlayerReproductor  reproductor = new PlayerReproductor(); //Reproductor de musica
     
     public ConnectionManager(Tabla tabla,ListaCanciones lista){
         lista_sonando=lista;
@@ -62,6 +64,7 @@ public class ConnectionManager implements ServerSocketListener{
     }
     
     public static void playNext(){
+        
         ArrayList <Cancion> canciones=lista_sonando.getCanciones();
         int x=0,votos,id_max=0;
         for(Cancion p: canciones){
@@ -72,9 +75,10 @@ public class ConnectionManager implements ServerSocketListener{
         }
         Cancion cancion=canciones.get(id_max);        
         /*
-         * Aqui llamas a la funcion para reproducir con el path de la cancion 'cancion'
-         */
-        Main.log("Reproducioendo cancion...");
+         * No suena la cancion que es la primera de la lista.
+        */
+        reproductor.reproducir(cancion.getPath());
+        Main.log("Reproduciendo cancion...");
         try {
             socket.enviarMensajeServer("*", "2|"+id_max);
         } catch (IOException ex) {

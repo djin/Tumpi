@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package reproductor;
 
 import uk.co.caprica.vlcj.component.AudioMediaPlayerComponent;
@@ -15,7 +12,7 @@ public class PlayerReproductor extends configVlcj {
     
     private static AudioMediaPlayerComponent reproductor;
     
-    PlayerReproductor(){
+    public PlayerReproductor(){
         reproductor = new AudioMediaPlayerComponent();
         
     }
