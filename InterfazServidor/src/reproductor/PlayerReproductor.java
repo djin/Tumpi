@@ -1,18 +1,19 @@
 package reproductor;
 
 import uk.co.caprica.vlcj.component.AudioMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.MediaPlayer;
 
 
 /**
  *
  * @author 66785379
  */
-public class PlayerReproductor extends configVlcj {
+public class PlayerReproductor extends configVlcj{
     
-    private static AudioMediaPlayerComponent reproductor;
+    private static AudioMediaPlayerComponent reproductor=new AudioMediaPlayerComponent();
     
     public PlayerReproductor(){
-        reproductor = new AudioMediaPlayerComponent();
+        
     }
     
     public void reproducir(String mrl){
@@ -21,6 +22,10 @@ public class PlayerReproductor extends configVlcj {
         
     public static void pausar(){
         reproductor.getMediaPlayer().pause();
+    }
+    
+    public MediaPlayer getMediaPlayer(){
+        return reproductor.getMediaPlayer();
     }
     
 }

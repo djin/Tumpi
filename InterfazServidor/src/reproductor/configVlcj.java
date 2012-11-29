@@ -24,7 +24,6 @@ public abstract class configVlcj {
      * Set to true to dump out native JNA memory structures.
      */
     private static final String DUMP_NATIVE_MEMORY = "false";
-
     /**
      * Static initialisation.
      */

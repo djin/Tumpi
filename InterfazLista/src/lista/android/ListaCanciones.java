@@ -159,6 +159,7 @@ public void onCreate(Bundle savedInstanceState) {
     public void onBackPressed() {
         super.onBackPressed();
         try {
+            cancion_sonando=null;
             conex.conexion.removeServerMessageListener(this);
             conex.conexion.cerrarConexion();
         } catch (Exception ex) {
