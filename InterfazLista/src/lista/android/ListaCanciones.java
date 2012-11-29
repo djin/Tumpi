@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -26,6 +27,15 @@ public void onCreate(Bundle savedInstanceState) {
  
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
+    
+    //Es para quitar los botones de compartir y favorito, para que no se vean en la interfaz
+    ImageButton btn = (ImageButton)findViewById(R.id.btnFav);
+    btn.setImageDrawable(null);
+    btn.setEnabled(false);
+    ImageButton btn1 = (ImageButton)findViewById(R.id.btnshare);
+    btn1.setImageDrawable(null);
+    btn1.setEnabled(false);
+    //////////////////////////////////////////////////////////////////////////////////////
     
     listadoAdapter = new AdaptadorLista(this, lista, R.layout.rowstyle);
     setListAdapter(listadoAdapter);
