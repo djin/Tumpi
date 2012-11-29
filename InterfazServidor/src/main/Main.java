@@ -2,17 +2,21 @@
 package main;
 
 import conexion.ConnectionManager;
+import java.awt.event.ActionEvent;
 import tablas.Tabla;
 import tablas.ModeloTabla;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import modelos.Cancion;
 import modelos.ListaCanciones;
+import modelos.ListasCancionesManager;
+import reproductor.PlayerReproductor;
 
 
 
@@ -40,7 +44,9 @@ public class Main extends JFrame{
     
     private JPanel panel = (JPanel) this.getContentPane();
     
-    private ArrayList <ListaCanciones> listasDeCanciones;
+    private ListasCancionesManager listas_manager;
+    
+    //private ArrayList <ListaCanciones> listasDeCanciones;
     private ListaCanciones listaPredeterminada;
     
     private ModeloTabla modeloTablaSonando;
@@ -50,7 +56,7 @@ public class Main extends JFrame{
     private String[] nombresColumnaPendientes = {"Cancion"};
     private ArrayList <String>  contenidos;
         
-    private Tabla listaSonando;
+    //private Tabla listaSonando;
     private Tabla listasPendientes;
     
     private JScrollPane scrollSonando;
@@ -76,15 +82,13 @@ public class Main extends JFrame{
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 40, 20)); 
         border = new BorderLayout();
-        
         //Look and Feel de la aplicacion
-        SetLookAndFeel();     
-        
-        //Se crea el socket que dara servicio a los clientes
-        
+        SetLookAndFeel();             
         
         //Listas de canciones en el programa en este momento
-        listasDeCanciones = new ArrayList();
+        //listasDeCanciones = new ArrayList();
+        listas_manager=new ListasCancionesManager();
+        listas_manager.listas_canciones=new ArrayList();
         
         
         //Se inicializan los menus
@@ -96,7 +100,7 @@ public class Main extends JFrame{
         //Servirá para meter a piñón el viernes la cancion con su path de la canción a la hora de reproducirla.
         
         listaPredeterminada = new ListaCanciones();
-        listasDeCanciones.add(listaPredeterminada);
+        //listasDeCanciones.add(listaPredeterminada);
         
         listaPredeterminada.getCanciones().add(new Cancion(1, "Gold on The Ceiling", "The Black Keys", "El Camino", "3:48", "1.mp3"));
         listaPredeterminada.getCanciones().add(new Cancion(2, "Never Gonna Give You Up", "Rick Astley", "RickRoll", "2:10", "2.mp3"));
@@ -109,7 +113,7 @@ public class Main extends JFrame{
 //        listaPredeterminada.getCanciones().add(new Cancion(9, "I just call to say I love you", "Stivie Wonder", "70's Hits", "4:22", "c://wheneveryou.mp3"));
 //        listaPredeterminada.getCanciones().add(new Cancion(10, "Hound Dog", "Elvis Presley", "Elvis bonus album", "2:18", "c://wheneveryou.mp3"));
 //        listaPredeterminada.getCanciones().add(new Cancion(11, "Another day in paradise", "Phill Collins", "Indie hits", "4:10", "c://wheneveryou.mp3"));
-        
+        listas_manager.addLista(listaPredeterminada);
         contenidos = new ArrayList();
         for(Cancion p: listaPredeterminada.getCanciones()){
             
@@ -119,8 +123,9 @@ public class Main extends JFrame{
         //Se inicializa la tabla de canciones en reproduccion
         
         modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);         
-        listaSonando = new Tabla(modeloTablaSonando);
-        scrollSonando = new JScrollPane(listaSonando);
+        //listaSonando = new Tabla(modeloTablaSonando);
+        listas_manager.tabla_sonando=new Tabla(modeloTablaSonando);
+        scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
         scrollSonando.setPreferredSize(new Dimension(500,700));
         panel.add(scrollSonando, border.WEST);
         
@@ -133,7 +138,7 @@ public class Main extends JFrame{
         pestanasPendientes = new JTabbedPane();
         
         pestanasPendientes.add(scrollPendientes, "Predeterminada");
-        pestanasPendientes.setPreferredSize(new Dimension(700,400));     
+        pestanasPendientes.setPreferredSize(new Dimension(600,300));     
         
         
         //Se inicializa el panel con los botones
@@ -145,13 +150,15 @@ public class Main extends JFrame{
         conjunto.add(botones, border.NORTH);
         conjunto.add(pestanasPendientes, border.SOUTH); 
         panel.add(conjunto, border.CENTER);
-        
+        listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+        //Se crea el manager de la conexion, despues se crea el socket
         try {
-            server=new ConnectionManager(listaSonando,listaPredeterminada);
+            server=new ConnectionManager();
             if(server.createSocket(puerto_socket))
                 log("Socket creado con exito!!!");
         } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, ex.toString());
+            log("Error al crear y conectar el socket: "+ex.toString());
+            System.exit(0);
         }
         
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -168,12 +175,22 @@ public class Main extends JFrame{
         reproducirCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(reproducirCancion);
         
-        JButton siguienteCancion = new JButton(new actions.SiguienteCancion());
+        JButton siguienteCancion = new JButton(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.playNext();
+            }            
+        });
         siguienteCancion.setText("Siguiente cancion");
         siguienteCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(siguienteCancion);    
         
-        JButton anadirCanciones = new JButton(new actions.AnadirCanciones());
+        JButton anadirCanciones = new JButton(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PlayerReproductor.pausar();
+            }            
+        });
         anadirCanciones.setText("Anadir canciones");
         anadirCanciones.setPreferredSize(new Dimension (150,100));
         getBotones().add(anadirCanciones);
@@ -183,7 +200,12 @@ public class Main extends JFrame{
         borrarCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(borrarCancion);
         
-        JButton promocionarLista = new JButton(new actions.PromocionarLista(pestanasPendientes.getSelectedIndex(),listasDeCanciones, listaSonando,server));
+        JButton promocionarLista = new JButton(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+            }            
+        });
         promocionarLista.setText("Promocionar lista");
         promocionarLista.setPreferredSize(new Dimension (150,100));
         getBotones().add(promocionarLista);
@@ -331,20 +353,6 @@ public class Main extends JFrame{
      */
     public void setContenidos(ArrayList <String> contenidos) {
         this.contenidos = contenidos;
-    }
-
-    /**
-     * @return the listaSonando
-     */
-    public Tabla getListaSonando() {
-        return listaSonando;
-    }
-
-    /**
-     * @param listaSonando the listaSonando to set
-     */
-    public void setListaSonando(Tabla listaSonando) {
-        this.listaSonando = listaSonando;
     }
 
     /**

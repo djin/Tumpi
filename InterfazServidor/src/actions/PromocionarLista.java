@@ -5,6 +5,7 @@
 package actions;
 
 import conexion.ConnectionManager;
+import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,18 +39,7 @@ public class PromocionarLista extends AbstractAction{
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        int x = 0;
-        ArrayList <Cancion> canciones=listasDeCanciones.get(numLista).getCanciones();
-        for(Cancion p: canciones){
-            tablaSonando.setValueAt(p.getNombre(), x, 0);
-            tablaSonando.setValueAt(0, x, 1);
-            x++;
-        }
-        try {
-            conexion.socket.enviarMensajeServer("*", "0|"+listasDeCanciones.get(numLista));
-        } catch (IOException ex) {
-            Main.log("Error al enviar la lista: "+ex.toString());
-        }
+        
     }
     
 }

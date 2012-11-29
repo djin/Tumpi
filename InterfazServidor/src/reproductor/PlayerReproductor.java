@@ -13,13 +13,14 @@ public class PlayerReproductor extends configVlcj {
     
     public PlayerReproductor(){
         reproductor = new AudioMediaPlayerComponent();
-        
     }
     
     public void reproducir(String mrl){
         reproductor.getMediaPlayer().playMedia(mrl);
     }
-    
-    
+        
+    public static void pausar(){
+        reproductor.getMediaPlayer().pause();
+    }
     
 }

@@ -16,7 +16,6 @@ public class SiguienteCancion extends AbstractAction{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ConnectionManager.playNext();
     }
     
 }
