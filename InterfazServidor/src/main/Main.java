@@ -1,6 +1,7 @@
 
 package main;
 
+import conexion.ConnectionManager;
 import tablas.Tabla;
 import tablas.ModeloTabla;
 import java.awt.BorderLayout;
@@ -66,6 +67,8 @@ public class Main extends JFrame{
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
     
+    ConnectionManager server=null;
+    int puerto_socket=2222;
     
     public Main(){
         
@@ -76,6 +79,9 @@ public class Main extends JFrame{
         
         //Look and Feel de la aplicacion
         SetLookAndFeel();     
+        
+        //Se crea el socket que dara servicio a los clientes
+        
         
         //Listas de canciones en el programa en este momento
         listasDeCanciones = new ArrayList();
@@ -101,7 +107,7 @@ public class Main extends JFrame{
             contenidos.add(p.getNombre());
         }      
         
-        //Se inicializa la tabla de canciones en la lista de reproduccion
+        //Se inicializa la tabla de canciones en reproduccion
         
         modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);         
         listaSonando = new Tabla(modeloTablaSonando);
@@ -130,6 +136,14 @@ public class Main extends JFrame{
         conjunto.add(botones, border.NORTH);
         conjunto.add(pestanasPendientes, border.SOUTH); 
         panel.add(conjunto, border.CENTER);
+        
+        try {
+            server=new ConnectionManager(listaSonando,listaPredeterminada);
+            if(server.createSocket(puerto_socket))
+                log("Socket creado con exito!!!");
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, ex.toString());
+        }
         
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
@@ -160,7 +174,7 @@ public class Main extends JFrame{
         borrarCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(borrarCancion);
         
-        JButton promocionarLista = new JButton(new actions.PromocionarLista(pestanasPendientes.getSelectedIndex(),listasDeCanciones, listaSonando));
+        JButton promocionarLista = new JButton(new actions.PromocionarLista(pestanasPendientes.getSelectedIndex(),listasDeCanciones, listaSonando,server));
         promocionarLista.setText("Promocionar lista");
         promocionarLista.setPreferredSize(new Dimension (150,100));
         getBotones().add(promocionarLista);
@@ -462,5 +476,10 @@ public class Main extends JFrame{
      */
     public void setMenus(JMenu[] menus) {
         this.menus = menus;
+    }
+    //Metodo para debug
+    
+     public static void log(String cadena){
+        System.out.println(cadena);
     }
 }

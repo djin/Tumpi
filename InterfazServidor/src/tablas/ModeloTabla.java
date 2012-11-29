@@ -24,7 +24,7 @@ public class ModeloTabla implements TableModel {
     
     private String nombreColumnas[];
     private HashMap<Point, String> mapa;
-    private transient EventListenerList listaListeners;
+    private EventListenerList listaListeners;
     
     private ArrayList <String> contenidoTabla;
     

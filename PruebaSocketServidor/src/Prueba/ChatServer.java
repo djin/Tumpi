@@ -81,7 +81,6 @@ public class ChatServer implements ServerSocketListener{
     @Override
     public void onClientConnected(String ip) {
         try {
-            server.enviarMensajeServer(ip, "Bienvenido");
             log("Cliente conectado "+"\nNumero de clientes: "+server.getClientsCount());
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
