@@ -40,14 +40,13 @@ public class PromocionarLista extends AbstractAction{
         
         int x = 0;
         ArrayList <Cancion> canciones=listasDeCanciones.get(numLista).getCanciones();
-        String mensaje="0|";
         for(Cancion p: canciones){
-            mensaje=mensaje+p.getId()+"*"+p.getNombre()+"*"+p.getArtista()+"*"+p.getDisco()+";";
             tablaSonando.setValueAt(p.getNombre(), x, 0);
+            tablaSonando.setValueAt(0, x, 1);
             x++;
         }
         try {
-            conexion.socket.enviarMensajeServer("*", mensaje.substring(0, mensaje.length()-2));
+            conexion.socket.enviarMensajeServer("*", "0|"+listasDeCanciones.get(numLista));
         } catch (IOException ex) {
             Main.log("Error al enviar la lista: "+ex.toString());
         }

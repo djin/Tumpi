@@ -4,7 +4,10 @@
  */
 package conexion;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.Main;
 import modelos.Cancion;
 import modelos.ListaCanciones;
@@ -17,8 +20,8 @@ import tablas.Tabla;
 public class ConnectionManager implements ServerSocketListener{
     public static SocketServidor socket=null;
     int port; 
-    private ListaCanciones lista_sonando;//Variable basura para utilizar en la demo
-    private Tabla tabla_sonando;//Variable basura para utilizar en la demo
+    private static ListaCanciones lista_sonando;//Variable basura para utilizar en la demo
+    private static Tabla tabla_sonando;//Variable basura para utilizar en la demo
     
     public ConnectionManager(Tabla tabla,ListaCanciones lista){
         lista_sonando=lista;
@@ -58,6 +61,27 @@ public class ConnectionManager implements ServerSocketListener{
         return false;
     }
     
+    public static void playNext(){
+        ArrayList <Cancion> canciones=lista_sonando.getCanciones();
+        int x=0,votos,id_max=0;
+        for(Cancion p: canciones){
+            votos=Integer.parseInt((String)tabla_sonando.getValueAt(x, 1));
+            if(votos>=Integer.parseInt((String)tabla_sonando.getValueAt(id_max, 1)))
+                id_max=x;
+            x++;
+        }
+        Cancion cancion=canciones.get(id_max);        
+        /*
+         * Aqui llamas a la funcion para reproducir con el path de la cancion 'cancion'
+         */
+        Main.log("Reproducioendo cancion...");
+        try {
+            socket.enviarMensajeServer("*", "2|"+id_max);
+        } catch (IOException ex) {
+            Main.log("Error al enviar la cancion a reproducir: ");
+        }
+    }
+    
     @Override
     public void onMessageReceived(String ip, String men) {
         Main.log(ip+": "+men);
@@ -66,6 +90,9 @@ public class ConnectionManager implements ServerSocketListener{
             int tipo=Integer.parseInt(message.split("\\|")[0]);
             message=message.split("\\|")[1]; 
             switch(tipo){
+                case 0:
+                    socket.enviarMensajeServer(ip,"0|"+lista_sonando.toString());
+                    break;
                 case 1:
                     //Procesa la cancion que quiere votar el cliente y despues manda la confirmacion
                     //que es un 0 para no o el id recivido para si.

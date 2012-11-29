@@ -55,9 +55,11 @@ public class PantallaDatosServidor extends Activity{
                                 conex.conexion.startListeningServer();
                                 Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
                                 startActivity(inte);
-                            }                        
+                            }
+                            else
+                                 txtErr.setText("El servidor y la ip dados parecen no ser correctos, consulte de nuevo los datos o intentelo mas tarde");
                     }catch (Exception ex){
-                        txtErr.setText("No se ha podido realizar la conexion, intentelo mas tarde: "+ex.toString());
+                        txtErr.setText("No se ha podido realizar la conexion debido a un error: "+ex.toString());
                     }                        
                 }
             }

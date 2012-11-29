@@ -100,6 +100,14 @@ public class Main extends JFrame{
         
         listaPredeterminada.getCanciones().add(new Cancion(1, "nevergonnagive", "lololol", "rick astley", "3:48", "c://nevergonna.mp3"));
         listaPredeterminada.getCanciones().add(new Cancion(2, "wheneveryouneed", "lolo2", "rick astley", "2:10", "c://wheneveryou.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(3, "Another day in paradise", "Phill Collins", "Indie hits", "4:10", "c://wheneveryou.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(6, "9 crimes", "Damien Rice", "For the Hipster life", "3:40", "c://wheneveryou.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(7, "Beer in Mexico", "Kenny Chesney", "Kenny hits", "4:29", "c://wheneveryou.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(8, "Night Life", "Willie Nelson", "Willie Nelson & Family", "4:07", "c://wheneveryou.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(9, "I just call to say I love you", "Stivie Wonder", "70's Hits", "4:22", "c://wheneveryou.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(10, "Hound Dog", "Elvis Presley", "Elvis bonus album", "2:18", "c://wheneveryou.mp3"));
         
         contenidos = new ArrayList();
         for(Cancion p: listaPredeterminada.getCanciones()){

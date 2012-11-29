@@ -8,6 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lista.android.conexion.*;
 
 public class ListaCanciones extends ListActivity implements ServerMessageListener
@@ -32,7 +34,18 @@ public void onCreate(Bundle savedInstanceState) {
     conex=new ConnectionManager();        
     conex.conexion.addServerMessageListener(this);
     if(cancion_sonando==null)
+    {
         cancion_sonando=new Cancion("Nombre canción", "Artista", "Album", 0, false, false);
+        text_playing.post(new Runnable(){
+            public void run() {
+                try {
+                    conex.conexion.enviarMensaje("0|0");
+                } catch (Exception ex) {
+
+                }
+            }        
+        });        
+    }
     refrescarCancionSonando();
     }
     @Override

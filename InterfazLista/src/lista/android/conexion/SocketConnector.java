@@ -5,12 +5,10 @@
 package lista.android.conexion;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import java.io.*;
 import java.net.*;
 import java.net.Socket.*;
 import java.util.ArrayList;
-import lista.android.PantallaDatosServidor;
 /**
  *
  * @author 66785270
@@ -26,8 +24,6 @@ public class SocketConnector {
     OutputStream output = null;
     static DataInputStream inputdata = null;
     DataOutputStream outputdata = null;
-    boolean flag_service=false;
-    AsyncTask servicio_escucha=new ListenService();
     static ArrayList<ServerMessageListener> message_listeners=new ArrayList();
     public SocketConnector(String ip,int port,Activity activity){
         ip_servidor=ip;
@@ -65,17 +61,13 @@ public class SocketConnector {
     public void startListeningServer(){        
         if(isConnected())
         {
-            act.startService(intent_service);/*
-            flag_service=true;
-            servicio_escucha.execute();*/
+            act.startService(intent_service);
         }
             
     }
     public void stopListeningServer(){
         if(isConnected()){
-            act.stopService(intent_service);/*
-            flag_service=false;
-            servicio_escucha.cancel(true);*/
+            act.stopService(intent_service);
         }
     }
     public void cerrarConexion() throws IOException, Exception {
@@ -101,20 +93,4 @@ public class SocketConnector {
             listener.onMessageReceive(message);
         }
     }
-    private class ListenService extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            try {
-                String texto_recivido="";
-                do{
-                    texto_recivido=listenServer();
-                    fireMessageEvent(texto_recivido);
-                }while(flag_service);
-                return true;
-            }catch (final Exception ex){
-                
-                return false;
-            }
-        }
-    } 
 }

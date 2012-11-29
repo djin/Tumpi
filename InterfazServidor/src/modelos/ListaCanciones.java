@@ -40,7 +40,15 @@ public class ListaCanciones {
             l.listaChanged(this);
         }
     }
-
+    
+    @Override
+    public String toString(){
+        String cadena="";
+        for(Cancion c : canciones)
+            cadena=cadena+c.getId()+"*"+c.getNombre()+"*"+c.getArtista()+"*"+c.getDisco()+";";
+        return cadena.substring(0,cadena.length()-1);
+    }
+    
     /**
      * @return the listeners
      */

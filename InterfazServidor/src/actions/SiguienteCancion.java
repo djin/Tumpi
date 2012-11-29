@@ -4,6 +4,7 @@
  */
 package actions;
 
+import conexion.ConnectionManager;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
@@ -15,7 +16,7 @@ public class SiguienteCancion extends AbstractAction{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ConnectionManager.playNext();
     }
     
 }

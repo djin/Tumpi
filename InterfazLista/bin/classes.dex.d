@@ -7,12 +7,11 @@ C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\list
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\ConnectionManager.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\ServerMessageListener.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\ServicioCliente.class \
-C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\SocketConnector$1.class \
-C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\SocketConnector$ListenService.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\conexion\SocketConnector.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\ListaCanciones$1.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\ListaCanciones$2.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\ListaCanciones$3.class \
+C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\ListaCanciones$4.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\ListaCanciones.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\PantallaDatosServidor$1.class \
 C:\Users\66785270\Documents\GitHub\proyecto-disco\InterfazLista\bin\classes\lista\android\PantallaDatosServidor.class \
