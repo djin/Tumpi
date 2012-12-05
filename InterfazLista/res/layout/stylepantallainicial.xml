@@ -4,16 +4,57 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-    <Button android:id="@+id/btnAntiguaConexion"
+        <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:text="Volver a entrar"
-    />
-    <Button android:id="@+id/btnconexion"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:paddingBottom="10dp"
+    >
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:gravity="center"
+            android:src="@raw/imgp"
+            android:layout_weight="12"
+            android:layout_gravity="center"
+        />
+        <TextView
+            android:id="@+id/text"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="3"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:text="Entrar a la discoteca"
-    />
+            android:layout_height="wrap_content"
+            android:text="socialDj"
+            android:textColor="#ffFFFFFF"
+            android:textSize="40dp"
+            android:textStyle="bold"
+        />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+    >
+        <Button android:id="@+id/btnAntiguaConexion"
+            style="@style/boton1"
+                android:layout_weight="2"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:textSize="25dp"
+                android:text="Entrar"
+                android:layout_marginRight="5dp"
+        />
+        <Button android:id="@+id/btnconexion"
+                style="@style/boton1"
+                android:layout_weight="2"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:textSize="25dp"
+                android:text="Conectar..."
+        />
+    </LinearLayout>
 </LinearLayout>

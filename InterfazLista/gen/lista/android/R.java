@@ -11,20 +11,23 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int estiloboton1=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
         public static final int autorName=0x7f080005;
-        public static final int btnAntiguaConexion=0x7f08000c;
+        public static final int btnAntiguaConexion=0x7f08000e;
         public static final int btnConectar=0x7f08000a;
         public static final int btnFav=0x7f080002;
-        public static final int btnSettings=0x7f08000e;
+        public static final int btnSettings=0x7f080010;
         public static final int btnVotar=0x7f080006;
-        public static final int btnconexion=0x7f08000d;
+        public static final int btnconexion=0x7f08000f;
         public static final int btnshare=0x7f080003;
         public static final int fieldIp=0x7f080008;
         public static final int fieldPort=0x7f080009;
+        public static final int img=0x7f08000c;
         public static final int songName=0x7f080004;
+        public static final int text=0x7f08000d;
         public static final int txtMensageError=0x7f08000b;
         public static final int txtPlaying=0x7f080000;
         public static final int txtPlayingAutor=0x7f080001;
@@ -49,13 +52,15 @@ public final class R {
         public static final int ico_small_love=0x7f040004;
         public static final int ico_small_share=0x7f040005;
         public static final int ico_small_star_focus=0x7f040006;
+        public static final int imgp=0x7f040007;
     }
     public static final class string {
-        public static final int app_name=0x7f050000;
-        public static final int datos=0x7f050002;
-        public static final int settings=0x7f050001;
+        public static final int app_name=0x7f060000;
+        public static final int datos=0x7f060002;
+        public static final int settings=0x7f060001;
     }
     public static final class style {
-        public static final int textStyle=0x7f060000;
+        public static final int boton1=0x7f050000;
+        public static final int textStyle=0x7f050001;
     }
 }

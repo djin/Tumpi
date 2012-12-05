@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="boton1">
+         <item name="android:background">@drawable/estiloboton1</item>
+    </style>
+</resources>

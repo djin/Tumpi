@@ -9,11 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
-import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,6 +23,7 @@ public class PantallaPrincipal extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         // ToDo add your GUI initialization code here  
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.stylepantallainicial);
         
         Button btnNuevaConexion = (Button)findViewById(R.id.btnconexion);
