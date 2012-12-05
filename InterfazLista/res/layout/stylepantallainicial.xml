@@ -40,7 +40,7 @@
         android:layout_weight="1"
     >
         <Button android:id="@+id/btnAntiguaConexion"
-            style="@style/boton1"
+                style="@style/boton1"
                 android:layout_weight="2"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"

@@ -18,6 +18,7 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\andr
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$1.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$attr.class \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$color.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$drawable.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$id.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$layout.class \
