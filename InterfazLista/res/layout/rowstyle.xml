@@ -15,7 +15,11 @@
             android:textSize="15dp"
             android:padding="3dp"
             android:textColor="#ffE6E6E6"
-            android:lines="1"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:fadingEdge="horizontal"
         />
         <TextView android:id="@+id/autorName"
             android:layout_width="fill_parent"

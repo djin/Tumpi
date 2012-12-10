@@ -65,6 +65,7 @@ public class AdaptadorLista extends BaseAdapter {
             View v = inflater.inflate(R.layout.rowstyle, parent, false);
             TextView txt = (TextView) v.findViewById(R.id.songName);
             txt.setText(getDatos().get(position).getNombreCancion());
+            txt.setSelected(true);
             TextView txtAutor = (TextView) v.findViewById(R.id.autorName);
             txtAutor.setText(getDatos().get(position).getNombreAutor());
             ImageButton btn = (ImageButton) v.findViewById(R.id.btnVotar);

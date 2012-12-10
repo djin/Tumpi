@@ -40,6 +40,7 @@ public void onCreate(Bundle savedInstanceState) {
     listadoAdapter = new AdaptadorLista(this, lista, R.layout.rowstyle);
     setListAdapter(listadoAdapter);
     text_playing=(TextView) findViewById(R.id.txtPlaying);
+    text_playing.setSelected(true);
     text_autorPlaying = (TextView)findViewById(R.id.txtPlayingAutor);
     conex=new ConnectionManager();        
     conex.conexion.addServerMessageListener(this);
