@@ -105,6 +105,7 @@ public class Main extends JFrame{
         listaPredeterminada.getCanciones().add(new Cancion(1, "Gold on The Ceiling", "The Black Keys", "El Camino", "3:48", "1.mp3"));
         listaPredeterminada.getCanciones().add(new Cancion(2, "Never Gonna Give You Up", "Rick Astley", "RickRoll", "2:10", "2.mp3"));
         listaPredeterminada.getCanciones().add(new Cancion(3, "Sleep Alone", "Two Door Cinema Club", "Indie hits", "4:10", "3.mp3"));
+        listaPredeterminada.getCanciones().add(new Cancion(4, "Sleep Alone without your mother tonight, always with anal sex", "Two Door Cinema Club", "Indie hits", "20:10", "3.mp3"));
 //        listaPredeterminada.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
 //        listaPredeterminada.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
 //        listaPredeterminada.getCanciones().add(new Cancion(6, "9 crimes", "Damien Rice", "For the Hipster life", "3:40", "c://wheneveryou.mp3"));
