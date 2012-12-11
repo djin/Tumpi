@@ -26,8 +26,4 @@
         android:textSize="50dp"
         android:text="Conectar"
         />
-    <TextView android:id="@+id/txtMensageError"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
 </LinearLayout>

@@ -6,6 +6,7 @@ package lista.android.conexion;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import lista.android.PantallaDatosServidor;
 
 /**
  *
@@ -29,5 +30,13 @@ public class ConnectionManager {
                 return false;
             }
         }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (PantallaDatosServidor.pd != null) {
+                 PantallaDatosServidor.pd.dismiss();
+             }
+        }
+        
     }
 }
