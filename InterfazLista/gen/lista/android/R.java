@@ -11,8 +11,8 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int color1=0x7f050000;
-        public static final int color2=0x7f050001;
+        public static final int color1=0x7f060000;
+        public static final int color2=0x7f060001;
     }
     public static final class drawable {
         public static final int estiloboton1=0x7f020000;
@@ -46,7 +46,8 @@ public final class R {
         public static final int stylepantallainicial=0x7f030005;
     }
     public static final class menu {
-        public static final int menuactionbar=0x7f080000;
+        public static final int action=0x7f080000;
+        public static final int menuactionbar=0x7f080001;
     }
     public static final class raw {
         public static final int ico_medium_list=0x7f040000;
@@ -64,8 +65,12 @@ public final class R {
         public static final int settings=0x7f070001;
     }
     public static final class style {
-        public static final int boton1=0x7f060000;
-        public static final int boton2=0x7f060001;
-        public static final int textStyle=0x7f060002;
+        /**  the theme applied to the application or activity 
+         */
+        public static final int CustomActivityTheme=0x7f050000;
+        public static final int CustomTabTextStyle=0x7f050001;
+        public static final int boton1=0x7f050002;
+        public static final int boton2=0x7f050003;
+        public static final int textStyle=0x7f050004;
     }
 }

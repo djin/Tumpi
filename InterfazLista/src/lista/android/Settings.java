@@ -6,6 +6,8 @@ package lista.android;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -73,5 +75,11 @@ public class Settings extends ListActivity {
                 break;
                 
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action, menu);
+        return true;
     }
 }

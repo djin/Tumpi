@@ -10,6 +10,7 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\rowstyleset
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\settings.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\stylepantallaconexion.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\layout\stylepantallainicial.xml \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\menu\action.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\menu\menuactionbar.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_list.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_love.png \
@@ -19,6 +20,7 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_love
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_share.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_star_focus.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\imgp.png \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\values\actionbarstyle.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\values\color.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\values\estiloboton.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\values\strings.xml \
