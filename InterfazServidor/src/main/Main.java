@@ -8,7 +8,7 @@ import tablas.ModeloTabla;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +46,6 @@ public class Main extends JFrame{
     
     private ListasCancionesManager listas_manager;
     
-    //private ArrayList <ListaCanciones> listasDeCanciones;
     private ListaCanciones listaPredeterminada;
     
     private ModeloTabla modeloTablaSonando;
@@ -155,8 +154,9 @@ public class Main extends JFrame{
         //Se crea el manager de la conexion, despues se crea el socket
         try {
             server=new ConnectionManager();
-            if(server.createSocket(puerto_socket))
+            if(server.createSocket(puerto_socket)){
                 log("Socket creado con exito!!!");
+            }
         } catch (Exception ex) {
             log("Error al crear y conectar el socket: "+ex.toString());
             System.exit(0);
@@ -171,10 +171,18 @@ public class Main extends JFrame{
         setBotones(new JPanel());
         getBotones().setPreferredSize(new Dimension (700,250));
         
-        JButton reproducirCancion = new JButton(new actions.ReproducirCancion());
+        
+        JButton reproducirCancion = new JButton(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.playNext();
+            }            
+        });
         reproducirCancion.setText("Reproducir cancion");
         reproducirCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(reproducirCancion);
+        
+        
         
         JButton siguienteCancion = new JButton(new AbstractAction(){
             @Override
@@ -186,6 +194,8 @@ public class Main extends JFrame{
         siguienteCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(siguienteCancion);    
         
+        
+        
         JButton anadirCanciones = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -196,10 +206,19 @@ public class Main extends JFrame{
         anadirCanciones.setPreferredSize(new Dimension (150,100));
         getBotones().add(anadirCanciones);
         
-        JButton borrarCancion = new JButton(new actions.BorrarCancion());
+        
+        
+        JButton borrarCancion = new JButton(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.playNext();
+            }            
+        });
         borrarCancion.setText("Borrar cancion");
         borrarCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(borrarCancion);
+        
+        
         
         JButton promocionarLista = new JButton(new AbstractAction(){
             @Override
@@ -211,22 +230,49 @@ public class Main extends JFrame{
         promocionarLista.setPreferredSize(new Dimension (150,100));
         getBotones().add(promocionarLista);
         
-        JButton anadirLista = new JButton(new actions.AnadirLista());
+        
+        
+        JButton anadirLista = new JButton(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.playNext();
+            }            
+        });
         anadirLista.setText("Anadir lista");
         anadirLista.setPreferredSize(new Dimension (150,100));
         getBotones().add(anadirLista);
         
-        JButton borrarLista = new JButton(new actions.BorrarLista());
+        
+        
+        JButton borrarLista = new JButton(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.playNext();
+            }            
+        });
         borrarLista.setText("Borrar lista");
         borrarLista.setPreferredSize(new Dimension (150,100));
         getBotones().add(borrarLista);
         
-        JButton salir = new JButton(new actions.Salir());
+        
+        
+        JButton salir = new JButton(new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ConnectionManager.socket.closeSocket();
+                    System.exit(0);
+                } catch (IOException ex) {
+                    Main.log("Error al intentar cerrar el socket: "+ex.toString());
+                }
+            }            
+        });
         salir.setText("Salir");
         salir.setPreferredSize(new Dimension (150,100));
         getBotones().add(salir);    
-        
     }
+    
+    
     
     private void SetMenus(){
         
