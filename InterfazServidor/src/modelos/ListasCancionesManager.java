@@ -40,6 +40,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener{
         for(int y = x; y<60; y++){
             
             tabla_sonando.setValueAt("", y, 0);
+            tabla_sonando.setValueAt(0, y, 1);
         }
         
         lista_sonando=listas_canciones.get(id_lista);

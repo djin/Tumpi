@@ -2,6 +2,7 @@
 package main;
 
 import conexion.ConnectionManager;
+import elementosInterfaz.DialogoNombreLista;
 import elementosInterfaz.ModeloTabla;
 import elementosInterfaz.Tabla;
 import java.awt.BorderLayout;
@@ -67,6 +68,8 @@ public class Main extends JFrame{
     private JPanel conjunto;
     
     private BorderLayout border;
+    
+    private String nombreLista;
     private int listaSelec;
     private int filaSelec;
     
@@ -223,14 +226,19 @@ public class Main extends JFrame{
                 listaSelec = pestanasPendientes.getSelectedIndex();
                 filaSelec = tablasPendientes.get(listaSelec).getSelectedRow();
                 
-                listas_manager.removeCancion(listaSelec, filaSelec);
+                if(filaSelec!=-1){
                 
-                for(int x=filaSelec; x<59; x++){
-                    tablasPendientes.get(listaSelec).setValueAt(tablasPendientes.get(listaSelec).getValueAt(x+1, 0), x, 0);
+                    listas_manager.removeCancion(listaSelec, filaSelec);
 
+                    for(int x=filaSelec; x<59; x++){
+                        tablasPendientes.get(listaSelec).setValueAt(tablasPendientes.get(listaSelec).getValueAt(x+1, 0), x, 0);
+
+                    }
+                    tablasPendientes.get(listaSelec).setValueAt("", 59, 0);
                 }
-                tablasPendientes.get(listaSelec).setValueAt("", 59, 0);
-                                
+                else{
+                    JOptionPane.showMessageDialog(null, "No ha seleccionado una canción");
+                }
             }
         });
         borrarCancion.setText("Borrar canción");
@@ -255,6 +263,8 @@ public class Main extends JFrame{
         JButton anadirLista = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                
+                new DialogoNombreLista(nombreLista);
                 
                 listaPredeterminadaBis.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
                 listaPredeterminadaBis.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
@@ -282,11 +292,16 @@ public class Main extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                listaSelec = pestanasPendientes.getSelectedIndex();
-                listas_manager.removeLista(listaSelec);
-                tablasPendientes.remove(listaSelec);
-                pestanasPendientes.remove(listaSelec);
-                
+                if(!tablasPendientes.isEmpty()){
+                    
+                    listaSelec = pestanasPendientes.getSelectedIndex();
+                    listas_manager.removeLista(listaSelec);
+                    tablasPendientes.remove(listaSelec);
+                    pestanasPendientes.remove(listaSelec);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "No quedan listas abiertas");
+                }
             }            
         });
         borrarLista.setText("Borrar lista");
