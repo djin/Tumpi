@@ -8,31 +8,36 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 
 /**
  *
  * @author 66786575
  */
-public class DialogoNombreLista extends JDialog {
+public class DialogoNombreLista extends JDialog implements WindowListener {
     
     String nombre;
-    JPanel panel = (JPanel) this.getContentPane();
+    boolean cancelar;
+    boolean continuar;
     
+    JPanel panel = (JPanel) this.getContentPane();
     JLabel label;
     JTextField campoTexto;
     JButton aceptar;
     
+    
     public DialogoNombreLista(String _nombre){
         
         nombre = _nombre;
+        cancelar = true;
+        continuar = false;
         
         panel = (JPanel) this.getContentPane();
         FlowLayout fl = new FlowLayout();
@@ -50,19 +55,63 @@ public class DialogoNombreLista extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                
+                nombre = campoTexto.toString();
+                cancelar = false;
+                continuar = true;
+                setVisible(false);
             }                 
         });
+        
         aceptar.setText("Aceptar");
-        aceptar.setPreferredSize(new Dimension (80,30));
+        aceptar.setPreferredSize(new Dimension (100,50));
         panel.add(aceptar, BorderLayout.CENTER);
         
-        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
+        this.addWindowListener(this);
         setLocation(430,200);
         setSize(360,160);
         setVisible(true);
         
            
+    }
+
+    public boolean acabado(){
+        
+        return continuar;
+    }
+    
+    public boolean cancelado(){
+        
+        return cancelar;
+    }
+    
+    @Override
+    public void windowOpened(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        
+        continuar = true;
+   
+    }
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
     }
     
 }

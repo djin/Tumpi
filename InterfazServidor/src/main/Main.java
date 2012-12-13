@@ -70,6 +70,8 @@ public class Main extends JFrame{
     private BorderLayout border;
     
     private String nombreLista;
+    private boolean go;
+    private DialogoNombreLista dialogo;
     private int listaSelec;
     private int filaSelec;
     
@@ -264,8 +266,21 @@ public class Main extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                new DialogoNombreLista(nombreLista);
+                go = false;
+                dialogo = new DialogoNombreLista(nombreLista);
                 
+                Espera esperar = new Espera();
+                while(!go){
+                    try {
+                        esperar.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    esperar.start();
+                }
+                
+                if(!dialogo.cancelado()){
+                    
                 listaPredeterminadaBis.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
                 listaPredeterminadaBis.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
                 listaPredeterminadaBis.getCanciones().add(new Cancion(6, "9 crimes", "Damien Rice", "For the Hipster life", "3:40", "c://wheneveryou.mp3"));
@@ -278,9 +293,11 @@ public class Main extends JFrame{
                     contenidos.add(p.getNombre());
                 }
                 tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 60, contenidos)));
-                pestanasPendientes.addTab("Predeterminada_aux", new JScrollPane(tablasPendientes.get(tablasPendientes.size()-1)));
+                pestanasPendientes.addTab(nombreLista, new JScrollPane(tablasPendientes.get(tablasPendientes.size()-1)));
                 
-            }            
+                }
+            }
+                        
         });
         anadirLista.setText("Anadir lista");
         anadirLista.setPreferredSize(new Dimension (150,100));
@@ -372,6 +389,25 @@ public class Main extends JFrame{
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private class Espera extends Thread {
+        
+        @Override
+        public void run() {
+            SwingUtilities.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    if(dialogo.acabado()){
+                        
+                       go = true; 
+                    }
+                }
+            }); 
+        }
+    }
+        
 
     /**
      * @return the panel
