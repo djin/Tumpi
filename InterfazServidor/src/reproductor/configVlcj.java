@@ -19,7 +19,7 @@ public abstract class configVlcj {
      * This is a bit more explicit than using the -Djna.library.path= system 
      * property.
      */
-    private static final String NATIVE_LIBRARY_SEARCH_PATH = "C:/Program Files/VideoLAN/VLC";
+    private static final String NATIVE_LIBRARY_SEARCH_PATH = "C:/Program Files (x86)/VideoLAN/VLC";
     /**
      * Set to true to dump out native JNA memory structures.
      */

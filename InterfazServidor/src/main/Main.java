@@ -2,12 +2,12 @@
 package main;
 
 import conexion.ConnectionManager;
-import java.awt.event.ActionEvent;
-import tablas.Tabla;
-import tablas.ModeloTabla;
+import elementosInterfaz.ModeloTabla;
+import elementosInterfaz.Tabla;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -55,18 +55,21 @@ public class Main extends JFrame{
     private String[] nombresColumnaPendientes = {"Cancion"};
     private ArrayList <String>  contenidos;
         
-    //private Tabla listaSonando;
-    private Tabla listasPendientes;
+    private ArrayList <Tabla> tablasPendientes;
+    private Tabla tablaPredeterminada;
     
     private JScrollPane scrollSonando;
-    private JScrollPane scrollPendientes;
+    private JScrollPane scrollPendientesPredeterminado;
     private JTabbedPane pestanasPendientes;
     
     private JPanel botones;
     private JPanel conjunto;
     
     private BorderLayout border;
-    private int numeroListas = 1;
+    private int listaSelec;
+    private JScrollPane jScrollAux;
+    private JViewport viewport;
+    private Tabla tablaAux;
     
     
     private JMenuBar barramenus = new JMenuBar();
@@ -122,8 +125,7 @@ public class Main extends JFrame{
         
         //Se inicializa la tabla de canciones en reproduccion
         
-        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);         
-        //listaSonando = new Tabla(modeloTablaSonando);
+        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);       
         listas_manager.tabla_sonando=new Tabla(modeloTablaSonando);
         scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
         scrollSonando.setPreferredSize(new Dimension(500,700));
@@ -131,13 +133,16 @@ public class Main extends JFrame{
         
         
         //Se inicializa la tabla de listas de canciones pendientes
+        tablasPendientes = new ArrayList();
         
         modeloTablaPendientes = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
-        listasPendientes = new Tabla(modeloTablaPendientes);
-        scrollPendientes = new JScrollPane(listasPendientes);
+        tablaPredeterminada = new Tabla(modeloTablaPendientes);
+        tablasPendientes.add(tablaPredeterminada);
+        
+        scrollPendientesPredeterminado = new JScrollPane(tablaPredeterminada);
         pestanasPendientes = new JTabbedPane();
         
-        pestanasPendientes.add(scrollPendientes, "Predeterminada");
+        pestanasPendientes.add(scrollPendientesPredeterminado, "Predeterminada");
         pestanasPendientes.setPreferredSize(new Dimension(600,300));     
         
         
@@ -150,7 +155,7 @@ public class Main extends JFrame{
         conjunto.add(botones, border.NORTH);
         conjunto.add(pestanasPendientes, border.SOUTH); 
         panel.add(conjunto, border.CENTER);
-        listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+        
         //Se crea el manager de la conexion, despues se crea el socket
         try {
             server=new ConnectionManager();
@@ -172,34 +177,37 @@ public class Main extends JFrame{
         getBotones().setPreferredSize(new Dimension (700,250));
         
         
-        JButton reproducirCancion = new JButton(new AbstractAction(){
+        JButton iniciar_Siguiente = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 listas_manager.playNext();
             }            
         });
-        reproducirCancion.setText("Reproducir cancion");
-        reproducirCancion.setPreferredSize(new Dimension (150,100));
-        getBotones().add(reproducirCancion);
+        iniciar_Siguiente.setText("Iniciar/Siguiente canción");
+        iniciar_Siguiente.setPreferredSize(new Dimension (150,100));
+        getBotones().add(iniciar_Siguiente);    
         
         
         
-        JButton siguienteCancion = new JButton(new AbstractAction(){
+        JButton pausar_Reanudar = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.playNext();
+                
+                PlayerReproductor.pausar();
             }            
         });
-        siguienteCancion.setText("Siguiente cancion");
-        siguienteCancion.setPreferredSize(new Dimension (150,100));
-        getBotones().add(siguienteCancion);    
+        pausar_Reanudar.setText("Pausar/Reanudar");
+        pausar_Reanudar.setPreferredSize(new Dimension (150,100));
+        getBotones().add(pausar_Reanudar);
         
         
         
         JButton anadirCanciones = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                PlayerReproductor.pausar();
+                
+                
             }            
         });
         anadirCanciones.setText("Anadir canciones");
@@ -211,10 +219,27 @@ public class Main extends JFrame{
         JButton borrarCancion = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.playNext();
-            }            
+
+                jScrollAux = (JScrollPane) pestanasPendientes.getSelectedComponent();
+                viewport = jScrollAux.getViewport();
+                tablaAux = (Tabla)viewport.getView(); 
+                
+                listaSelec = pestanasPendientes.getSelectedIndex();
+                listas_manager.removeCancion(listaSelec, tablaAux.getSelectedRow());
+                
+                for(int x=tablaAux.getSelectedRow(); x<59; x++){
+                    tablaAux.setValueAt(tablaAux.getValueAt(x+1, 0), x, 0);
+
+                }
+                tablaAux.setValueAt("", 59, 0);
+                
+                jScrollAux.removeAll();
+                jScrollAux.add(tablaAux);
+                pestanasPendientes.setTabComponentAt(listaSelec, tablaAux);
+                
+            }
         });
-        borrarCancion.setText("Borrar cancion");
+        borrarCancion.setText("Borrar canción");
         borrarCancion.setPreferredSize(new Dimension (150,100));
         getBotones().add(borrarCancion);
         
@@ -223,6 +248,7 @@ public class Main extends JFrame{
         JButton promocionarLista = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
             }            
         });
@@ -235,7 +261,10 @@ public class Main extends JFrame{
         JButton anadirLista = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.playNext();
+                
+                listas_manager.addLista(new ListaCanciones());
+                pestanasPendientes.addTab("Predeterminada_aux", new JScrollPane(new Tabla(modeloTablaPendientes)));
+                
             }            
         });
         anadirLista.setText("Anadir lista");
@@ -247,7 +276,10 @@ public class Main extends JFrame{
         JButton borrarLista = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.playNext();
+                
+                listas_manager.removeLista(pestanasPendientes.getSelectedIndex());
+                pestanasPendientes.remove(pestanasPendientes.getSelectedIndex());
+                
             }            
         });
         borrarLista.setText("Borrar lista");
@@ -259,6 +291,7 @@ public class Main extends JFrame{
         JButton salir = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 try {
                     ConnectionManager.socket.closeSocket();
                     System.exit(0);
@@ -403,17 +436,17 @@ public class Main extends JFrame{
     }
 
     /**
-     * @return the listasPendientes
+     * @return the tablaPredeterminada
      */
-    public Tabla getListasPendientes() {
-        return listasPendientes;
+    public Tabla getTablaPredeterminada() {
+        return tablaPredeterminada;
     }
 
     /**
-     * @param listasPendientes the listasPendientes to set
+     * @param tablaPredeterminada the tablaPredeterminada to set
      */
-    public void setListasPendientes(Tabla listasPendientes) {
-        this.listasPendientes = listasPendientes;
+    public void setTablaPredeterminada(Tabla tablaPredeterminada) {
+        this.tablaPredeterminada = tablaPredeterminada;
     }
 
     /**
@@ -431,17 +464,17 @@ public class Main extends JFrame{
     }
 
     /**
-     * @return the scrollPendientes
+     * @return the scrollPendientesPredeterminado
      */
-    public JScrollPane getScrollPendientes() {
-        return scrollPendientes;
+    public JScrollPane getScrollPendientesPredeterminado() {
+        return scrollPendientesPredeterminado;
     }
 
     /**
-     * @param scrollPendientes the scrollPendientes to set
+     * @param scrollPendientesPredeterminado the scrollPendientesPredeterminado to set
      */
-    public void setScrollPendientes(JScrollPane scrollPendientes) {
-        this.scrollPendientes = scrollPendientes;
+    public void setScrollPendientesPredeterminado(JScrollPane scrollPendientesPredeterminado) {
+        this.scrollPendientesPredeterminado = scrollPendientesPredeterminado;
     }
 
     /**
@@ -503,15 +536,15 @@ public class Main extends JFrame{
     /**
      * @return the numeroListas
      */
-    public int getNumeroListas() {
-        return numeroListas;
+    public int getListaSelec() {
+        return listaSelec;
     }
 
     /**
      * @param numeroListas the numeroListas to set
      */
-    public void setNumeroListas(int numeroListas) {
-        this.numeroListas = numeroListas;
+    public void setListaSelec(int listaSelec) {
+        this.listaSelec = listaSelec;
     }
 
     /**

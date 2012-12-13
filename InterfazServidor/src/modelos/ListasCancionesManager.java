@@ -5,10 +5,10 @@
 package modelos;
 
 import conexion.ConnectionManager;
+import elementosInterfaz.Tabla;
 import java.util.ArrayList;
 import main.Main;
 import reproductor.PlayerReproductor;
-import tablas.Tabla;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
@@ -92,6 +92,15 @@ public class ListasCancionesManager implements MediaPlayerEventListener{
     
     public void addLista(ListaCanciones lista){
         listas_canciones.add(lista);
+    }
+    
+    public void removeLista(int index){
+        listas_canciones.remove(index);
+    }
+    
+    public void removeCancion(int numLista, int numCancion){
+        
+        listas_canciones.get(numLista).getCanciones().remove(numCancion);
     }
 
     @Override

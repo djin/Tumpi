@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package tablas;
+package elementosInterfaz;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
