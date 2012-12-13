@@ -47,9 +47,10 @@ public class Main extends JFrame{
     private ListasCancionesManager listas_manager;
     
     private ListaCanciones listaPredeterminada;
+    private ListaCanciones listaPredeterminadaBis;
     
     private ModeloTabla modeloTablaSonando;
-    private ModeloTabla modeloTablaPendientes;
+    private ModeloTabla modeloTablaPredeterminado;
     
     private String[] nombresColumnaSonando = {"Cancion", "Votos"};
     private String[] nombresColumnaPendientes = {"Cancion"};
@@ -67,9 +68,7 @@ public class Main extends JFrame{
     
     private BorderLayout border;
     private int listaSelec;
-    private JScrollPane jScrollAux;
-    private JViewport viewport;
-    private Tabla tablaAux;
+    private int filaSelec;
     
     
     private JMenuBar barramenus = new JMenuBar();
@@ -102,7 +101,7 @@ public class Main extends JFrame{
         //Servirá para meter a piñón el viernes la cancion con su path de la canción a la hora de reproducirla.
         
         listaPredeterminada = new ListaCanciones();
-        //listasDeCanciones.add(listaPredeterminada);
+        listaPredeterminadaBis = new ListaCanciones();
         
         listaPredeterminada.getCanciones().add(new Cancion(1, "Gold on The Ceiling", "The Black Keys", "El Camino", "3:48", "1.mp3"));
         listaPredeterminada.getCanciones().add(new Cancion(2, "Never Gonna Give You Up", "Rick Astley", "RickRoll", "2:10", "2.mp3"));
@@ -135,8 +134,8 @@ public class Main extends JFrame{
         //Se inicializa la tabla de listas de canciones pendientes
         tablasPendientes = new ArrayList();
         
-        modeloTablaPendientes = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
-        tablaPredeterminada = new Tabla(modeloTablaPendientes);
+        modeloTablaPredeterminado = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
+        tablaPredeterminada = new Tabla(modeloTablaPredeterminado);
         tablasPendientes.add(tablaPredeterminada);
         
         scrollPendientesPredeterminado = new JScrollPane(tablaPredeterminada);
@@ -220,23 +219,18 @@ public class Main extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                jScrollAux = (JScrollPane) pestanasPendientes.getSelectedComponent();
-                viewport = jScrollAux.getViewport();
-                tablaAux = (Tabla)viewport.getView(); 
-                
+                           
                 listaSelec = pestanasPendientes.getSelectedIndex();
-                listas_manager.removeCancion(listaSelec, tablaAux.getSelectedRow());
+                filaSelec = tablasPendientes.get(listaSelec).getSelectedRow();
                 
-                for(int x=tablaAux.getSelectedRow(); x<59; x++){
-                    tablaAux.setValueAt(tablaAux.getValueAt(x+1, 0), x, 0);
+                listas_manager.removeCancion(listaSelec, filaSelec);
+                
+                for(int x=filaSelec; x<59; x++){
+                    tablasPendientes.get(listaSelec).setValueAt(tablasPendientes.get(listaSelec).getValueAt(x+1, 0), x, 0);
 
                 }
-                tablaAux.setValueAt("", 59, 0);
-                
-                jScrollAux.removeAll();
-                jScrollAux.add(tablaAux);
-                pestanasPendientes.setTabComponentAt(listaSelec, tablaAux);
-                
+                tablasPendientes.get(listaSelec).setValueAt("", 59, 0);
+                                
             }
         });
         borrarCancion.setText("Borrar canción");
@@ -262,8 +256,19 @@ public class Main extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                listas_manager.addLista(new ListaCanciones());
-                pestanasPendientes.addTab("Predeterminada_aux", new JScrollPane(new Tabla(modeloTablaPendientes)));
+                listaPredeterminadaBis.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
+                listaPredeterminadaBis.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
+                listaPredeterminadaBis.getCanciones().add(new Cancion(6, "9 crimes", "Damien Rice", "For the Hipster life", "3:40", "c://wheneveryou.mp3"));
+                
+                listas_manager.addLista(listaPredeterminadaBis);
+                
+                contenidos.clear();
+                for(Cancion p: listaPredeterminadaBis.getCanciones()){
+            
+                    contenidos.add(p.getNombre());
+                }
+                tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 60, contenidos)));
+                pestanasPendientes.addTab("Predeterminada_aux", new JScrollPane(tablasPendientes.get(tablasPendientes.size()-1)));
                 
             }            
         });
@@ -277,8 +282,10 @@ public class Main extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                listas_manager.removeLista(pestanasPendientes.getSelectedIndex());
-                pestanasPendientes.remove(pestanasPendientes.getSelectedIndex());
+                listaSelec = pestanasPendientes.getSelectedIndex();
+                listas_manager.removeLista(listaSelec);
+                tablasPendientes.remove(listaSelec);
+                pestanasPendientes.remove(listaSelec);
                 
             }            
         });
@@ -382,15 +389,15 @@ public class Main extends JFrame{
     /**
      * @return the modeloTablaPendientes
      */
-    public ModeloTabla getModeloTablaPendientes() {
-        return modeloTablaPendientes;
+    public ModeloTabla getModeloTablaPredeterminado() {
+        return modeloTablaPredeterminado;
     }
 
     /**
      * @param modeloTablaPendientes the modeloTablaPendientes to set
      */
-    public void setModeloTablaPendientes(ModeloTabla modeloTablaPendientes) {
-        this.modeloTablaPendientes = modeloTablaPendientes;
+    public void setModeloTablaPredeterminado(ModeloTabla modeloTablaPredeterminado) {
+        this.modeloTablaPredeterminado = modeloTablaPredeterminado;
     }
 
     /**

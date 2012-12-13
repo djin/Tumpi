@@ -30,11 +30,18 @@ public class ListasCancionesManager implements MediaPlayerEventListener{
     public void promocionarLista(int id_lista){
         int x = 0;
         ArrayList <Cancion> canciones=listas_canciones.get(id_lista).getCanciones();
+        
         for(Cancion p: canciones){
             tabla_sonando.setValueAt(p, x, 0);
             tabla_sonando.setValueAt(0, x, 1);
             x++;
         }
+        
+        for(int y = x; y<60; y++){
+            
+            tabla_sonando.setValueAt("", y, 0);
+        }
+        
         lista_sonando=listas_canciones.get(id_lista);
         try {
             ConnectionManager.socket.enviarMensajeServer("*", "0|"+lista_sonando);            
@@ -100,6 +107,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener{
     
     public void removeCancion(int numLista, int numCancion){
         
+        listas_canciones.get(numLista).getCanciones().size();
         listas_canciones.get(numLista).getCanciones().remove(numCancion);
     }
 

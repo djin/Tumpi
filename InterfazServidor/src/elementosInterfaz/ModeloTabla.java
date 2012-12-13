@@ -39,6 +39,8 @@ public class ModeloTabla implements TableModel {
         for(int x = 0; x < filas; x++){
             
             for(int y = 0; y < columnas; y++){
+                
+                if(y==0) mapa.put(new Point(x, y), "");
                 if(y==1) mapa.put(new Point(x, y), "0");
             }
         }
@@ -56,6 +58,8 @@ public class ModeloTabla implements TableModel {
         for(int x = 0; x < filas; x++){
             
             for(int y = 0; y < columnas; y++){
+                
+                if(y==0) mapa.put(new Point(x, y), "");
                 if(y==1) mapa.put(new Point(x, y), "0");
             }
         }
