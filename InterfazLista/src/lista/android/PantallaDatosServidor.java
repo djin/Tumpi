@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import lista.android.conexion.*;
 
@@ -51,28 +50,43 @@ public class PantallaDatosServidor extends Activity{
                     
                     final String ip = editIp.getText().toString();
                     final int port = Integer.parseInt(editPort.getText().toString());
-                    try {
-                            pd = ProgressDialog.show(p, "Procesando", "Espere unos segundos...", true, false);
-                            conex = new ConnectionManager();
-                            if(conex.conectar(ip,port,p)){
-                                conex.conexion.startListeningServer();
-                                Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
-                                startActivity(inte);
+                    //ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                    
+                    //if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
+                        try {
+                                pd = ProgressDialog.show(p, "Procesando", "Espere unos segundos...", true, false);
+                                conex = new ConnectionManager();
+                                if(conex.conectar(ip,port,p)){
+                                    conex.conexion.startListeningServer();
+                                    Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
+                                    startActivity(inte);
+                                }
+                                else {
+                                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
+                                     dialogBuilder.setMessage("El servidor y la ip dados parecen no ser correctos, consulte de nuevo los datos o intentelo mas tarde");
+                                     dialogBuilder.setTitle("Error de conexion");
+                                     dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                     });
+                                     dialogBuilder.show();
+                                }
+                        }catch (Exception ex){
+                            Toast.makeText(p, "Ha ocurrido un error al intentar conectar, intentelo mas tarde", Toast.LENGTH_LONG).show();
+                        }                  
+                    /*}
+                    else{
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
+                        dialogBuilder.setMessage("Se necesita estar conectado a una red wifi que disponga de servidor socialDJ");
+                        dialogBuilder.setTitle("¡No esta conectado!");
+                        dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
                             }
-                            else {
-                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
-                                 dialogBuilder.setMessage("El servidor y la ip dados parecen no ser correctos, consulte de nuevo los datos o intentelo mas tarde");
-                                 dialogBuilder.setTitle("Error de conexion");
-                                 dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                 });
-                                 dialogBuilder.show();
-                            }
-                    }catch (Exception ex){
-                        Toast.makeText(p, "Ha ocurrido un error al intentar conectar, intentelo mas tarde", Toast.LENGTH_LONG).show();
-                    }                        
+                        });
+                        dialogBuilder.show();
+                    }*/
                 }
             }
         });
