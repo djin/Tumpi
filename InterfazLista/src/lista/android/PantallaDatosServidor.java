@@ -7,14 +7,18 @@ package lista.android;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.net.*;
 import lista.android.conexion.*;
 
 /**
@@ -27,6 +31,7 @@ public class PantallaDatosServidor extends Activity{
     EditText editIp;
     EditText editPort;
     public static ProgressDialog pd = null;
+    private PantallaDatosServidor p;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
@@ -34,7 +39,7 @@ public class PantallaDatosServidor extends Activity{
         // ToDo add your GUI initialization code here        
         setContentView(R.layout.stylepantallaconexion);
         Button btnConect = (Button)findViewById(R.id.btnConectar);
-        final PantallaDatosServidor p = this;
+        p = this;
         btnConect.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
@@ -48,14 +53,14 @@ public class PantallaDatosServidor extends Activity{
                     }
                 }else {
                     
-                    final String ip = editIp.getText().toString();
-                    final int port = Integer.parseInt(editPort.getText().toString());
-                    //ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-                    
-                    //if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
+                    String ip = editIp.getText().toString();
+                    int port = Integer.parseInt(editPort.getText().toString());
+                    ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
+                    if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
                         try {
                                 pd = ProgressDialog.show(p, "Procesando", "Espere unos segundos...", true, false);
-                                conex = new ConnectionManager();
+                                conex = new ConnectionManager();  
+                                    
                                 if(conex.conectar(ip,port,p)){
                                     conex.conexion.startListeningServer();
                                     Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
@@ -63,7 +68,7 @@ public class PantallaDatosServidor extends Activity{
                                 }
                                 else {
                                      AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
-                                     dialogBuilder.setMessage("El servidor y la ip dados parecen no ser correctos, consulte de nuevo los datos o intentelo mas tarde");
+                                     dialogBuilder.setMessage("El servidor y la ip dados parecen no ser correctos, consulte de nuevo los datos o intentelo mas tarde: \n"+ip+":"+port);
                                      dialogBuilder.setTitle("Error de conexion");
                                      dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
@@ -72,10 +77,12 @@ public class PantallaDatosServidor extends Activity{
                                      });
                                      dialogBuilder.show();
                                 }
+                                
                         }catch (Exception ex){
-                            Toast.makeText(p, "Ha ocurrido un error al intentar conectar, intentelo mas tarde", Toast.LENGTH_LONG).show();
+                            pd.dismiss();
+                            Toast.makeText(p, "Ha ocurrido un error al intentar conectar, intentelo mas tarde: \n"+ex.toString(), Toast.LENGTH_LONG).show();
                         }                  
-                    /*}
+                    }
                     else{
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
                         dialogBuilder.setMessage("Se necesita estar conectado a una red wifi que disponga de servidor socialDJ");
@@ -86,9 +93,9 @@ public class PantallaDatosServidor extends Activity{
                             }
                         });
                         dialogBuilder.show();
-                    }*/
+                    }
                 }
             }
         });
-    }
+    }    
 }

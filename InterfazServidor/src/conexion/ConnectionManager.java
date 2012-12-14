@@ -4,9 +4,8 @@
  */
 package conexion;
 
-import java.util.ArrayList;
+import java.net.*;
 import main.Main;
-import modelos.Cancion;
 import modelos.ListasCancionesManager;
 
 /**
@@ -15,14 +14,36 @@ import modelos.ListasCancionesManager;
  */
 public class ConnectionManager implements ServerSocketListener{
     public static SocketServidor socket=null;
+    private DatagramSocket dsocket;
+    private Thread publicador;
     int port; 
     
     public ConnectionManager(){
         
     }
     
-    public boolean createSocket(int _port) throws Exception{
+    public boolean createSocket(final int _port) throws Exception{
         socket=new SocketServidor(_port);
+        dsocket=new DatagramSocket(8888);
+        dsocket.setBroadcast(true);
+        publicador=new Thread(){
+            @Override
+            public void run(){
+                String identificacion="socialDj|"+socket.getIp()+"|"+_port+"|";
+                try {
+                    byte[] mensaje=identificacion.getBytes("utf-8");
+                    while(publicador.equals(currentThread())){
+                        dsocket.send(new DatagramPacket(mensaje,mensaje.length, new InetSocketAddress("255.255.255.255",8888)));
+                        Main.log("Mensaje de difusión enviado...");
+                        sleep(3000);
+                    }
+                    
+                } catch (Exception ex) {
+                    Main.log(ex.toString());
+                }
+            }
+        };
+        publicador.start();
         port=_port;
         socket.startSearchClients();
         socket.addServerSocketListener(this);
@@ -30,6 +51,7 @@ public class ConnectionManager implements ServerSocketListener{
     }
     
     public void closeSocket() throws Exception{
+        publicador=null;
         socket.removeServerSocketListener(this);
         socket.closeSocket();
         socket=null;
@@ -45,7 +67,8 @@ public class ConnectionManager implements ServerSocketListener{
             message=message.split("\\|")[1]; 
             switch(tipo){
                 case 0:
-                    socket.enviarMensajeServer(ip,"0|"+ListasCancionesManager.lista_sonando.toString());
+                    if(ListasCancionesManager.lista_sonando!=null)
+                        socket.enviarMensajeServer(ip,"0|"+ListasCancionesManager.lista_sonando.toString());
                     break;
                 case 1:
                     if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),true))

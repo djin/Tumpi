@@ -37,7 +37,7 @@ import java.util.ArrayList;
  */
 public class SocketServidor {
     private ServerSocket socket_server=null;
-    private InetAddress ip_server=null;
+    private InetAddress ip_server=InetAddress.getLocalHost();
     private int puerto=0;
     private Thread thread_buscar_clientes=null;
     private ArrayList<Cliente> clientes=new ArrayList();
@@ -117,6 +117,9 @@ public class SocketServidor {
         for(ServerSocketListener listener : listeners){
             listener.onMessageReceived(ip, message);
         }
+    }
+    public String getIp(){
+        return ip_server.getHostAddress();
     }
     private class Cliente{
         Socket socket_cliente=null;
