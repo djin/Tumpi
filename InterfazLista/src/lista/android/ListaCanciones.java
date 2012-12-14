@@ -42,7 +42,7 @@ public void onCreate(Bundle savedInstanceState) {
     text_playing=(TextView) findViewById(R.id.txtPlaying);
     text_playing.setSelected(true);
     text_autorPlaying = (TextView)findViewById(R.id.txtPlayingAutor);
-    conex=new ConnectionManager();        
+    conex=new ConnectionManager(this);        
     conex.conexion.addServerMessageListener(this);
     if(cancion_sonando==null)
     {

@@ -30,7 +30,7 @@ public class PantallaDatosServidor extends Activity{
     
     EditText editIp;
     EditText editPort;
-    public static ProgressDialog pd = null;
+//    public static ProgressDialog pd = null;
     private PantallaDatosServidor p;
     /** Called when the activity is first created. */
     @Override
@@ -58,8 +58,8 @@ public class PantallaDatosServidor extends Activity{
                     ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
                     if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
                         try {
-                                pd = ProgressDialog.show(p, "Procesando", "Espere unos segundos...", true, false);
-                                conex = new ConnectionManager();  
+//                                pd = ProgressDialog.show(p, "Procesando", "Espere unos segundos...", true, false);
+                                conex = new ConnectionManager(p);  
                                     
                                 if(conex.conectar(ip,port,p)){
                                     conex.conexion.startListeningServer();
@@ -79,7 +79,7 @@ public class PantallaDatosServidor extends Activity{
                                 }
                                 
                         }catch (Exception ex){
-                            pd.dismiss();
+//                            pd.dismiss();
                             Toast.makeText(p, "Ha ocurrido un error al intentar conectar, intentelo mas tarde: \n"+ex.toString(), Toast.LENGTH_LONG).show();
                         }                  
                     }

@@ -5,10 +5,13 @@
 package lista.android.conexion;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import lista.android.PantallaDatosServidor;
+import lista.android.PantallaPrincipal;
 
 /**
  *
@@ -16,6 +19,14 @@ import lista.android.PantallaDatosServidor;
  */
 public class ConnectionManager {
     public static SocketConnector conexion;
+    ProgressDialog pd;
+    private Context context;
+
+    public ConnectionManager(Context cont) {
+        context = cont;
+    }
+    
+    
     public Boolean conectar(String ip,int port,Activity act) throws Exception{
         conexion=new SocketConnector(ip,port,act);
         return new conectar().execute().get();
@@ -25,6 +36,14 @@ public class ConnectionManager {
     }
     
     class conectar extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(context, "Buscando servidor", "Espere unos segundos...", true, false);
+        }
+        
+        
+        
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
@@ -37,10 +56,10 @@ public class ConnectionManager {
 
         @Override
         protected void onPostExecute(Boolean result) {
-            if (PantallaDatosServidor.pd != null) {
-                 PantallaDatosServidor.pd.dismiss();
-             }
-        }        
+            if(pd != null){
+                pd.dismiss();
+            }
+        }
     }
     class BuscarServer extends AsyncTask<Void, Void, String> {
         private int port;
@@ -50,6 +69,7 @@ public class ConnectionManager {
         }
         @Override
         protected void onPreExecute() {
+//            pd = ProgressDialog.show(context, "Buscando servidor", "Espere unos segundos...", true, false);
         }
         @Override
         protected String doInBackground(Void... params) {
@@ -72,6 +92,8 @@ public class ConnectionManager {
 
         @Override
         protected void onPostExecute(String result) {
+//            if(pd != null)
+//                pd.dismiss();
         }        
     }
 }

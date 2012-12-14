@@ -24,13 +24,14 @@ import lista.android.conexion.ConnectionManager;
 public class PantallaPrincipal extends Activity {
 
     /** Called when the activity is first created. */
-    ConnectionManager conex=new ConnectionManager();
+    ConnectionManager conex;
     Activity p;
-    private ProgressDialog pd;
+    //public static ProgressDialog pd;
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         p=this;
+        conex = new ConnectionManager(this);
         // ToDo add your GUI initialization code here  
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.stylepantallainicial);
@@ -51,12 +52,11 @@ public class PantallaPrincipal extends Activity {
                 ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
                 if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
                     try{
-                        pd = ProgressDialog.show(p, "Buscando servidor", "Espere unos segundos...", true, false);
+//                        pd = ProgressDialog.show(p, "Buscando servidor", "Espere unos segundos...", true, false);
                         String info=conex.buscarServer(8888);
                         if(info!=null){
                             String ip=info.split("\\|")[0];
                             int port=Integer.parseInt(info.split("\\|")[1]);
-                            conex = new ConnectionManager();
                             if(conex.conectar(ip,port,p)){
                                 conex.conexion.startListeningServer();
                                 Intent inte = new Intent(PantallaPrincipal.this, ListaCanciones.class);
@@ -68,10 +68,7 @@ public class PantallaPrincipal extends Activity {
                         else
                             Toast.makeText(p, "Error al buscar al servidor", Toast.LENGTH_SHORT).show();
                     }catch(Exception ex){
-                        pd.dismiss();
                         Toast.makeText(p, ex.toString(), Toast.LENGTH_SHORT).show();
-                    }finally{
-                        pd.dismiss();                        
                     }
                 }
                 else{
