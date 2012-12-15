@@ -9,12 +9,15 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.*;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import lista.android.conexion.ConnectionManager;
 
 /**
@@ -26,7 +29,7 @@ public class PantallaPrincipal extends Activity {
     /** Called when the activity is first created. */
     ConnectionManager conex;
     Activity p;
-    //public static ProgressDialog pd;
+    public static ProgressDialog pd;
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -51,25 +54,7 @@ public class PantallaPrincipal extends Activity {
             public void onClick(View v) {
                 ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
                 if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
-                    try{
-//                        pd = ProgressDialog.show(p, "Buscando servidor", "Espere unos segundos...", true, false);
-                        String info=conex.buscarServer(8888);
-                        if(info!=null){
-                            String ip=info.split("\\|")[0];
-                            int port=Integer.parseInt(info.split("\\|")[1]);
-                            if(conex.conectar(ip,port,p)){
-                                conex.conexion.startListeningServer();
-                                Intent inte = new Intent(PantallaPrincipal.this, ListaCanciones.class);
-                                startActivity(inte);
-                            }
-                            else
-                                Toast.makeText(p, "Error al conectar al servidor", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                            Toast.makeText(p, "Error al buscar al servidor", Toast.LENGTH_SHORT).show();
-                    }catch(Exception ex){
-                        Toast.makeText(p, ex.toString(), Toast.LENGTH_SHORT).show();
-                    }
+                    new BuscarServer(8888).execute();
                 }
                 else{
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
@@ -84,5 +69,61 @@ public class PantallaPrincipal extends Activity {
                 }
             }
         });     
+    }
+    class BuscarServer extends AsyncTask<Void, Void, String> {
+        private int port;
+        public BuscarServer(int _port){
+            super();
+            port=_port;
+        }
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(p, "Buscando servidor", "Espere unos segundos...", true, false);
+        }
+        @Override
+        protected String doInBackground(Void... params) {
+            DatagramSocket socket=null;
+            try {
+                socket=new DatagramSocket(port);
+                socket.setBroadcast(true);
+                socket.setSoTimeout(5000);
+                byte[] datos = new byte[50];
+                DatagramPacket paquete=new DatagramPacket(datos,50);
+                socket.receive(paquete);                
+                String mensaje=new String(paquete.getData(),"utf-8");
+                if("socialDj".equals(mensaje.split("\\|")[0]))
+                    return mensaje.split("\\|")[1]+"|"+mensaje.split("\\|")[2];
+                else
+                    return null;
+            }catch (Exception ex){
+                return null;
+            }finally{
+                if(socket!=null)
+                    socket.close();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String info) {
+            if(pd != null)
+                pd.dismiss();
+            try{
+                if(info!=null){
+                    String ip=info.split("\\|")[0];
+                    int port=Integer.parseInt(info.split("\\|")[1]);
+                    if(conex.conectar(ip,port,p)){
+                        conex.conexion.startListeningServer();
+                        Intent inte = new Intent(PantallaPrincipal.this, ListaCanciones.class);
+                        startActivity(inte);
+                    }
+                    else
+                        Toast.makeText(p, "Error al conectar al servidor", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(p, "Error al buscar al servidor", Toast.LENGTH_SHORT).show();
+            }catch(Exception ex){
+                Toast.makeText(p, ex.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }        
     }
 }

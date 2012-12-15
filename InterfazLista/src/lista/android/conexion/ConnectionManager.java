@@ -39,7 +39,7 @@ public class ConnectionManager {
 
         @Override
         protected void onPreExecute() {
-            pd = ProgressDialog.show(context, "Buscando servidor", "Espere unos segundos...", true, false);
+           // pd = ProgressDialog.show(context, "Buscando servidor", "Espere unos segundos...", true, false);
         }
         
         
@@ -56,9 +56,9 @@ public class ConnectionManager {
 
         @Override
         protected void onPostExecute(Boolean result) {
-            if(pd != null){
-                pd.dismiss();
-            }
+          //  if(pd != null){
+          //      pd.dismiss();
+          //  }
         }
     }
     class BuscarServer extends AsyncTask<Void, Void, String> {
