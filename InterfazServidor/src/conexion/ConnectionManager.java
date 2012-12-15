@@ -34,7 +34,6 @@ public class ConnectionManager implements ServerSocketListener{
                     byte[] mensaje=identificacion.getBytes("utf-8");
                     while(publicador.equals(currentThread())){
                         dsocket.send(new DatagramPacket(mensaje,mensaje.length, new InetSocketAddress("255.255.255.255",8888)));
-                        Main.log("Mensaje de difusión enviado...");
                         sleep(3000);
                     }
                     

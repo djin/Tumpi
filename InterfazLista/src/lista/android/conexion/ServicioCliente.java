@@ -26,8 +26,9 @@ public class ServicioCliente extends IntentService{
             do{
                 texto_recivido=SocketConnector.listenServer();            
                 SocketConnector.fireMessageEvent(texto_recivido);
-            }while(true);
+            }while(texto_recivido!="exit");
         }catch(Exception ex){
+            SocketConnector.fireMessageEvent("exit");
         }finally{
             this.stopSelf();            
         }

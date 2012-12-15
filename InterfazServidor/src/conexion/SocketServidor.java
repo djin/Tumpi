@@ -31,6 +31,7 @@ import java.io.*;
 import java.net.*;
 import java.net.Socket.*;
 import java.util.ArrayList;
+import main.Main;
 /**
  *
  * @author 66785270
@@ -60,7 +61,7 @@ public class SocketServidor {
                         clientes.add(cliente);
                         cliente.startListenClient();
                         fireClientConnectedEvent(cliente.ip_cliente);
-                    } catch (IOException ex) {                        
+                    } catch (IOException ex) {
                     }                    
                 }
             }
@@ -92,8 +93,8 @@ public class SocketServidor {
     public void closeSocket() throws IOException{
         finishSearchClients();
         for(Cliente cliente : clientes){
+            cliente.enviarMensaje("exit");
             cliente.finishListenClient();
-            cliente.close();
         }
         socket_server.close();
     }
@@ -147,10 +148,9 @@ public class SocketServidor {
                             texto_recivido=input_stream.readUTF();
                             if(!texto_recivido.equals("exit"))
                                 fireMessageReceivedEvent(ip_cliente, texto_recivido);
-                        }while(!texto_recivido.equals("exit"));
+                        }while(!texto_recivido.equals("exit") && input_stream!=null);
                     }catch (IOException ex) {
                     } finally {
-                        finishListenClient();
                         try {
                             close();
                         } catch (IOException ex) {
@@ -160,8 +160,11 @@ public class SocketServidor {
             };
             thread_escuchar_liente.start();
         }
-        public void finishListenClient(){
-            thread_escuchar_liente.interrupt();
+        public void finishListenClient() throws IOException{
+            if(input_stream!=null){
+                input_stream.close();
+                input_stream=null;
+            }
         }
         public void enviarMensaje(String mensaje) throws IOException{
             if(socket_cliente.isConnected() && !socket_cliente.isClosed()){
@@ -170,6 +173,7 @@ public class SocketServidor {
             }
         }
         public void close() throws IOException{
+            finishListenClient();
             socket_cliente.close();
             clientes.remove(this);
             fireClientDisconnectedEvent(ip_cliente);

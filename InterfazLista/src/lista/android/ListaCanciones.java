@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
 static ArrayList<Cancion> lista = new ArrayList<Cancion>();
 AdaptadorLista listadoAdapter;
 static Boolean noReiniciar = true;
+ListaCanciones p;
 ConnectionManager conex;
 static Cancion cancion_sonando;
 public static TextView text_playing;
@@ -58,6 +60,7 @@ public void onCreate(Bundle savedInstanceState) {
         });        
     }
     refrescarCancionSonando();
+    p=this;
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,58 +98,71 @@ public void onCreate(Bundle savedInstanceState) {
         this.getListView().post(new Runnable(){
             public void run() {
                 String message=men;
-                int tipo=Integer.parseInt(message.split("\\|")[0]);
-                message=message.split("\\|")[1];
-                int n=0;
-                switch(tipo){
-                    case 0:
-                        listadoAdapter.limpiarDatos();
-                        String[] canciones = message.split("\\;");
-                        interpretarLista(canciones);
-                        listadoAdapter.notifyDataSetChanged();
-                        break;
-                    case 1:
-                        n=Integer.parseInt(message);
-                        if(n!=0){
+                if(!"exit".equals(message)){
+                    int tipo=Integer.parseInt(message.split("\\|")[0]);
+                    message=message.split("\\|")[1];
+                    int n=0;
+                    switch(tipo){
+                        case 0:
+                            listadoAdapter.limpiarDatos();
+                            String[] canciones = message.split("\\;");
+                            interpretarLista(canciones);
+                            listadoAdapter.notifyDataSetChanged();
+                            break;
+                        case 1:
+                            n=Integer.parseInt(message);
+                            if(n!=0){
+                                for(Cancion c : listadoAdapter.getDatos()){
+                                    if(c.getId() == n ){
+                                        c.setVotado(true);
+                                        break;
+                                    }
+                                }
+                                listadoAdapter.notifyDataSetChanged();
+                            }
+                            break;
+                        case 2:
+                            n=Integer.parseInt(message);
+                            Cancion cancion=null;
                             for(Cancion c : listadoAdapter.getDatos()){
-                                if(c.getId() == n ){
-                                    c.setVotado(true);
+                                if(c.getId() == n){
+                                    cancion=c;
                                     break;
                                 }
                             }
+                            cancion_sonando=cancion;
+                            listadoAdapter.getDatos().remove(cancion);
+                            cancion.setSonado(true);
+                            listadoAdapter.getDatos().add(cancion);
                             listadoAdapter.notifyDataSetChanged();
-                        }
-                        break;
-                    case 2:
-                        n=Integer.parseInt(message);
-                        Cancion cancion=null;
-                        for(Cancion c : listadoAdapter.getDatos()){
-                            if(c.getId() == n){
-                                cancion=c;
-                                break;
-                            }
-                        }
-                        cancion_sonando=cancion;
-                        listadoAdapter.getDatos().remove(cancion);
-                        cancion.setSonado(true);
-                        listadoAdapter.getDatos().add(cancion);
-                        listadoAdapter.notifyDataSetChanged();
-                        refrescarCancionSonando();
-                        break;
-                    case 3:
-                        n=Integer.parseInt(message);
-                        if(n!=0){
-                            for(Cancion c : listadoAdapter.getDatos()){
-                                if(c.getId() == n ){
-                                    c.setVotado(false);
-                                    break;
+                            refrescarCancionSonando();
+                            break;
+                        case 3:
+                            n=Integer.parseInt(message);
+                            if(n!=0){
+                                for(Cancion c : listadoAdapter.getDatos()){
+                                    if(c.getId() == n ){
+                                        c.setVotado(false);
+                                        break;
+                                    }
                                 }
+                                listadoAdapter.notifyDataSetChanged();
                             }
-                            listadoAdapter.notifyDataSetChanged();
-                        }
-                        break;
+                            break;
+                    }
                 }
-            }
+                else{
+                    Toast.makeText(p, "Perdida la conexión con el servidor", Toast.LENGTH_LONG).show();
+                    try {
+                        cancion_sonando=null;
+                        conex.conexion.removeServerMessageListener(p);
+                        conex.conexion.cerrarConexion();
+                    } catch (Exception ex) {
+                    }finally{
+                        p.finish();
+                    }
+                }
+           }
         });
         
     }
