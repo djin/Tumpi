@@ -5,8 +5,11 @@
 package modelos;
 
 import conexion.ConnectionManager;
+import elementosInterfaz.DialogoNombreLista;
+import elementosInterfaz.ModeloTabla;
 import elementosInterfaz.Tabla;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import main.Main;
 import reproductor.PlayerReproductor;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
@@ -18,11 +21,13 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
  * @author 66785270
  */
 public class ListasCancionesManager implements MediaPlayerEventListener{
+    
     public static ListaCanciones lista_sonando;
     public static Tabla tabla_sonando;
     public static ArrayList <ListaCanciones> listas_canciones;
+    public static ArrayList <Tabla> tablasPendientes;
     private PlayerReproductor  reproductor = new PlayerReproductor(); //Reproductor de musica
-    
+        
     public ListasCancionesManager(){
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
     }
@@ -98,19 +103,44 @@ public class ListasCancionesManager implements MediaPlayerEventListener{
         }
     }
     
+    public void removeCancion(int index){
+        
+        
+        int filaSelec = tablasPendientes.get(index).getSelectedRow();
+        listas_canciones.get(index).getCanciones().size();
+        listas_canciones.get(index).getCanciones().remove(filaSelec);
+        
+        if(filaSelec!=-1){
+            
+            for(int x=filaSelec; x<59; x++){
+                
+                tablasPendientes.get(index).setValueAt(tablasPendientes.get(index).getValueAt(x+1, 0), x, 0);
+            }
+            tablasPendientes.get(index).setValueAt("", 59, 0);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No ha seleccionado una canción");
+        }
+    }
+    
     public void addLista(ListaCanciones lista){
+        
+        
         listas_canciones.add(lista);
     }
     
     public void removeLista(int index){
-        listas_canciones.remove(index);
-    }
-    
-    public void removeCancion(int numLista, int numCancion){
         
-        listas_canciones.get(numLista).getCanciones().size();
-        listas_canciones.get(numLista).getCanciones().remove(numCancion);
-    }
+        if(!tablasPendientes.isEmpty()){
+                    
+                    listas_canciones.remove(index);
+                    tablasPendientes.remove(index);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "No quedan listas abiertas");
+                }
+        
+    } 
 
     @Override
     public void mediaChanged(MediaPlayer mp, libvlc_media_t l, String string) {

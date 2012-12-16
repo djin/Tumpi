@@ -57,7 +57,7 @@ public class Main extends JFrame{
     private String[] nombresColumnaPendientes = {"Cancion"};
     private ArrayList <String>  contenidos;
         
-    private ArrayList <Tabla> tablasPendientes;
+    
     private Tabla tablaPredeterminada;
     
     private JScrollPane scrollSonando;
@@ -69,12 +69,9 @@ public class Main extends JFrame{
     
     private BorderLayout border;
     
-    private String nombreLista;
-    private boolean go;
-    private DialogoNombreLista dialogo;
     private int listaSelec;
-    private int filaSelec;
-    
+    private DialogoNombreLista dialogo;
+    private String nombreLista;
     
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
@@ -137,11 +134,11 @@ public class Main extends JFrame{
         
         
         //Se inicializa la tabla de listas de canciones pendientes
-        tablasPendientes = new ArrayList();
+        listas_manager.tablasPendientes = new ArrayList();
         
         modeloTablaPredeterminado = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
         tablaPredeterminada = new Tabla(modeloTablaPredeterminado);
-        tablasPendientes.add(tablaPredeterminada);
+        listas_manager.tablasPendientes.add(tablaPredeterminada);
         
         scrollPendientesPredeterminado = new JScrollPane(tablaPredeterminada);
         pestanasPendientes = new JTabbedPane();
@@ -224,23 +221,8 @@ public class Main extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                           
                 listaSelec = pestanasPendientes.getSelectedIndex();
-                filaSelec = tablasPendientes.get(listaSelec).getSelectedRow();
-                
-                if(filaSelec!=-1){
-                
-                    listas_manager.removeCancion(listaSelec, filaSelec);
-
-                    for(int x=filaSelec; x<59; x++){
-                        tablasPendientes.get(listaSelec).setValueAt(tablasPendientes.get(listaSelec).getValueAt(x+1, 0), x, 0);
-
-                    }
-                    tablasPendientes.get(listaSelec).setValueAt("", 59, 0);
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "No ha seleccionado una canción");
-                }
+                listas_manager.removeCancion(listaSelec); 
             }
         });
         borrarCancion.setText("Borrar canción");
@@ -265,22 +247,7 @@ public class Main extends JFrame{
         JButton anadirLista = new JButton(new AbstractAction(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                go = false;
-                dialogo = new DialogoNombreLista(nombreLista);
-                
-                Espera esperar = new Espera();
-                while(!go){
-                    try {
-                        esperar.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    esperar.start();
-                }
-                
-                if(!dialogo.cancelado()){
-                    
+                                    
                 listaPredeterminadaBis.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
                 listaPredeterminadaBis.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
                 listaPredeterminadaBis.getCanciones().add(new Cancion(6, "9 crimes", "Damien Rice", "For the Hipster life", "3:40", "c://wheneveryou.mp3"));
@@ -292,10 +259,11 @@ public class Main extends JFrame{
             
                     contenidos.add(p.getNombre());
                 }
-                tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 60, contenidos)));
-                pestanasPendientes.addTab(nombreLista, new JScrollPane(tablasPendientes.get(tablasPendientes.size()-1)));
+                listas_manager.tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 60, contenidos)));
                 
-                }
+                dialogo = new DialogoNombreLista(nombreLista);
+                pestanasPendientes.addTab(nombreLista, new JScrollPane(listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size()-1)));
+                
             }
                         
         });
@@ -309,16 +277,9 @@ public class Main extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                if(!tablasPendientes.isEmpty()){
-                    
-                    listaSelec = pestanasPendientes.getSelectedIndex();
-                    listas_manager.removeLista(listaSelec);
-                    tablasPendientes.remove(listaSelec);
-                    pestanasPendientes.remove(listaSelec);
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "No quedan listas abiertas");
-                }
+                listaSelec = pestanasPendientes.getSelectedIndex();
+                pestanasPendientes.remove(listaSelec);
+                listas_manager.removeLista(listaSelec);
             }            
         });
         borrarLista.setText("Borrar lista");
@@ -390,25 +351,6 @@ public class Main extends JFrame{
         }
     }
     
-    private class Espera extends Thread {
-        
-        @Override
-        public void run() {
-            SwingUtilities.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-
-                    if(dialogo.acabado()){
-                        
-                       go = true; 
-                    }
-                }
-            }); 
-        }
-    }
-        
-
     /**
      * @return the panel
      */
