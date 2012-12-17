@@ -1,4 +1,3 @@
-
 package main;
 
 import conexion.ConnectionManager;
@@ -19,92 +18,76 @@ import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 import reproductor.PlayerReproductor;
 
-
-
 /**
  *
  * @author 66786575
  */
-public class Main extends JFrame{
+public class Main extends JFrame {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         SwingUtilities.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
 
                 JFrame main = new Main();
                 main.setVisible(true);
             }
-        });  
+        });
     }
-    
     private JPanel panel = (JPanel) this.getContentPane();
-    
-    private ListasCancionesManager listas_manager;
-    
+    private static ListasCancionesManager listas_manager;
     private ListaCanciones listaPredeterminada;
-    private ListaCanciones listaPredeterminadaBis;
-    
+    private static ListaCanciones listaPredeterminadaBis;
     private ModeloTabla modeloTablaSonando;
     private ModeloTabla modeloTablaPredeterminado;
-    
     private String[] nombresColumnaSonando = {"Cancion", "Votos"};
-    private String[] nombresColumnaPendientes = {"Cancion"};
-    private ArrayList <String>  contenidos;
-        
-    
+    private static String[] nombresColumnaPendientes = {"Cancion"};
+    private static ArrayList<String> contenidos;
     private Tabla tablaPredeterminada;
-    
     private JScrollPane scrollSonando;
     private JScrollPane scrollPendientesPredeterminado;
-    private JTabbedPane pestanasPendientes;
-    
+    private static JTabbedPane pestanasPendientes;
     private JPanel botones;
     private JPanel conjunto;
-    
     private BorderLayout border;
-    
     private int listaSelec;
-    private DialogoNombreLista dialogo;
-    private String nombreLista;
-    
+    public static ArrayList<String> nombresLista;
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
-    
-    ConnectionManager server=null;
-    int puerto_socket=2222;
-    
-    public Main(){
-        
-        
+    ConnectionManager server = null;
+    int puerto_socket = 2222;
+
+    public Main() {
+
+
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 40, 20)); 
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 40, 20));
         border = new BorderLayout();
         //Look and Feel de la aplicacion
-        SetLookAndFeel();             
-        
+        SetLookAndFeel();
+
         //Listas de canciones en el programa en este momento
         //listasDeCanciones = new ArrayList();
-        listas_manager=new ListasCancionesManager();
-        listas_manager.listas_canciones=new ArrayList();
-        
-        
+        listas_manager = new ListasCancionesManager();
+        listas_manager.listas_canciones = new ArrayList();
+
+
         //Se inicializan los menus
-        menus=new JMenu[2];
+        menus = new JMenu[2];
         SetMenus();
-        
-        
+
+
         //El siguiente fragmento es solo una prueba hasta que tengamos la busqueda de canciones terminada
         //Servirá para meter a piñón el viernes la cancion con su path de la canción a la hora de reproducirla.
-        
+
         listaPredeterminada = new ListaCanciones();
         listaPredeterminadaBis = new ListaCanciones();
-        
+
         listaPredeterminada.getCanciones().add(new Cancion(1, "Gold on The Ceiling", "The Black Keys", "El Camino", "3:48", "1.mp3"));
         listaPredeterminada.getCanciones().add(new Cancion(2, "Never Gonna Give You Up", "Rick Astley", "RickRoll", "2:10", "2.mp3"));
         listaPredeterminada.getCanciones().add(new Cancion(3, "Sleep Alone", "Two Door Cinema Club", "Indie hits", "4:10", "3.mp3"));
@@ -119,224 +102,236 @@ public class Main extends JFrame{
 //        listaPredeterminada.getCanciones().add(new Cancion(11, "Another day in paradise", "Phill Collins", "Indie hits", "4:10", "c://wheneveryou.mp3"));
         listas_manager.addLista(listaPredeterminada);
         contenidos = new ArrayList();
-        for(Cancion p: listaPredeterminada.getCanciones()){
-            
+        for (Cancion p : listaPredeterminada.getCanciones()) {
+
             contenidos.add(p.getNombre());
-        }      
-        
+        }
+
         //Se inicializa la tabla de canciones en reproduccion
-        
-        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);       
-        listas_manager.tabla_sonando=new Tabla(modeloTablaSonando);
+
+        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
+        listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
         scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
-        scrollSonando.setPreferredSize(new Dimension(500,700));
+        scrollSonando.setPreferredSize(new Dimension(500, 700));
         panel.add(scrollSonando, border.WEST);
-        
-        
-        //Se inicializa la tabla de listas de canciones pendientes
+
+
+        //Se inicializa las tablas de listas de canciones pendientes y sus nombres
         listas_manager.tablasPendientes = new ArrayList();
-        
+        nombresLista = new ArrayList();
+
+
         modeloTablaPredeterminado = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
         tablaPredeterminada = new Tabla(modeloTablaPredeterminado);
         listas_manager.tablasPendientes.add(tablaPredeterminada);
-        
+
         scrollPendientesPredeterminado = new JScrollPane(tablaPredeterminada);
         pestanasPendientes = new JTabbedPane();
-        
+
         pestanasPendientes.add(scrollPendientesPredeterminado, "Predeterminada");
-        pestanasPendientes.setPreferredSize(new Dimension(600,300));     
-        
-        
+        pestanasPendientes.setPreferredSize(new Dimension(600, 300));
+
+
         //Se inicializa el panel con los botones
         SetBotones();
-        
-        
+
+
         //Se inicializa y añade el panel conjunto a la interfaz
         conjunto = new JPanel();
         conjunto.add(botones, border.NORTH);
-        conjunto.add(pestanasPendientes, border.SOUTH); 
+        conjunto.add(pestanasPendientes, border.SOUTH);
         panel.add(conjunto, border.CENTER);
-        
+
         //Se crea el manager de la conexion, despues se crea el socket
         try {
-            server=new ConnectionManager();
-            if(server.createSocket(puerto_socket)){
+            server = new ConnectionManager();
+            if (server.createSocket(puerto_socket)) {
                 log("Socket creado con exito!!!");
             }
         } catch (Exception ex) {
-            log("Error al crear y conectar el socket: "+ex.toString());
+            log("Error al crear y conectar el socket: " + ex.toString());
             System.exit(0);
         }
-        
+
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+
     }
-    
-    private void SetBotones(){
-        
+
+    private void SetBotones() {
+
         setBotones(new JPanel());
-        getBotones().setPreferredSize(new Dimension (700,250));
-        
-        
-        JButton iniciar_Siguiente = new JButton(new AbstractAction(){
+        getBotones().setPreferredSize(new Dimension(700, 250));
+
+
+        JButton iniciar_Siguiente = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 listas_manager.playNext();
-            }            
+            }
         });
         iniciar_Siguiente.setText("Iniciar/Siguiente canción");
-        iniciar_Siguiente.setPreferredSize(new Dimension (150,100));
-        getBotones().add(iniciar_Siguiente);    
-        
-        
-        
-        JButton pausar_Reanudar = new JButton(new AbstractAction(){
+        iniciar_Siguiente.setPreferredSize(new Dimension(150, 100));
+        getBotones().add(iniciar_Siguiente);
+
+
+
+        JButton pausar_Reanudar = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 PlayerReproductor.pausar();
-            }            
+            }
         });
         pausar_Reanudar.setText("Pausar/Reanudar");
-        pausar_Reanudar.setPreferredSize(new Dimension (150,100));
+        pausar_Reanudar.setPreferredSize(new Dimension(150, 100));
         getBotones().add(pausar_Reanudar);
-        
-        
-        
-        JButton anadirCanciones = new JButton(new AbstractAction(){
+
+
+
+        JButton anadirCanciones = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                
-            }            
+            }
         });
         anadirCanciones.setText("Anadir canciones");
-        anadirCanciones.setPreferredSize(new Dimension (150,100));
+        anadirCanciones.setPreferredSize(new Dimension(150, 100));
         getBotones().add(anadirCanciones);
-        
-        
-        
-        JButton borrarCancion = new JButton(new AbstractAction(){
+
+
+
+        JButton borrarCancion = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 listaSelec = pestanasPendientes.getSelectedIndex();
-                listas_manager.removeCancion(listaSelec); 
+                listas_manager.removeCancion(listaSelec);
             }
         });
         borrarCancion.setText("Borrar canción");
-        borrarCancion.setPreferredSize(new Dimension (150,100));
+        borrarCancion.setPreferredSize(new Dimension(150, 100));
         getBotones().add(borrarCancion);
-        
-        
-        
-        JButton promocionarLista = new JButton(new AbstractAction(){
+
+
+
+        JButton promocionarLista = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
-            }            
+            }
         });
         promocionarLista.setText("Promocionar lista");
-        promocionarLista.setPreferredSize(new Dimension (150,100));
+        promocionarLista.setPreferredSize(new Dimension(150, 100));
         getBotones().add(promocionarLista);
-        
-        
-        
-        JButton anadirLista = new JButton(new AbstractAction(){
+
+
+
+        JButton anadirLista = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                                    
-                listaPredeterminadaBis.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
-                listaPredeterminadaBis.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
-                listaPredeterminadaBis.getCanciones().add(new Cancion(6, "9 crimes", "Damien Rice", "For the Hipster life", "3:40", "c://wheneveryou.mp3"));
-                
-                listas_manager.addLista(listaPredeterminadaBis);
-                
-                contenidos.clear();
-                for(Cancion p: listaPredeterminadaBis.getCanciones()){
-            
-                    contenidos.add(p.getNombre());
-                }
-                listas_manager.tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 60, contenidos)));
-                
-                dialogo = new DialogoNombreLista(nombreLista);
-                pestanasPendientes.addTab(nombreLista, new JScrollPane(listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size()-1)));
-                
+
+
+
+                new DialogoNombreLista();
             }
-                        
         });
         anadirLista.setText("Anadir lista");
-        anadirLista.setPreferredSize(new Dimension (150,100));
+        anadirLista.setPreferredSize(new Dimension(150, 100));
         getBotones().add(anadirLista);
-        
-        
-        
-        JButton borrarLista = new JButton(new AbstractAction(){
+
+
+
+        JButton borrarLista = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 listaSelec = pestanasPendientes.getSelectedIndex();
+
                 pestanasPendientes.remove(listaSelec);
                 listas_manager.removeLista(listaSelec);
-            }            
+                nombresLista.remove(listaSelec);
+            }
         });
         borrarLista.setText("Borrar lista");
-        borrarLista.setPreferredSize(new Dimension (150,100));
+        borrarLista.setPreferredSize(new Dimension(150, 100));
         getBotones().add(borrarLista);
-        
-        
-        
-        JButton salir = new JButton(new AbstractAction(){
+
+
+
+        JButton salir = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 try {
                     ConnectionManager.socket.closeSocket();
                     System.exit(0);
                 } catch (IOException ex) {
-                    Main.log("Error al intentar cerrar el socket: "+ex.toString());
+                    Main.log("Error al intentar cerrar el socket: " + ex.toString());
                 }
-            }            
+            }
         });
         salir.setText("Salir");
-        salir.setPreferredSize(new Dimension (150,100));
-        getBotones().add(salir);    
+        salir.setPreferredSize(new Dimension(150, 100));
+        getBotones().add(salir);
     }
-    
-    
-    
-    private void SetMenus(){
-        
-        getMenus()[0]= new JMenu("Archivo");
+
+    public static void AddPestana(String nombreLista) {
+
+        listaPredeterminadaBis.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
+        listaPredeterminadaBis.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
+        listaPredeterminadaBis.getCanciones().add(new Cancion(6, "9 crimes", "Damien Rice", "For the Hipster life", "3:40", "c://wheneveryou.mp3"));
+
+        listas_manager.addLista(listaPredeterminadaBis);
+
+        contenidos.clear();
+        for (Cancion p : listaPredeterminadaBis.getCanciones()) {
+
+            contenidos.add(p.getNombre());
+        }
+        listas_manager.tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 60, contenidos)));
+        nombresLista.add(nombreLista);
+        pestanasPendientes.addTab(nombreLista, new JScrollPane(listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1)));
+    }
+
+    private void SetMenus() {
+
+        getMenus()[0] = new JMenu("Archivo");
         getMenus()[0].setMnemonic('A');
-        
+
         JMenuItem hola = new JMenuItem("Hola");
         hola.setMnemonic('H');
         getMenus()[0].add(hola);
-        
+
         JMenuItem adios = new JMenuItem("Adios");
         adios.setMnemonic('d');
         getMenus()[0].add(adios);
-        
+
         getBarramenus().add(getMenus()[0]);
-        
-        getMenus()[1] = new JMenu ("Sobre");
+
+        getMenus()[1] = new JMenu("Sobre");
         getMenus()[1].setMnemonic('S');
-        
+
         JMenuItem autores = new JMenuItem("autores");
         autores.setMnemonic('A');
         getMenus()[1].add(autores);
-                
+
         getBarramenus().add(getMenus()[1]);
-        
+
         setJMenuBar(getBarramenus());
-        
+
     }
-    
-    private void SetLookAndFeel(){
-        
+
+    private void SetLookAndFeel() {
+
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             SwingUtilities.updateComponentTreeUI(this);
@@ -350,7 +345,7 @@ public class Main extends JFrame{
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * @return the panel
      */
@@ -424,14 +419,14 @@ public class Main extends JFrame{
     /**
      * @return the contenidos
      */
-    public ArrayList <String> getContenidos() {
+    public ArrayList<String> getContenidos() {
         return contenidos;
     }
 
     /**
      * @param contenidos the contenidos to set
      */
-    public void setContenidos(ArrayList <String> contenidos) {
+    public void setContenidos(ArrayList<String> contenidos) {
         this.contenidos = contenidos;
     }
 
@@ -575,8 +570,8 @@ public class Main extends JFrame{
         this.menus = menus;
     }
     //Metodo para debug
-    
-     public static void log(String cadena){
+
+    public static void log(String cadena) {
         System.out.println(cadena);
     }
 }

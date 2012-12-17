@@ -20,52 +20,53 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
  *
  * @author 66785270
  */
-public class ListasCancionesManager implements MediaPlayerEventListener{
-    
+public class ListasCancionesManager implements MediaPlayerEventListener {
+
     public static ListaCanciones lista_sonando;
     public static Tabla tabla_sonando;
-    public static ArrayList <ListaCanciones> listas_canciones;
-    public static ArrayList <Tabla> tablasPendientes;
-    private PlayerReproductor  reproductor = new PlayerReproductor(); //Reproductor de musica
-        
-    public ListasCancionesManager(){
+    public static ArrayList<ListaCanciones> listas_canciones;
+    public static ArrayList<Tabla> tablasPendientes;
+    private PlayerReproductor reproductor = new PlayerReproductor(); //Reproductor de musica
+
+    public ListasCancionesManager() {
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
     }
-    
-    public void promocionarLista(int id_lista){
+
+    public void promocionarLista(int id_lista) {
         int x = 0;
-        ArrayList <Cancion> canciones=listas_canciones.get(id_lista).getCanciones();
-        
-        for(Cancion p: canciones){
+        ArrayList<Cancion> canciones = listas_canciones.get(id_lista).getCanciones();
+
+        for (Cancion p : canciones) {
             tabla_sonando.setValueAt(p, x, 0);
             tabla_sonando.setValueAt(0, x, 1);
             x++;
         }
-        
-        for(int y = x; y<60; y++){
-            
+
+        for (int y = x; y < 60; y++) {
+
             tabla_sonando.setValueAt("", y, 0);
             tabla_sonando.setValueAt(0, y, 1);
         }
-        
-        lista_sonando=listas_canciones.get(id_lista);
+
+        lista_sonando = listas_canciones.get(id_lista);
         try {
-            ConnectionManager.socket.enviarMensajeServer("*", "0|"+lista_sonando);            
+            ConnectionManager.socket.enviarMensajeServer("*", "0|" + lista_sonando);
         } catch (Exception ex) {
-            Main.log("Error al enviar la lista: "+ex.toString());
+            Main.log("Error al enviar la lista: " + ex.toString());
         }
     }
-    
-    public static boolean procesarVoto(int id_cancion,boolean tipo){
-        ArrayList <Cancion> canciones=lista_sonando.getCanciones();
-        int x=0;
-        for(Cancion p: canciones){
-            if(p.getId()==id_cancion){
-                int votos=Integer.parseInt((String)tabla_sonando.getValueAt(x, 1));
-                if(tipo)
+
+    public static boolean procesarVoto(int id_cancion, boolean tipo) {
+        ArrayList<Cancion> canciones = lista_sonando.getCanciones();
+        int x = 0;
+        for (Cancion p : canciones) {
+            if (p.getId() == id_cancion) {
+                int votos = Integer.parseInt((String) tabla_sonando.getValueAt(x, 1));
+                if (tipo) {
                     votos++;
-                else
+                } else {
                     votos--;
+                }
                 tabla_sonando.setValueAt(votos, x, 1);
                 return true;
             }
@@ -73,74 +74,73 @@ public class ListasCancionesManager implements MediaPlayerEventListener{
         }
         return false;
     }
-    
-    public void playNext(){
-        
-        if(lista_sonando!=null){
-            ArrayList <Cancion> canciones=lista_sonando.getCanciones();
-            int x=0,votos,id_max=0;
-            String valor,valor_max;
-            for(Cancion p: canciones){
-                valor=(String)tabla_sonando.getValueAt(x, 1);
-                if(!valor.equals("*")){
-                    votos=Integer.parseInt(valor);
-                    valor_max=(String)tabla_sonando.getValueAt(id_max, 1);
-                    if(valor_max.equals("*") || votos>=Integer.parseInt(valor_max))
-                        id_max=x;
+
+    public void playNext() {
+
+        if (lista_sonando != null) {
+            ArrayList<Cancion> canciones = lista_sonando.getCanciones();
+            int x = 0, votos, id_max = 0;
+            String valor, valor_max;
+            for (Cancion p : canciones) {
+                valor = (String) tabla_sonando.getValueAt(x, 1);
+                if (!valor.equals("*")) {
+                    votos = Integer.parseInt(valor);
+                    valor_max = (String) tabla_sonando.getValueAt(id_max, 1);
+                    if (valor_max.equals("*") || votos >= Integer.parseInt(valor_max)) {
+                        id_max = x;
+                    }
                 }
                 x++;
             }
-            Cancion cancion=canciones.get(id_max);
+            Cancion cancion = canciones.get(id_max);
             //lista_sonando.getCanciones().remove(id_max);
             tabla_sonando.setValueAt("*", id_max, 1);
             reproductor.reproducir(cancion.getPath());
-            Main.log("Reproduciendo cancion: "+cancion.getNombre());
+            Main.log("Reproduciendo cancion: " + cancion.getNombre());
             try {
-                ConnectionManager.socket.enviarMensajeServer("*", "2|"+cancion.getId());
+                ConnectionManager.socket.enviarMensajeServer("*", "2|" + cancion.getId());
             } catch (Exception ex) {
                 Main.log("Error al enviar la cancion a reproducir: ");
             }
         }
     }
-    
-    public void removeCancion(int index){
-        
-        
+
+    public void removeCancion(int index) {
+
+
         int filaSelec = tablasPendientes.get(index).getSelectedRow();
         listas_canciones.get(index).getCanciones().size();
         listas_canciones.get(index).getCanciones().remove(filaSelec);
-        
-        if(filaSelec!=-1){
-            
-            for(int x=filaSelec; x<59; x++){
-                
-                tablasPendientes.get(index).setValueAt(tablasPendientes.get(index).getValueAt(x+1, 0), x, 0);
+
+        if (filaSelec != -1) {
+
+            for (int x = filaSelec; x < 59; x++) {
+
+                tablasPendientes.get(index).setValueAt(tablasPendientes.get(index).getValueAt(x + 1, 0), x, 0);
             }
             tablasPendientes.get(index).setValueAt("", 59, 0);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "No ha seleccionado una canción");
         }
     }
-    
-    public void addLista(ListaCanciones lista){
-        
-        
+
+    public void addLista(ListaCanciones lista) {
+
+
         listas_canciones.add(lista);
     }
-    
-    public void removeLista(int index){
-        
-        if(!tablasPendientes.isEmpty()){
-                    
-                    listas_canciones.remove(index);
-                    tablasPendientes.remove(index);
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "No quedan listas abiertas");
-                }
-        
-    } 
+
+    public void removeLista(int index) {
+
+        if (!tablasPendientes.isEmpty()) {
+
+            listas_canciones.remove(index);
+            tablasPendientes.remove(index);
+        } else {
+            JOptionPane.showMessageDialog(null, "No quedan listas abiertas");
+        }
+
+    }
 
     @Override
     public void mediaChanged(MediaPlayer mp, libvlc_media_t l, String string) {
@@ -281,5 +281,4 @@ public class ListasCancionesManager implements MediaPlayerEventListener{
     public void endOfSubItems(MediaPlayer mp) {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }
