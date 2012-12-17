@@ -286,9 +286,9 @@ public class Main extends JFrame {
 
     public static void AddPestana(String nombreLista) {
 
-        listaPredeterminadaBis.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
-        listaPredeterminadaBis.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
-        listaPredeterminadaBis.getCanciones().add(new Cancion(6, "9 crimes", "Damien Rice", "For the Hipster life", "3:40", "c://wheneveryou.mp3"));
+        listaPredeterminadaBis.getCanciones().add(new Cancion(4, "Kalimba", "Mr. Scruff", "Ninja Tuna", "5:48", "4.mp3"));
+        listaPredeterminadaBis.getCanciones().add(new Cancion(5, "Maid with the flaxen hair", "Richard Stoltzman", "Fine Music", "2:49", "5.mp3"));
+        listaPredeterminadaBis.getCanciones().add(new Cancion(6, "Sleep away", "Bob Acri", "Bob Acri", "3:20", "6.mp3"));
 
         listas_manager.addLista(listaPredeterminadaBis);
 
