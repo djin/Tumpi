@@ -26,23 +26,27 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
  */
 public class ListasCancionesManager implements MediaPlayerEventListener {
 
-    public static ListaCanciones lista_sonando;
     public static HashMap<String, Integer> votos_cliente = new HashMap();
     public static Cancion cancion_sonando;
     public static Tabla tabla_sonando;
     public static ArrayList<ListaCanciones> listas_canciones;
     public static ArrayList<Tabla> tablasPendientes;
+    public static ListaCanciones lista_sonando = new ListaCanciones();
     private PlayerReproductor reproductor = new PlayerReproductor(); //Reproductor de musica
-
+    private static ArrayList<Cancion> canciones = new ArrayList();
+    
     public ListasCancionesManager() {
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
     }
 
     public void promocionarLista(int id_lista) {
+        
         int x = 0;
-        ArrayList<Cancion> canciones = listas_canciones.get(id_lista).getCanciones();
-
-        for (Cancion p : canciones) {
+        canciones.clear();
+        
+        for (Cancion p : listas_canciones.get(id_lista).getCanciones()) {
+            
+            canciones.add(p);
             tabla_sonando.setValueAt(p.getNombre(), x, 0);
             tabla_sonando.setValueAt(0, x, 1);
             x++;
@@ -53,8 +57,14 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             tabla_sonando.setValueAt("", y, 0);
             tabla_sonando.setValueAt(0, y, 1);
         }
+        
+        //fragmento cutre del siglo
+        lista_sonando.getCanciones().clear();
+        for (Cancion p : canciones) {
+            lista_sonando.getCanciones().add(p);
+        }
 
-        lista_sonando = listas_canciones.get(id_lista);
+        
         votos_cliente = new HashMap();
         try {
             ConnectionManager.socket.enviarMensajeServer("*", "0|" + lista_sonando);
@@ -64,7 +74,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     }
 
     public static boolean procesarVoto(int id_cancion, boolean tipo) {
-        ArrayList<Cancion> canciones = lista_sonando.getCanciones();
         int x = 0;
         for (Cancion p : canciones) {
             if (p.getId() == id_cancion) {
@@ -88,8 +97,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public void playNext() {
 
-        if (lista_sonando != null) {
-            ArrayList<Cancion> canciones = lista_sonando.getCanciones();
+        if (canciones != null) {
+            
             int x = 0, votos, id_max = 0;
             String valor, valor_max;
             for (Cancion p : canciones) {
@@ -122,9 +131,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         JFileChooser chooser = new JFileChooser();
         List<File> listaFiles;
-
-        ListaCanciones listaC = new ListaCanciones();
-        ArrayList<String> listaNames = new ArrayList();
 
         chooser.setMultiSelectionEnabled(true);
         chooser.setCurrentDirectory(new File("C:\\Users\\66785361\\Documents\\GitHub\\socialDj\\InterfazServidor"));
