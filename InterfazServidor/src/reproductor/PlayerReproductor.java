@@ -21,7 +21,6 @@ public class PlayerReproductor extends configVlcj{
     
     public void reproducir(String mrl){
         reproductor.getMediaPlayer().playMedia(mrl);
-        System.out.println(reproductor.getMediaPlayer().getLength());
     }
         
     public static void pausar(){
@@ -49,7 +48,6 @@ public class PlayerReproductor extends configVlcj{
 //        }
 //        duracion = Long.toString(min)+":"+ Long.toString(dur);
         cancion = new Cancion(0,metadata.getTitle(), metadata.getAlbum(),metadata.getArtist(),duracion, mrl);
-        System.out.println(metadata.getTitle()+" "+metadata.getAlbum()+" "+metadata.getArtist()+" "+duracion+" "+mrl);
         return cancion; 
     }
     
