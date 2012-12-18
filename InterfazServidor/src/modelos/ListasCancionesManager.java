@@ -11,6 +11,7 @@ import elementosInterfaz.Tabla;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -28,6 +29,8 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public static ListaCanciones lista_sonando;
+    public static HashMap <String,Integer> votos_cliente=new HashMap();
+    public static Cancion cancion_sonando;
     public static Tabla tabla_sonando;
     public static ArrayList<ListaCanciones> listas_canciones;
     public static ArrayList<Tabla> tablasPendientes;
@@ -42,7 +45,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         ArrayList<Cancion> canciones = listas_canciones.get(id_lista).getCanciones();
 
         for (Cancion p : canciones) {
-            tabla_sonando.setValueAt(p, x, 0);
+            tabla_sonando.setValueAt(p.getNombre(), x, 0);
             tabla_sonando.setValueAt(0, x, 1);
             x++;
         }
@@ -54,6 +57,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         }
 
         lista_sonando = listas_canciones.get(id_lista);
+        votos_cliente=new HashMap();
         try {
             ConnectionManager.socket.enviarMensajeServer("*", "0|" + lista_sonando);
         } catch (Exception ex) {
@@ -66,14 +70,18 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         int x = 0;
         for (Cancion p : canciones) {
             if (p.getId() == id_cancion) {
-                int votos = Integer.parseInt((String) tabla_sonando.getValueAt(x, 1));
-                if (tipo) {
-                    votos++;
-                } else {
-                    votos--;
-                }
-                tabla_sonando.setValueAt(votos, x, 1);
-                return true;
+                String value_votos=(String) tabla_sonando.getValueAt(x, 1);
+                if(!"*".equals(value_votos)){
+                    int votos = Integer.parseInt(value_votos);
+                    if (tipo) {
+                        votos++;
+                    } else {
+                        votos--;
+                    }
+                    tabla_sonando.setValueAt(votos, x, 1);
+                    return true;
+                    }
+                return false;
             }
             x++;
         }
@@ -98,9 +106,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 x++;
             }
             Cancion cancion = canciones.get(id_max);
+            cancion_sonando=cancion;
             //lista_sonando.getCanciones().remove(id_max);
             tabla_sonando.setValueAt("*", id_max, 1);
             reproductor.reproducir(cancion.getPath());
+            cancion.setReproducida(1);
             Main.log("Reproduciendo cancion: " + cancion.getNombre());
             try {
                 ConnectionManager.socket.enviarMensajeServer("*", "2|" + cancion.getId());

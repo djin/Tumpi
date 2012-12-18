@@ -16,6 +16,7 @@ public class Cancion {
     private String artista;
     private String duracion;
     private String path;
+    private int reproducida=0;
     
     public Cancion(int _id, String name, String album, String artist, String length, String _path){
         
@@ -114,7 +115,21 @@ public class Cancion {
     
     @Override
     public String toString(){
-        return getNombre();
+        return getId()+"*"+getNombre()+"*"+getArtista()+"*"+getDisco()+"*"+getReproducida();
+    }
+
+    /**
+     * @return the reproducida
+     */
+    public int getReproducida() {
+        return reproducida;
+    }
+
+    /**
+     * @param reproducida the reproducida to set
+     */
+    public void setReproducida(int reproducida) {
+        this.reproducida = reproducida;
     }
     
 }

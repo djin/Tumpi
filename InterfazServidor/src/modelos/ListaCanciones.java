@@ -45,7 +45,7 @@ public class ListaCanciones {
     public String toString(){
         String cadena="";
         for(Cancion c : canciones)
-            cadena=cadena+c.getId()+"*"+c.getNombre()+"*"+c.getArtista()+"*"+c.getDisco()+";";
+            cadena=cadena+c+";";
         return cadena.substring(0,cadena.length()-1);
     }
     

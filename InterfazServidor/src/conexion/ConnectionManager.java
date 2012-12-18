@@ -68,10 +68,14 @@ public class ConnectionManager implements ServerSocketListener{
                 case 0:
                     if(ListasCancionesManager.lista_sonando!=null)
                         socket.enviarMensajeServer(ip,"0|"+ListasCancionesManager.lista_sonando.toString());
+                    if(ListasCancionesManager.cancion_sonando!=null)
+                        socket.enviarMensajeServer(ip,"4|"+ListasCancionesManager.cancion_sonando.toString());
                     break;
                 case 1:
-                    if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),true))
+                    if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),true)){
                         socket.enviarMensajeServer(ip,"1|"+message);
+                        ListasCancionesManager.votos_cliente.put(ip, Integer.parseInt(message));
+                    }
                     else
                         socket.enviarMensajeServer(ip,"1|0");   
                     break;
@@ -98,6 +102,8 @@ public class ConnectionManager implements ServerSocketListener{
 
     @Override
     public void onClientDisconnected(String ip) {
+        if(ListasCancionesManager.votos_cliente.containsKey(ip))
+            ListasCancionesManager.procesarVoto(ListasCancionesManager.votos_cliente.get(ip), false);
         Main.log("Cliente desconectado "+"\nNumero de clientes: "+socket.getClientsCount());
     }
     

@@ -90,7 +90,7 @@ public void onCreate(Bundle savedInstanceState) {
         
         for(String cancion : canciones){
             String[] datos_cancion=cancion.split("\\*");
-            lista.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, false));
+            lista.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, "1".equals(datos_cancion[4])));
         }
     }    
     public void onMessageReceive(final String men) {
@@ -148,6 +148,11 @@ public void onCreate(Bundle savedInstanceState) {
                                 }
                                 listadoAdapter.notifyDataSetChanged();
                             }
+                            break;
+                        case 4:
+                            String[] datos_cancion=message.split("\\*");
+                            cancion_sonando=new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, "1".equals(datos_cancion[4]));
+                            refrescarCancionSonando();
                             break;
                     }
                 }
