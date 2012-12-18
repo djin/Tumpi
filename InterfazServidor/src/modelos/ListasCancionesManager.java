@@ -5,8 +5,6 @@
 package modelos;
 
 import conexion.ConnectionManager;
-import elementosInterfaz.DialogoNombreLista;
-import elementosInterfaz.ModeloTabla;
 import elementosInterfaz.Tabla;
 import java.io.File;
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public static ListaCanciones lista_sonando;
-    public static HashMap <String,Integer> votos_cliente=new HashMap();
+    public static HashMap<String, Integer> votos_cliente = new HashMap();
     public static Cancion cancion_sonando;
     public static Tabla tabla_sonando;
     public static ArrayList<ListaCanciones> listas_canciones;
@@ -57,7 +55,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         }
 
         lista_sonando = listas_canciones.get(id_lista);
-        votos_cliente=new HashMap();
+        votos_cliente = new HashMap();
         try {
             ConnectionManager.socket.enviarMensajeServer("*", "0|" + lista_sonando);
         } catch (Exception ex) {
@@ -70,8 +68,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         int x = 0;
         for (Cancion p : canciones) {
             if (p.getId() == id_cancion) {
-                String value_votos=(String) tabla_sonando.getValueAt(x, 1);
-                if(!"*".equals(value_votos)){
+                String value_votos = (String) tabla_sonando.getValueAt(x, 1);
+                if (!"*".equals(value_votos)) {
                     int votos = Integer.parseInt(value_votos);
                     if (tipo) {
                         votos++;
@@ -80,7 +78,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                     }
                     tabla_sonando.setValueAt(votos, x, 1);
                     return true;
-                    }
+                }
                 return false;
             }
             x++;
@@ -106,7 +104,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 x++;
             }
             Cancion cancion = canciones.get(id_max);
-            cancion_sonando=cancion;
+            cancion_sonando = cancion;
             //lista_sonando.getCanciones().remove(id_max);
             tabla_sonando.setValueAt("*", id_max, 1);
             reproductor.reproducir(cancion.getPath());
@@ -120,12 +118,17 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         }
     }
 
-    public List<File> addCanciones() {
+    public void addCanciones(int index) {
+
         JFileChooser chooser = new JFileChooser();
+        List<File> listaFiles;
+
+        ListaCanciones listaC = new ListaCanciones();
+        ArrayList<String> listaNames = new ArrayList();
+
         chooser.setMultiSelectionEnabled(true);
         chooser.setCurrentDirectory(new File("C:\\Users\\66785361\\Documents\\GitHub\\socialDj\\InterfazServidor"));
         chooser.setFileFilter(new FileFilter() {
-
             @Override
             public boolean accept(File f) {
                 if (acabaEnMp3(f)) {
@@ -140,13 +143,22 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 return "Filtro mp3";
             }
         });
-        
+
         chooser.showOpenDialog(null);
         File[] files = chooser.getSelectedFiles();
-        List<File> lista =Arrays.asList(files);
-        return lista;
-        
+        listaFiles = (List<File>) Arrays.asList(files);
 
+        if (!listaFiles.isEmpty()) {
+
+            int x = 0;
+            int comienzo = listas_canciones.get(index).getCanciones().size();
+            
+            for (File f : listaFiles) {
+                listas_canciones.get(index).getCanciones().add(reproductor.getCancion(f.getAbsolutePath()));
+                tablasPendientes.get(index).setValueAt(listas_canciones.get(index).getCanciones().get(x+comienzo).getNombre(), x+comienzo, 0);
+                x++;
+            }
+        }
     }
 
     public static boolean acabaEnMp3(File f) {
@@ -157,11 +169,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
 
         int filaSelec = tablasPendientes.get(index).getSelectedRow();
-        listas_canciones.get(index).getCanciones().size();
-        listas_canciones.get(index).getCanciones().remove(filaSelec);
 
         if (filaSelec != -1) {
-
+            
+            listas_canciones.get(index).getCanciones().remove(filaSelec);
+            
             for (int x = filaSelec; x < 59; x++) {
 
                 tablasPendientes.get(index).setValueAt(tablasPendientes.get(index).getValueAt(x + 1, 0), x, 0);
@@ -180,14 +192,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public void removeLista(int index) {
 
-        if (!tablasPendientes.isEmpty()) {
-
             listas_canciones.remove(index);
             tablasPendientes.remove(index);
-        } else {
-            JOptionPane.showMessageDialog(null, "No quedan listas abiertas");
-        }
-
+       
     }
 
     @Override

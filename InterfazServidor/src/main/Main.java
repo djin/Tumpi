@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import modelos.Cancion;
 import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 import reproductor.PlayerReproductor;
@@ -30,7 +29,6 @@ public class Main extends JFrame {
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
 
@@ -41,13 +39,10 @@ public class Main extends JFrame {
     }
     private JPanel panel = (JPanel) this.getContentPane();
     private static ListasCancionesManager listas_manager;
-    private ListaCanciones listaPredeterminada;
-    private static ListaCanciones listaPredeterminadaBis;
     private ModeloTabla modeloTablaSonando;
     private ModeloTabla modeloTablaPredeterminado;
     private String[] nombresColumnaSonando = {"Cancion", "Votos"};
     private static String[] nombresColumnaPendientes = {"Cancion"};
-    private static ArrayList<String> contenidos;
     private Tabla tablaPredeterminada;
     private JScrollPane scrollSonando;
     private JScrollPane scrollPendientesPredeterminado;
@@ -81,32 +76,6 @@ public class Main extends JFrame {
         menus = new JMenu[2];
         SetMenus();
 
-
-        //El siguiente fragmento es solo una prueba hasta que tengamos la busqueda de canciones terminada
-        //Servirá para meter a piñón el viernes la cancion con su path de la canción a la hora de reproducirla.
-
-        listaPredeterminada = new ListaCanciones();
-        listaPredeterminadaBis = new ListaCanciones();
-
-        listaPredeterminada.getCanciones().add(new Cancion(1, "Gold on The Ceiling", "The Black Keys", "El Camino", "3:48", "1.mp3"));
-        listaPredeterminada.getCanciones().add(new Cancion(2, "Never Gonna Give You Up", "Rick Astley", "RickRoll", "2:10", "2.mp3"));
-        listaPredeterminada.getCanciones().add(new Cancion(3, "Sleep Alone", "Two Door Cinema Club", "Indie hits", "4:10", "3.mp3"));
-        listaPredeterminada.getCanciones().add(new Cancion(4, "Sleep Alone without your mother tonight, always with anal sex", "Two Door Cinema Club", "Indie hits", "20:10", "3.mp3"));
-//        listaPredeterminada.getCanciones().add(new Cancion(4, "Two Hearts", "Phill Collins", "Indie Phill is Indie", "3:45", "c://wheneveryou.mp3"));
-//        listaPredeterminada.getCanciones().add(new Cancion(5, "I will survive", "Gloria Gaynor", "Gay hits", "4:47", "c://wheneveryou.mp3"));
-//        listaPredeterminada.getCanciones().add(new Cancion(6, "9 crimes", "Damien Rice", "For the Hipster life", "3:40", "c://wheneveryou.mp3"));
-//        listaPredeterminada.getCanciones().add(new Cancion(7, "Beer in Mexico", "Kenny Chesney", "Kenny hits", "4:29", "c://wheneveryou.mp3"));
-//        listaPredeterminada.getCanciones().add(new Cancion(8, "Night Life", "Willie Nelson", "Willie Nelson & Family", "4:07", "c://wheneveryou.mp3"));
-//        listaPredeterminada.getCanciones().add(new Cancion(9, "I just call to say I love you", "Stivie Wonder", "70's Hits", "4:22", "c://wheneveryou.mp3"));
-//        listaPredeterminada.getCanciones().add(new Cancion(10, "Hound Dog", "Elvis Presley", "Elvis bonus album", "2:18", "c://wheneveryou.mp3"));
-//        listaPredeterminada.getCanciones().add(new Cancion(11, "Another day in paradise", "Phill Collins", "Indie hits", "4:10", "c://wheneveryou.mp3"));
-        listas_manager.addLista(listaPredeterminada);
-        contenidos = new ArrayList();
-        for (Cancion p : listaPredeterminada.getCanciones()) {
-
-            contenidos.add(p.getNombre());
-        }
-
         //Se inicializa la tabla de canciones en reproduccion
 
         modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
@@ -121,13 +90,15 @@ public class Main extends JFrame {
         nombresLista = new ArrayList();
 
 
-        modeloTablaPredeterminado = new ModeloTabla(nombresColumnaPendientes, 60, contenidos);
+        modeloTablaPredeterminado = new ModeloTabla(nombresColumnaPendientes, 60);
         tablaPredeterminada = new Tabla(modeloTablaPredeterminado);
         listas_manager.tablasPendientes.add(tablaPredeterminada);
 
         scrollPendientesPredeterminado = new JScrollPane(tablaPredeterminada);
         pestanasPendientes = new JTabbedPane();
 
+        listas_manager.addLista(new ListaCanciones());
+        nombresLista.add("Predeterminada");
         pestanasPendientes.add(scrollPendientesPredeterminado, "Predeterminada");
         pestanasPendientes.setPreferredSize(new Dimension(600, 300));
 
@@ -164,7 +135,6 @@ public class Main extends JFrame {
 
 
         JButton iniciar_Siguiente = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -178,7 +148,6 @@ public class Main extends JFrame {
 
 
         JButton pausar_Reanudar = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -192,10 +161,9 @@ public class Main extends JFrame {
 
 
         JButton anadirCanciones = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.addCanciones();
+                listas_manager.addCanciones(pestanasPendientes.getSelectedIndex());
             }
         });
         anadirCanciones.setText("Anadir canciones");
@@ -205,12 +173,10 @@ public class Main extends JFrame {
 
 
         JButton borrarCancion = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                listaSelec = pestanasPendientes.getSelectedIndex();
-                listas_manager.removeCancion(listaSelec);
+                listas_manager.removeCancion(pestanasPendientes.getSelectedIndex());
             }
         });
         borrarCancion.setText("Borrar canción");
@@ -220,7 +186,6 @@ public class Main extends JFrame {
 
 
         JButton promocionarLista = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -234,7 +199,6 @@ public class Main extends JFrame {
 
 
         JButton anadirLista = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -250,15 +214,20 @@ public class Main extends JFrame {
 
 
         JButton borrarLista = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                listaSelec = pestanasPendientes.getSelectedIndex();
+                if (listas_manager.listas_canciones.size() != 1) {
 
-                pestanasPendientes.remove(listaSelec);
-                listas_manager.removeLista(listaSelec);
-                nombresLista.remove(listaSelec);
+                    listaSelec = pestanasPendientes.getSelectedIndex();
+                    pestanasPendientes.remove(listaSelec);
+                    listas_manager.removeLista(listaSelec);
+                    nombresLista.remove(listaSelec);
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "Tiene que tener al menos una lista abierta");
+                }
+
             }
         });
         borrarLista.setText("Borrar lista");
@@ -268,7 +237,6 @@ public class Main extends JFrame {
 
 
         JButton salir = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -287,18 +255,9 @@ public class Main extends JFrame {
 
     public static void AddPestana(String nombreLista) {
 
-        listaPredeterminadaBis.getCanciones().add(new Cancion(4, "Kalimba", "Mr. Scruff", "Ninja Tuna", "5:48", "4.mp3"));
-        listaPredeterminadaBis.getCanciones().add(new Cancion(5, "Maid with the flaxen hair", "Richard Stoltzman", "Fine Music", "2:49", "5.mp3"));
-        listaPredeterminadaBis.getCanciones().add(new Cancion(6, "Sleep away", "Bob Acri", "Bob Acri", "3:20", "6.mp3"));
+        listas_manager.addLista(new ListaCanciones());
 
-        listas_manager.addLista(listaPredeterminadaBis);
-
-        contenidos.clear();
-        for (Cancion p : listaPredeterminadaBis.getCanciones()) {
-
-            contenidos.add(p.getNombre());
-        }
-        listas_manager.tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 60, contenidos)));
+        listas_manager.tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 60)));
         nombresLista.add(nombreLista);
         pestanasPendientes.addTab(nombreLista, new JScrollPane(listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1)));
     }
@@ -418,20 +377,6 @@ public class Main extends JFrame {
     }
 
     /**
-     * @return the contenidos
-     */
-    public ArrayList<String> getContenidos() {
-        return contenidos;
-    }
-
-    /**
-     * @param contenidos the contenidos to set
-     */
-    public void setContenidos(ArrayList<String> contenidos) {
-        this.contenidos = contenidos;
-    }
-
-    /**
      * @return the tablaPredeterminada
      */
     public Tabla getTablaPredeterminada() {
@@ -467,7 +412,8 @@ public class Main extends JFrame {
     }
 
     /**
-     * @param scrollPendientesPredeterminado the scrollPendientesPredeterminado to set
+     * @param scrollPendientesPredeterminado the scrollPendientesPredeterminado
+     * to set
      */
     public void setScrollPendientesPredeterminado(JScrollPane scrollPendientesPredeterminado) {
         this.scrollPendientesPredeterminado = scrollPendientesPredeterminado;

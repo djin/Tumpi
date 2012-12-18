@@ -1,6 +1,5 @@
 package reproductor;
 
-import java.io.File;
 import modelos.Cancion;
 import uk.co.caprica.vlcj.component.AudioMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaMeta;
