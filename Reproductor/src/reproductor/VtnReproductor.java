@@ -22,6 +22,7 @@ public class VtnReproductor extends JFrame {
     private static JLabel nombreCancion;
     private static JLabel artistaCancion;
     private static JButton pausa;
+    private static JButton siguiente;
     private static JPanel panelPrincipal;
     private static JPanel panelCentral;
     private static JPanel panelBotones;
@@ -43,24 +44,27 @@ public class VtnReproductor extends JFrame {
         panelCentral.add(artistaCancion);
 
 
-        pausa = new JButton("Black Keys");
-        pausa.setPreferredSize(new Dimension(110, 26));
+        pausa = new JButton();
+        pausa.setPreferredSize(new Dimension(40, 40));
 
         pausa.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //mediaListPlayer.pause();
-                if (pausaReproducir == false) {
-                    pausa.setText("RICK ROLL");
-                    pausaReproducir = true;
-                    reproductor.reproducir("1.mp3");
-                } else {
-                    pausa.setText("Black Keys");
-                    pausaReproducir = false;
-                    reproductor.reproducir("2.mp3");
-                }
+                reproductor.pausa();
             }
+        });
+        
+        siguiente = new JButton();
+        siguiente.setPreferredSize(new Dimension(40, 40));
+
+        siguiente.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+            
         });
 
         panelBotones = new JPanel();

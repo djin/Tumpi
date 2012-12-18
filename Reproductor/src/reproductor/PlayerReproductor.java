@@ -21,6 +21,9 @@ public class PlayerReproductor extends configVlcj {
         reproductor.getMediaPlayer().playMedia(mrl);
     }
     
+    public void pausa(){
+        reproductor.getMediaPlayer().pause();
+    }
     
     
 }
