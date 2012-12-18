@@ -8,8 +8,13 @@ import conexion.ConnectionManager;
 import elementosInterfaz.DialogoNombreLista;
 import elementosInterfaz.ModeloTabla;
 import elementosInterfaz.Tabla;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import main.Main;
 import reproductor.PlayerReproductor;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
@@ -103,6 +108,39 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 Main.log("Error al enviar la cancion a reproducir: ");
             }
         }
+    }
+
+    public List<File> addCanciones() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setMultiSelectionEnabled(true);
+        chooser.setCurrentDirectory(new File("C:\\Users\\66785361\\Documents\\GitHub\\socialDj\\InterfazServidor"));
+        chooser.setFileFilter(new FileFilter() {
+
+            @Override
+            public boolean accept(File f) {
+                if (acabaEnMp3(f)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            @Override
+            public String getDescription() {
+                return "Filtro mp3";
+            }
+        });
+        
+        chooser.showOpenDialog(null);
+        File[] files = chooser.getSelectedFiles();
+        List<File> lista =Arrays.asList(files);
+        return lista;
+        
+
+    }
+
+    public static boolean acabaEnMp3(File f) {
+        return f.getName().endsWith(".mp3");
     }
 
     public void removeCancion(int index) {

@@ -195,6 +195,7 @@ public class Main extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                listas_manager.addCanciones();
             }
         });
         anadirCanciones.setText("Anadir canciones");
