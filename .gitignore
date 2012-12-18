@@ -161,3 +161,5 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+/ReproductorLista/nbproject/private/
+/InterfazServidor/nbproject/private/
