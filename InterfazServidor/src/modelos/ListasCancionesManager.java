@@ -33,7 +33,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public static ArrayList<Tabla> tablasPendientes;
     public static ListaCanciones lista_sonando = new ListaCanciones();
     private PlayerReproductor reproductor;
-    private static ArrayList<Cancion> canciones = new ArrayList();
+    private static ArrayList<Cancion> canciones;
     
     public ListasCancionesManager() {
         
@@ -45,7 +45,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public void promocionarLista(int id_lista) {
         
         int x = 0;
-        canciones.clear();
+        canciones = new ArrayList();
         
         for (Cancion p : listas_canciones.get(id_lista).getCanciones()) {
             
@@ -189,7 +189,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         int filaSelec = tablasPendientes.get(index).getSelectedRow();
 
-        if (filaSelec != -1) {
+        if (filaSelec == -1 || listas_canciones.get(index).getCanciones().size() <= filaSelec) {
+            
+            JOptionPane.showMessageDialog(null, "No ha seleccionado una canción");
+            
+        } else {
             
             listas_canciones.get(index).getCanciones().remove(filaSelec);
             
@@ -198,8 +202,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 tablasPendientes.get(index).setValueAt(tablasPendientes.get(index).getValueAt(x + 1, 0), x, 0);
             }
             tablasPendientes.get(index).setValueAt("", 59, 0);
-        } else {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado una canción");
+            
         }
     }
 
