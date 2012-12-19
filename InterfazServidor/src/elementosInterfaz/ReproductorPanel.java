@@ -1,4 +1,4 @@
-package interfazreproductorbasico;
+package elementosInterfaz;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import modelos.ListasCancionesManager;
+import reproductor.PlayerReproductor;
 
 /**
  *
@@ -30,12 +32,15 @@ public class ReproductorPanel extends JPanel {
     public static JLabel song;
     public static JLabel artist;
     public static PanelCaratula panelCaratula;
+    public ListasCancionesManager listas_manager;
     
-    public ReproductorPanel(ListasCancionesManager ) {
+    public ReproductorPanel(ListasCancionesManager lista_manager) {
+        
+        this.listas_manager = lista_manager;
         
         FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
         this.setLayout(fl);
-        this.setPreferredSize(new Dimension(1000,70));
+        this.setPreferredSize(new Dimension(500,80));
         
         panelCaratula = new PanelCaratula("1.jpg");
         this.add(panelCaratula);
@@ -100,10 +105,19 @@ public class ReproductorPanel extends JPanel {
                     play.setPressedIcon(pausePress);
                     pause = true;
                 }
+                PlayerReproductor.pausar();
             }
         });
         
-         next.addActionListener(new ActionListener() {
+        next.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             listas_manager.playNext();
+            }
+        });
+        
+        stop.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,14 +125,6 @@ public class ReproductorPanel extends JPanel {
             }
         });
         
-         stop.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
-         
         
         panelBotones.add(stop);
         panelBotones.add(play);

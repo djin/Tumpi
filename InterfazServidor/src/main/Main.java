@@ -3,9 +3,11 @@ package main;
 import conexion.ConnectionManager;
 import elementosInterfaz.DialogoNombreLista;
 import elementosInterfaz.ModeloTabla;
+import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
 import ficheros.FicherosManager;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -51,6 +53,7 @@ public class Main extends JFrame {
     private static JTabbedPane pestanasPendientes;
     private JPanel botones;
     private JPanel conjunto;
+    private ReproductorPanel panelReproductor;
     private BorderLayout border;
     private int listaSelec;
     public static ArrayList<String> nombresLista;
@@ -61,14 +64,18 @@ public class Main extends JFrame {
 
     public Main() {
 
-
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 40, 20));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         border = new BorderLayout();
         setLookAndFeel();
+        
 
         //Listas de canciones en el programa en este momento
         listas_manager = new ListasCancionesManager();
+        
+        
+        panelReproductor = new ReproductorPanel(listas_manager);
         
         //Manejador de ficheros
         ficheros_manager = new FicherosManager();
@@ -86,9 +93,10 @@ public class Main extends JFrame {
         setBotones();
 
         conjunto = new JPanel();
-        conjunto.add(botones, border.NORTH);
-        conjunto.add(pestanasPendientes, border.SOUTH);
-        panel.add(conjunto, border.CENTER);
+        conjunto.add(botones, BorderLayout.NORTH);
+        conjunto.add(pestanasPendientes, BorderLayout.SOUTH);
+        panel.add(conjunto, BorderLayout.CENTER);
+        panel.add(panelReproductor, BorderLayout.SOUTH);
 
         //Se crea el manager de la conexion, despues se crea el socket
         iniciarConexion();
