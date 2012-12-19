@@ -51,7 +51,7 @@ public class DialogoNombreLista extends JDialog /*implements WindowListener*/ {
             public void actionPerformed(ActionEvent e) {
 
                 nombre = campoTexto.getText();
-                Main.AddPestana(nombre);
+                Main.addPestana(nombre);
                 setVisible(false);
             }
         });

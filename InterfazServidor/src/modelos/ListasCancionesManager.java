@@ -32,11 +32,14 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public static ArrayList<ListaCanciones> listas_canciones;
     public static ArrayList<Tabla> tablasPendientes;
     public static ListaCanciones lista_sonando = new ListaCanciones();
-    private PlayerReproductor reproductor = new PlayerReproductor(); //Reproductor de musica
+    private PlayerReproductor reproductor;
     private static ArrayList<Cancion> canciones = new ArrayList();
     
     public ListasCancionesManager() {
+        
+        reproductor = new PlayerReproductor();
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
+        listas_canciones = new ArrayList();
     }
 
     public void promocionarLista(int id_lista) {

@@ -4,6 +4,7 @@ import conexion.ConnectionManager;
 import elementosInterfaz.DialogoNombreLista;
 import elementosInterfaz.ModeloTabla;
 import elementosInterfaz.Tabla;
+import ficheros.FicherosManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -39,6 +40,7 @@ public class Main extends JFrame {
     }
     private JPanel panel = (JPanel) this.getContentPane();
     private static ListasCancionesManager listas_manager;
+    private static FicherosManager ficheros_manager;
     private ModeloTabla modeloTablaSonando;
     private ModeloTabla modeloTablaPredeterminado;
     private String[] nombresColumnaSonando = {"Cancion", "Votos"};
@@ -63,72 +65,39 @@ public class Main extends JFrame {
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 40, 20));
         border = new BorderLayout();
-        //Look and Feel de la aplicacion
-        SetLookAndFeel();
+        setLookAndFeel();
 
         //Listas de canciones en el programa en este momento
-        //listasDeCanciones = new ArrayList();
         listas_manager = new ListasCancionesManager();
-        listas_manager.listas_canciones = new ArrayList();
-
-
+        
+        //Manejador de ficheros
+        ficheros_manager = new FicherosManager();
+        
         //Se inicializan los menus
-        menus = new JMenu[2];
-        SetMenus();
+        setMenus();
 
         //Se inicializa la tabla de canciones en reproduccion
-
-        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
-        listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
-        scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
-        scrollSonando.setPreferredSize(new Dimension(500, 700));
-        panel.add(scrollSonando, border.WEST);
-
+        iniciarListaSonando();
 
         //Se inicializa las tablas de listas de canciones pendientes y sus nombres
-        listas_manager.tablasPendientes = new ArrayList();
-        nombresLista = new ArrayList();
-
-
-        modeloTablaPredeterminado = new ModeloTabla(nombresColumnaPendientes, 60);
-        tablaPredeterminada = new Tabla(modeloTablaPredeterminado);
-        listas_manager.tablasPendientes.add(tablaPredeterminada);
-
-        scrollPendientesPredeterminado = new JScrollPane(tablaPredeterminada);
-        pestanasPendientes = new JTabbedPane();
-
-        listas_manager.addLista(new ListaCanciones());
-        nombresLista.add("Predeterminada");
-        pestanasPendientes.add(scrollPendientesPredeterminado, "Predeterminada");
-        pestanasPendientes.setPreferredSize(new Dimension(600, 300));
-
+        iniciarListasCanciones();
 
         //Se inicializa el panel con los botones
-        SetBotones();
+        setBotones();
 
-
-        //Se inicializa y añade el panel conjunto a la interfaz
         conjunto = new JPanel();
         conjunto.add(botones, border.NORTH);
         conjunto.add(pestanasPendientes, border.SOUTH);
         panel.add(conjunto, border.CENTER);
 
         //Se crea el manager de la conexion, despues se crea el socket
-        try {
-            server = new ConnectionManager();
-            if (server.createSocket(puerto_socket)) {
-                log("Socket creado con exito!!!");
-            }
-        } catch (Exception ex) {
-            log("Error al crear y conectar el socket: " + ex.toString());
-            System.exit(0);
-        }
-
+        iniciarConexion();
+        
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
 
-    private void SetBotones() {
+    private void setBotones() {
 
         setBotones(new JPanel());
         getBotones().setPreferredSize(new Dimension(700, 250));
@@ -253,7 +222,7 @@ public class Main extends JFrame {
         getBotones().add(salir);
     }
 
-    public static void AddPestana(String nombreLista) {
+    public static void addPestana(String nombreLista) {
 
         listas_manager.addLista(new ListaCanciones());
 
@@ -261,9 +230,51 @@ public class Main extends JFrame {
         nombresLista.add(nombreLista);
         pestanasPendientes.addTab(nombreLista, new JScrollPane(listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1)));
     }
+    
+    private void iniciarListasCanciones(){
+        
+        listas_manager.tablasPendientes = new ArrayList();
+        nombresLista = new ArrayList();
 
-    private void SetMenus() {
+        modeloTablaPredeterminado = new ModeloTabla(nombresColumnaPendientes, 60);
+        tablaPredeterminada = new Tabla(modeloTablaPredeterminado);
+        listas_manager.tablasPendientes.add(tablaPredeterminada);
 
+        scrollPendientesPredeterminado = new JScrollPane(tablaPredeterminada);
+        pestanasPendientes = new JTabbedPane();
+
+        listas_manager.addLista(new ListaCanciones());
+        nombresLista.add("Predeterminada");
+        pestanasPendientes.add(scrollPendientesPredeterminado, "Predeterminada");
+        pestanasPendientes.setPreferredSize(new Dimension(600, 300));
+    }
+    
+    private void iniciarListaSonando(){
+        
+        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
+        listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
+        scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
+        scrollSonando.setPreferredSize(new Dimension(500, 700));
+        panel.add(scrollSonando, border.WEST);
+    }
+    
+    private void iniciarConexion(){
+        
+        try {
+            server = new ConnectionManager();
+            if (server.createSocket(puerto_socket)) {
+                log("Socket creado con exito!!!");
+            }
+        } catch (Exception ex) {
+            log("Error al crear y conectar el socket: " + ex.toString());
+            System.exit(0);
+        }
+    }
+    
+    private void setMenus() {
+        
+        menus = new JMenu[2];
+        
         getMenus()[0] = new JMenu("Archivo");
         getMenus()[0].setMnemonic('A');
 
@@ -290,7 +301,7 @@ public class Main extends JFrame {
 
     }
 
-    private void SetLookAndFeel() {
+    private void setLookAndFeel() {
 
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -321,6 +332,7 @@ public class Main extends JFrame {
     }
 
     /**
+     * 
      * @return the modeloTablaSonando
      */
     public ModeloTabla getModeloTablaSonando() {
