@@ -5,6 +5,7 @@
 package conexion;
 
 import java.net.*;
+import java.util.ArrayList;
 import main.Main;
 import modelos.ListasCancionesManager;
 
@@ -62,6 +63,7 @@ public class ConnectionManager implements ServerSocketListener{
         Main.log(ip+": "+men);
         try {
             String message=men;
+            ArrayList<Integer> votos_cliente=ListasCancionesManager.votos_cliente.get(ip);
             int tipo=Integer.parseInt(message.split("\\|")[0]);
             message=message.split("\\|")[1]; 
             switch(tipo){
@@ -70,18 +72,26 @@ public class ConnectionManager implements ServerSocketListener{
                         socket.enviarMensajeServer(ip,"0|"+ListasCancionesManager.lista_sonando.toString());
                     if(ListasCancionesManager.cancion_sonando!=null)
                         socket.enviarMensajeServer(ip,"4|"+ListasCancionesManager.cancion_sonando.toString());
+                    if(votos_cliente!=null){
+                        for(int id_cancion:votos_cliente)
+                            socket.enviarMensajeServer(ip,"1|"+id_cancion);
+                    }
                     break;
                 case 1:
                     if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),true)){
                         socket.enviarMensajeServer(ip,"1|"+message);
-                        ListasCancionesManager.votos_cliente.put(ip, Integer.parseInt(message));
+                        if(votos_cliente!=null && !votos_cliente.contains(Integer.parseInt(message)))
+                           votos_cliente.add(Integer.parseInt(message)); 
                     }
                     else
                         socket.enviarMensajeServer(ip,"1|0");   
                     break;
                 case 3:
-                    if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),false))
+                    if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),false)){
                         socket.enviarMensajeServer(ip,"3|"+message);
+                        if(votos_cliente!=null)
+                            votos_cliente.remove(Integer.parseInt(message));
+                    }
                     else
                         socket.enviarMensajeServer(ip,"3|0"); 
                     break;
@@ -95,6 +105,10 @@ public class ConnectionManager implements ServerSocketListener{
     public void onClientConnected(String ip) {
         try{
             Main.log("Cliente conectado: "+ip+"\nNumero de clientes: "+socket.getClientsCount());
+            if(ListasCancionesManager.votos_cliente.get(ip)==null){
+                ListasCancionesManager.votos_cliente.put(ip, new ArrayList<Integer>());
+                //Main.log("Hash de votos creado para el cliente");
+            }
         }catch(Exception ex){
             Main.log(ex.toString());
         }
@@ -102,8 +116,6 @@ public class ConnectionManager implements ServerSocketListener{
 
     @Override
     public void onClientDisconnected(String ip) {
-        if(ListasCancionesManager.votos_cliente.containsKey(ip))
-            ListasCancionesManager.procesarVoto(ListasCancionesManager.votos_cliente.get(ip), false);
         Main.log("Cliente desconectado "+"\nNumero de clientes: "+socket.getClientsCount());
     }
     

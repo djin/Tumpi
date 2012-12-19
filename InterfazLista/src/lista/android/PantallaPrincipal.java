@@ -52,10 +52,10 @@ public class PantallaPrincipal extends Activity {
         btnEntrarDisco.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
-                if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
+               // ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
+                //if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
                     new BuscarServer(8888).execute();
-                }
+                /*}
                 else{
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
                     dialogBuilder.setMessage("Se necesita estar conectado a una red wifi que disponga de servidor socialDJ");
@@ -66,7 +66,7 @@ public class PantallaPrincipal extends Activity {
                         }
                     });
                     dialogBuilder.show();
-                }
+                }*/
             }
         });     
     }

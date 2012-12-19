@@ -26,7 +26,7 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
  */
 public class ListasCancionesManager implements MediaPlayerEventListener {
 
-    public static HashMap<String, Integer> votos_cliente = new HashMap();
+    public static HashMap<String, ArrayList<Integer>> votos_cliente = new HashMap<String, ArrayList<Integer>>();
     public static Cancion cancion_sonando;
     public static Tabla tabla_sonando;
     public static ArrayList<ListaCanciones> listas_canciones;
@@ -121,6 +121,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             tabla_sonando.setValueAt("*", id_max, 1);
             reproductor.reproducir(cancion.getPath());
             cancion.setReproducida(1);
+            
+            //Esto no se por que no funciona
+            
+            //for(ArrayList<Integer> v:votos_cliente.values())
+               // v.remove(cancion.getId());
             Main.log("Reproduciendo cancion: " + cancion.getNombre());
             try {
                 ConnectionManager.socket.enviarMensajeServer("*", "2|" + cancion.getId());
@@ -161,9 +166,14 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
             int x = 0;
             int comienzo = listas_canciones.get(index).getCanciones().size();
-            
+            ListaCanciones lista=listas_canciones.get(index);
+            int max_id=lista.getMaxId();
+            Cancion c;
             for (File f : listaFiles) {
-                listas_canciones.get(index).getCanciones().add(reproductor.getCancion(f.getAbsolutePath()));
+                c=reproductor.getCancion(f.getAbsolutePath());
+                c.setId(max_id+1);
+                listas_canciones.get(index).getCanciones().add(c);
+                max_id++;
                 tablasPendientes.get(index).setValueAt(listas_canciones.get(index).getCanciones().get(x+comienzo).getNombre(), x+comienzo, 0);
                 x++;
             }

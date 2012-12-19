@@ -49,6 +49,14 @@ public class ListaCanciones {
         return cadena.substring(0,cadena.length()-1);
     }
     
+    public int getMaxId(){
+        int max_id=0;
+        for(Cancion c:canciones)
+            if(c.getId()>max_id)
+                max_id=c.getId();
+        return max_id;
+    }
+    
     /**
      * @return the listeners
      */

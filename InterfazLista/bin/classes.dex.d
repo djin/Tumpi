@@ -15,11 +15,9 @@ C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\andr
 C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\ListaCanciones$4.class \
 C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\ListaCanciones.class \
 C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaDatosServidor$1$1.class \
-C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaDatosServidor$1$2.class \
 C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaDatosServidor$1.class \
 C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaDatosServidor.class \
 C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$1.class \
-C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$2$1.class \
 C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$2.class \
 C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$BuscarServer.class \
 C:\Users\66785270\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal.class \
