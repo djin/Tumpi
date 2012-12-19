@@ -22,7 +22,7 @@ public class InterfazReproductorBasico {
                 ventana.add(panel);
                 ventana.setVisible(true);
                 ventana.setLocation(250, 150);
-                ventana.setSize(400,400);
+                ventana.setSize(600,400);
                 ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });

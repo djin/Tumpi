@@ -1,9 +1,11 @@
 package interfazreproductorbasico;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -35,6 +37,7 @@ public class ReproductorPanel extends JPanel {
         
         FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
         this.setLayout(fl);
+        this.setPreferredSize(new Dimension(500,80));
         panelBotones = new JPanel(fl);
         
         playIcon = new ImageIcon("icons/play.png");
@@ -51,9 +54,9 @@ public class ReproductorPanel extends JPanel {
         stop.setPreferredSize(tamanoBoton);
         next.setPreferredSize(tamanoBoton);
         
-        play.setBackground(new Color(0,0,0,0));
-        stop.setBackground(new Color(0,0,0,0));
-        next.setBackground(new Color(0,0,0,0));
+        play.setBackground(null);
+        stop.setBackground(null);
+        next.setBackground(null);
         
         play.setBorderPainted(false);
         stop.setBorderPainted(false);
@@ -105,20 +108,19 @@ public class ReproductorPanel extends JPanel {
         this.add(panelBotones);
         
         panelNombres = new JPanel();
-        song = new JLabel("Nombre de la canción");
-        song.setFont(new Font("", Font.PLAIN, 14));
+        song = new JLabel("Nombre de la canción asd");
+        song.setFont(new Font("", Font.BOLD, 14));
         artist = new JLabel("Artista");
-        artist.setFont(new Font("", Font.PLAIN, 12));
-        panelNombres.setPreferredSize(new Dimension(150,55));
-        FlowLayout fl2 = new FlowLayout(FlowLayout.CENTER,50,10);
-        panelNombres.setLayout(fl2);
+        artist.setFont(new Font("", Font.BOLD, 10));
+        panelNombres.setPreferredSize(new Dimension(300,55));
+        GridLayout gl = new GridLayout(2, 1, 0,-12);
+        panelNombres.setLayout(gl);
         panelNombres.add(song);
         panelNombres.add(artist);
         
         this.add(panelNombres);
         
     }
-    
     
     
 }
