@@ -87,11 +87,16 @@ public void onCreate(Bundle savedInstanceState) {
         });
     }
     public void interpretarLista (String[] canciones){
-        
+        ArrayList<Cancion> lista_aux=new ArrayList();
         for(String cancion : canciones){
             String[] datos_cancion=cancion.split("\\*");
-            lista.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, "1".equals(datos_cancion[4])));
+            if(!"1".equals(datos_cancion[4]))
+                lista.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, false));
+            else
+                lista_aux.add(new Cancion(datos_cancion[1],datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, true));
         }
+        if(lista_aux.size()>0)
+            lista.addAll(lista_aux);
     }    
     public void onMessageReceive(final String men) {
         

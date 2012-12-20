@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import main.Main;
 import modelos.ListasCancionesManager;
 import reproductor.PlayerReproductor;
 
@@ -32,6 +33,7 @@ public class ReproductorPanel extends JPanel {
     public static JLabel song;
     public static JLabel artist;
     public static PanelCaratula panelCaratula;
+    PlayerReproductor player=new PlayerReproductor();
     public ListasCancionesManager listas_manager;
     
     public ReproductorPanel(ListasCancionesManager lista_manager) {
@@ -44,7 +46,7 @@ public class ReproductorPanel extends JPanel {
         
         panelCaratula = new PanelCaratula("1.jpg");
         this.add(panelCaratula);
-        panelCaratula.cambiarCaratula("1.jpg");
+        //panelCaratula.cambiarCaratula("1.jpg");
         
         panelBotones = new JPanel(fl);
         playIcon = new ImageIcon("icons/play.png");
@@ -94,18 +96,28 @@ public class ReproductorPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(pause){
-                   play.setToolTipText("Reproducir");
-                   play.setIcon(playIcon);
-                   play.setPressedIcon(playPress);
-                   pause = false;
-                } else {
+                if(player.getMediaPlayer().isPlayable()){
+                    if(player.getMediaPlayer().isPlaying()){
+                       play.setToolTipText("Reproducir");
+                       play.setIcon(playIcon);
+                       play.setPressedIcon(playPress);
+                    } else {
+                        play.setToolTipText("Pausar");
+                        play.setIcon(pauseIcon);
+                        play.setPressedIcon(pausePress);
+                    }
+                    PlayerReproductor.pausar();
+                }
+                else if(listas_manager.playNext()){
+                    try{
+                        panelCaratula.cambiarCaratula(PlayerReproductor.getImage());
+                    }catch(Exception ex){
+                        Main.log("No se encontro imagen");
+                    }
                     play.setToolTipText("Pausar");
                     play.setIcon(pauseIcon);
                     play.setPressedIcon(pausePress);
-                    pause = true;
                 }
-                PlayerReproductor.pausar();
             }
         });
         
@@ -113,7 +125,16 @@ public class ReproductorPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-             listas_manager.playNext();
+                if(listas_manager.playNext()){
+                    try{
+                        panelCaratula.cambiarCaratula(PlayerReproductor.getImage());
+                    }catch(Exception ex){
+                        Main.log("No se encontro imagen");
+                    }
+                    play.setToolTipText("Pausar");
+                    play.setIcon(pauseIcon);
+                    play.setPressedIcon(pausePress);
+                }
             }
         });
         
@@ -126,7 +147,7 @@ public class ReproductorPanel extends JPanel {
         });
         
         
-        panelBotones.add(stop);
+        //panelBotones.add(stop);
         panelBotones.add(play);
         panelBotones.add(next);
         this.add(panelBotones);

@@ -80,7 +80,7 @@ public class ConnectionManager implements ServerSocketListener{
                 case 1:
                     if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),true)){
                         socket.enviarMensajeServer(ip,"1|"+message);
-                        if(votos_cliente!=null && !votos_cliente.contains(Integer.parseInt(message)))
+                        if(votos_cliente!=null && !votos_cliente.contains(Integer.decode(message)))
                            votos_cliente.add(Integer.parseInt(message)); 
                     }
                     else
@@ -90,7 +90,7 @@ public class ConnectionManager implements ServerSocketListener{
                     if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),false)){
                         socket.enviarMensajeServer(ip,"3|"+message);
                         if(votos_cliente!=null)
-                            votos_cliente.remove(Integer.parseInt(message));
+                            votos_cliente.remove(Integer.decode(message));
                     }
                     else
                         socket.enviarMensajeServer(ip,"3|0"); 
@@ -107,7 +107,7 @@ public class ConnectionManager implements ServerSocketListener{
             Main.log("Cliente conectado: "+ip+"\nNumero de clientes: "+socket.getClientsCount());
             if(ListasCancionesManager.votos_cliente.get(ip)==null){
                 ListasCancionesManager.votos_cliente.put(ip, new ArrayList<Integer>());
-                //Main.log("Hash de votos creado para el cliente");
+                Main.log("Hash de votos creado para el cliente");
             }
         }catch(Exception ex){
             Main.log(ex.toString());

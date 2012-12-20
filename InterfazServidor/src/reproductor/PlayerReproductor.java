@@ -1,5 +1,7 @@
 package reproductor;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import modelos.Cancion;
 import uk.co.caprica.vlcj.component.AudioMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaMeta;
@@ -29,6 +31,12 @@ public class PlayerReproductor extends configVlcj{
     
     public MediaPlayer getMediaPlayer(){
         return reproductor.getMediaPlayer();
+    }
+    
+    public static BufferedImage getImage(){
+        identificador.getMediaPlayer().prepareMedia(reproductor.getMediaPlayer().mrl());
+        identificador.getMediaPlayer().parseMedia();
+        return identificador.getMediaPlayer().getMediaMeta().getArtwork();
     }
     
     public Cancion getCancion(String mrl){

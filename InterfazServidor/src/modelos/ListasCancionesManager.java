@@ -5,6 +5,7 @@
 package modelos;
 
 import conexion.ConnectionManager;
+import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
 import java.io.File;
 import java.util.ArrayList;
@@ -64,9 +65,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         //fragmento cutre del siglo
         lista_sonando.getCanciones().clear();
         for (Cancion p : canciones) {
-            lista_sonando.getCanciones().add(p);
+            lista_sonando.getCanciones().add(new Cancion(p.getId(),p.getNombre(),p.getDisco(),p.getArtista(),p.getDuracion(),p.getPath()));
         }
-
+        canciones=lista_sonando.getCanciones();
         
         votos_cliente = new HashMap();
         try {
@@ -98,7 +99,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         return false;
     }
 
-    public void playNext() {
+    public boolean playNext() {
 
         if (canciones != null) {
             
@@ -121,18 +122,23 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             tabla_sonando.setValueAt("*", id_max, 1);
             reproductor.reproducir(cancion.getPath());
             cancion.setReproducida(1);
+            ReproductorPanel.song.setText(cancion.getNombre());
+            ReproductorPanel.artist.setText(cancion.getArtista());
             
             //Esto no se por que no funciona
             
             //for(ArrayList<Integer> v:votos_cliente.values())
-               // v.remove(cancion.getId());
+                //v.remove(cancion.getId());
             Main.log("Reproduciendo cancion: " + cancion.getNombre());
             try {
                 ConnectionManager.socket.enviarMensajeServer("*", "2|" + cancion.getId());
             } catch (Exception ex) {
                 Main.log("Error al enviar la cancion a reproducir: ");
             }
+            return true;
         }
+       else
+            return false;
     }
 
     public void addCanciones(int index) {
@@ -145,7 +151,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                if (acabaEnMp3(f)) {
+                if (acabaEnMp3(f) || f.isDirectory()) {
                     return true;
                 } else {
                     return false;
