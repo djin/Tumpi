@@ -21,18 +21,18 @@ public final class R {
     }
     public static final class id {
         public static final int autorName=0x7f090005;
-        public static final int btnAntiguaConexion=0x7f09000d;
+        public static final int btnAntiguaConexion=0x7f09000e;
         public static final int btnConectar=0x7f09000a;
         public static final int btnFav=0x7f090002;
         public static final int btnSettings=0x7f09000f;
         public static final int btnVotar=0x7f090006;
-        public static final int btnconexion=0x7f09000e;
         public static final int btnshare=0x7f090003;
         public static final int fieldIp=0x7f090008;
         public static final int fieldPort=0x7f090009;
-        public static final int img=0x7f09000b;
+        public static final int img=0x7f09000c;
         public static final int songName=0x7f090004;
-        public static final int text=0x7f09000c;
+        public static final int stngBtn=0x7f09000b;
+        public static final int text=0x7f09000d;
         public static final int txtPlaying=0x7f090000;
         public static final int txtPlayingAutor=0x7f090001;
         public static final int txtSetting=0x7f090007;
@@ -53,11 +53,13 @@ public final class R {
         public static final int ico_medium_list=0x7f040000;
         public static final int ico_medium_love=0x7f040001;
         public static final int ico_medium_options=0x7f040002;
-        public static final int ico_medium_star=0x7f040003;
-        public static final int ico_small_love=0x7f040004;
-        public static final int ico_small_share=0x7f040005;
-        public static final int ico_small_star_focus=0x7f040006;
-        public static final int imgp=0x7f040007;
+        public static final int ico_medium_options_focus=0x7f040003;
+        public static final int ico_medium_star=0x7f040004;
+        public static final int ico_small_love=0x7f040005;
+        public static final int ico_small_options=0x7f040006;
+        public static final int ico_small_share=0x7f040007;
+        public static final int ico_small_star_focus=0x7f040008;
+        public static final int imgp=0x7f040009;
     }
     public static final class string {
         public static final int app_name=0x7f070000;

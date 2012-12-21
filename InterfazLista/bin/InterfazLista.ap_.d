@@ -15,8 +15,10 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\menu\menuactionbar
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_list.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_love.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_options.png \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_options_focus.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_medium_star.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_love.png \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_options.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_share.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\ico_small_star_focus.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\raw\imgp.png \
@@ -31,8 +33,10 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\drawable-mdpi\
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_medium_list.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_medium_love.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_medium_options.png \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_medium_options_focus.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_medium_star.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_small_love.png \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_small_options.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_small_share.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\ico_small_star_focus.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\res\raw\imgp.png \

@@ -55,8 +55,8 @@ public class PantallaDatosServidor extends Activity{
                     
                     String ip = editIp.getText().toString();
                     int port = Integer.parseInt(editPort.getText().toString());
-                    ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
-                    if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
+//                    ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
+//                    if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
                         try {
 //                                pd = ProgressDialog.show(p, "Procesando", "Espere unos segundos...", true, false);
                                 conex = new ConnectionManager(p);  
@@ -82,18 +82,18 @@ public class PantallaDatosServidor extends Activity{
 //                            pd.dismiss();
                             Toast.makeText(p, "Ha ocurrido un error al intentar conectar, intentelo mas tarde: \n"+ex.toString(), Toast.LENGTH_LONG).show();
                         }                  
-                    }
-                    else{
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
-                        dialogBuilder.setMessage("Se necesita estar conectado a una red wifi que disponga de servidor socialDJ");
-                        dialogBuilder.setTitle("¡No esta conectado!");
-                        dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        dialogBuilder.show();
-                    }
+//                    }
+//                    else{
+//                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
+//                        dialogBuilder.setMessage("Se necesita estar conectado a una red wifi que disponga de servidor socialDJ");
+//                        dialogBuilder.setTitle("¡No esta conectado!");
+//                        dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                        dialogBuilder.show();
+//                    }
                 }
             }
         });

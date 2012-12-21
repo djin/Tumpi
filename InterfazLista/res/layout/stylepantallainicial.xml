@@ -4,13 +4,21 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-        <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:paddingBottom="10dp"
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="5"
+    android:paddingBottom="10dp"
     >
+        <ImageButton
+            android:id="@+id/stngBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@raw/ico_medium_options"
+            android:background="#00000000"
+            android:layout_gravity="right"
+        />
         <ImageView
             android:id="@+id/img"
             android:layout_width="240dp"
@@ -41,20 +49,11 @@
     >
         <Button android:id="@+id/btnAntiguaConexion"
                 style="@style/boton1"
-                android:layout_weight="2"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:textSize="25dp"
                 android:text="Entrar"
                 android:layout_marginRight="5dp"
-        />
-        <Button android:id="@+id/btnconexion"
-                style="@style/boton1"
-                android:layout_weight="2"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:textSize="25dp"
-                android:text="Conectar..."
         />
     </LinearLayout>
 </LinearLayout>
