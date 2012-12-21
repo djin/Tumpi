@@ -7,10 +7,11 @@ import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
 import ficheros.FicherosManager;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -24,7 +25,7 @@ import reproductor.PlayerReproductor;
  *
  * @author 66786575
  */
-public class Main extends JFrame {
+public class Main extends JFrame implements WindowListener {
 
     /**
      * @param args the command line arguments
@@ -61,6 +62,7 @@ public class Main extends JFrame {
     private JMenu[] menus;
     ConnectionManager server = null;
     int puerto_socket = 2222;
+    private boolean nuevo;
 
     public Main() {
 
@@ -69,25 +71,29 @@ public class Main extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         border = new BorderLayout();
         setLookAndFeel();
-        
+
 
         //Listas de canciones en el programa en este momento
         listas_manager = new ListasCancionesManager();
-        
-        
+
+
         panelReproductor = new ReproductorPanel(listas_manager);
-        
+
         //Manejador de ficheros
-        ficheros_manager = new FicherosManager();
-        
+        ficheros_manager = new FicherosManager(listas_manager);
+        nuevo = ficheros_manager.cargarPreferencias();
+
+        if (nuevo) {
+
+            //Se inicializa las tablas de listas de canciones pendientes y sus nombres de 0
+            iniciarListasCanciones();
+        } else {
+        }
         //Se inicializan los menus
         setMenus();
 
         //Se inicializa la tabla de canciones en reproduccion
         iniciarListaSonando();
-
-        //Se inicializa las tablas de listas de canciones pendientes y sus nombres
-        iniciarListasCanciones();
 
         //Se inicializa el panel con los botones
         setBotones();
@@ -100,7 +106,8 @@ public class Main extends JFrame {
 
         //Se crea el manager de la conexion, despues se crea el socket
         iniciarConexion();
-        
+
+        this.addWindowListener(this);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
@@ -200,7 +207,7 @@ public class Main extends JFrame {
                     pestanasPendientes.remove(listaSelec);
                     listas_manager.removeLista(listaSelec);
                     nombresLista.remove(listaSelec);
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Tiene que tener al menos una lista abierta");
                 }
@@ -217,12 +224,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                try {
-                    ConnectionManager.socket.closeSocket();
-                    System.exit(0);
-                } catch (IOException ex) {
-                    Main.log("Error al intentar cerrar el socket: " + ex.toString());
-                }
+                System.exit(0);
             }
         });
         salir.setText("Salir");
@@ -238,9 +240,9 @@ public class Main extends JFrame {
         nombresLista.add(nombreLista);
         pestanasPendientes.addTab(nombreLista, new JScrollPane(listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1)));
     }
-    
-    private void iniciarListasCanciones(){
-        
+
+    private void iniciarListasCanciones() {
+
         listas_manager.tablasPendientes = new ArrayList();
         nombresLista = new ArrayList();
 
@@ -256,18 +258,18 @@ public class Main extends JFrame {
         pestanasPendientes.add(scrollPendientesPredeterminado, "Predeterminada");
         pestanasPendientes.setPreferredSize(new Dimension(600, 300));
     }
-    
-    private void iniciarListaSonando(){
-        
+
+    private void iniciarListaSonando() {
+
         modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
         listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
         scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
         scrollSonando.setPreferredSize(new Dimension(500, 700));
         panel.add(scrollSonando, border.WEST);
     }
-    
-    private void iniciarConexion(){
-        
+
+    private void iniciarConexion() {
+
         try {
             server = new ConnectionManager();
             if (server.createSocket(puerto_socket)) {
@@ -278,11 +280,11 @@ public class Main extends JFrame {
             System.exit(0);
         }
     }
-    
+
     private void setMenus() {
-        
+
         menus = new JMenu[2];
-        
+
         getMenus()[0] = new JMenu("Archivo");
         getMenus()[0].setMnemonic('A');
 
@@ -325,6 +327,42 @@ public class Main extends JFrame {
         }
     }
 
+    @Override
+    public void windowOpened(WindowEvent we) {
+    }
+
+    @Override
+    public void windowClosing(WindowEvent we) {
+
+        ficheros_manager.guardarPreferencias();
+
+        try {
+            ConnectionManager.socket.closeSocket();
+        } catch (IOException ex) {
+            Main.log("Error al intentar cerrar el socket: " + ex.toString());
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent we) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent we) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent we) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent we) {
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent we) {
+    }
+
     /**
      * @return the panel
      */
@@ -340,7 +378,7 @@ public class Main extends JFrame {
     }
 
     /**
-     * 
+     *
      * @return the modeloTablaSonando
      */
     public ModeloTabla getModeloTablaSonando() {

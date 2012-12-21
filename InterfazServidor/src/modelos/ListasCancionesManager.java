@@ -7,6 +7,7 @@ package modelos;
 import conexion.ConnectionManager;
 import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
+import ficheros.FicherosManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,21 +36,24 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public static ListaCanciones lista_sonando = new ListaCanciones();
     private PlayerReproductor reproductor;
     private static ArrayList<Cancion> canciones;
-    
+    private static FicherosManager ficheros_manager;
+    public static String path;
+
     public ListasCancionesManager() {
-        
+
         reproductor = new PlayerReproductor();
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
+        ficheros_manager = new FicherosManager(this);
         listas_canciones = new ArrayList();
     }
 
     public void promocionarLista(int id_lista) {
-        
+
         int x = 0;
         canciones = new ArrayList();
-        
+
         for (Cancion p : listas_canciones.get(id_lista).getCanciones()) {
-            
+
             canciones.add(p);
             tabla_sonando.setValueAt(p.getNombre(), x, 0);
             tabla_sonando.setValueAt(0, x, 1);
@@ -61,14 +65,14 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             tabla_sonando.setValueAt("", y, 0);
             tabla_sonando.setValueAt(0, y, 1);
         }
-        
+
         //fragmento cutre del siglo
         lista_sonando.getCanciones().clear();
         for (Cancion p : canciones) {
-            lista_sonando.getCanciones().add(new Cancion(p.getId(),p.getNombre(),p.getDisco(),p.getArtista(),p.getDuracion(),p.getPath()));
+            lista_sonando.getCanciones().add(new Cancion(p.getId(), p.getNombre(), p.getDisco(), p.getArtista(), p.getDuracion(), p.getPath()));
         }
-        canciones=lista_sonando.getCanciones();
-        
+        canciones = lista_sonando.getCanciones();
+
         votos_cliente = new HashMap();
         try {
             ConnectionManager.socket.enviarMensajeServer("*", "0|" + lista_sonando);
@@ -101,8 +105,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public boolean playNext() {
 
-        if (canciones != null) {
-            
+        if (canciones != null && canciones.size() != 0) {
+
             int x = 0, votos, id_max = 0;
             String valor, valor_max;
             for (Cancion p : canciones) {
@@ -124,11 +128,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             cancion.setReproducida(1);
             ReproductorPanel.song.setText(cancion.getNombre());
             ReproductorPanel.artist.setText(cancion.getArtista());
-            
+
             //Esto no se por que no funciona
-            
+
             //for(ArrayList<Integer> v:votos_cliente.values())
-                //v.remove(cancion.getId());
+            //v.remove(cancion.getId());
             Main.log("Reproduciendo cancion: " + cancion.getNombre());
             try {
                 ConnectionManager.socket.enviarMensajeServer("*", "2|" + cancion.getId());
@@ -136,9 +140,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 Main.log("Error al enviar la cancion a reproducir: ");
             }
             return true;
-        }
-       else
+        } else {
             return false;
+        }
     }
 
     public void addCanciones(int index) {
@@ -147,7 +151,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         List<File> listaFiles;
 
         chooser.setMultiSelectionEnabled(true);
-        chooser.setCurrentDirectory(new File("C:\\Users\\66785361\\Documents\\GitHub\\socialDj\\InterfazServidor"));
+        chooser.setCurrentDirectory(new File(path));
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
@@ -166,21 +170,22 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         chooser.showOpenDialog(null);
         File[] files = chooser.getSelectedFiles();
+        path = chooser.getCurrentDirectory().getPath();
         listaFiles = (List<File>) Arrays.asList(files);
 
         if (!listaFiles.isEmpty()) {
 
             int x = 0;
             int comienzo = listas_canciones.get(index).getCanciones().size();
-            ListaCanciones lista=listas_canciones.get(index);
-            int max_id=lista.getMaxId();
+            ListaCanciones lista = listas_canciones.get(index);
+            int max_id = lista.getMaxId();
             Cancion c;
             for (File f : listaFiles) {
-                c=reproductor.getCancion(f.getAbsolutePath());
-                c.setId(max_id+1);
+                c = reproductor.getCancion(f.getAbsolutePath());
+                c.setId(max_id + 1);
                 listas_canciones.get(index).getCanciones().add(c);
                 max_id++;
-                tablasPendientes.get(index).setValueAt(listas_canciones.get(index).getCanciones().get(x+comienzo).getNombre(), x+comienzo, 0);
+                tablasPendientes.get(index).setValueAt(listas_canciones.get(index).getCanciones().get(x + comienzo).getNombre(), x + comienzo, 0);
                 x++;
             }
         }
@@ -196,19 +201,19 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         int filaSelec = tablasPendientes.get(index).getSelectedRow();
 
         if (filaSelec == -1 || listas_canciones.get(index).getCanciones().size() <= filaSelec) {
-            
+
             JOptionPane.showMessageDialog(null, "No ha seleccionado una canción");
-            
+
         } else {
-            
+
             listas_canciones.get(index).getCanciones().remove(filaSelec);
-            
+
             for (int x = filaSelec; x < 59; x++) {
 
                 tablasPendientes.get(index).setValueAt(tablasPendientes.get(index).getValueAt(x + 1, 0), x, 0);
             }
             tablasPendientes.get(index).setValueAt("", 59, 0);
-            
+
         }
     }
 
@@ -220,9 +225,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public void removeLista(int index) {
 
-            listas_canciones.remove(index);
-            tablasPendientes.remove(index);
-       
+        listas_canciones.remove(index);
+        tablasPendientes.remove(index);
+
     }
 
     @Override
