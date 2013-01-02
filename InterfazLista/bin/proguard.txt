@@ -13,3 +13,6 @@
 # view AndroidManifest.xml #generated:27
 -keep class lista.android.conexion.ServicioCliente { <init>(...); }
 
+# onClick res/layout/stylepantallainicial.xml #generated:14
+-keepclassmembers class * { *** focusStng(...); }
+

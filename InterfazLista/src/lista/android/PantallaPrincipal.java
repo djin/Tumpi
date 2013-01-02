@@ -39,16 +39,7 @@ public class PantallaPrincipal extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.stylepantallainicial);
         
-        //Button btnNuevaConexion = (Button)findViewById(R.id.btnconexion);
         Button btnEntrarDisco = (Button)findViewById(R.id.btnAntiguaConexion);
-//        btnNuevaConexion.setOnClickListener(new OnClickListener() {
-//
-//            public void onClick(View v) {
-//                Intent intent = new Intent(PantallaPrincipal.this, PantallaDatosServidor.class);
-//                
-//                startActivity(intent);
-//            }
-//        });        
         btnEntrarDisco.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
@@ -70,6 +61,12 @@ public class PantallaPrincipal extends Activity {
             }
         });     
     }
+    
+    public void focusStng(View v){
+        Intent intent = new Intent(PantallaPrincipal.this, PantallaDatosServidor.class);
+        startActivity(intent);
+    }
+    
     class BuscarServer extends AsyncTask<Void, Void, String> {
         private int port;
         public BuscarServer(int _port){
