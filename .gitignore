@@ -164,3 +164,6 @@ pip-log.txt
 /ReproductorLista/nbproject/private/
 /InterfazServidor/nbproject/private/
 /InterfazReproductorBasico/nbproject/private/
+/AndroidApplication1/gen/
+/InterfazLista/gen/
+/InterfazLista/nbandroid/
