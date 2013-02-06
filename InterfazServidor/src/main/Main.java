@@ -221,7 +221,7 @@ public class Main extends JFrame implements WindowListener {
         JButton salir = new JButton(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                cerrarConexion();
                 System.exit(0);
             }
         });
@@ -330,6 +330,17 @@ public class Main extends JFrame implements WindowListener {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private void cerrarConexion(){
+        
+        ficheros_manager.guardarPreferencias();
+
+        try {
+            ConnectionManager.socket.closeSocket();
+        } catch (IOException ex) {
+            Main.log("Error al intentar cerrar el socket: " + ex.toString());
+        }
+    }
 
     @Override
     public void windowOpened(WindowEvent we) {
@@ -338,13 +349,7 @@ public class Main extends JFrame implements WindowListener {
     @Override
     public void windowClosing(WindowEvent we) {
 
-        ficheros_manager.guardarPreferencias();
-
-        try {
-            ConnectionManager.socket.closeSocket();
-        } catch (IOException ex) {
-            Main.log("Error al intentar cerrar el socket: " + ex.toString());
-        }
+        cerrarConexion();
     }
 
     @Override
