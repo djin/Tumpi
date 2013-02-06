@@ -35,9 +35,24 @@ public class Main extends JFrame implements WindowListener {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-
-                JFrame main = new Main();
-                main.setVisible(true);
+                try {
+                    
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+                    JFrame main = new Main();
+                    main.setVisible(true); 
+                    main.setDefaultLookAndFeelDecorated(true);
+                   
+                    
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (InstantiationException ex) {
+                    ex.printStackTrace();
+                } catch (IllegalAccessException ex) {
+                    ex.printStackTrace();
+                } catch (UnsupportedLookAndFeelException ex) {
+                    ex.printStackTrace();
+                }
+                
             }
         });
     }
