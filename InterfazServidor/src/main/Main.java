@@ -46,8 +46,6 @@ public class Main extends JFrame implements WindowListener {
     private static FicherosManager ficheros_manager;
     private ModeloTabla modeloTablaSonando;
     private ModeloTabla modeloTablaPredeterminado;
-    private String[] nombresColumnaSonando = {"Cancion", "Votos"};
-    private static String[] nombresColumnaPendientes = {"Cancion"};
     private Tabla tablaPredeterminada;
     private JScrollPane scrollSonando;
     private JScrollPane scrollPendientesPredeterminado;
@@ -85,7 +83,7 @@ public class Main extends JFrame implements WindowListener {
 
         if (nuevo) {
 
-            //Se inicializa las tablas de listas de canciones pendientes y sus nombres de 0
+            //Se inicializa las tablas de listas de canciones pendientes
             iniciarListasCanciones();
         } else {
         }
@@ -236,7 +234,8 @@ public class Main extends JFrame implements WindowListener {
 
         listas_manager.addLista(new ListaCanciones());
 
-        listas_manager.tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 60)));
+        listas_manager.tablasPendientes.add(new Tabla(new ModeloTabla(listas_manager.nombresColumnaPendientes, 1)));
+        listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1).setValueAt("Añade Canciones", 0, 0);
         nombresLista.add(nombreLista);
         pestanasPendientes.addTab(nombreLista, new JScrollPane(listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1)));
     }
@@ -246,23 +245,28 @@ public class Main extends JFrame implements WindowListener {
         listas_manager.tablasPendientes = new ArrayList();
         nombresLista = new ArrayList();
 
-        modeloTablaPredeterminado = new ModeloTabla(nombresColumnaPendientes, 60);
+        modeloTablaPredeterminado = new ModeloTabla(listas_manager.nombresColumnaPendientes, 1);
         tablaPredeterminada = new Tabla(modeloTablaPredeterminado);
+        tablaPredeterminada.setValueAt("Añade Canciones", 0, 0);
+        
         listas_manager.tablasPendientes.add(tablaPredeterminada);
-
+        listas_manager.addLista(new ListaCanciones());
+        
         scrollPendientesPredeterminado = new JScrollPane(tablaPredeterminada);
         pestanasPendientes = new JTabbedPane();
-
-        listas_manager.addLista(new ListaCanciones());
         nombresLista.add("Predeterminada");
-        pestanasPendientes.add(scrollPendientesPredeterminado, "Predeterminada");
+        pestanasPendientes.add(scrollPendientesPredeterminado, nombresLista.get(0));
         pestanasPendientes.setPreferredSize(new Dimension(600, 300));
     }
 
     private void iniciarListaSonando() {
 
-        modeloTablaSonando = new ModeloTabla(nombresColumnaSonando, 60);
+        modeloTablaSonando = new ModeloTabla(listas_manager.nombresColumnaSonando, 1);
         listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
+        
+        listas_manager.tabla_sonando.setValueAt("Promociona una lista", 0, 0);
+        listas_manager.tabla_sonando.setValueAt("", 0, 1);
+        
         scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
         scrollSonando.setPreferredSize(new Dimension(500, 700));
         panel.add(scrollSonando, border.WEST);
@@ -404,34 +408,6 @@ public class Main extends JFrame implements WindowListener {
      */
     public void setModeloTablaPredeterminado(ModeloTabla modeloTablaPredeterminado) {
         this.modeloTablaPredeterminado = modeloTablaPredeterminado;
-    }
-
-    /**
-     * @return the nombresColumnaSonando
-     */
-    public String[] getNombresColumnaSonando() {
-        return nombresColumnaSonando;
-    }
-
-    /**
-     * @param nombresColumnaSonando the nombresColumnaSonando to set
-     */
-    public void setNombresColumnaSonando(String[] nombresColumnaSonando) {
-        this.nombresColumnaSonando = nombresColumnaSonando;
-    }
-
-    /**
-     * @return the nombresColumnaPendientes
-     */
-    public String[] getNombresColumnaPendientes() {
-        return nombresColumnaPendientes;
-    }
-
-    /**
-     * @param nombresColumnaPendientes the nombresColumnaPendientes to set
-     */
-    public void setNombresColumnaPendientes(String[] nombresColumnaPendientes) {
-        this.nombresColumnaPendientes = nombresColumnaPendientes;
     }
 
     /**

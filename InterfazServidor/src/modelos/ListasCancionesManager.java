@@ -5,6 +5,7 @@
 package modelos;
 
 import conexion.ConnectionManager;
+import elementosInterfaz.ModeloTabla;
 import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
 import ficheros.FicherosManager;
@@ -38,6 +39,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     private static ArrayList<Cancion> canciones;
     private static FicherosManager ficheros_manager;
     public static String path;
+    public String[] nombresColumnaSonando = {"Cancion", "Votos"};
+    public static String[] nombresColumnaPendientes = {"Cancion"};
 
     public ListasCancionesManager() {
 
@@ -51,19 +54,23 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         int x = 0;
         canciones = new ArrayList();
-
+        
+        if(!listas_canciones.get(id_lista).getCanciones().isEmpty()){
+            tabla_sonando.setTabla(new ModeloTabla(nombresColumnaSonando,listas_canciones.get(id_lista).getCanciones().size()));
+        }
+        
+        else{
+            tabla_sonando.setTabla(new ModeloTabla(nombresColumnaSonando,1));
+            tabla_sonando.setValueAt("Promociona una lista", 0, 0);
+            tabla_sonando.setValueAt("", 0, 1);
+        }
+        
         for (Cancion p : listas_canciones.get(id_lista).getCanciones()) {
 
             canciones.add(p);
             tabla_sonando.setValueAt(p.getNombre(), x, 0);
             tabla_sonando.setValueAt(0, x, 1);
             x++;
-        }
-
-        for (int y = x; y < 60; y++) {
-
-            tabla_sonando.setValueAt("", y, 0);
-            tabla_sonando.setValueAt(0, y, 1);
         }
 
         //fragmento cutre del siglo
@@ -182,11 +189,13 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             Cancion c;
             for (File f : listaFiles) {
                 c = reproductor.getCancion(f.getAbsolutePath());
-                c.setId(max_id + 1);
-                listas_canciones.get(index).getCanciones().add(c);
+                
                 max_id++;
-                tablasPendientes.get(index).setValueAt(listas_canciones.get(index).getCanciones().get(x + comienzo).getNombre(), x + comienzo, 0);
+                c.setId(max_id);
+                
                 x++;
+                listas_canciones.get(index).getCanciones().add(c);
+                tablasPendientes.get(index).setModel(new ModeloTabla(nombresColumnaPendientes, x + comienzo, listas_canciones.get(index).getCanciones()));
             }
         }
     }
@@ -208,12 +217,18 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
             listas_canciones.get(index).getCanciones().remove(filaSelec);
 
-            for (int x = filaSelec; x < 59; x++) {
+            for (int x = filaSelec; x < listas_canciones.get(index).getCanciones().size(); x++) {
 
                 tablasPendientes.get(index).setValueAt(tablasPendientes.get(index).getValueAt(x + 1, 0), x, 0);
             }
-            tablasPendientes.get(index).setValueAt("", 59, 0);
-
+            
+            if(!listas_canciones.get(index).getCanciones().isEmpty()){
+                tablasPendientes.get(index).setModel(new ModeloTabla(nombresColumnaPendientes, listas_canciones.get(index).getCanciones().size(), listas_canciones.get(index).getCanciones()));
+            }
+            else{
+                tablasPendientes.get(index).setValueAt("Añade Canciones", 0, 0);
+            }
+                
         }
     }
 

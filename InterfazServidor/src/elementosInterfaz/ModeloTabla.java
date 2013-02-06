@@ -12,16 +12,17 @@ import javax.swing.event.EventListenerList;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
+import modelos.Cancion;
 
 /**
  *
  * @author 66786575
  */
+
 public class ModeloTabla implements TableModel {
     
     private int filas;
     private int columnas;
-    
     private String nombreColumnas[];
     private HashMap<Point, String> mapa;
     private EventListenerList listaListeners;
@@ -46,20 +47,23 @@ public class ModeloTabla implements TableModel {
         }
     }
     
-    public ModeloTabla(String nombreColumns[], int numFilas, ArrayList <String> contenido){
+    public ModeloTabla(String nombreColumns[], int numFilas, ArrayList <Cancion> contenido){
         
         columnas = nombreColumns.length;
         filas = numFilas;
         nombreColumnas = nombreColumns;
         mapa = new HashMap<Point, String>();
         listaListeners = new EventListenerList();
-        contenidoTabla = contenido;
+        contenidoTabla = new ArrayList();
+        
+        for (Cancion p : contenido) {
+            contenidoTabla.add(p.getNombre());
+        }
         
         for(int x = 0; x < filas; x++){
             
             for(int y = 0; y < columnas; y++){
                 
-                if(y==0) mapa.put(new Point(x, y), "");
                 if(y==1) mapa.put(new Point(x, y), "0");
             }
         }

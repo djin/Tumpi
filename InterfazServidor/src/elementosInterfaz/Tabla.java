@@ -49,7 +49,9 @@ public class Tabla extends JTable {
     /**
      * @param tabla the tabla to set
      */
-    public void setTabla(ModeloTabla tabla) {
-        this.tabla = tabla;
+    public void setTabla(ModeloTabla _tabla) {
+        tabla = _tabla;
+        setModel(tabla);
     }
 }
+
