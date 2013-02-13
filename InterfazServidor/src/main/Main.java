@@ -3,18 +3,20 @@ package main;
 import conexion.ConnectionManager;
 import elementosInterfaz.DialogoNombreLista;
 import elementosInterfaz.ModeloTabla;
+import elementosInterfaz.MyMouseListener;
 import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
 import ficheros.FicherosManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 import reproductor.PlayerReproductor;
@@ -76,7 +78,6 @@ public class Main extends JFrame implements WindowListener {
 
     public Main() {
 
-//        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(screen.width, screen.height - 30);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
@@ -326,9 +327,50 @@ public class Main extends JFrame implements WindowListener {
         menus[1].add(autores);
 
         barramenus.add(menus[1]);
-
+        barramenus.add(botonesVentana());
         setJMenuBar(barramenus);
 
+    }
+    
+    private JPanel botonesVentana (){
+        JPanel panelBotonesVentana = new JPanel(new BorderLayout());
+        JButton btnCerrar = new JButton(new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarConexion();
+                System.exit(0);
+            }
+        });
+        btnCerrar.addMouseListener(new MyMouseListener(btnCerrar));
+        btnCerrar.setIcon(new ImageIcon("icons/close.ico"));
+        btnCerrar.setPreferredSize(new Dimension(35, 20));
+        btnCerrar.setFocusPainted(false);
+        btnCerrar.setBorderPainted(false);
+        btnCerrar.setBackground(null);
+        btnCerrar.setContentAreaFilled(false);
+        
+        final JButton btnMinimizar = new JButton(new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setExtendedState(Cursor.CROSSHAIR_CURSOR); 
+            }
+        });
+        btnMinimizar.addMouseListener(new MyMouseListener(btnMinimizar));
+        btnMinimizar.setIcon(new ImageIcon("icons/minimize.png"));
+        btnMinimizar.setPreferredSize(new Dimension(20, 20));
+        btnMinimizar.setFocusPainted(false);
+        btnMinimizar.setBorderPainted(false);
+        btnMinimizar.setBackground(null);
+        btnMinimizar.setContentAreaFilled(false);
+        
+        JPanel panelIntermediario = new JPanel(new GridLayout(1, 2));
+        panelIntermediario.add(btnMinimizar);
+        panelIntermediario.add(btnCerrar);
+        panelBotonesVentana.add(panelIntermediario, BorderLayout.LINE_END);
+        
+        return panelBotonesVentana;
     }
 
     private void cerrarConexion() {
@@ -371,7 +413,7 @@ public class Main extends JFrame implements WindowListener {
     @Override
     public void windowDeactivated(WindowEvent we) {
     }
-    
+
     //Metodo para debug
     public static void log(String cadena) {
         System.out.println(cadena);
