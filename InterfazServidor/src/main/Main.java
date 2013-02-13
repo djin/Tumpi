@@ -78,8 +78,9 @@ public class Main extends JFrame implements WindowListener {
 
     public Main() {
 
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(screen.width, screen.height - 30);
+//        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+//        this.setSize(screen.width, screen.height - 30);
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         border = new BorderLayout();
 
@@ -342,9 +343,9 @@ public class Main extends JFrame implements WindowListener {
                 System.exit(0);
             }
         });
-        btnCerrar.addMouseListener(new MyMouseListener(btnCerrar));
-        btnCerrar.setIcon(new ImageIcon("icons/close.ico"));
-        btnCerrar.setPreferredSize(new Dimension(35, 20));
+        btnCerrar.addMouseListener(new MyMouseListener(btnCerrar, true));
+        btnCerrar.setIcon(new ImageIcon("icons/cerrar.png"));
+        btnCerrar.setPreferredSize(new Dimension(25, 20));
         btnCerrar.setFocusPainted(false);
         btnCerrar.setBorderPainted(false);
         btnCerrar.setBackground(null);
@@ -357,9 +358,9 @@ public class Main extends JFrame implements WindowListener {
                 setExtendedState(Cursor.CROSSHAIR_CURSOR); 
             }
         });
-        btnMinimizar.addMouseListener(new MyMouseListener(btnMinimizar));
-        btnMinimizar.setIcon(new ImageIcon("icons/minimize.png"));
-        btnMinimizar.setPreferredSize(new Dimension(20, 20));
+        btnMinimizar.addMouseListener(new MyMouseListener(btnMinimizar, false));
+        btnMinimizar.setIcon(new ImageIcon("icons/minimizar.png"));
+        btnMinimizar.setPreferredSize(new Dimension(25, 20));
         btnMinimizar.setFocusPainted(false);
         btnMinimizar.setBorderPainted(false);
         btnMinimizar.setBackground(null);

@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package elementosInterfaz;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.event.MouseInputListener;
 
@@ -16,9 +13,11 @@ import javax.swing.event.MouseInputListener;
 public class MyMouseListener implements MouseInputListener {
 
     JButton btn;
+    private boolean bool;
 
-    public MyMouseListener(JButton boton) {
+    public MyMouseListener(JButton boton, boolean bool) {
         btn = boton;
+        this.bool = bool;
     }
 
     @Override
@@ -35,14 +34,20 @@ public class MyMouseListener implements MouseInputListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        btn.setBackground(Color.DARK_GRAY);
-        btn.setContentAreaFilled(true);
+        if (bool) {
+            btn.setIcon(new ImageIcon("icons/cerrar2.png"));
+        } else {
+            btn.setIcon(new ImageIcon("icons/minimizar2.png"));
+        }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        btn.setBackground(null);
-        btn.setContentAreaFilled(false);
+        if (bool) {
+            btn.setIcon(new ImageIcon("icons/cerrar.png"));
+        } else {
+            btn.setIcon(new ImageIcon("icons/minimizar.png"));
+        }
     }
 
     @Override
