@@ -78,11 +78,9 @@ public class Main extends JFrame implements WindowListener {
 
 //        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(screen.width, screen.height-30);
+        this.setSize(screen.width, screen.height - 30);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         border = new BorderLayout();
-        setLookAndFeel();
-
 
         //Listas de canciones en el programa en este momento
         listas_manager = new ListasCancionesManager();
@@ -125,8 +123,8 @@ public class Main extends JFrame implements WindowListener {
 
     private void setBotones() {
 
-        setBotones(new JPanel());
-        getBotones().setPreferredSize(new Dimension(700, 250));
+        botones = new JPanel();
+        botones.setPreferredSize(new Dimension(700, 250));
 
 
         JButton iniciar_Siguiente = new JButton(new AbstractAction() {
@@ -139,7 +137,7 @@ public class Main extends JFrame implements WindowListener {
         });
         iniciar_Siguiente.setText("Iniciar/Siguiente canción");
         iniciar_Siguiente.setPreferredSize(new Dimension(150, 100));
-        getBotones().add(iniciar_Siguiente);
+        botones.add(iniciar_Siguiente);
 
 
 
@@ -153,7 +151,7 @@ public class Main extends JFrame implements WindowListener {
         });
         pausar_Reanudar.setText("Pausar/Reanudar");
         pausar_Reanudar.setPreferredSize(new Dimension(150, 100));
-        getBotones().add(pausar_Reanudar);
+        botones.add(pausar_Reanudar);
 
 
 
@@ -166,7 +164,7 @@ public class Main extends JFrame implements WindowListener {
         });
         anadirCanciones.setText("Anadir canciones");
         anadirCanciones.setPreferredSize(new Dimension(150, 100));
-        getBotones().add(anadirCanciones);
+        botones.add(anadirCanciones);
 
 
 
@@ -180,7 +178,7 @@ public class Main extends JFrame implements WindowListener {
         });
         borrarCancion.setText("Borrar canción");
         borrarCancion.setPreferredSize(new Dimension(150, 100));
-        getBotones().add(borrarCancion);
+        botones.add(borrarCancion);
 
 
 
@@ -194,7 +192,7 @@ public class Main extends JFrame implements WindowListener {
         });
         promocionarLista.setText("Promocionar lista");
         promocionarLista.setPreferredSize(new Dimension(150, 100));
-        getBotones().add(promocionarLista);
+        botones.add(promocionarLista);
 
 
 
@@ -202,15 +200,12 @@ public class Main extends JFrame implements WindowListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
-
                 new DialogoNombreLista();
             }
         });
         anadirLista.setText("Anadir lista");
         anadirLista.setPreferredSize(new Dimension(150, 100));
-        getBotones().add(anadirLista);
+        botones.add(anadirLista);
 
 
 
@@ -234,7 +229,7 @@ public class Main extends JFrame implements WindowListener {
         });
         borrarLista.setText("Borrar lista");
         borrarLista.setPreferredSize(new Dimension(150, 100));
-        getBotones().add(borrarLista);
+        botones.add(borrarLista);
 
 
 
@@ -248,7 +243,7 @@ public class Main extends JFrame implements WindowListener {
         });
         salir.setText("Salir");
         salir.setPreferredSize(new Dimension(150, 100));
-        getBotones().add(salir);
+        botones.add(salir);
     }
 
     public static void addPestana(String nombreLista) {
@@ -310,46 +305,30 @@ public class Main extends JFrame implements WindowListener {
 
         menus = new JMenu[2];
 
-        getMenus()[0] = new JMenu("Archivo");
-        getMenus()[0].setMnemonic('A');
+        menus[0] = new JMenu("Archivo");
+        menus[0].setMnemonic('A');
 
         JMenuItem hola = new JMenuItem("Hola");
         hola.setMnemonic('H');
-        getMenus()[0].add(hola);
+        menus[0].add(hola);
 
         JMenuItem adios = new JMenuItem("Adios");
         adios.setMnemonic('d');
-        getMenus()[0].add(adios);
+        menus[0].add(adios);
 
-        getBarramenus().add(getMenus()[0]);
+        barramenus.add(menus[0]);
 
-        getMenus()[1] = new JMenu("Sobre");
-        getMenus()[1].setMnemonic('S');
+        menus[1] = new JMenu("Sobre");
+        menus[1].setMnemonic('S');
 
         JMenuItem autores = new JMenuItem("autores");
         autores.setMnemonic('A');
-        getMenus()[1].add(autores);
+        menus[1].add(autores);
 
-        getBarramenus().add(getMenus()[1]);
+        barramenus.add(menus[1]);
 
-        setJMenuBar(getBarramenus());
+        setJMenuBar(barramenus);
 
-    }
-
-    private void setLookAndFeel() {
-
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private void cerrarConexion() {
@@ -392,192 +371,8 @@ public class Main extends JFrame implements WindowListener {
     @Override
     public void windowDeactivated(WindowEvent we) {
     }
-
-    /**
-     * @return the panel
-     */
-    public JPanel getPanel() {
-        return panel;
-    }
-
-    /**
-     * @param panel the panel to set
-     */
-    public void setPanel(JPanel panel) {
-        this.panel = panel;
-    }
-
-    /**
-     *
-     * @return the modeloTablaSonando
-     */
-    public ModeloTabla getModeloTablaSonando() {
-        return modeloTablaSonando;
-    }
-
-    /**
-     * @param modeloTablaSonando the modeloTablaSonando to set
-     */
-    public void setModeloTablaSonando(ModeloTabla modeloTablaSonando) {
-        this.modeloTablaSonando = modeloTablaSonando;
-    }
-
-    /**
-     * @return the modeloTablaPendientes
-     */
-    public ModeloTabla getModeloTablaPredeterminado() {
-        return modeloTablaPredeterminado;
-    }
-
-    /**
-     * @param modeloTablaPendientes the modeloTablaPendientes to set
-     */
-    public void setModeloTablaPredeterminado(ModeloTabla modeloTablaPredeterminado) {
-        this.modeloTablaPredeterminado = modeloTablaPredeterminado;
-    }
-
-    /**
-     * @return the tablaPredeterminada
-     */
-    public Tabla getTablaPredeterminada() {
-        return tablaPredeterminada;
-    }
-
-    /**
-     * @param tablaPredeterminada the tablaPredeterminada to set
-     */
-    public void setTablaPredeterminada(Tabla tablaPredeterminada) {
-        this.tablaPredeterminada = tablaPredeterminada;
-    }
-
-    /**
-     * @return the scrollSonando
-     */
-    public JScrollPane getScrollSonando() {
-        return scrollSonando;
-    }
-
-    /**
-     * @param scrollSonando the scrollSonando to set
-     */
-    public void setScrollSonando(JScrollPane scrollSonando) {
-        this.scrollSonando = scrollSonando;
-    }
-
-    /**
-     * @return the scrollPendientesPredeterminado
-     */
-    public JScrollPane getScrollPendientesPredeterminado() {
-        return scrollPendientesPredeterminado;
-    }
-
-    /**
-     * @param scrollPendientesPredeterminado the scrollPendientesPredeterminado
-     * to set
-     */
-    public void setScrollPendientesPredeterminado(JScrollPane scrollPendientesPredeterminado) {
-        this.scrollPendientesPredeterminado = scrollPendientesPredeterminado;
-    }
-
-    /**
-     * @return the pestanasPendientes
-     */
-    public JTabbedPane getPestanasPendientes() {
-        return pestanasPendientes;
-    }
-
-    /**
-     * @param pestanasPendientes the pestanasPendientes to set
-     */
-    public void setPestanasPendientes(JTabbedPane pestanasPendientes) {
-        this.pestanasPendientes = pestanasPendientes;
-    }
-
-    /**
-     * @return the botones
-     */
-    public JPanel getBotones() {
-        return botones;
-    }
-
-    /**
-     * @param botones the botones to set
-     */
-    public void setBotones(JPanel botones) {
-        this.botones = botones;
-    }
-
-    /**
-     * @return the conjunto
-     */
-    public JPanel getConjunto() {
-        return conjunto;
-    }
-
-    /**
-     * @param conjunto the conjunto to set
-     */
-    public void setConjunto(JPanel conjunto) {
-        this.conjunto = conjunto;
-    }
-
-    /**
-     * @return the border
-     */
-    public BorderLayout getBorder() {
-        return border;
-    }
-
-    /**
-     * @param border the border to set
-     */
-    public void setBorder(BorderLayout border) {
-        this.border = border;
-    }
-
-    /**
-     * @return the numeroListas
-     */
-    public int getListaSelec() {
-        return listaSelec;
-    }
-
-    /**
-     * @param numeroListas the numeroListas to set
-     */
-    public void setListaSelec(int listaSelec) {
-        this.listaSelec = listaSelec;
-    }
-
-    /**
-     * @return the barramenus
-     */
-    public JMenuBar getBarramenus() {
-        return barramenus;
-    }
-
-    /**
-     * @param barramenus the barramenus to set
-     */
-    public void setBarramenus(JMenuBar barramenus) {
-        this.barramenus = barramenus;
-    }
-
-    /**
-     * @return the menus
-     */
-    public JMenu[] getMenus() {
-        return menus;
-    }
-
-    /**
-     * @param menus the menus to set
-     */
-    public void setMenus(JMenu[] menus) {
-        this.menus = menus;
-    }
+    
     //Metodo para debug
-
     public static void log(String cadena) {
         System.out.println(cadena);
     }
