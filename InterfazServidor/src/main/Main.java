@@ -31,26 +31,25 @@ public class Main extends JFrame implements WindowListener {
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
+                Main f = new Main();
                 try {
-                    
-                    UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
-                    JFrame main = new Main();
-                    main.setVisible(true); 
-                    main.setDefaultLookAndFeelDecorated(true);
-                   
-                    
+                    UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(f);
+                    f.setUndecorated(true);
+                    f.setVisible(true);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    ex.printStackTrace();
                 } catch (ClassNotFoundException ex) {
                     ex.printStackTrace();
                 } catch (InstantiationException ex) {
                     ex.printStackTrace();
                 } catch (IllegalAccessException ex) {
                     ex.printStackTrace();
-                } catch (UnsupportedLookAndFeelException ex) {
-                    ex.printStackTrace();
                 }
-                
+
             }
         });
     }
@@ -77,8 +76,9 @@ public class Main extends JFrame implements WindowListener {
 
     public Main() {
 
-        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+//        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(screen.width, screen.height-30);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         border = new BorderLayout();
         setLookAndFeel();
@@ -130,6 +130,7 @@ public class Main extends JFrame implements WindowListener {
 
 
         JButton iniciar_Siguiente = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -143,6 +144,7 @@ public class Main extends JFrame implements WindowListener {
 
 
         JButton pausar_Reanudar = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -156,6 +158,7 @@ public class Main extends JFrame implements WindowListener {
 
 
         JButton anadirCanciones = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.addCanciones(pestanasPendientes.getSelectedIndex());
@@ -168,6 +171,7 @@ public class Main extends JFrame implements WindowListener {
 
 
         JButton borrarCancion = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -181,6 +185,7 @@ public class Main extends JFrame implements WindowListener {
 
 
         JButton promocionarLista = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -194,6 +199,7 @@ public class Main extends JFrame implements WindowListener {
 
 
         JButton anadirLista = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -209,6 +215,7 @@ public class Main extends JFrame implements WindowListener {
 
 
         JButton borrarLista = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -232,6 +239,7 @@ public class Main extends JFrame implements WindowListener {
 
 
         JButton salir = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarConexion();
@@ -261,10 +269,10 @@ public class Main extends JFrame implements WindowListener {
         modeloTablaPredeterminado = new ModeloTabla(listas_manager.nombresColumnaPendientes, 1);
         tablaPredeterminada = new Tabla(modeloTablaPredeterminado);
         tablaPredeterminada.setValueAt("Añade Canciones", 0, 0);
-        
+
         listas_manager.tablasPendientes.add(tablaPredeterminada);
         listas_manager.addLista(new ListaCanciones());
-        
+
         scrollPendientesPredeterminado = new JScrollPane(tablaPredeterminada);
         pestanasPendientes = new JTabbedPane();
         nombresLista.add("Predeterminada");
@@ -276,10 +284,10 @@ public class Main extends JFrame implements WindowListener {
 
         modeloTablaSonando = new ModeloTabla(listas_manager.nombresColumnaSonando, 1);
         listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
-        
+
         listas_manager.tabla_sonando.setValueAt("Promociona una lista", 0, 0);
         listas_manager.tabla_sonando.setValueAt("", 0, 1);
-        
+
         scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
         scrollSonando.setPreferredSize(new Dimension(500, 700));
         panel.add(scrollSonando, border.WEST);
@@ -343,9 +351,9 @@ public class Main extends JFrame implements WindowListener {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void cerrarConexion(){
-        
+
+    private void cerrarConexion() {
+
         ficheros_manager.guardarPreferencias();
 
         try {
