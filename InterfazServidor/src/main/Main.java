@@ -78,9 +78,9 @@ public class Main extends JFrame implements WindowListener {
 
     public Main() {
 
-//        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-//        this.setSize(screen.width, screen.height - 30);
-        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(screen.width, screen.height - 30);
+//        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         border = new BorderLayout();
 
