@@ -1,3 +1,6 @@
+# view AndroidManifest.xml #generated:33
+-keep class android.test.InstrumentationTestRunner { <init>(...); }
+
 # view AndroidManifest.xml #generated:18
 -keep class lista.android.ListaCanciones { <init>(...); }
 

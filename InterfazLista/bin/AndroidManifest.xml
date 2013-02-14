@@ -26,7 +26,10 @@
         </activity>
         <service android:name=".conexion.ServicioCliente" 
                  android:exported="false"/>
+        <uses-library android:name="android.test.runner" />
     </application>
     <uses-sdk android:minSdkVersion="7" />
     <uses-sdk android:targetSdkVersion="16" />
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+       android:targetPackage="com.example.app" android:label="Android Test" />
 </manifest>

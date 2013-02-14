@@ -34,3 +34,5 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\andr
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$style.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\Settings.class \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\test\AllTests.class \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\test\ListaCancionesTest.class \
