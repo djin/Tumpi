@@ -75,9 +75,9 @@ public class Main extends JFrame implements WindowListener {
 
     public Main() {
 
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(screen.width, screen.height - 30);
-//        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+//        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+//        this.setSize(screen.width, screen.height - 30);
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         border = new BorderLayout();
 
@@ -329,8 +329,8 @@ public class Main extends JFrame implements WindowListener {
         setJMenuBar(barramenus);
 
     }
-    
-    private JPanel botonesVentana (){
+
+    private JPanel botonesVentana() {
         JPanel panelBotonesVentana = new JPanel(new BorderLayout());
         JButton btnCerrar = new JButton(new AbstractAction() {
 
@@ -347,12 +347,12 @@ public class Main extends JFrame implements WindowListener {
         btnCerrar.setBorderPainted(false);
         btnCerrar.setBackground(null);
         btnCerrar.setContentAreaFilled(false);
-        
+
         final JButton btnMinimizar = new JButton(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                setExtendedState(Cursor.CROSSHAIR_CURSOR); 
+                setExtendedState(Cursor.CROSSHAIR_CURSOR);
             }
         });
         btnMinimizar.addMouseListener(new MyMouseListener(btnMinimizar, false));
@@ -362,12 +362,12 @@ public class Main extends JFrame implements WindowListener {
         btnMinimizar.setBorderPainted(false);
         btnMinimizar.setBackground(null);
         btnMinimizar.setContentAreaFilled(false);
-        
+
         JPanel panelIntermediario = new JPanel(new GridLayout(1, 2));
         panelIntermediario.add(btnMinimizar);
         panelIntermediario.add(btnCerrar);
         panelBotonesVentana.add(panelIntermediario, BorderLayout.LINE_END);
-        
+
         return panelBotonesVentana;
     }
 
@@ -402,6 +402,7 @@ public class Main extends JFrame implements WindowListener {
 
     @Override
     public void windowDeiconified(WindowEvent we) {
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
     @Override
