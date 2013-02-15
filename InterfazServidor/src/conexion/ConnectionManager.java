@@ -4,9 +4,9 @@
  */
 package conexion;
 
+import elementosInterfaz.FramePrincipal;
 import java.net.*;
 import java.util.ArrayList;
-import main.Main;
 import modelos.ListasCancionesManager;
 
 /**
@@ -39,7 +39,7 @@ public class ConnectionManager implements ServerSocketListener{
                     }
                     
                 } catch (Exception ex) {
-                    Main.log(ex.toString());
+                    FramePrincipal.log(ex.toString());
                 }
             }
         };
@@ -60,7 +60,7 @@ public class ConnectionManager implements ServerSocketListener{
     
     @Override
     public void onMessageReceived(String ip, String men) {
-        Main.log(ip+": "+men);
+        FramePrincipal.log(ip+": "+men);
         try {
             String message=men;
             ArrayList<Integer> votos_cliente=ListasCancionesManager.votos_cliente.get(ip);
@@ -97,26 +97,26 @@ public class ConnectionManager implements ServerSocketListener{
                     break;
             }
         } catch (Exception ex) {
-            Main.log("Error al procesar mensaje recivido: "+ex.toString());
+            FramePrincipal.log("Error al procesar mensaje recivido: "+ex.toString());
         }
     }
 
     @Override
     public void onClientConnected(String ip) {
         try{
-            Main.log("Cliente conectado: "+ip+"\nNumero de clientes: "+socket.getClientsCount());
+            FramePrincipal.log("Cliente conectado: "+ip+"\nNumero de clientes: "+socket.getClientsCount());
             if(ListasCancionesManager.votos_cliente.get(ip)==null){
                 ListasCancionesManager.votos_cliente.put(ip, new ArrayList<Integer>());
-                Main.log("Hash de votos creado para el cliente");
+                FramePrincipal.log("Hash de votos creado para el cliente");
             }
         }catch(Exception ex){
-            Main.log(ex.toString());
+            FramePrincipal.log(ex.toString());
         }
     }
 
     @Override
     public void onClientDisconnected(String ip) {
-        Main.log("Cliente desconectado "+"\nNumero de clientes: "+socket.getClientsCount());
+        FramePrincipal.log("Cliente desconectado "+"\nNumero de clientes: "+socket.getClientsCount());
     }
     
 }

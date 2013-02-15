@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import main.Main;
 import modelos.ListasCancionesManager;
 import reproductor.PlayerReproductor;
 
@@ -112,7 +111,7 @@ public class ReproductorPanel extends JPanel {
                     try{
                         panelCaratula.cambiarCaratula(PlayerReproductor.getImage());
                     }catch(Exception ex){
-                        Main.log("No se encontro imagen");
+                        FramePrincipal.log("No se encontro imagen");
                     }
                     play.setToolTipText("Pausar");
                     play.setIcon(pauseIcon);
@@ -129,7 +128,7 @@ public class ReproductorPanel extends JPanel {
                     try{
                         panelCaratula.cambiarCaratula(PlayerReproductor.getImage());
                     }catch(Exception ex){
-                        Main.log("No se encontro imagen");
+                        FramePrincipal.log("No se encontro imagen");
                     }
                     play.setToolTipText("Pausar");
                     play.setIcon(pauseIcon);

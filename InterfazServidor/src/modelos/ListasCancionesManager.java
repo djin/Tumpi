@@ -5,7 +5,7 @@
 package modelos;
 
 import conexion.ConnectionManager;
-import elementosInterfaz.ModeloTabla;
+import elementosInterfaz.FramePrincipal;
 import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
 import java.io.File;
@@ -16,7 +16,6 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
-import main.Main;
 import reproductor.PlayerReproductor;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
@@ -81,7 +80,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         try {
             ConnectionManager.socket.enviarMensajeServer("*", "0|" + lista_sonando);
         } catch (Exception ex) {
-            Main.log("Error al enviar la lista: " + ex.toString());
+            FramePrincipal.log("Error al enviar la lista: " + ex.toString());
         }
     }
 
@@ -137,11 +136,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
             //for(ArrayList<Integer> v:votos_cliente.values())
             //v.remove(cancion.getId());
-            Main.log("Reproduciendo cancion: " + cancion.getNombre());
+            FramePrincipal.log("Reproduciendo cancion: " + cancion.getNombre());
             try {
                 ConnectionManager.socket.enviarMensajeServer("*", "2|" + cancion.getId());
             } catch (Exception ex) {
-                Main.log("Error al enviar la cancion a reproducir: ");
+                FramePrincipal.log("Error al enviar la cancion a reproducir: ");
             }
             return true;
         } else {

@@ -29,9 +29,7 @@
 package conexion;
 import java.io.*;
 import java.net.*;
-import java.net.Socket.*;
 import java.util.ArrayList;
-import main.Main;
 /**
  *
  * @author 66785270

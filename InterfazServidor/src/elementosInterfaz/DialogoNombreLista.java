@@ -8,21 +8,18 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import main.Main;
 
 /**
  *
  * @author 66786575
  */
-public class DialogoNombreLista extends JDialog /*implements WindowListener*/ {
+public class DialogoNombreLista extends JDialog {
 
     String nombre;
     boolean cancelar;
@@ -51,7 +48,7 @@ public class DialogoNombreLista extends JDialog /*implements WindowListener*/ {
             public void actionPerformed(ActionEvent e) {
 
                 nombre = campoTexto.getText();
-                Main.addPestana(nombre);
+                FramePrincipal.addPestana(nombre);
                 setVisible(false);
             }
         });
