@@ -55,7 +55,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         border = new BorderLayout();
 
         //Listas de canciones en el programa en este momento
-        listas_manager = new ListasCancionesManager();
+        listas_manager = ListasCancionesManager.getInstance();
 
 
         panelReproductor = new ReproductorPanel(listas_manager);

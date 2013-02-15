@@ -39,11 +39,17 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public String[] nombresColumnaSonando = {"Cancion", "Votos"};
     public static String[] nombresColumnaPendientes = {"Cancion"};
 
-    public ListasCancionesManager() {
+    private static final ListasCancionesManager manager = new ListasCancionesManager();
+    
+    private ListasCancionesManager() {
 
         reproductor = new PlayerReproductor();
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
         listas_canciones = new ArrayList();
+    }
+    
+    public static ListasCancionesManager getInstance() {
+        return manager;
     }
 
     public void promocionarLista(int id_lista) {
