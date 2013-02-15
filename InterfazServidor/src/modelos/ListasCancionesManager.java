@@ -8,7 +8,6 @@ import conexion.ConnectionManager;
 import elementosInterfaz.ModeloTabla;
 import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
-import ficheros.FicherosManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +36,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public static ListaCanciones lista_sonando = new ListaCanciones();
     private PlayerReproductor reproductor;
     private static ArrayList<Cancion> canciones;
-    private static FicherosManager ficheros_manager;
     public static String path;
     public String[] nombresColumnaSonando = {"Cancion", "Votos"};
     public static String[] nombresColumnaPendientes = {"Cancion"};
@@ -46,7 +44,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         reproductor = new PlayerReproductor();
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
-        ficheros_manager = new FicherosManager(this);
         listas_canciones = new ArrayList();
     }
 

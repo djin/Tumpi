@@ -75,8 +75,8 @@ public class Main extends JFrame implements WindowListener {
 
     public Main() {
 
-//        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-//        this.setSize(screen.width, screen.height - 30);
+//      Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+//      this.setSize(screen.width, screen.height - 30);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         border = new BorderLayout();
@@ -93,9 +93,12 @@ public class Main extends JFrame implements WindowListener {
 
         if (nuevo) {
 
-            //Se inicializa las tablas de listas de canciones pendientes
+            //Se inicializa las tablas de listas de canciones pendientes dado que no habia ninguno anterior
             iniciarListasCanciones();
         } else {
+            
+            //temporal, hasta que se implemente el cargado de listas.
+            iniciarListasCanciones();
         }
         //Se inicializan los menus
         setMenus();

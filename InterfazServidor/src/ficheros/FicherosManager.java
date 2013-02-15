@@ -21,6 +21,8 @@ public class FicherosManager {
     private File fichSelector;
     private File fichListas;
     private Properties propiedades;
+    private FileInputStream entradaDatos = null;
+    private FileOutputStream salidaDatos;
 
     public FicherosManager(ListasCancionesManager _listas_manager) {
 
@@ -37,10 +39,11 @@ public class FicherosManager {
 
         if (fichSelector.exists()) {
 
-            FileInputStream entradaDatos = null;
+            entradaDatos = null;
 
             try {
 
+                i = false;
                 i = fichSelector.createNewFile();
                 entradaDatos = new FileInputStream(fichSelector);
                 propiedades.load(entradaDatos);
@@ -67,6 +70,27 @@ public class FicherosManager {
 
         if (fichListas.exists()) {
 
+            entradaDatos = null;
+
+            try {
+
+                i = false;
+                i = fichListas.createNewFile();
+                entradaDatos = new FileInputStream(fichListas);
+                
+
+            } catch (IOException ex) {
+                if (i == false) {
+                    System.err.println("Error al cargar el fichero de listas" + ex);
+                }
+            } finally {
+                try {
+                    entradaDatos.close();
+                } catch (IOException ex) {
+                    System.err.println("Error al cargar el fichero de listas++" + ex);
+                }
+            }
+
             return false;
 
         } else {
@@ -77,21 +101,34 @@ public class FicherosManager {
 
     public void guardarPreferencias() {
 
+        fichListas = new File("fich_listas");
         fichSelector = new File("fich_selector");
         propiedades = new Properties();
-
-        propiedades.setProperty("selector", listas_manager.path);
-
-        FileOutputStream selectorStream = null;
-
+        
         try {
-            selectorStream = new FileOutputStream(fichSelector);
-            propiedades.store(selectorStream, "");
+            salidaDatos = new FileOutputStream(fichListas);
+            
         } catch (IOException ex) {
             System.err.println("Error al guardar el fichero del selector" + ex);
         } finally {
             try {
-                selectorStream.close();
+                salidaDatos.close();
+            } catch (IOException ex) {
+                System.err.println("Error al guardar el fichero del selector++" + ex);
+            }
+        }
+        
+        propiedades.setProperty("selector", listas_manager.path);
+        salidaDatos = null;
+
+        try {
+            salidaDatos = new FileOutputStream(fichSelector);
+            propiedades.store(salidaDatos, "");
+        } catch (IOException ex) {
+            System.err.println("Error al guardar el fichero del selector" + ex);
+        } finally {
+            try {
+                salidaDatos.close();
             } catch (IOException ex) {
                 System.err.println("Error al guardar el fichero del selector++" + ex);
             }
