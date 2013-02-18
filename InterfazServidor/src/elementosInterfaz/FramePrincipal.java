@@ -54,23 +54,18 @@ public class FramePrincipal extends JFrame implements WindowListener {
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
         border = new BorderLayout();
-
         //Listas de canciones en el programa en este momento
         listas_manager = ListasCancionesManager.getInstance();
 
-
         panelReproductor = new ReproductorPanel(listas_manager);
-
         //Manejador de ficheros
         ficheros_manager = new FicherosManager(listas_manager);
         nuevo = ficheros_manager.cargarPreferencias();
 
         if (nuevo) {
-
             //Se inicializa las tablas de listas de canciones pendientes dado que no habia ninguno anterior
             iniciarListasCanciones();
         } else {
-
             //temporal, hasta que se implemente el cargado de listas.
             iniciarListasCanciones();
         }
@@ -86,7 +81,21 @@ public class FramePrincipal extends JFrame implements WindowListener {
         conjunto = new JPanel();
         conjunto.add(botones, BorderLayout.NORTH);
         conjunto.add(pestanasPendientes, BorderLayout.SOUTH);
-        panel.add(conjunto, BorderLayout.CENTER);
+        JButton botonPromocion = new JButton(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+            }
+        });
+        anularPintadoBotonParaImagen(botonPromocion, "icons/promocionar.png", "icons/promocionar.png", new Dimension(60, 60));
+        JPanel panelBotonPromocion = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        panelBotonPromocion.add(botonPromocion, gbc);
+        panel.add(panelBotonPromocion, BorderLayout.CENTER);
+        panel.add(pestanasPendientes, BorderLayout.EAST);
+//        panel.add(conjunto, BorderLayout.CENTER);
         panel.add(panelReproductor, BorderLayout.SOUTH);
 
         //Se crea el manager de la conexion, despues se crea el socket
@@ -262,8 +271,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 pestanasPendientes.remove(pestanaBorrar);
                 listas_manager.removeLista(pestanaBorrar);
                 nombresLista.remove(pestanaBorrar);
-                if(pestanasPendientes.getSelectedIndex() == pestanasPendientes.getTabCount()-1){
-                    pestanasPendientes.setSelectedIndex(pestanasPendientes.getTabCount()-2);
+                if (pestanasPendientes.getSelectedIndex() == pestanasPendientes.getTabCount() - 1) {
+                    pestanasPendientes.setSelectedIndex(pestanasPendientes.getTabCount() - 2);
                 }
 
             }
@@ -296,7 +305,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         nombresLista.add("Predeterminada");
         pestanasPendientes.add(scrollPendientesPredeterminado, nombresLista.get(0));
         anadirPestanaFinal();
-        pestanasPendientes.setPreferredSize(new Dimension(600, 300));
+        pestanasPendientes.setPreferredSize(new Dimension(700, 300));
     }
 
     public void anadirPestanaFinal() {
@@ -314,8 +323,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
         anadirPestana.setToolTipText("Añadir Lista");
         anularPintadoBotonParaImagen(anadirPestana, "icons/anadirpestana.png", "icons/anadirpestana2.png", new Dimension(16, 16));
-        pestanasPendientes.setTabComponentAt(pestanasPendientes.getTabCount()-1, anadirPestana);
-        pestanasPendientes.setEnabledAt(pestanasPendientes.getTabCount()-1, false);
+        pestanasPendientes.setTabComponentAt(pestanasPendientes.getTabCount() - 1, anadirPestana);
+        pestanasPendientes.setEnabledAt(pestanasPendientes.getTabCount() - 1, false);
     }
 
     private void iniciarListaSonando() {
@@ -386,7 +395,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
             }
         });
         anularPintadoBotonParaImagen(btnCerrar, "icons/cerrar.png", "icons/cerrar2.png", dimensionBotonesVentana);
-        
+
         final JButton btnMinimizar = new JButton(new AbstractAction() {
 
             @Override
@@ -403,7 +412,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
         return panelBotonesVentana;
     }
-    private void anularPintadoBotonParaImagen(JButton boton, String botonSinRaton, String botonConRaton, Dimension tamano){
+
+    private void anularPintadoBotonParaImagen(JButton boton, String botonSinRaton, String botonConRaton, Dimension tamano) {
         boton.addMouseListener(new MyMouseListener(boton, botonSinRaton, botonConRaton));
         boton.setIcon(new ImageIcon(botonSinRaton));
         boton.setPreferredSize(tamano);

@@ -22,7 +22,6 @@ public class ReproductorPanel extends JPanel {
     public static JButton play;
     public static JButton next;
     public static JButton stop;
-    private boolean pause=false;
     private ImageIcon playIcon;
     private ImageIcon playPress;
     private ImageIcon pauseIcon;
