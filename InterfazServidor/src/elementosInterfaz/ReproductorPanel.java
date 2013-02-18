@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -44,7 +45,6 @@ public class ReproductorPanel extends JPanel {
         
         panelCaratula = new PanelCaratula("1.jpg");
         this.add(panelCaratula);
-        //panelCaratula.cambiarCaratula("1.jpg");
         
         panelBotones = new JPanel(fl);
         playIcon = new ImageIcon("icons/play.png");
@@ -151,7 +151,7 @@ public class ReproductorPanel extends JPanel {
         this.add(panelBotones);
         
         panelNombres = new JPanel();
-        song = new JLabel("Nombre de la canción asd");
+        song = new JLabel("Canción");
         song.setFont(new Font("", Font.BOLD, 14));
         artist = new JLabel("Artista");
         artist.setFont(new Font("", Font.BOLD, 10));

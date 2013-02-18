@@ -8,6 +8,7 @@ import conexion.ConnectionManager;
 import ficheros.FicherosManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
@@ -42,16 +43,17 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private ArrayList<JButton> botonesCerrar = new ArrayList<JButton>();
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
+    private Dimension screen;
     ConnectionManager server = null;
     int puerto_socket = 2222;
     private boolean nuevo;
 
     public FramePrincipal() {
 
-//      Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        screen = Toolkit.getDefaultToolkit().getScreenSize();
 //      this.setSize(screen.width, screen.height - 30);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 5, 20));
         border = new BorderLayout();
         //Listas de canciones en el programa en este momento
         listas_manager = ListasCancionesManager.getInstance();
@@ -80,7 +82,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         conjunto = new JPanel();
         conjunto.add(botones, BorderLayout.NORTH);
         conjunto.add(pestanasPendientes, BorderLayout.SOUTH);
-        
+
         JButton botonPromocion = new JButton(new AbstractAction() {
 
             @Override
@@ -130,7 +132,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
         iniciarConexion();
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
     }
 
     private void setBotones() {
@@ -139,6 +140,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         botones.setPreferredSize(new Dimension(700, 250));
 
         JButton iniciar_Siguiente = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -173,6 +175,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         botones.add(anadirCanciones);
 
         JButton borrarCancion = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -184,6 +187,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         botones.add(borrarCancion);
 
         JButton promocionarLista = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -195,6 +199,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         botones.add(promocionarLista);
 
         JButton anadirLista = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nombreLista = JOptionPane.showInputDialog(new Label("Nombre Lista"), "Nombre Lista", "ListaNueva", JOptionPane.PLAIN_MESSAGE);
@@ -287,6 +292,14 @@ public class FramePrincipal extends JFrame implements WindowListener {
         modeloTablaPredeterminado = new ModeloTabla(listas_manager.nombresColumnaPendientes, 1);
         tablaPredeterminada = new Tabla(modeloTablaPredeterminado);
         tablaPredeterminada.setValueAt("Añade Canciones", 0, 0);
+        tablaPredeterminada.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "borrar");
+        tablaPredeterminada.getActionMap().put("borrar", new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.removeCancion(pestanasPendientes.getSelectedIndex());
+            }
+        });
 
         listas_manager.tablasPendientes.add(tablaPredeterminada);
         listas_manager.addLista(new ListaCanciones());
@@ -296,7 +309,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         nombresLista.add("Predeterminada");
         pestanasPendientes.add(scrollPendientesPredeterminado, nombresLista.get(0));
         anadirPestanaFinal();
-        pestanasPendientes.setPreferredSize(new Dimension(700, 300));
+        pestanasPendientes.setPreferredSize(new Dimension(screen.width*55/100, 300));
     }
 
     public void anadirPestanaFinal() {
@@ -322,12 +335,16 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
         modeloTablaSonando = new ModeloTabla(listas_manager.nombresColumnaSonando, 1);
         listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
-
+        listas_manager.tabla_sonando.getColumnModel().getColumn(2).setMaxWidth(60);
+        listas_manager.tabla_sonando.getColumnModel().getColumn(2).setMinWidth(60);
+        listas_manager.tabla_sonando.getColumnModel().getColumn(1).setMaxWidth(170);
+        listas_manager.tabla_sonando.getColumnModel().getColumn(1).setMinWidth(170);
         listas_manager.tabla_sonando.setValueAt("Promociona una lista", 0, 0);
         listas_manager.tabla_sonando.setValueAt("", 0, 1);
+        listas_manager.tabla_sonando.setValueAt("", 0, 2);
 
         scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
-        scrollSonando.setPreferredSize(new Dimension(500, 700));
+        scrollSonando.setPreferredSize(new Dimension(screen.width*35/100, 50));
         panel.add(scrollSonando, border.WEST);
     }
 
