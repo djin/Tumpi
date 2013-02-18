@@ -39,6 +39,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private BorderLayout border;
     private int listaSelec;
     public static ArrayList<String> nombresLista;
+    private ArrayList<JButton> botonesCerrar = new ArrayList<JButton>();
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
     ConnectionManager server = null;
@@ -250,15 +251,20 @@ public class FramePrincipal extends JFrame implements WindowListener {
         GridBagConstraints gbc = new GridBagConstraints();
         PanelPestana panelPestana = new PanelPestana(nombreLista, gbc);
         JButton botonCerrar = new JButton("A");
+        botonesCerrar.add(botonCerrar);
         botonCerrar.addActionListener(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                listaSelec = pestanasPendientes.getSelectedIndex();
-                pestanasPendientes.remove(listaSelec);
-                listas_manager.removeLista(listaSelec);
-                nombresLista.remove(listaSelec);
+                int pestanaBorrar = botonesCerrar.indexOf(e.getSource());
+                
+                botonesCerrar.remove(pestanaBorrar);
+//                listaSelec = pestanasPendientes.getComponentAt(pestanaBorrar);
+                pestanaBorrar++;
+                pestanasPendientes.remove(pestanaBorrar);
+                listas_manager.removeLista(pestanaBorrar);
+                nombresLista.remove(pestanaBorrar);
 
             }
         });
