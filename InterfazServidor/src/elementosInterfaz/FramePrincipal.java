@@ -242,6 +242,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
     public void addPestana(String nombreLista) {
 
+        pestanasPendientes.remove(pestanasPendientes.getTabCount() - 1);
         listas_manager.addLista(new ListaCanciones());
 
         listas_manager.tablasPendientes.add(new Tabla(new ModeloTabla(listas_manager.nombresColumnaPendientes, 1)));
@@ -258,9 +259,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
             public void actionPerformed(ActionEvent e) {
 
                 int pestanaBorrar = botonesCerrar.indexOf(e.getSource());
-                
+
                 botonesCerrar.remove(pestanaBorrar);
-//                listaSelec = pestanasPendientes.getComponentAt(pestanaBorrar);
                 pestanaBorrar++;
                 pestanasPendientes.remove(pestanaBorrar);
                 listas_manager.removeLista(pestanaBorrar);
@@ -274,6 +274,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         gbc.weightx = 0;
         panelPestana.add(botonCerrar, gbc);
         pestanasPendientes.setTabComponentAt(nombresLista.size() - 1, panelPestana);
+        anadirPestanaFinal();
     }
 
     private void iniciarListasCanciones() {
@@ -292,7 +293,26 @@ public class FramePrincipal extends JFrame implements WindowListener {
         pestanasPendientes = new JTabbedPane();
         nombresLista.add("Predeterminada");
         pestanasPendientes.add(scrollPendientesPredeterminado, nombresLista.get(0));
+        anadirPestanaFinal();
         pestanasPendientes.setPreferredSize(new Dimension(600, 300));
+    }
+
+    public void anadirPestanaFinal() {
+        pestanasPendientes.addTab("AnadirPestana", null);
+        JButton anadirPestana = new JButton(new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String nombreLista = JOptionPane.showInputDialog(new Label("Nombre Lista"), "Nombre Lista", "ListaNueva", JOptionPane.PLAIN_MESSAGE);
+                if (nombreLista != null && !nombreLista.equals("")) {
+                    addPestana(nombreLista);
+                }
+            }
+        });
+        anadirPestana.setText("a");
+        anadirPestana.setPreferredSize(new Dimension(16, 16));
+        pestanasPendientes.setTabComponentAt(nombresLista.size(), anadirPestana);
     }
 
     private void iniciarListaSonando() {
