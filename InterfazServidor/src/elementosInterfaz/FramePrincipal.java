@@ -312,9 +312,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 }
             }
         });
-        anadirPestana.setText("a");
-        anadirPestana.setPreferredSize(new Dimension(16, 16));
         anadirPestana.setToolTipText("Añadir Lista");
+        anularPintadoBotonParaImagen(anadirPestana, "icons/anadirpestana.png", "icons/anadirpestana2.png", new Dimension(16, 16));
         pestanasPendientes.setTabComponentAt(pestanasPendientes.getTabCount()-1, anadirPestana);
         pestanasPendientes.setEnabledAt(pestanasPendientes.getTabCount()-1, false);
     }
