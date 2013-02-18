@@ -32,19 +32,18 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private Tabla tablaPredeterminada;
     private JScrollPane scrollSonando;
     private JScrollPane scrollPendientesPredeterminado;
-    private static JTabbedPane pestanasPendientes;
+    private JTabbedPane pestanasPendientes;
     private JPanel botones;
     private JPanel conjunto;
     private ReproductorPanel panelReproductor;
     private BorderLayout border;
     private int listaSelec;
-    public static ArrayList<String> nombresLista;
+    private ArrayList<String> nombresLista;
     private ArrayList<JButton> botonesCerrar = new ArrayList<JButton>();
     private JMenuBar barramenus = new JMenuBar();
     private JMenu[] menus;
     ConnectionManager server = null;
     int puerto_socket = 2222;
-    JButton borrarCancion1;
     private boolean nuevo;
 
     public FramePrincipal() {
@@ -81,20 +80,49 @@ public class FramePrincipal extends JFrame implements WindowListener {
         conjunto = new JPanel();
         conjunto.add(botones, BorderLayout.NORTH);
         conjunto.add(pestanasPendientes, BorderLayout.SOUTH);
+        
         JButton botonPromocion = new JButton(new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
             }
         });
         anularPintadoBotonParaImagen(botonPromocion, "icons/promocionar.png", "icons/promocionar.png", new Dimension(60, 60));
+        botonPromocion.setToolTipText("Promocionar lista");
         JPanel panelBotonPromocion = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = GridBagConstraints.RELATIVE;
         panelBotonPromocion.add(botonPromocion, gbc);
         panel.add(panelBotonPromocion, BorderLayout.CENTER);
-        panel.add(pestanasPendientes, BorderLayout.EAST);
+
+        JPanel pestanasBotones = new JPanel(new BorderLayout());
+        JButton anadirCancion = new JButton(new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.addCanciones(pestanasPendientes.getSelectedIndex());
+            }
+        });
+        anadirCancion.setToolTipText("Añadir canción");
+        anularPintadoBotonParaImagen(anadirCancion, "icons/anadirCancion1.png", "icons/anadirCancion1.png", new Dimension(31, 31));
+        JButton borrarCancion = new JButton(new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.removeCancion(pestanasPendientes.getSelectedIndex());
+            }
+        });
+        borrarCancion.setToolTipText("Borrar canción");
+        anularPintadoBotonParaImagen(borrarCancion, "icons/borrarCancion1.png", "icons/borrarCancion1.png", new Dimension(31, 31));
+        JPanel panelSituarBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelSituarBoton.add(anadirCancion);
+        panelSituarBoton.add(borrarCancion);
+        pestanasBotones.add(panelSituarBoton, BorderLayout.NORTH);
+        pestanasBotones.add(pestanasPendientes, BorderLayout.CENTER);
+        panel.add(pestanasBotones, BorderLayout.EAST);
+//        panel.add(pestanasPendientes, BorderLayout.EAST);
 //        panel.add(conjunto, BorderLayout.CENTER);
         panel.add(panelReproductor, BorderLayout.SOUTH);
 
@@ -110,9 +138,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         botones = new JPanel();
         botones.setPreferredSize(new Dimension(700, 250));
 
-
         JButton iniciar_Siguiente = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -122,8 +148,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
         iniciar_Siguiente.setText("Iniciar/Siguiente canción");
         iniciar_Siguiente.setPreferredSize(new Dimension(150, 100));
         botones.add(iniciar_Siguiente);
-
-
 
         JButton pausar_Reanudar = new JButton(new AbstractAction() {
 
@@ -137,8 +161,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
         pausar_Reanudar.setPreferredSize(new Dimension(150, 100));
         botones.add(pausar_Reanudar);
 
-
-
         JButton anadirCanciones = new JButton(new AbstractAction() {
 
             @Override
@@ -150,26 +172,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         anadirCanciones.setPreferredSize(new Dimension(150, 100));
         botones.add(anadirCanciones);
 
-
-        borrarCancion1 = new JButton(new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                if (listas_manager.listas_canciones.size() != 1) {
-
-                    listaSelec = pestanasPendientes.getSelectedIndex();
-                    pestanasPendientes.remove(listaSelec);
-                    listas_manager.removeLista(listaSelec);
-                    nombresLista.remove(listaSelec);
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Tiene que tener al menos una lista abierta");
-                }
-            }
-        });
         JButton borrarCancion = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -180,10 +183,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         borrarCancion.setPreferredSize(new Dimension(150, 100));
         botones.add(borrarCancion);
 
-
-
         JButton promocionarLista = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -194,10 +194,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         promocionarLista.setPreferredSize(new Dimension(150, 100));
         botones.add(promocionarLista);
 
-
-
         JButton anadirLista = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nombreLista = JOptionPane.showInputDialog(new Label("Nombre Lista"), "Nombre Lista", "ListaNueva", JOptionPane.PLAIN_MESSAGE);
@@ -210,13 +207,10 @@ public class FramePrincipal extends JFrame implements WindowListener {
         anadirLista.setPreferredSize(new Dimension(150, 100));
         botones.add(anadirLista);
 
-
-
         JButton borrarLista = new JButton(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 if (listas_manager.listas_canciones.size() != 1) {
 
                     listaSelec = pestanasPendientes.getSelectedIndex();
@@ -227,14 +221,11 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 } else {
                     JOptionPane.showMessageDialog(null, "Tiene que tener al menos una lista abierta");
                 }
-
             }
         });
         borrarLista.setText("Borrar lista");
         borrarLista.setPreferredSize(new Dimension(150, 100));
         botones.add(borrarLista);
-
-
 
         JButton salir = new JButton(new AbstractAction() {
 
