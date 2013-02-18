@@ -18,13 +18,13 @@ import javax.swing.JPanel;
 public class PanelCaratula extends JPanel {
     
     private String path;
-    private String path_def;
+//    private String path_def;
     private BufferedImage image;
     
     PanelCaratula(String path){
         this.path = path;
-        this.path_def = path;
-        image=new BufferedImage(1024,768,BufferedImage.TYPE_BYTE_BINARY);
+//        this.path_def = path;
+        image=new BufferedImage(1024,768,BufferedImage.SCALE_SMOOTH);
         image.createGraphics().drawImage(new ImageIcon(path).getImage(), 0, 0, null);
         this.setPreferredSize(new Dimension(80, 80));
     }
@@ -47,7 +47,7 @@ public class PanelCaratula extends JPanel {
        @Override
        public void paintComponent(Graphics g){
            super.paintComponent(g);
-           //ImageIcon caratula = new ImageIcon(path);
+//           ImageIcon caratula = new ImageIcon(path);
            if(image != null){
                g.drawImage(image, 0, 0, 80, 80, null);
                setOpaque(false);

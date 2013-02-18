@@ -76,10 +76,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             tabla_sonando.getColumnModel().getColumn(1).setMaxWidth(100);
             tabla_sonando.getColumnModel().getColumn(1).setMinWidth(100);
         } else {
-            tabla_sonando.setTabla(new ModeloTabla(nombresColumnaSonando, 1));
-            tabla_sonando.setValueAt("Promociona una lista", 0, 0);
-            tabla_sonando.setValueAt("", 0, 1);
-            tabla_sonando.setValueAt("", 0, 2);
+            JOptionPane.showMessageDialog(null, "Has promocionado una lista vacia");
         }
 
         for (Cancion p : listas_canciones.get(id_lista).getCanciones()) {
