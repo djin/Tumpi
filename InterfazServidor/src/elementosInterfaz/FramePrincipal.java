@@ -251,29 +251,31 @@ public class FramePrincipal extends JFrame implements WindowListener {
         pestanasPendientes.addTab(nombreLista, new JScrollPane(listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1)));
         GridBagConstraints gbc = new GridBagConstraints();
         PanelPestana panelPestana = new PanelPestana(nombreLista, gbc);
-        JButton botonCerrar = new JButton("A");
-        botonesCerrar.add(botonCerrar);
-        botonCerrar.addActionListener(new AbstractAction() {
+        JButton botonCerrar = new JButton(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 int pestanaBorrar = botonesCerrar.indexOf(e.getSource());
-
                 botonesCerrar.remove(pestanaBorrar);
                 pestanaBorrar++;
                 pestanasPendientes.remove(pestanaBorrar);
                 listas_manager.removeLista(pestanaBorrar);
                 nombresLista.remove(pestanaBorrar);
+                if(pestanasPendientes.getSelectedIndex() == pestanasPendientes.getTabCount()-1){
+                    pestanasPendientes.setSelectedIndex(pestanasPendientes.getTabCount()-2);
+                }
 
             }
         });
-        botonCerrar.setPreferredSize(new Dimension(13, 13));
+        anularPintadoBotonParaImagen(botonCerrar, "icons/borrarpestana.png", "icons/borrarpestana2.png", new Dimension(13, 13));
+        botonesCerrar.add(botonCerrar);
         gbc.gridx++;
         gbc.ipady = 3;
         gbc.weightx = 0;
         panelPestana.add(botonCerrar, gbc);
         pestanasPendientes.setTabComponentAt(nombresLista.size() - 1, panelPestana);
+        pestanasPendientes.setSelectedIndex(nombresLista.size() - 1);
         anadirPestanaFinal();
     }
 
@@ -312,7 +314,9 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
         anadirPestana.setText("a");
         anadirPestana.setPreferredSize(new Dimension(16, 16));
-        pestanasPendientes.setTabComponentAt(nombresLista.size(), anadirPestana);
+        anadirPestana.setToolTipText("Añadir Lista");
+        pestanasPendientes.setTabComponentAt(pestanasPendientes.getTabCount()-1, anadirPestana);
+        pestanasPendientes.setEnabledAt(pestanasPendientes.getTabCount()-1, false);
     }
 
     private void iniciarListaSonando() {
@@ -373,6 +377,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
     private JPanel botonesVentana() {
         JPanel panelBotonesVentana = new JPanel(new BorderLayout());
+        Dimension dimensionBotonesVentana = new Dimension(25, 20);
         JButton btnCerrar = new JButton(new AbstractAction() {
 
             @Override
@@ -381,14 +386,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 System.exit(0);
             }
         });
-        btnCerrar.addMouseListener(new MyMouseListener(btnCerrar, true));
-        btnCerrar.setIcon(new ImageIcon("icons/cerrar.png"));
-        btnCerrar.setPreferredSize(new Dimension(25, 20));
-        btnCerrar.setFocusPainted(false);
-        btnCerrar.setBorderPainted(false);
-        btnCerrar.setBackground(null);
-        btnCerrar.setContentAreaFilled(false);
-
+        anularPintadoBotonParaImagen(btnCerrar, "icons/cerrar.png", "icons/cerrar2.png", dimensionBotonesVentana);
+        
         final JButton btnMinimizar = new JButton(new AbstractAction() {
 
             @Override
@@ -396,13 +395,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 setExtendedState(Cursor.CROSSHAIR_CURSOR);
             }
         });
-        btnMinimizar.addMouseListener(new MyMouseListener(btnMinimizar, false));
-        btnMinimizar.setIcon(new ImageIcon("icons/minimizar.png"));
-        btnMinimizar.setPreferredSize(new Dimension(25, 20));
-        btnMinimizar.setFocusPainted(false);
-        btnMinimizar.setBorderPainted(false);
-        btnMinimizar.setBackground(null);
-        btnMinimizar.setContentAreaFilled(false);
+        anularPintadoBotonParaImagen(btnMinimizar, "icons/minimizar.png", "icons/minimizar2.png", dimensionBotonesVentana);
 
         JPanel panelIntermediario = new JPanel(new GridLayout(1, 2));
         panelIntermediario.add(btnMinimizar);
@@ -410,6 +403,15 @@ public class FramePrincipal extends JFrame implements WindowListener {
         panelBotonesVentana.add(panelIntermediario, BorderLayout.LINE_END);
 
         return panelBotonesVentana;
+    }
+    private void anularPintadoBotonParaImagen(JButton boton, String botonSinRaton, String botonConRaton, Dimension tamano){
+        boton.addMouseListener(new MyMouseListener(boton, botonSinRaton, botonConRaton));
+        boton.setIcon(new ImageIcon(botonSinRaton));
+        boton.setPreferredSize(tamano);
+        boton.setFocusPainted(false);
+        boton.setBorderPainted(false);
+        boton.setBackground(null);
+        boton.setContentAreaFilled(false);
     }
 
     private void cerrarConexion() {

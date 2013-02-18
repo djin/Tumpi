@@ -1,6 +1,5 @@
 package elementosInterfaz;
 
-import java.awt.Color;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,12 +11,13 @@ import javax.swing.event.MouseInputListener;
  */
 public class MyMouseListener implements MouseInputListener {
 
-    JButton btn;
-    private boolean bool;
+    private JButton btn;
+    private String botonRatonEncima, botonSinRatonEncima;
 
-    public MyMouseListener(JButton boton, boolean bool) {
+    public MyMouseListener(JButton boton, String botonSinRaton, String botonConRaton) {
         btn = boton;
-        this.bool = bool;
+        botonRatonEncima = botonConRaton;
+        botonSinRatonEncima = botonSinRaton;
     }
 
     @Override
@@ -34,20 +34,12 @@ public class MyMouseListener implements MouseInputListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (bool) {
-            btn.setIcon(new ImageIcon("icons/cerrar2.png"));
-        } else {
-            btn.setIcon(new ImageIcon("icons/minimizar2.png"));
-        }
+        btn.setIcon(new ImageIcon(botonRatonEncima));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        if (bool) {
-            btn.setIcon(new ImageIcon("icons/cerrar.png"));
-        } else {
-            btn.setIcon(new ImageIcon("icons/minimizar.png"));
-        }
+        btn.setIcon(new ImageIcon(botonSinRatonEncima));
     }
 
     @Override
