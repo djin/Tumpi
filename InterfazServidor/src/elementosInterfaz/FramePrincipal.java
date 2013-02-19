@@ -262,9 +262,17 @@ public class FramePrincipal extends JFrame implements WindowListener {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = GridBagConstraints.RELATIVE;
-        JLabel textoInicio = new JLabel("Presiona la pestaña \"+\" para crear tu propia lista de socialDj");
+        JLabel textoInicio = new JLabel("Presiona la pestaña ");
         textoInicio.setFont(new Font("", Font.BOLD, 22));
+        JButton image = new JButton();
+        anularPintadoBotonParaImagen(image, "icons/anadirpestana.png", "icons/anadirpestana2.png", new Dimension(16, 16));
+        JLabel textoInicio2 = new JLabel(" para crear tu propia lista de socialDj");
+        textoInicio2.setFont(new Font("", Font.BOLD, 22));
         panelVacio.add(textoInicio, gbc);
+        gbc.gridx++;
+        panelVacio.add(image, gbc);
+        gbc.gridx++;
+        panelVacio.add(textoInicio2, gbc);
         panelVacio.setPreferredSize(ladoDerecho);
         return panelVacio;
     }
