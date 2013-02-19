@@ -9,24 +9,24 @@ package modelos;
  * @author 66786575
  */
 public class Cancion {
-    
+
     private int id;
     private String nombre;
     private String disco;
     private String artista;
     private String duracion;
     private String path;
-    private int reproducida=0;
-    
-    public Cancion(int _id, String name, String album, String artist, String length, String _path){
-        
+    private int reproducida = 0;
+
+    public Cancion(int _id, String name, String album, String artist, String length, String _path) {
+
         id = _id;
         nombre = name;
         disco = album;
         artista = artist;
         duracion = length;
         path = _path;
-        
+
     }
 
     /**
@@ -112,10 +112,10 @@ public class Cancion {
     public void setPath(String path) {
         this.path = path;
     }
-    
+
     @Override
-    public String toString(){
-        return getId()+"*"+getNombre()+"*"+getArtista()+"*"+getDisco()+"*"+getReproducida();
+    public String toString() {
+        return getId() + "*" + getNombre() + "*" + getArtista() + "*" + getDisco() + "*" + getReproducida();
     }
 
     /**
@@ -131,5 +131,31 @@ public class Cancion {
     public void setReproducida(int reproducida) {
         this.reproducida = reproducida;
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null) {
+            if (obj instanceof Cancion) {
+                Cancion cancion = (Cancion) obj;
+                if (cancion.getArtista().equals(this.getArtista()) && cancion.getDisco().equals(this.getDisco())
+                        && cancion.getDuracion().equals(this.getDuracion()) && cancion.getId() == this.getId()
+                        && cancion.getPath().equals(this.getPath()) && cancion.getNombre().equals(this.getNombre())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 11 * hash + this.id;
+        hash = 11 * hash + (this.nombre != null ? this.nombre.hashCode() : 0);
+        hash = 11 * hash + (this.disco != null ? this.disco.hashCode() : 0);
+        hash = 11 * hash + (this.artista != null ? this.artista.hashCode() : 0);
+        hash = 11 * hash + (this.duracion != null ? this.duracion.hashCode() : 0);
+        hash = 11 * hash + (this.path != null ? this.path.hashCode() : 0);
+        return hash;
+    }
 }
