@@ -8,6 +8,7 @@ import conexion.ConnectionManager;
 import elementosInterfaz.FramePrincipal;
 import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 import reproductor.PlayerReproductor;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
@@ -37,8 +39,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     private static ArrayList<Cancion> canciones;
     public static String path;
     private static int columnaSonandoCancion = 0, columnaSonandoAutor = 1, columnaSonandoVotos = 2;
+    private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum=2, columnaPendienteDuracion=3;
     public String[] nombresColumnaSonando = {"Cancion", "Artista", "Votos"};
-    public static String[] nombresColumnaPendientes = {"Cancion"};
+    public static String[] nombresColumnaPendientes = {"Cancion", "Artista", "Album", "Duración"};
     private static final ListasCancionesManager manager = new ListasCancionesManager();
 
     private ListasCancionesManager() {
@@ -46,6 +49,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         reproductor = new PlayerReproductor();
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
         listas_canciones = new ArrayList();
+        tablasPendientes= new ArrayList();
     }
 
     public static ListasCancionesManager getInstance() {
@@ -57,7 +61,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         int x = 0;
         canciones = new ArrayList();
 
-        if (!listas_canciones.get(id_lista).getCanciones().isEmpty()) {
+        if (!listas_canciones.isEmpty() && !listas_canciones.get(id_lista).getCanciones().isEmpty()) {
             tabla_sonando.getTabla().setFilas(listas_canciones.get(id_lista).getCanciones().size());
             for (Cancion p : listas_canciones.get(id_lista).getCanciones()) {
 
@@ -195,15 +199,35 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                     c.setId(max_id);
 
                     listas_canciones.get(index).getCanciones().add(c);
-                    if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaSonandoCancion).equals("Añade Canciones")) {
+                    if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
                         tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() + 1);
                     }
 
-                    tablasPendientes.get(index).getTabla().setValueAt(c.getNombre(), x + comienzo, columnaSonandoCancion);
+                    tablasPendientes.get(index).getTabla().setValueAt(c.getNombre(), x + comienzo, columnaPendienteCancion);
+                    tablasPendientes.get(index).getTabla().setValueAt(c.getArtista(), x + comienzo, columnaPendienteAutor);
+                    tablasPendientes.get(index).getTabla().setValueAt(c.getDisco(), x + comienzo, columnaPendienteAlbum);
+                    tablasPendientes.get(index).getTabla().setValueAt("", x + comienzo, columnaPendienteDuracion);
                     x++;
                 }
             }
         }
+    }
+    
+    public Tabla crearTabla(){
+        tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 1)));
+        tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("Añade Canciones", 0, 0);
+        tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 1);
+        tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 2);
+        tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 3);
+        tablasPendientes.get(tablasPendientes.size() - 1).getTableHeader().setReorderingAllowed(false);
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(0).setMinWidth(160);
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(1).setMinWidth(160);
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(2).setMaxWidth(250);
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(2).setMinWidth(140);
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setMaxWidth(80);
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setMinWidth(80);
+        tablasPendientes.get(tablasPendientes.size() - 1).getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "borrar");
+        return tablasPendientes.get(tablasPendientes.size() - 1);
     }
 
     public static boolean acabaEnMp3(File f) {
@@ -231,16 +255,22 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
                     for (int x = filasSelects[0]; x < listas_canciones.get(index).getCanciones().size(); x++) {
 
-                        tablasPendientes.get(index).getTabla().setValueAt(tablasPendientes.get(index).getTabla().getValueAt(x + 1, columnaSonandoCancion), x, columnaSonandoCancion);
+                        tablasPendientes.get(index).getTabla().setValueAt(tablasPendientes.get(index).getTabla().getValueAt(x + 1, columnaPendienteCancion), x, columnaPendienteCancion);
+                        tablasPendientes.get(index).getTabla().setValueAt(tablasPendientes.get(index).getTabla().getValueAt(x + 1, columnaPendienteAutor), x, columnaPendienteAutor);
+                        tablasPendientes.get(index).getTabla().setValueAt(tablasPendientes.get(index).getTabla().getValueAt(x + 1, columnaPendienteAlbum), x, columnaPendienteAlbum);
+                        tablasPendientes.get(index).getTabla().setValueAt(tablasPendientes.get(index).getTabla().getValueAt(x + 1, columnaPendienteDuracion), x, columnaPendienteDuracion);
                     }
 
                     if (!listas_canciones.get(index).getCanciones().isEmpty()) {
 
-                        tablasPendientes.get(index).getTabla().setValueAt("", listas_canciones.get(index).getCanciones().size(), columnaSonandoCancion);
+                        tablasPendientes.get(index).getTabla().setValueAt("", listas_canciones.get(index).getCanciones().size(), columnaPendienteCancion);
                         tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() - 1);
 
                     } else {
-                        tablasPendientes.get(index).setValueAt("Añade Canciones", 0, columnaSonandoCancion);
+                        tablasPendientes.get(index).setValueAt("Añade Canciones", 0, columnaPendienteCancion);
+                        tablasPendientes.get(index).setValueAt("", 0, columnaPendienteAlbum);
+                        tablasPendientes.get(index).setValueAt("", 0, columnaPendienteAutor);
+                        tablasPendientes.get(index).setValueAt("", 0, columnaPendienteDuracion);
                     }
                 }
             }
