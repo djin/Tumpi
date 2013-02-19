@@ -203,15 +203,22 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             ListaCanciones lista = listas_canciones.get(index);
             int max_id = lista.getMaxId();
             Cancion c;
+            
             for (File f : listaFiles) {
                 c = reproductor.getCancion(f.getAbsolutePath());
 
                 max_id++;
                 c.setId(max_id);
 
-                x++;
+                
                 listas_canciones.get(index).getCanciones().add(c);
-                tablasPendientes.get(index).setModel(new ModeloTabla(nombresColumnaPendientes, x + comienzo, listas_canciones.get(index).getCanciones()));
+                if(comienzo!=0 || x !=1){
+                    tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas()+1);
+                }
+                
+                tablasPendientes.get(index).setValueAt(c.getNombre(), x + comienzo, 0);
+                x++;
+
             }
         }
     }
@@ -222,32 +229,34 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public void removeCancion(int index) {
 
-
-        int tryFilaSelec = tablasPendientes.get(index).getSelectedRow();
         int[] filasSelects = tablasPendientes.get(index).getSelectedRows();
-
-        if (filasSelects.length == 0 || listas_canciones.get(index).getCanciones().size() <= tryFilaSelec) {
+        
+        
+        if (filasSelects.length == 0 || listas_canciones.get(index).getCanciones().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "No ha seleccionado una canción");
 
         } else {
+            
             int validacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de querer borrar las canciones Seleccionadas?");
+            
             if (validacion == 0) {
-                for (int filaSelec : filasSelects) {
-                    listas_canciones.get(index).getCanciones().remove(filaSelec);
+                tablasPendientes.get(index).clearSelection();
+                for (int y=0; y<filasSelects.length; y++) {
+                    
+                    listas_canciones.get(index).getCanciones().remove(filasSelects[0]);
 
-                    for (int x = filaSelec; x < listas_canciones.get(index).getCanciones().size(); x++) {
+                    for (int x = filasSelects[0]; x < listas_canciones.get(index).getCanciones().size(); x++) {
 
                         tablasPendientes.get(index).setValueAt(tablasPendientes.get(index).getValueAt(x + 1, 0), x, 0);
                     }
 
                     if (!listas_canciones.get(index).getCanciones().isEmpty()) {
-                        tablasPendientes.get(index).setModel(new ModeloTabla(nombresColumnaPendientes, listas_canciones.get(index).getCanciones().size(), listas_canciones.get(index).getCanciones()));
+                        
+                        tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas()-1);
+                        
                     } else {
                         tablasPendientes.get(index).setValueAt("Añade Canciones", 0, 0);
-                    }
-                    for (int x = filaSelec; x < filasSelects.length; x++) {
-                        filasSelects[x]--;
                     }
                 }
             }

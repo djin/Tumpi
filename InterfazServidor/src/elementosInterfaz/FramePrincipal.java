@@ -109,6 +109,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
         anadirCancion.setToolTipText("Añadir canción");
         anularPintadoBotonParaImagen(anadirCancion, "icons/anadirCancion1.png", "icons/anadirCancion1.png", new Dimension(31, 31));
+        
+        
         JButton borrarCancion = new JButton(new AbstractAction() {
 
             @Override
@@ -118,7 +120,9 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
         borrarCancion.setToolTipText("Borrar canción");
         anularPintadoBotonParaImagen(borrarCancion, "icons/borrarCancion1.png", "icons/borrarCancion1.png", new Dimension(31, 31));
-        JPanel panelSituarBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        
+        
+        JPanel panelSituarBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));              
         panelSituarBoton.add(anadirCancion);
         panelSituarBoton.add(borrarCancion);
         pestanasBotones.add(panelSituarBoton, BorderLayout.NORTH);
@@ -335,10 +339,11 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
         modeloTablaSonando = new ModeloTabla(listas_manager.nombresColumnaSonando, 1);
         listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
-        listas_manager.tabla_sonando.getColumnModel().getColumn(2).setMaxWidth(60);
+        //listas_manager.tabla_sonando.getColumnModel().getColumn(2).setMaxWidth(60);
         listas_manager.tabla_sonando.getColumnModel().getColumn(2).setMinWidth(60);
-        listas_manager.tabla_sonando.getColumnModel().getColumn(1).setMaxWidth(170);
-        listas_manager.tabla_sonando.getColumnModel().getColumn(1).setMinWidth(170);
+        //listas_manager.tabla_sonando.getColumnModel().getColumn(1).setMaxWidth(170);
+        listas_manager.tabla_sonando.getColumnModel().getColumn(1).setMinWidth(150);
+        listas_manager.tabla_sonando.getColumnModel().getColumn(0).setMinWidth(150);
         listas_manager.tabla_sonando.setValueAt("Promociona una lista", 0, 0);
         listas_manager.tabla_sonando.setValueAt("", 0, 1);
         listas_manager.tabla_sonando.setValueAt("", 0, 2);
