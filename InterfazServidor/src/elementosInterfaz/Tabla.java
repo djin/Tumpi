@@ -4,10 +4,8 @@
  */
 package elementosInterfaz;
 
-import modelos.ModeloTabla;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import javax.swing.*;
+import modelos.ModeloTabla;
 
 /**
  *
