@@ -41,7 +41,7 @@ public class PlayerReproductorTest {
 
     @Test
     public void testGetCancion() {
-        Cancion cancion = new Cancion(0,"Love Lost","Conditions","The Temper Trap","","C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
+        Cancion cancion = new Cancion(0,"Love Lost","Conditions","The Temper Trap",216140,"C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
         PlayerReproductor reproductor = new PlayerReproductor();
         reproductor.getMediaPlayer().playMedia("C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
         assertEquals(cancion,reproductor.getCancion("C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3"));
@@ -49,8 +49,8 @@ public class PlayerReproductorTest {
     
      @Test
     public void testEquals() {
-         Cancion cancion = new Cancion(0,"Love Lost","Conditions","The Temper Trap","","C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
-         Cancion cancion2 = new Cancion(0,"Love Lost","Conditions","The Temper Trap","","C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
+         Cancion cancion = new Cancion(0,"Love Lost","Conditions","The Temper Trap",216140,"C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
+         Cancion cancion2 = new Cancion(0,"Love Lost","Conditions","The Temper Trap",216140,"C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
          assertEquals(cancion,cancion2);
      }
 }

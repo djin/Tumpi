@@ -14,11 +14,11 @@ public class Cancion {
     private String nombre;
     private String disco;
     private String artista;
-    private String duracion;
+    private long duracion;
     private String path;
     private int reproducida = 0;
 
-    public Cancion(int _id, String name, String album, String artist, String length, String _path) {
+    public Cancion(int _id, String name, String album, String artist, long length, String _path) {
 
         id = _id;
         nombre = name;
@@ -86,20 +86,6 @@ public class Cancion {
     }
 
     /**
-     * @return the duracion
-     */
-    public String getDuracion() {
-        return duracion;
-    }
-
-    /**
-     * @param duracion the duracion to set
-     */
-    public void setDuracion(String duracion) {
-        this.duracion = duracion;
-    }
-
-    /**
      * @return the path
      */
     public String getPath() {
@@ -115,7 +101,7 @@ public class Cancion {
 
     @Override
     public String toString() {
-        return getId() + "*" + getNombre() + "*" + getArtista() + "*" + getDisco() + "*" + getReproducida();
+        return getId() + "*" + getNombre() + "*" + getArtista() + "*" + getDisco() + "*" + getDuracion() + "*" + getReproducida();
     }
 
     /**
@@ -138,7 +124,7 @@ public class Cancion {
             if (obj instanceof Cancion) {
                 Cancion cancion = (Cancion) obj;
                 if (cancion.getArtista().equals(this.getArtista()) && cancion.getDisco().equals(this.getDisco())
-                        && cancion.getDuracion().equals(this.getDuracion()) && cancion.getId() == this.getId()
+                        && cancion.getDuracion()==this.getDuracion() && cancion.getId() == this.getId()
                         && cancion.getPath().equals(this.getPath()) && cancion.getNombre().equals(this.getNombre())) {
                     return true;
                 }
@@ -147,15 +133,18 @@ public class Cancion {
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 11 * hash + this.id;
-        hash = 11 * hash + (this.nombre != null ? this.nombre.hashCode() : 0);
-        hash = 11 * hash + (this.disco != null ? this.disco.hashCode() : 0);
-        hash = 11 * hash + (this.artista != null ? this.artista.hashCode() : 0);
-        hash = 11 * hash + (this.duracion != null ? this.duracion.hashCode() : 0);
-        hash = 11 * hash + (this.path != null ? this.path.hashCode() : 0);
-        return hash;
+    /**
+     * @return the duracion
+     */
+    public long getDuracion() {
+        return duracion;
     }
+
+    /**
+     * @param duracion the duracion to set
+     */
+    public void setDuracion(long duracion) {
+        this.duracion = duracion;
+    }
+
 }
