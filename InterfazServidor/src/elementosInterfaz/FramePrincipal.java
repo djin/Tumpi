@@ -14,6 +14,7 @@ import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
 import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 import modelos.ModeloTabla;
@@ -109,20 +110,21 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
         anadirCancion.setToolTipText("Añadir canción");
         anularPintadoBotonParaImagen(anadirCancion, "icons/anadirCancion1.png", "icons/anadirCancion1.png", new Dimension(31, 31));
-        
-        
+
+
         JButton borrarCancion = new JButton(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.removeCancion(pestanasPendientes.getSelectedIndex());
+//                listas_manager.tablasPendientes.get(pestanasPendientes.getSelectedIndex()).repaint();
             }
         });
         borrarCancion.setToolTipText("Borrar canción");
         anularPintadoBotonParaImagen(borrarCancion, "icons/borrarCancion1.png", "icons/borrarCancion1.png", new Dimension(31, 31));
-        
-        
-        JPanel panelSituarBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));              
+
+
+        JPanel panelSituarBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelSituarBoton.add(anadirCancion);
         panelSituarBoton.add(borrarCancion);
         pestanasBotones.add(panelSituarBoton, BorderLayout.NORTH);
@@ -313,7 +315,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         nombresLista.add("Predeterminada");
         pestanasPendientes.add(scrollPendientesPredeterminado, nombresLista.get(0));
         anadirPestanaFinal();
-        pestanasPendientes.setPreferredSize(new Dimension(screen.width*55/100, 300));
+        pestanasPendientes.setPreferredSize(new Dimension(screen.width * 55 / 100, 300));
     }
 
     public void anadirPestanaFinal() {
@@ -347,9 +349,18 @@ public class FramePrincipal extends JFrame implements WindowListener {
         listas_manager.tabla_sonando.setValueAt("Promociona una lista", 0, 0);
         listas_manager.tabla_sonando.setValueAt("", 0, 1);
         listas_manager.tabla_sonando.setValueAt("", 0, 2);
+        listas_manager.tabla_sonando.getColumnModel().getColumn(2).setCellRenderer(new TableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel valor = new JLabel(value.toString());
+                valor.setHorizontalAlignment(JLabel.CENTER);
+                return valor;
+            }
+        });
 
         scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
-        scrollSonando.setPreferredSize(new Dimension(screen.width*35/100, 50));
+        scrollSonando.setPreferredSize(new Dimension(screen.width * 35 / 100, 50));
         panel.add(scrollSonando, border.WEST);
     }
 
