@@ -46,15 +46,8 @@ public class PlayerReproductor extends configVlcj{
         identificador.getMediaPlayer().prepareMedia(mrl);
         identificador.getMediaPlayer().parseMedia();
         metadata = identificador.getMediaPlayer().getMediaMeta();
-//        dur = reproductor.getMediaPlayer().getLength();
-//        System.out.println("dentro"+dur);
-//        dur = dur/1000;
-//        while(dur>59){
-//            dur = dur-60;
-//            min++;
-//        }
-//        duracion = Long.toString(min)+":"+ Long.toString(dur);
-        cancion = new Cancion(0,metadata.getTitle(), metadata.getAlbum(),metadata.getArtist(),duracion, mrl);
+        dur = reproductor.getMediaPlayer().getLength();
+        cancion = new Cancion(0,metadata.getTitle(), metadata.getAlbum(),metadata.getArtist(),dur, mrl);
         return cancion; 
     }
     
