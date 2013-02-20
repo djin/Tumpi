@@ -74,10 +74,21 @@ public class ModeloTabla implements TableModel {
     
     @Override
     public void setValueAt(Object dato, int fila, int columna) {
-            
-        getMapa().put(new Point(fila, columna), dato.toString());
         
-        fireTableDataChanged();
+        boolean check = true;
+        
+        try{
+            getMapa().put(new Point(fila, columna), dato.toString());
+            fireTableDataChanged();
+            
+        } catch (Exception ex){
+            check = false;
+        }
+        
+        if(!check){
+            getMapa().put(new Point(fila, columna), "");
+            fireTableDataChanged();
+        }
     }
  
     @Override

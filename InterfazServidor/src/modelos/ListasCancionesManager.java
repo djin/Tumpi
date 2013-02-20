@@ -264,6 +264,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                     if (!listas_canciones.get(index).getCanciones().isEmpty()) {
 
                         tablasPendientes.get(index).getTabla().setValueAt("", listas_canciones.get(index).getCanciones().size(), columnaPendienteCancion);
+                        tablasPendientes.get(index).getTabla().setValueAt("", listas_canciones.get(index).getCanciones().size(), columnaPendienteAutor);
+                        tablasPendientes.get(index).getTabla().setValueAt("", listas_canciones.get(index).getCanciones().size(), columnaPendienteAlbum);
+                        tablasPendientes.get(index).getTabla().setValueAt("", listas_canciones.get(index).getCanciones().size(), columnaPendienteDuracion);
                         tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() - 1);
 
                     } else {
