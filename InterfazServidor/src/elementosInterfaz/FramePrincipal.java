@@ -98,7 +98,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
             }
         });
         anadirCancion.setToolTipText("Añadir canción");
-        anularPintadoBotonParaImagen(anadirCancion, "icons/anadirCancion1.png", "icons/anadirCancion1.png", new Dimension(31, 31));
+        anularPintadoBotonParaImagen(anadirCancion, "icons/anadirConCarpeta.png", "icons/anadirConCarpeta.png", new Dimension(31, 31));
 
 
         JButton borrarCancion = new JButton(new AbstractAction() {
