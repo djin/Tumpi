@@ -31,5 +31,5 @@
     <uses-sdk android:minSdkVersion="7" />
     <uses-sdk android:targetSdkVersion="16" />
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-       android:targetPackage="lista.android" android:label="Android Test" />
+       android:targetPackage="lista.android"/>
 </manifest>
