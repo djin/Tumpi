@@ -9,12 +9,14 @@ package lista.android;
  * @author 66785320
  */
 public class Cancion {
+
     private String nombreCancion;
     private String nombreAutor;
     private String nombreAlbum;
     private int id;
     private Boolean votado;
     private Boolean sonado;
+
     public Cancion(String n, String a, String al, int i, Boolean v, Boolean s) {
         nombreCancion = n;
         nombreAutor = a;
@@ -107,5 +109,35 @@ public class Cancion {
     public void setSonado(Boolean sonado) {
         this.sonado = sonado;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null) {
+            if (obj instanceof Cancion) {
+                Cancion cancion = (Cancion) obj;
+                if (cancion.getNombreAutor().equals(nombreAutor) && cancion.getNombreAlbum().equals(nombreAlbum)
+                        && cancion.getId() == id && cancion.getNombreCancion().equals(nombreCancion)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + (this.nombreCancion != null ? this.nombreCancion.hashCode() : 0);
+        hash = 97 * hash + (this.nombreAutor != null ? this.nombreAutor.hashCode() : 0);
+        hash = 97 * hash + (this.nombreAlbum != null ? this.nombreAlbum.hashCode() : 0);
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + (this.votado != null ? this.votado.hashCode() : 0);
+        hash = 97 * hash + (this.sonado != null ? this.sonado.hashCode() : 0);
+        return hash;
+    }
     
+    @Override
+    public String toString(){
+        return nombreCancion + " " + nombreAutor + " " + nombreAlbum + " " + id;
+    }
 }

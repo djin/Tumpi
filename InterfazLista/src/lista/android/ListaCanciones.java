@@ -10,8 +10,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lista.android.conexion.*;
 
 public class ListaCanciones extends ListActivity implements ServerMessageListener

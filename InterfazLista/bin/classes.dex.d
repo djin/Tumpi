@@ -19,8 +19,6 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\andr
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaDatosServidor.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$1$1.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$1.class \
-C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$2$1.class \
-C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$2.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal$BuscarServer.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\PantallaPrincipal.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$attr.class \
@@ -34,5 +32,3 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\andr
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R$style.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\R.class \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\android\Settings.class \
-C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\test\AllTests.class \
-C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\bin\classes\lista\test\ListaCancionesTest.class \

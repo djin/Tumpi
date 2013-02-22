@@ -5,6 +5,7 @@
 package interfazlistatest;
 
 
+import lista.android.Cancion;
 import org.robolectric.RobolectricTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,4 +25,12 @@ public class InterfazListaTestTest {
         int valor = i+j;
         assertEquals(valor, 3);
     }
+    
+    @Test
+    public void testCancionEquals() throws Exception{
+        Cancion cancion1 = new Cancion("Los redondeles", "redondels", "n1", 1, false, false);
+        Cancion cancion2 = new Cancion("Los redondeles", "redondels", "n1", 1, false, false);
+        assertEquals(cancion1, cancion2);
+    }
+    
 }
