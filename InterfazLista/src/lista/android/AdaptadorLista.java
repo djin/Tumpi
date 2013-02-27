@@ -62,6 +62,7 @@ public class AdaptadorLista extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = inflater.inflate(R.layout.rowstyle, parent, false);
             TextView txt = (TextView) v.findViewById(R.id.songName);
+            
             txt.setText(getDatos().get(position).getNombreCancion());
             txt.setSelected(true);
             TextView txtAutor = (TextView) v.findViewById(R.id.autorName);

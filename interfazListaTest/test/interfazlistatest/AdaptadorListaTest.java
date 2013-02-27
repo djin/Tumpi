@@ -4,12 +4,12 @@
  */
 package interfazlistatest;
 
+import android.app.Activity;
+import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.view.View;
 import lista.android.R;
 import android.app.ListActivity;
-import android.widget.TextView;
-import android.widget.LinearLayout;
-import android.app.Activity;
 import lista.android.AdaptadorLista;
 import lista.android.Cancion;
 import java.util.ArrayList;
@@ -66,9 +66,9 @@ public class AdaptadorListaTest {
         assertEquals(adaptador.getDatos().get(2).getNombreCancion(), "Los redondeles3");
     }
 
-//    @Test
-//    public void testGetView() throws Exception {
-//        View nameView = (View) adaptador.getView(0, null, new LinearLayout(activity));
-//        assertEquals(((TextView) nameView.findViewById(R.id.songName)).getText().toString(), "Los redondeles2");
-//    }
+    @Test
+    public void testGetView() throws Exception {
+        View nameView = (View) adaptador.getView(0, null, new LinearLayout(activity));
+        assertEquals(((TextView) nameView.findViewById(R.id.songName)).getText().toString(), "Los redondeles");
+    }
 }
