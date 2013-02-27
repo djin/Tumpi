@@ -25,6 +25,7 @@ public class ListasCancionesManagerTest {
     ListasCancionesManager instance;
     ListaCanciones lista;
     ArrayList<Cancion> canciones;
+    int id_lista;
 
     public ListasCancionesManagerTest() {
     }
@@ -41,7 +42,7 @@ public class ListasCancionesManagerTest {
     public void setUp() {
         lista = new ListaCanciones();
         canciones = new ArrayList();
-
+        id_lista=0;
         canciones.add(new Cancion(1, "cancion prueba1", "album prueba", "el probador", 180, "/tuMadre"));
         canciones.add(new Cancion(2, "cancion prueba2", "album prueba", "el probador", 180, "/tuMadre"));
         canciones.add(new Cancion(3, "cancion prueba3", "album prueba", "el probador", 180, "/tuMadre"));
@@ -49,13 +50,12 @@ public class ListasCancionesManagerTest {
         lista.setCanciones(canciones);
 
         System.out.println("promocionarLista");
-        int id_lista = 0;
+        
 
         instance = ListasCancionesManager.getInstance();
         instance.addLista(lista);
         String[] columnas = {"nombre", "votos"};
         instance.tabla_sonando = new Tabla(new ModeloTabla(columnas, 2));
-        instance.promocionarLista(id_lista);
     }
 
     @After
@@ -83,18 +83,21 @@ public class ListasCancionesManagerTest {
     @Test
     public void testPromocionarListaNumFilas() {
         //numero de filas igual al numero de canciones
+        instance.promocionarLista(id_lista);
         assertEquals(3, instance.tabla_sonando.getTabla().getFilas());
     }
     
     @Test
     public void testPromocionarListaCompCancion() {
         //la cancion de la fila 3 coincide con la que hemos creado
+        instance.promocionarLista(id_lista);
         assertEquals("cancion prueba3", instance.tabla_sonando.getTabla().getValueAt(2, 0));
     }
     
     @Test
     public void testPromocionarListaVotos() {
         int flag = 0;
+        instance.promocionarLista(id_lista);
         //verificar que la columna votos sea toda ceros
         for (int i = 0; i < instance.tabla_sonando.getTabla().getFilas(); i++) {
             if (instance.tabla_sonando.getTabla().getValueAt(i, 1) == "0") {
@@ -107,17 +110,12 @@ public class ListasCancionesManagerTest {
     /**
      * Test of procesarVoto method, of class ListasCancionesManager.
      */
-//    @Test
-//    public void testProcesarVoto() {
-//        System.out.println("procesarVoto");
-//        int id_cancion = 0;
-//        boolean tipo = false;
-//        boolean expResult = false;
-//        boolean result = ListasCancionesManager.procesarVoto(id_cancion, tipo);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testProcesarVoto() {
+       instance.promocionarLista(id_lista);
+       instance.procesarVoto(1, true);
+       assertEquals(instance.tabla_sonando.getTabla().getValueAt(0, 1),"1");
+    }
 //
 //    /**
 //     * Test of playNext method, of class ListasCancionesManager.
