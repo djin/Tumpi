@@ -133,7 +133,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             cancion_sonando = cancion;
             //lista_sonando.getCanciones().remove(id_max);
             tabla_sonando.setValueAt("*", id_max, columnaSonandoVotos);
-            reproductor.reproducir(cancion.getPath());
+            if (!reproductor.reproducir(cancion.getPath()))
+                FramePrincipal.log("Error al reproducir la cancion.");
+            
             cancion.setReproducida(1);
             ReproductorPanel.song.setText(cancion.getNombre());
             ReproductorPanel.artist.setText(cancion.getArtista());

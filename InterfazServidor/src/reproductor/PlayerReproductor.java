@@ -20,8 +20,8 @@ public class PlayerReproductor extends configVlcj{
         
     }
     
-    public void reproducir(String mrl){
-        reproductor.getMediaPlayer().playMedia(mrl);
+    public boolean reproducir(String mrl){
+        return reproductor.getMediaPlayer().playMedia(mrl);
     }
         
     public static void pausar(){

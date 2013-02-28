@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
 import java.io.File;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import reproductor.PlayerReproductor;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 
@@ -26,6 +28,7 @@ public class ListasCancionesManagerTest {
     ListaCanciones lista;
     ArrayList<Cancion> canciones;
     int id_lista;
+    PlayerReproductor reproductor;
 
     public ListasCancionesManagerTest() {
     }
@@ -43,9 +46,9 @@ public class ListasCancionesManagerTest {
         lista = new ListaCanciones();
         canciones = new ArrayList();
         id_lista=0;
-        canciones.add(new Cancion(1, "cancion prueba1", "album prueba", "el probador", 180, "/tuMadre"));
-        canciones.add(new Cancion(2, "cancion prueba2", "album prueba", "el probador", 180, "/tuMadre"));
-        canciones.add(new Cancion(3, "cancion prueba3", "album prueba", "el probador", 180, "/tuMadre"));
+        canciones.add(new Cancion(1, "cancion prueba1", "album prueba", "el probador", 180, "prueba1.mp3"));
+        canciones.add(new Cancion(2, "cancion prueba2", "album prueba", "el probador", 180, "prueba1.mp3"));
+        canciones.add(new Cancion(3, "cancion prueba3", "album prueba", "el probador", 180, "prueba1.mp3"));
 
         lista.setCanciones(canciones);
 
@@ -54,8 +57,10 @@ public class ListasCancionesManagerTest {
 
         instance = ListasCancionesManager.getInstance();
         instance.addLista(lista);
-        String[] columnas = {"nombre", "votos"};
-        instance.tabla_sonando = new Tabla(new ModeloTabla(columnas, 2));
+        String[] columnas = {"nombre","autor", "votos"};
+        instance.tabla_sonando = new Tabla(new ModeloTabla(columnas, 3));
+        ReproductorPanel panelReproductor = new ReproductorPanel(instance);
+        reproductor = new PlayerReproductor();
     }
 
     @After
@@ -100,12 +105,12 @@ public class ListasCancionesManagerTest {
         instance.promocionarLista(id_lista);
         //verificar que la columna votos sea toda ceros
         for (int i = 0; i < instance.tabla_sonando.getTabla().getFilas(); i++) {
-            if (instance.tabla_sonando.getTabla().getValueAt(i, 1) == "0") {
+            if (Integer.parseInt(instance.tabla_sonando.getTabla().getValueAt(i, 2).toString()) != 0) {
                 flag++;
             }
         }
 
-        assertEquals(flag, 0);
+        assertEquals(0, flag);
     }
     /**
      * Test of procesarVoto method, of class ListasCancionesManager.
@@ -114,23 +119,36 @@ public class ListasCancionesManagerTest {
     public void testProcesarVoto() {
        instance.promocionarLista(id_lista);
        instance.procesarVoto(1, true);
-       assertEquals(instance.tabla_sonando.getTabla().getValueAt(0, 1),"1");
+       assertEquals(Integer.parseInt(instance.tabla_sonando.getTabla().getValueAt(0, 2).toString()),1);
+       
+       instance.procesarVoto(1, false);
+       assertEquals(Integer.parseInt(instance.tabla_sonando.getTabla().getValueAt(0, 2).toString()),0);
     }
-//
-//    /**
-//     * Test of playNext method, of class ListasCancionesManager.
-//     */
-//    @Test
-//    public void testPlayNext() {
-//        System.out.println("playNext");
-//        ListasCancionesManager instance = null;
-//        boolean expResult = false;
-//        boolean result = instance.playNext();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+
+    /**
+     * Test of playNext method, of class ListasCancionesManager.
+     */
+    @Test
+    public void testPlayNextTabla() {
+       instance.promocionarLista(id_lista);
+       instance.procesarVoto(1, true);
+       instance.playNext();
+       assertEquals("*", instance.tabla_sonando.getTabla().getValueAt(0, 2));
+    }
+    
+    /**
+     * Test of playNext method, of class ListasCancionesManager.
+     */
+    @Test
+    public void testPlayNextReproductor() {
+       instance.promocionarLista(id_lista);
+       instance.procesarVoto(1, true);
+       instance.playNext();
+       
+       //no funciona por motivos desconocidos
+       assertEquals(true, reproductor.getMediaPlayer().isPlaying());
+    }
+
 //    /**
 //     * Test of addCanciones method, of class ListasCancionesManager.
 //     */
