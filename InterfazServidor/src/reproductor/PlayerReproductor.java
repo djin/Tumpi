@@ -1,6 +1,8 @@
 package reproductor;
 
 import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelos.Cancion;
 import uk.co.caprica.vlcj.component.AudioMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaMeta;
@@ -38,16 +40,30 @@ public class PlayerReproductor extends configVlcj{
         return identificador.getMediaPlayer().getMediaMeta().getArtwork();
     }
     
-    public Cancion getCancion(String mrl){
+    public synchronized Cancion getCancion(String mrl){
         Cancion cancion;
         MediaMeta metadata;
         String duracion="";
-        long dur=0,min=0;
+        long dur=0;
+        
         identificador.getMediaPlayer().prepareMedia(mrl);
         identificador.getMediaPlayer().parseMedia();
         metadata = identificador.getMediaPlayer().getMediaMeta();
-        dur = reproductor.getMediaPlayer().getLength();
+        
+        //futuro thread
+        identificador.getMediaPlayer().playMedia(mrl);
+        try {
+            wait(50);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PlayerReproductor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dur = identificador.getMediaPlayer().getLength();
+        System.out.println(""+dur);
+        
+        
+        
         cancion = new Cancion(0,metadata.getTitle(), metadata.getAlbum(),metadata.getArtist(),dur, mrl);
+        identificador.getMediaPlayer().stop();
         return cancion; 
     }
     

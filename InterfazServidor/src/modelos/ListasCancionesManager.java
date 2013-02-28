@@ -208,7 +208,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                     tablasPendientes.get(index).getTabla().setValueAt(c.getNombre(), x + comienzo, columnaPendienteCancion);
                     tablasPendientes.get(index).getTabla().setValueAt(c.getArtista(), x + comienzo, columnaPendienteAutor);
                     tablasPendientes.get(index).getTabla().setValueAt(c.getDisco(), x + comienzo, columnaPendienteAlbum);
-                    tablasPendientes.get(index).getTabla().setValueAt("", x + comienzo, columnaPendienteDuracion);
+                    tablasPendientes.get(index).getTabla().setValueAt(c.getDuracion(), x + comienzo, columnaPendienteDuracion);
                     x++;
                 }
             }
