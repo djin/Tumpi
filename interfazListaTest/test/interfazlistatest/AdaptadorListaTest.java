@@ -34,7 +34,7 @@ public class AdaptadorListaTest {
 
     ArrayList<Cancion> listaCanciones;
     AdaptadorLista adaptador;
-    ListActivity activity;
+    Activity activity;
 
     @Before
     public void setUp() {
@@ -42,7 +42,7 @@ public class AdaptadorListaTest {
         listaCanciones.add(new Cancion("Los redondeles", "redondels", "n1", 1, false, false));
         listaCanciones.add(new Cancion("Los redondeles2", "redondels2", "n2", 2, false, false));
         listaCanciones.add(new Cancion("Los redondeles3", "redondels3", "n3", 3, false, false));
-        activity = new ListActivity();
+        activity = new Activity();
         adaptador = new AdaptadorLista(activity, listaCanciones, R.layout.rowstyle);
     }
 
@@ -74,19 +74,18 @@ public class AdaptadorListaTest {
     
     @Test
     public void testNotNullLayout() throws Exception{
-        LayoutInflater inflater = (LayoutInflater) Robolectric.application.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View v = (View) ShadowLayoutInflater.from(activity).inflate(R.layout.rowstyle, null);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assertNotNull(inflater);
-        ShadowLayoutInflater sLayout = shadowOf(inflater);
-        View v = inflater.inflate(R.layout.rowstyle, null);
 //        View v = inflater.inflate(R.layout.rowstyle, new LinearLayout(activity), false);
-        assertNotNull(v);
+//        assertNull(View.inflate(new Activity(), R.layout.rowstyle, null));
         assertNotNull(activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         assertNotNull(new LinearLayout(activity));
     }
 
-//    @Test
-//    public void testGetView() throws Exception {
-//        View nameView = (View) adaptador.getView(0, null, new LinearLayout(activity));
-//        assertEquals(((TextView) nameView.findViewById(R.id.songName)).getText().toString(), "Los redondeles");
-//    }
+    @Test
+    public void testGetView() throws Exception {
+        View nameView = (View) adaptador.getView(0, null, new LinearLayout(activity));
+        assertEquals(((TextView) nameView.findViewById(R.id.songName)).getText().toString(), "Los redondeles");
+    }
 }
