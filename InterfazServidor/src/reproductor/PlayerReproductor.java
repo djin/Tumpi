@@ -58,10 +58,6 @@ public class PlayerReproductor extends configVlcj{
             Logger.getLogger(PlayerReproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
         dur = identificador.getMediaPlayer().getLength();
-        System.out.println(""+dur);
-        
-        
-        
         cancion = new Cancion(0,metadata.getTitle(), metadata.getAlbum(),metadata.getArtist(),dur, mrl);
         identificador.getMediaPlayer().stop();
         return cancion; 
