@@ -69,7 +69,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
         iniciarListaSonando();
 
         JButton botonPromocion = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
@@ -86,14 +85,14 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
         JPanel pestanasBotones = new JPanel(new BorderLayout());
         JButton anadirCancion = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!pestanasPendientes.getTitleAt(0).equals("Inicio")) {
-                    listas_manager.addCanciones(pestanasPendientes.getSelectedIndex());
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Debes tener al menos una lista con canciones creada");
+                if (pestanasPendientes.getTitleAt(0).equals("Inicio")) {
+                    String nombreLista = JOptionPane.showInputDialog(new Label("Nombre Lista"), "Nombre Lista", "ListaNueva", JOptionPane.PLAIN_MESSAGE);
+                    if (nombreLista != null && !nombreLista.equals("")) {
+                        addPestana(nombreLista);
+                        listas_manager.addCanciones(pestanasPendientes.getSelectedIndex());
+                    }
                 }
             }
         });
@@ -102,7 +101,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
 
         JButton borrarCancion = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!pestanasPendientes.getTitleAt(0).equals("Inicio")) {
@@ -140,19 +138,17 @@ public class FramePrincipal extends JFrame implements WindowListener {
         listas_manager.addLista(new ListaCanciones());
         JScrollPane panelTabla = new JScrollPane(listas_manager.crearTabla());
         listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1).getActionMap().put("borrar", new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.removeCancion(pestanasPendientes.getSelectedIndex());
             }
         });
-        
+
         nombresLista.add(nombreLista);
         pestanasPendientes.addTab(nombreLista, panelTabla);
         GridBagConstraints gbc = new GridBagConstraints();
         PanelPestana panelPestana = new PanelPestana(nombreLista, gbc);
         JButton botonCerrar = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -201,7 +197,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
     public void anadirPestanaFinal() {
         pestanasPendientes.addTab("AnadirPestana", null);
         JButton anadirPestana = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -230,7 +225,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
         listas_manager.tabla_sonando.setValueAt("", 0, 1);
         listas_manager.tabla_sonando.setValueAt("", 0, 2);
         listas_manager.tabla_sonando.getColumnModel().getColumn(2).setCellRenderer(new TableCellRenderer() {
-
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 JLabel valor = new JLabel(value.toString());
@@ -311,7 +305,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
         JPanel panelBotonesVentana = new JPanel(new BorderLayout());
         Dimension dimensionBotonesVentana = new Dimension(25, 20);
         JButton btnCerrar = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarConexion();
@@ -321,7 +314,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
         anularPintadoBotonParaImagen(btnCerrar, "icons/cerrar.png", "icons/cerrar2.png", dimensionBotonesVentana);
 
         final JButton btnMinimizar = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 setExtendedState(Cursor.CROSSHAIR_CURSOR);
