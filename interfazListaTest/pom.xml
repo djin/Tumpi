@@ -35,7 +35,7 @@
             <version>3.0</version>
             <classifier>no_aop</classifier>
         </dependency>
-
+		
         <dependency>
             <groupId>org.robolectric</groupId>
             <artifactId>robolectric</artifactId>
