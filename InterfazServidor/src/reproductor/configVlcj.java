@@ -9,6 +9,5 @@ public abstract class configVlcj {
 
     static {
         new NativeDiscovery().discover();
-//        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
     }
 }
