@@ -12,32 +12,31 @@ import modelos.ModeloTabla;
  * @author 66786575
  */
 public class Tabla extends JTable {
-        
+
     private ModeloTabla tabla;
-    
-    public Tabla(ModeloTabla modeloTabla){
-        
+
+    public Tabla(ModeloTabla modeloTabla) {
+
         tabla = modeloTabla;
-        
+
         setModel(tabla);
         setRowHeight(20);
-        
+
         /*this.addFocusListener(new FocusListener(){
 
-            @Override
-            public void focusGained(FocusEvent e) {
+         @Override
+         public void focusGained(FocusEvent e) {
                 
-            }
+         }
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                clearSelection();
-            }
+         @Override
+         public void focusLost(FocusEvent e) {
+         clearSelection();
+         }
             
-        });*/        
+         });*/
     }
 
-    
     /**
      * @return the tabla
      */
@@ -52,5 +51,9 @@ public class Tabla extends JTable {
         tabla = _tabla;
         setModel(tabla);
     }
-}
 
+    @Override
+    public boolean isCellEditable(int row, int col) {
+        return false;
+    }
+}

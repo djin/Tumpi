@@ -73,10 +73,6 @@ public class ReproductorPanel extends JPanel {
         stop.setFocusPainted(false);
         next.setFocusPainted(false);
         
-        play.setToolTipText("Reproducir");
-        stop.setToolTipText("Parar");
-        next.setToolTipText("Siguiente");
-        
         playPress = new ImageIcon("icons/play2.png");
         pausePress = new ImageIcon("icons/pause2.png");
         ImageIcon stopPress = new ImageIcon("icons/stop2.png");
@@ -96,11 +92,9 @@ public class ReproductorPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(player.getMediaPlayer().isPlayable()){
                     if(player.getMediaPlayer().isPlaying()){
-                       play.setToolTipText("Reproducir");
                        play.setIcon(playIcon);
                        play.setPressedIcon(playPress);
                     } else {
-                        play.setToolTipText("Pausar");
                         play.setIcon(pauseIcon);
                         play.setPressedIcon(pausePress);
                     }
@@ -112,7 +106,6 @@ public class ReproductorPanel extends JPanel {
                     }catch(Exception ex){
                         FramePrincipal.log("No se encontro imagen");
                     }
-                    play.setToolTipText("Pausar");
                     play.setIcon(pauseIcon);
                     play.setPressedIcon(pausePress);
                 }
@@ -129,7 +122,6 @@ public class ReproductorPanel extends JPanel {
                     }catch(Exception ex){
                         FramePrincipal.log("No se encontro imagen");
                     }
-                    play.setToolTipText("Pausar");
                     play.setIcon(pauseIcon);
                     play.setPressedIcon(pausePress);
                 }

@@ -8,12 +8,15 @@ import conexion.ConnectionManager;
 import elementosInterfaz.FramePrincipal;
 import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
+import java.awt.Component;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -39,7 +42,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     private static ArrayList<Cancion> canciones;
     public static String path;
     private static int columnaSonandoCancion = 0, columnaSonandoAutor = 1, columnaSonandoVotos = 2;
-    private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum=2, columnaPendienteDuracion=3;
+    private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
     public String[] nombresColumnaSonando = {"Cancion", "Artista", "Votos"};
     public static String[] nombresColumnaPendientes = {"Cancion", "Artista", "Album", "Duración"};
     private static final ListasCancionesManager manager = new ListasCancionesManager();
@@ -49,7 +52,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         reproductor = new PlayerReproductor();
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
         listas_canciones = new ArrayList();
-        tablasPendientes= new ArrayList();
+        tablasPendientes = new ArrayList();
     }
 
     public static ListasCancionesManager getInstance() {
@@ -86,7 +89,10 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 FramePrincipal.log("Error al enviar la lista: " + ex.toString());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Has promocionado una lista vacia");
+            JOptionPane pane = new JOptionPane("Has promocionado una lista vacia", JOptionPane.DEFAULT_OPTION);
+            JDialog dialog = pane.createDialog(null, "Error");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
         }
     }
 
@@ -133,9 +139,10 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             cancion_sonando = cancion;
             //lista_sonando.getCanciones().remove(id_max);
             tabla_sonando.setValueAt("*", id_max, columnaSonandoVotos);
-            if (!reproductor.reproducir(cancion.getPath()))
+            if (!reproductor.reproducir(cancion.getPath())) {
                 FramePrincipal.log("Error al reproducir la cancion.");
-            
+            }
+
             cancion.setReproducida(1);
             ReproductorPanel.song.setText(cancion.getNombre());
             ReproductorPanel.artist.setText(cancion.getArtista());
@@ -158,13 +165,19 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public void addCanciones(int index) {
 
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser() {
+            @Override
+            protected JDialog createDialog(Component parent) throws HeadlessException {
+                JDialog dialog = super.createDialog(parent);
+                dialog.setAlwaysOnTop(true);
+                return dialog;
+            }
+        };
         List<File> listaFiles;
 
         chooser.setMultiSelectionEnabled(true);
         chooser.setCurrentDirectory(new File(path));
         chooser.setFileFilter(new FileFilter() {
-
             @Override
             public boolean accept(File f) {
                 if (acabaEnMp3(f) || f.isDirectory()) {
@@ -179,7 +192,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 return "Filtro mp3";
             }
         });
-
         chooser.showOpenDialog(null);
         File[] files = chooser.getSelectedFiles();
         path = chooser.getCurrentDirectory().getPath();
@@ -214,8 +226,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             }
         }
     }
-    
-    public Tabla crearTabla(){
+
+    public Tabla crearTabla() {
         tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 1)));
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("Añade Canciones", 0, 0);
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 1);
@@ -243,13 +255,19 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         if (filasSelects.length == 0 || listas_canciones.get(index).getCanciones().isEmpty()) {
 
-            JOptionPane.showMessageDialog(null, "No ha seleccionado una canción");
+            JOptionPane pane = new JOptionPane("No ha seleccionado una canción", JOptionPane.DEFAULT_OPTION);
+            JDialog dialog = pane.createDialog(null, "Error");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
 
         } else {
 
-            int validacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de querer borrar las canciones Seleccionadas?");
-
-            if (validacion == 0) {
+            JOptionPane pane = new JOptionPane("¿Esta seguro de querer borrar las canciones Seleccionadas?", JOptionPane.YES_OPTION);
+            JDialog dialog = pane.createDialog(null, "Borrar canciones");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+            Integer validacion = (Integer) pane.getValue();
+            if (validacion != null && validacion == 0) {
                 tablasPendientes.get(index).clearSelection();
                 for (int y = 0; y < filasSelects.length; y++) {
 

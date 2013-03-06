@@ -13,9 +13,6 @@ import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
-import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
-import static javax.swing.JOptionPane.UNINITIALIZED_VALUE;
-import static javax.swing.JOptionPane.getRootFrame;
 import javax.swing.table.TableCellRenderer;
 import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
@@ -91,8 +88,13 @@ public class FramePrincipal extends JFrame implements WindowListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (pestanasPendientes.getTitleAt(0).equals("Inicio")) {
-                    String nombreLista = JOptionPane.showInputDialog(new Label("Nombre Lista"), "Nombre Lista", "ListaNueva", JOptionPane.PLAIN_MESSAGE);
-                    if (nombreLista != null && !nombreLista.equals("")) {
+                    JOptionPane pane = new JOptionPane("Nombre Lista", JOptionPane.PLAIN_MESSAGE);
+                    pane.setWantsInput(true);
+                    JDialog dialog = pane.createDialog(null, "Lista Nueva");
+                    dialog.setAlwaysOnTop(true);
+                    dialog.setVisible(true);
+                    String nombreLista = (String) pane.getInputValue();
+                    if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
                         addPestana(nombreLista);
                         listas_manager.addCanciones(pestanasPendientes.getSelectedIndex());
                     }
@@ -101,10 +103,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 }
             }
         });
-        anadirCancion.setToolTipText(
-                "Añadir canción");
-        anularPintadoBotonParaImagen(anadirCancion,
-                "icons/anadirConCarpeta.png", "icons/anadirConCarpeta.png", new Dimension(31, 31));
+        anadirCancion.setToolTipText("Añadir canción");
+        anularPintadoBotonParaImagen(anadirCancion, "icons/anadirConCarpeta.png", "icons/anadirConCarpeta.png", new Dimension(31, 31));
 
 
         JButton borrarCancion = new JButton(new AbstractAction() {
@@ -113,15 +113,16 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 if (!pestanasPendientes.getTitleAt(0).equals("Inicio")) {
                     listas_manager.removeCancion(pestanasPendientes.getSelectedIndex());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Debes tener al menos una lista con canciones creada");
+                    JOptionPane pane = new JOptionPane("Debes tener al menos una lista con canciones creada", JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
+                    JDialog dialog = pane.createDialog(null, "Error");
+                    dialog.setAlwaysOnTop(true);
+                    dialog.setVisible(true);
                 }
             }
         });
 
-        borrarCancion.setToolTipText(
-                "Borrar canción");
-        anularPintadoBotonParaImagen(borrarCancion,
-                "icons/borrarCancion1.png", "icons/borrarCancion1.png", new Dimension(31, 31));
+        borrarCancion.setToolTipText("Borrar canción");
+        anularPintadoBotonParaImagen(borrarCancion, "icons/borrarCancion1.png", "icons/borrarCancion1.png", new Dimension(31, 31));
 
 
         JPanel panelSituarBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -168,9 +169,12 @@ public class FramePrincipal extends JFrame implements WindowListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int opcion = JOptionPane.showConfirmDialog(null, "¿Desea borrar la lista?", "Confirmar borrado", JOptionPane.OK_CANCEL_OPTION);
-                
-                if (opcion == 0) {
+                JOptionPane pane = new JOptionPane("¿Desea borrar la lista?", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
+                JDialog dialog = pane.createDialog(null, "Confirmar borrado");
+                dialog.setAlwaysOnTop(true);
+                dialog.setVisible(true);
+                Integer opcion = (Integer) pane.getValue();
+                if (opcion != null && opcion == 0) {
                     int pestanaBorrar = botonesCerrar.indexOf(e.getSource());
                     botonesCerrar.remove(pestanaBorrar);
                     pestanasPendientes.remove(pestanaBorrar);
@@ -223,7 +227,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 dialog.setAlwaysOnTop(true);
                 dialog.setVisible(true);
                 String nombreLista = (String) pane.getInputValue();
-                if (nombreLista != null && !nombreLista.equals("") ) {
+                if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
                     addPestana(nombreLista);
                 }
             }
@@ -407,13 +411,4 @@ public class FramePrincipal extends JFrame implements WindowListener {
     public static void log(String cadena) {
         System.out.println(cadena);
     }
-//
-//    private String showPane(String message, String title) {
-//        JOptionPane pane = new JOptionPane(message, JOptionPane.PLAIN_MESSAGE);
-//        JOptionPane.
-//        JDialog dialog = pane.createDialog(title);
-//        dialog.setAlwaysOnTop(true);
-//        dialog.setVisible(true);
-//        return null;
-//    }
 }
