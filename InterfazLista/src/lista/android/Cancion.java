@@ -13,14 +13,16 @@ public class Cancion {
     private String nombreCancion;
     private String nombreAutor;
     private String nombreAlbum;
+    private long duracion;
     private int id;
     private Boolean votado;
     private Boolean sonado;
 
-    public Cancion(String n, String a, String al, int i, Boolean v, Boolean s) {
+    public Cancion(String n, String a, String al, int i, long dur,Boolean v, Boolean s) {
         nombreCancion = n;
         nombreAutor = a;
         nombreAlbum = al;
+        duracion = dur;
         id = i;
         votado = v;
         sonado = s;

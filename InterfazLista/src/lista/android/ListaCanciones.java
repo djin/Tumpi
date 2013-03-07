@@ -46,7 +46,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         conex = new ConnectionManager(this);
         conex.conexion.addServerMessageListener(this);
         if (cancion_sonando == null) {
-            cancion_sonando = new Cancion("Nombre canción", "Artista", "Album", 0, false, false);
+            cancion_sonando = new Cancion("Nombre canción", "Artista", "Album", 0,0, false, false);
             text_playing.post(new Runnable() {
 
                 public void run() {
@@ -92,10 +92,10 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         ArrayList<Cancion> lista_aux = new ArrayList();
         for (String cancion : canciones) {
             String[] datos_cancion = cancion.split("\\*");
-            if (!"1".equals(datos_cancion[4])) {
-                lista.add(new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, false));
+            if (!"1".equals(datos_cancion[5])) {
+                lista.add(new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]),Long.parseLong(datos_cancion[4]), false, false));
             } else {
-                lista_aux.add(new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, true));
+                lista_aux.add(new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]),Long.parseLong(datos_cancion[4]), false, true));
             }
         }
         if (lista_aux.size() > 0) {
@@ -162,7 +162,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
                             break;
                         case 4:
                             String[] datos_cancion = message.split("\\*");
-                            cancion_sonando = new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), false, "1".equals(datos_cancion[4]));
+                            cancion_sonando = new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]),Long.parseLong(datos_cancion[4]), false, "1".equals(datos_cancion[5]));
                             refrescarCancionSonando();
                             break;
                     }

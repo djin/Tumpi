@@ -1,19 +1,19 @@
-# view AndroidManifest.xml #generated:33
+# view AndroidManifest.xml #generated:34
 -keep class android.test.InstrumentationTestRunner { <init>(...); }
 
-# view AndroidManifest.xml #generated:18
+# view AndroidManifest.xml #generated:19
 -keep class lista.android.ListaCanciones { <init>(...); }
 
-# view AndroidManifest.xml #generated:21
+# view AndroidManifest.xml #generated:22
 -keep class lista.android.PantallaDatosServidor { <init>(...); }
 
-# view AndroidManifest.xml #generated:11
+# view AndroidManifest.xml #generated:12
 -keep class lista.android.PantallaPrincipal { <init>(...); }
 
-# view AndroidManifest.xml #generated:24
+# view AndroidManifest.xml #generated:25
 -keep class lista.android.Settings { <init>(...); }
 
-# view AndroidManifest.xml #generated:27
+# view AndroidManifest.xml #generated:28
 -keep class lista.android.conexion.ServicioCliente { <init>(...); }
 
 # onClick res/layout/stylepantallainicial.xml #generated:14

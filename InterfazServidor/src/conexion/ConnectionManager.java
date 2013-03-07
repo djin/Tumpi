@@ -47,17 +47,18 @@ public class ConnectionManager implements ServerSocketListener{
                 try {
                     dsocket=new DatagramSocket(8888);
                     dsocket.setBroadcast(true);
-                    String identificacion="socialDj|"+ip_server.getHostAddress()+"|";
+                    String identificacion="servidor_socialDj|"+ip_server.getHostAddress()+"|";
                     while(socket.isBound()){
                         System.out.println("Escuchando broadcast en "+ip_server.getHostAddress());
                         byte[] datos = new byte[50];
                         DatagramPacket paquete=new DatagramPacket(datos,50);
                         dsocket.receive(paquete);                
                         String mensaje=new String(paquete.getData(),"utf-8");
-                        if("socialDj".equals(mensaje.split("\\|")[0])){
+                        if("cliente_socialDj".equals(mensaje.split("\\|")[0])){
                             String ip_cliente=mensaje.split("\\|")[1];
                             byte[] mensaje_id=identificacion.getBytes("utf-8");
-                            dsocket.send(new DatagramPacket(mensaje_id,mensaje_id.length, new InetSocketAddress(ip_cliente,8888)));
+                            DatagramPacket paquete_id=new DatagramPacket(mensaje_id,mensaje_id.length, new InetSocketAddress(ip_cliente,8888));
+                            dsocket.send(paquete_id);
                             System.out.println("Escuchada una solicitud de "+ip_cliente);
                         }
                     }

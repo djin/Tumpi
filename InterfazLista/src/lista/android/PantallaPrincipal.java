@@ -9,6 +9,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.*;
 import android.net.ConnectivityManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +20,10 @@ import android.widget.Button;
 import android.widget.Toast;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 import lista.android.conexion.ConnectionManager;
 
 /**
@@ -67,6 +72,20 @@ public class PantallaPrincipal extends Activity {
         Intent intent = new Intent(PantallaPrincipal.this, PantallaDatosServidor.class);
         startActivity(intent);
     }
+    public String getIpAddr() {
+       WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+       WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+       int ip = wifiInfo.getIpAddress();
+
+       String ipString = String.format(
+       "%d.%d.%d.%d",
+       (ip & 0xff),
+       (ip >> 8 & 0xff),
+       (ip >> 16 & 0xff),
+       (ip >> 24 & 0xff));
+
+       return ipString;
+    }
     
     class BuscarServer extends AsyncTask<Void, Void, String> {
         private int port;
@@ -81,21 +100,26 @@ public class PantallaPrincipal extends Activity {
         @Override
         protected String doInBackground(Void... params) {
             DatagramSocket socket=null;
+            String ip_cliente=getIpAddr();
             try {
-                socket=new DatagramSocket(8888);
+                socket=new DatagramSocket(port);
                 socket.setBroadcast(true);
-                socket.setSoTimeout(5000);
-                String identificacion="socialDj|192.168.43.250";
+                socket.setSoTimeout(1000);
+                String identificacion="cliente_socialDj|"+ip_cliente;
                 byte[] mensaje_id=identificacion.getBytes("utf-8");
-                socket.send(new DatagramPacket(mensaje_id,mensaje_id.length, new InetSocketAddress("255.255.255.255",8888)));
+                socket.send(new DatagramPacket(mensaje_id,mensaje_id.length, new InetSocketAddress("255.255.255.255",port)));
                 byte[] datos = new byte[50];
-                DatagramPacket paquete=new DatagramPacket(datos,50);
-                socket.receive(paquete);                
-                String mensaje=new String(paquete.getData(),"utf-8");
-                if("socialDj".equals(mensaje.split("\\|")[0]))
-                    return mensaje.split("\\|")[1];
-                else
-                    return null;
+                DatagramPacket paquete;
+                int cont=0;
+                while(cont<5){
+                    paquete=new DatagramPacket(datos,50);
+                    socket.receive(paquete);                
+                    String mensaje=new String(paquete.getData(),"utf-8");
+                    if("servidor_socialDj".equals(mensaje.split("\\|")[0]))
+                        return mensaje.split("\\|")[1];
+                    cont++;
+                }           
+                return null;     
             }catch (Exception ex){
                 return null;
             }finally{
