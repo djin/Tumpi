@@ -51,9 +51,4 @@ public class Tabla extends JTable {
         tabla = _tabla;
         setModel(tabla);
     }
-
-    @Override
-    public boolean isCellEditable(int row, int col) {
-        return false;
-    }
 }

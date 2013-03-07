@@ -53,7 +53,7 @@ public class PlayerReproductor extends configVlcj{
         //futuro thread
         identificador.getMediaPlayer().playMedia(mrl);
         try {
-            wait(50);
+            wait(100);
         } catch (InterruptedException ex) {
             Logger.getLogger(PlayerReproductor.class.getName()).log(Level.SEVERE, null, ex);
         }

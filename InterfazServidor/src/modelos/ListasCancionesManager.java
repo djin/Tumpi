@@ -207,20 +207,24 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
             for (File f : listaFiles) {
                 if (f.exists()) {
+                    
+                    String duracionFormateada;
+                    
                     c = reproductor.getCancion(f.getAbsolutePath());
 
                     max_id++;
                     c.setId(max_id);
-
+                    
+                    duracionFormateada = formatearDuracion(c.getDuracion());
                     listas_canciones.get(index).getCanciones().add(c);
                     if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
                         tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() + 1);
                     }
-
+                    
                     tablasPendientes.get(index).getTabla().setValueAt(c.getNombre(), x + comienzo, columnaPendienteCancion);
                     tablasPendientes.get(index).getTabla().setValueAt(c.getArtista(), x + comienzo, columnaPendienteAutor);
                     tablasPendientes.get(index).getTabla().setValueAt(c.getDisco(), x + comienzo, columnaPendienteAlbum);
-                    tablasPendientes.get(index).getTabla().setValueAt(c.getDuracion(), x + comienzo, columnaPendienteDuracion);
+                    tablasPendientes.get(index).getTabla().setValueAt(duracionFormateada, x + comienzo, columnaPendienteDuracion);
                     x++;
                 }
             }
@@ -313,6 +317,16 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     }
 
+    private String formatearDuracion(long duracion){
+        
+        String minutos = ""+duracion/60000;
+        String segundos = ""+ ((duracion-((duracion/60000)*60000))/1000);
+        if (segundos.length()==1){
+             segundos = "0" + segundos;
+        }
+        String duracionFormateada = ""+minutos+":"+segundos;
+        return duracionFormateada;
+    }
     @Override
     public void mediaChanged(MediaPlayer mp, libvlc_media_t l, String string) {
         //throw new UnsupportedOperationException("Not supported yet.");

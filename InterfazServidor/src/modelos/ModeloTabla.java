@@ -93,7 +93,7 @@ public class ModeloTabla implements TableModel {
  
     @Override
     public boolean isCellEditable(int fila, int columna) {
-        return columna != 0 && columna !=1;
+        return false;
     
     }
     /**
