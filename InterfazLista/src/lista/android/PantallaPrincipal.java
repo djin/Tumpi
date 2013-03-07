@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
 import lista.android.conexion.ConnectionManager;
 
 /**
@@ -81,15 +82,18 @@ public class PantallaPrincipal extends Activity {
         protected String doInBackground(Void... params) {
             DatagramSocket socket=null;
             try {
-                socket=new DatagramSocket(port);
+                socket=new DatagramSocket(8888);
                 socket.setBroadcast(true);
                 socket.setSoTimeout(5000);
+                String identificacion="socialDj|192.168.43.250";
+                byte[] mensaje_id=identificacion.getBytes("utf-8");
+                socket.send(new DatagramPacket(mensaje_id,mensaje_id.length, new InetSocketAddress("255.255.255.255",8888)));
                 byte[] datos = new byte[50];
                 DatagramPacket paquete=new DatagramPacket(datos,50);
                 socket.receive(paquete);                
                 String mensaje=new String(paquete.getData(),"utf-8");
                 if("socialDj".equals(mensaje.split("\\|")[0]))
-                    return mensaje.split("\\|")[1]+"|"+mensaje.split("\\|")[2];
+                    return mensaje.split("\\|")[1];
                 else
                     return null;
             }catch (Exception ex){
@@ -107,14 +111,14 @@ public class PantallaPrincipal extends Activity {
             try{
                 if(info!=null){
                     String ip=info.split("\\|")[0];
-                    int port=Integer.parseInt(info.split("\\|")[1]);
+                    int port=2222;
                     if(conex.conectar(ip,port,p)){
                         conex.conexion.startListeningServer();
                         Intent inte = new Intent(PantallaPrincipal.this, ListaCanciones.class);
                         startActivity(inte);
                     }
                     else
-                        Toast.makeText(p, "Error al conectar al servidor", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(p, "Error al conectar al servidor: "+info, Toast.LENGTH_SHORT).show();
                 }
                 else
                     Toast.makeText(p, "Error al buscar al servidor", Toast.LENGTH_SHORT).show();

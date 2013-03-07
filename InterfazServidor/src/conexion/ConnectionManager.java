@@ -7,6 +7,7 @@ package conexion;
 import elementosInterfaz.FramePrincipal;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import modelos.ListasCancionesManager;
 
 /**
@@ -17,6 +18,7 @@ public class ConnectionManager implements ServerSocketListener{
     public static SocketServidor socket=null;
     private DatagramSocket dsocket;
     private Thread publicador;
+    private InetAddress ip_server=null;
     int port; 
     
     public ConnectionManager(){
@@ -25,21 +27,42 @@ public class ConnectionManager implements ServerSocketListener{
     
     public boolean createSocket(final int _port) throws Exception{
         socket=new SocketServidor(_port);
-        dsocket=new DatagramSocket(8888);
-        dsocket.setBroadcast(true);
+        Enumeration e = NetworkInterface.getNetworkInterfaces();
+         while(e.hasMoreElements()) {
+            NetworkInterface ni = (NetworkInterface) e.nextElement();
+            if(!ni.isLoopback() && !ni.isVirtual() && ni.isUp() && ni.getName().contains("net")){
+                Enumeration e2 = ni.getInetAddresses();
+                while (e2.hasMoreElements()){
+                   try{
+                       Inet4Address ip=(Inet4Address) e2.nextElement();
+                       ip_server=ip;
+                   }catch(Exception ex2){                           
+                   }
+                }
+            }
+         }
         publicador=new Thread(){
             @Override
             public void run(){
-                String identificacion="socialDj|"+socket.getIp()+"|"+_port+"|";
                 try {
-                    byte[] mensaje=identificacion.getBytes("utf-8");
-                    while(publicador.equals(currentThread())){
-                        dsocket.send(new DatagramPacket(mensaje,mensaje.length, new InetSocketAddress("255.255.255.255",8888)));
-                        sleep(3000);
+                    dsocket=new DatagramSocket(8888);
+                    dsocket.setBroadcast(true);
+                    String identificacion="socialDj|"+ip_server.getHostAddress()+"|";
+                    while(socket.isBound()){
+                        System.out.println("Escuchando broadcast en "+ip_server.getHostAddress());
+                        byte[] datos = new byte[50];
+                        DatagramPacket paquete=new DatagramPacket(datos,50);
+                        dsocket.receive(paquete);                
+                        String mensaje=new String(paquete.getData(),"utf-8");
+                        if("socialDj".equals(mensaje.split("\\|")[0])){
+                            String ip_cliente=mensaje.split("\\|")[1];
+                            byte[] mensaje_id=identificacion.getBytes("utf-8");
+                            dsocket.send(new DatagramPacket(mensaje_id,mensaje_id.length, new InetSocketAddress(ip_cliente,8888)));
+                            System.out.println("Escuchada una solicitud de "+ip_cliente);
+                        }
                     }
-                    
-                } catch (Exception ex) {
-                    FramePrincipal.log(ex.toString());
+                }catch(Exception ex){
+                    System.out.println("Error al escuchar broadcast: "+ex.toString());
                 }
             }
         };
