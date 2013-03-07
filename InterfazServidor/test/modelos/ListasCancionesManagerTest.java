@@ -146,7 +146,7 @@ public class ListasCancionesManagerTest {
        instance.playNext();
        
        //no funciona por motivos desconocidos
-       assertEquals(true, reproductor.getMediaPlayer().isPlaying());
+       assertTrue(reproductor.getMediaPlayer().isPlaying());
     }
 
 //    /**
