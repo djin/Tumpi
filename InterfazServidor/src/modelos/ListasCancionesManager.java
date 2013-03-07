@@ -18,9 +18,11 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import reproductor.PlayerReproductor;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
@@ -233,17 +235,24 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public Tabla crearTabla() {
         tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 1)));
+        
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("Añade Canciones", 0, 0);
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 1);
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 2);
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 3);
-        tablasPendientes.get(tablasPendientes.size() - 1).getTableHeader().setReorderingAllowed(false);
+        
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(0).setMinWidth(160);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(1).setMinWidth(160);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(2).setMaxWidth(250);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(2).setMinWidth(140);
-        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setMaxWidth(80);
-        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setMinWidth(80);
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setMaxWidth(60);
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setMinWidth(60);
+        
+        tablasPendientes.get(tablasPendientes.size() - 1).getTableHeader().setReorderingAllowed(false);
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment( JLabel.RIGHT );
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setCellRenderer( rightRenderer );
+        
         tablasPendientes.get(tablasPendientes.size() - 1).getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "borrar");
         return tablasPendientes.get(tablasPendientes.size() - 1);
     }
@@ -324,7 +333,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         if (segundos.length()==1){
              segundos = "0" + segundos;
         }
-        String duracionFormateada = ""+minutos+":"+segundos;
+        String duracionFormateada = ""+minutos+":"+segundos + " ";
         return duracionFormateada;
     }
     @Override
