@@ -268,14 +268,14 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         if (filasSelects.length == 0 || listas_canciones.get(index).getCanciones().isEmpty()) {
 
-            JOptionPane pane = new JOptionPane("No ha seleccionado una canción", JOptionPane.DEFAULT_OPTION);
+            JOptionPane pane = new JOptionPane("No ha seleccionado una canción", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
             JDialog dialog = pane.createDialog(null, "Error");
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
 
         } else {
 
-            JOptionPane pane = new JOptionPane("¿Esta seguro de querer borrar las canciones Seleccionadas?", JOptionPane.YES_OPTION);
+            JOptionPane pane = new JOptionPane("¿Esta seguro de querer borrar las canciones Seleccionadas?", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
             JDialog dialog = pane.createDialog(null, "Borrar canciones");
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);

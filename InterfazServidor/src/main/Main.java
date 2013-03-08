@@ -2,6 +2,8 @@ package main;
 
 import elementosInterfaz.FramePrincipal;
 import javax.swing.*;
+import reproductor.configVlcj;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 /**
  * Prueba para hacer push desde netbeans
@@ -21,7 +23,14 @@ public class Main {
 
             @Override
             public void run() {
-                
+                JDialog ventanaInicio = new JDialog();
+                ventanaInicio.setSize(200, 200);
+                ventanaInicio.setLocation(500, 300);
+                JPanel panel = (JPanel) ventanaInicio.getContentPane();
+                JTextArea text = new JTextArea("caca");
+                panel.add(text);
+                ventanaInicio.setVisible(true);
+                new NativeDiscovery().discover();
                 interfaz = new FramePrincipal();
                 try {
                     UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
@@ -38,7 +47,8 @@ public class Main {
                 } catch (IllegalAccessException ex) {
                     ex.printStackTrace();
                 }
-                
+                ventanaInicio.setVisible(false);
+                ventanaInicio.dispose();
                 interfaz.addWindowListener(interfaz);
             }
         });

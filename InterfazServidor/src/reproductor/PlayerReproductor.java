@@ -13,7 +13,7 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
  *
  * @author 66785379
  */
-public class PlayerReproductor extends configVlcj{
+public class PlayerReproductor {
     
     private static AudioMediaPlayerComponent reproductor=new AudioMediaPlayerComponent();
     private static AudioMediaPlayerComponent identificador=new AudioMediaPlayerComponent();
@@ -62,5 +62,4 @@ public class PlayerReproductor extends configVlcj{
         identificador.getMediaPlayer().stop();
         return cancion; 
     }
-    
 }
