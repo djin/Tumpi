@@ -54,9 +54,4 @@ public class PlayerReproductorTest {
         //reproductor.getMediaPlayer().playMedia("C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
         assertEquals(cancion, reproductor.getCancion("C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3"));
     }
-
-    @Test
-    public void testEquals() {
-        assertEquals(cancion, cancion2);
-    }
 }
