@@ -18,6 +18,7 @@ import javax.swing.table.TableCellRenderer;
 import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 import modelos.ModeloTabla;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 /**
  *
@@ -41,7 +42,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private boolean nuevo;
 
     public FramePrincipal() {
-
         screen = Toolkit.getDefaultToolkit().getScreenSize();
         ladoDerecho = new Dimension(screen.width * 55 / 100, 300);
         ladoIzquierdo = new Dimension(screen.width * 35 / 100, 50);
@@ -129,7 +129,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         panel.add(pestanasBotones, BorderLayout.EAST);
 
         panel.add(panelReproductor, BorderLayout.SOUTH);
-
+        
         //Se crea el manager de la conexion, despues se crea el socket
         iniciarConexion();
 
@@ -300,7 +300,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
         anadirLista.setMnemonic('l');
         menus[0].add(anadirLista);
-        
+
         JMenuItem borrarLista = new JMenuItem("Borrar Lista");
         borrarLista.addActionListener(new ActionListener() {
 
@@ -318,7 +318,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
         borrarLista.setMnemonic('B');
         menus[0].add(borrarLista);
-        
+
         JMenuItem promocionar = new JMenuItem("Promocionar");
         promocionar.addActionListener(new ActionListener() {
 
@@ -364,17 +364,18 @@ public class FramePrincipal extends JFrame implements WindowListener {
         menus[1].add(borrarCancion);
 
         barramenus.add(menus[1]);
-        
+
         menus[2] = new JMenu("Sobre");
-        
+
         JMenuItem acerca = new JMenuItem("Acerca De");
-        acerca.addActionListener(new ActionListener(){
+        acerca.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 JDialog ventana = new JDialog();
                 ventana.setAlwaysOnTop(true);
                 ventana.setSize(480, 200);
-                ventana.setLocation((screen.width/2)-240, (screen.height/2)-100);
+                ventana.setLocation((screen.width / 2) - 240, (screen.height / 2) - 100);
                 JPanel panel = (JPanel) ventana.getContentPane();
                 JTextArea text = new JTextArea("Esta SuperMegaChuchichuli aplicacion llamada \"social DJ\" ha sido desarrollada\npor Pakier Arribas, Charls Gomez, Juans Frances, Moxas and Redondels.\n\nDisfrutala ;)");
                 text.setEditable(false);
@@ -385,9 +386,9 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
         acerca.setMnemonic('A');
         menus[2].add(acerca);
-        
+
         barramenus.add(menus[2]);
-        
+
         barramenus.add(botonesVentana());
         setJMenuBar(barramenus);
 
