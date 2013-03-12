@@ -14,12 +14,13 @@ public class FrameInicial extends JFrame {
 
     public FrameInicial() {
         setSize(400, 200);
+        setUndecorated(true);
+        setVisible(true);
         getContentPane().add(new PanelInicial());
         Image icon = Imagenes.getImagen("icons/socialDJ.png").getImage();
         setIconImage(icon);
         setTitle("socialDj Loader");
         setLocation(500, 300);
-        setUndecorated(true);
-        setVisible(true);
+        
     }
 }
