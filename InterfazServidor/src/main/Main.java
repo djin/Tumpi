@@ -1,11 +1,11 @@
 package main;
 
+import com.sun.jna.NativeLibrary;
 import elementosInterfaz.FrameInicial;
 import elementosInterfaz.FramePrincipal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.Component;
+import java.awt.HeadlessException;
 import javax.swing.*;
-import reproductor.configVlcj;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 /**
@@ -30,8 +30,11 @@ public class Main {
 
                     @Override
                     public void run() {
-                        new NativeDiscovery().discover();
-                        
+//                        NativeDiscovery nd = new NativeDiscovery();
+//                        if(!nd.discover()){
+                            NativeLibrary.addSearchPath("libvlc", "VLC/");
+//                        }
+
                         interfaz = new FramePrincipal();
 
                         try {
@@ -50,7 +53,7 @@ public class Main {
                             ex.printStackTrace();
                         }
                         interfaz.addWindowListener(interfaz);
-                        
+
                         ventanaInicio.setVisible(false);
                         ventanaInicio.dispose();
                     }
