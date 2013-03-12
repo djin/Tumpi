@@ -25,7 +25,7 @@ public class PanelCaratula extends JPanel {
         this.path = path;
 //        this.path_def = path;
         image=new BufferedImage(1024,768,BufferedImage.SCALE_SMOOTH);
-        image.createGraphics().drawImage(new ImageIcon(path).getImage(), 0, 0, null);
+        image.createGraphics().drawImage(Imagenes.getImagen(path).getImage(), 0, 0, null);
         this.setPreferredSize(new Dimension(80, 80));
     }
     
@@ -39,7 +39,7 @@ public class PanelCaratula extends JPanel {
             image=im;
         else{
             image=new BufferedImage(1024,768,Image.SCALE_DEFAULT);
-            image.createGraphics().drawImage(new ImageIcon(path).getImage(), 0, 0, null);
+            image.createGraphics().drawImage(Imagenes.getImagen(path).getImage(), 0, 0, null);
         }
         this.setPreferredSize(new Dimension(80,80));
         this.repaint();        

@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
@@ -39,6 +40,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private Dimension screen, ladoDerecho, ladoIzquierdo;
     ConnectionManager server = null;
     int puerto_socket = 2222;
+    private Imagenes imagen = new Imagenes();
     private boolean nuevo;
 
     public FramePrincipal() {
@@ -47,7 +49,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         ladoIzquierdo = new Dimension(screen.width * 35 / 100, 50);
 //      this.setSize(screen.width, screen.height - 30);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        Image icon = new ImageIcon("icons/socialDJ.png").getImage();
+        Image icon = Imagenes.getImagen("icons/socialDJ.png").getImage();
         setIconImage(icon);
         setTitle("socialDj");
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 5, 20));
@@ -380,7 +382,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 ventana.setSize(480, 200);
                 ventana.setLocation((screen.width / 2) - 240, (screen.height / 2) - 100);
                 JPanel panel = (JPanel) ventana.getContentPane();
-                JTextArea text = new JTextArea("Esta SuperMegaChuchichuli aplicacion llamada \"social DJ\" ha sido desarrollada\npor Pakier Arribas, Charls Gomez, Juans Frances, Moxas and Redondels.\n\nDisfrutala ;)");
+                JTextArea text = new JTextArea("Esta SuperMegaChuchichuli aplicacion llamada \"social DJ\" ha sido desarrollada\npor Pakier Arribas(plata 3), Charls Gomez(plata 5, peor que arribas), Juans Frances, Moxas and Redondels.\n\nDisfrutala ;)");
                 text.setEditable(false);
                 text.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
                 panel.add(text);
@@ -428,8 +430,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
     }
 
     private void anularPintadoBotonParaImagen(JButton boton, String botonSinRaton, String botonConRaton, Dimension tamano) {
-        boton.addMouseListener(new MyMouseListener(boton, botonSinRaton, botonConRaton));
-        boton.setIcon(new ImageIcon(botonSinRaton));
+        boton.addMouseListener(new MyMouseListener(boton, Imagenes.getImagen(botonSinRaton), Imagenes.getImagen(botonConRaton)));
+        boton.setIcon(Imagenes.getImagen(botonSinRaton));
         boton.setPreferredSize(tamano);
         boton.setFocusPainted(false);
         boton.setBorderPainted(false);

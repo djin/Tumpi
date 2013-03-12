@@ -20,7 +20,7 @@ public class PanelInicial extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Dimension tamanio = getSize();
-        ImageIcon imagenFondo = new ImageIcon("socialDj2.png");
+        ImageIcon imagenFondo = Imagenes.getImagen("icons/socialDj2.png");
         if (imagenFondo != null) {
             g.setColor(Color.DARK_GRAY);
             g.fillRect(0, 0, tamanio.width, tamanio.height);

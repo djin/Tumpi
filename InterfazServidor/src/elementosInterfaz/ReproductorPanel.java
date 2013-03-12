@@ -43,14 +43,14 @@ public class ReproductorPanel extends JPanel {
         this.setLayout(fl);
         this.setPreferredSize(new Dimension(500,80));
         
-        panelCaratula = new PanelCaratula("1.jpg");
+        panelCaratula = new PanelCaratula("icons/1.jpg");
         this.add(panelCaratula);
         
         panelBotones = new JPanel(fl);
-        playIcon = new ImageIcon("icons/play.png");
-        pauseIcon = new ImageIcon("icons/pause.png");
-        ImageIcon stopIcon = new ImageIcon("icons/stop.png");
-        ImageIcon nextIcon = new ImageIcon("icons/next.png");
+        playIcon = Imagenes.getImagen("icons/play.png");
+        pauseIcon = Imagenes.getImagen("icons/pause.png");
+        ImageIcon stopIcon = Imagenes.getImagen("icons/stop.png");
+        ImageIcon nextIcon = Imagenes.getImagen("icons/next.png");
         play = new JButton(playIcon);
         stop = new JButton(stopIcon);
         next = new JButton(nextIcon);
@@ -73,10 +73,10 @@ public class ReproductorPanel extends JPanel {
         stop.setFocusPainted(false);
         next.setFocusPainted(false);
         
-        playPress = new ImageIcon("icons/play2.png");
-        pausePress = new ImageIcon("icons/pause2.png");
-        ImageIcon stopPress = new ImageIcon("icons/stop2.png");
-        ImageIcon nextPress = new ImageIcon("icons/next2.png");
+        playPress = Imagenes.getImagen("icons/play2.png");
+        pausePress = Imagenes.getImagen("icons/pause2.png");
+        ImageIcon stopPress = Imagenes.getImagen("icons/stop2.png");
+        ImageIcon nextPress = Imagenes.getImagen("icons/next2.png");
         
         play.setPressedIcon(playPress);
         stop.setPressedIcon(stopPress);

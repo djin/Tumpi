@@ -1,6 +1,7 @@
 package elementosInterfaz;
 
 import java.awt.event.MouseEvent;
+import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.event.MouseInputListener;
@@ -12,9 +13,9 @@ import javax.swing.event.MouseInputListener;
 public class MyMouseListener implements MouseInputListener {
 
     private JButton btn;
-    private String botonRatonEncima, botonSinRatonEncima;
+    private ImageIcon botonRatonEncima, botonSinRatonEncima;
 
-    public MyMouseListener(JButton boton, String botonSinRaton, String botonConRaton) {
+    public MyMouseListener(JButton boton, ImageIcon botonSinRaton, ImageIcon botonConRaton) {
         btn = boton;
         botonRatonEncima = botonConRaton;
         botonSinRatonEncima = botonSinRaton;
@@ -34,12 +35,15 @@ public class MyMouseListener implements MouseInputListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        btn.setIcon(new ImageIcon(botonRatonEncima));
+        btn.setIcon(botonRatonEncima);
+//        btn.setIcon(new ImageIcon(botonRatonEncima));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        btn.setIcon(new ImageIcon(botonSinRatonEncima));
+        
+        btn.setIcon(botonSinRatonEncima);
+//        btn.setIcon(new ImageIcon(botonSinRatonEncima));
     }
 
     @Override
