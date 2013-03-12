@@ -168,6 +168,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public void addCanciones(int index) {
 
         JFileChooser chooser = new JFileChooser() {
+
             @Override
             protected JDialog createDialog(Component parent) throws HeadlessException {
                 JDialog dialog = super.createDialog(parent);
@@ -180,6 +181,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         chooser.setMultiSelectionEnabled(true);
         chooser.setCurrentDirectory(new File(path));
         chooser.setFileFilter(new FileFilter() {
+
             @Override
             public boolean accept(File f) {
                 if (acabaEnMp3(f) || f.isDirectory()) {
@@ -194,40 +196,42 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 return "Filtro mp3";
             }
         });
-        chooser.showOpenDialog(null);
-        File[] files = chooser.getSelectedFiles();
-        path = chooser.getCurrentDirectory().getPath();
-        listaFiles = (List<File>) Arrays.asList(files);
+        int eleccion = chooser.showOpenDialog(null);
+        if (eleccion == 0) {
+            File[] files = chooser.getSelectedFiles();
+            path = chooser.getCurrentDirectory().getPath();
+            listaFiles = (List<File>) Arrays.asList(files);
 
-        if (!listaFiles.isEmpty()) {
+            if (!listaFiles.isEmpty()) {
 
-            int x = 0;
-            int comienzo = listas_canciones.get(index).getCanciones().size();
-            ListaCanciones lista = listas_canciones.get(index);
-            int max_id = lista.getMaxId();
-            Cancion c;
+                int x = 0;
+                int comienzo = listas_canciones.get(index).getCanciones().size();
+                ListaCanciones lista = listas_canciones.get(index);
+                int max_id = lista.getMaxId();
+                Cancion c;
 
-            for (File f : listaFiles) {
-                if (f.exists()) {
-                    
-                    String duracionFormateada;
-                    
-                    c = reproductor.getCancion(f.getAbsolutePath());
+                for (File f : listaFiles) {
+                    if (f.exists()) {
 
-                    max_id++;
-                    c.setId(max_id);
-                    
-                    duracionFormateada = formatearDuracion(c.getDuracion());
-                    listas_canciones.get(index).getCanciones().add(c);
-                    if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
-                        tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() + 1);
+                        String duracionFormateada;
+
+                        c = reproductor.getCancion(f.getAbsolutePath());
+
+                        max_id++;
+                        c.setId(max_id);
+
+                        duracionFormateada = formatearDuracion(c.getDuracion());
+                        listas_canciones.get(index).getCanciones().add(c);
+                        if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
+                            tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() + 1);
+                        }
+
+                        tablasPendientes.get(index).getTabla().setValueAt(c.getNombre(), x + comienzo, columnaPendienteCancion);
+                        tablasPendientes.get(index).getTabla().setValueAt(c.getArtista(), x + comienzo, columnaPendienteAutor);
+                        tablasPendientes.get(index).getTabla().setValueAt(c.getDisco(), x + comienzo, columnaPendienteAlbum);
+                        tablasPendientes.get(index).getTabla().setValueAt(duracionFormateada, x + comienzo, columnaPendienteDuracion);
+                        x++;
                     }
-                    
-                    tablasPendientes.get(index).getTabla().setValueAt(c.getNombre(), x + comienzo, columnaPendienteCancion);
-                    tablasPendientes.get(index).getTabla().setValueAt(c.getArtista(), x + comienzo, columnaPendienteAutor);
-                    tablasPendientes.get(index).getTabla().setValueAt(c.getDisco(), x + comienzo, columnaPendienteAlbum);
-                    tablasPendientes.get(index).getTabla().setValueAt(duracionFormateada, x + comienzo, columnaPendienteDuracion);
-                    x++;
                 }
             }
         }
@@ -235,24 +239,24 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public Tabla crearTabla() {
         tablasPendientes.add(new Tabla(new ModeloTabla(nombresColumnaPendientes, 1)));
-        
+
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("Añade Canciones", 0, 0);
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 1);
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 2);
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 3);
-        
+
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(0).setMinWidth(160);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(1).setMinWidth(160);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(2).setMaxWidth(250);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(2).setMinWidth(140);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setMaxWidth(60);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setMinWidth(60);
-        
+
         tablasPendientes.get(tablasPendientes.size() - 1).getTableHeader().setReorderingAllowed(false);
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-        rightRenderer.setHorizontalAlignment( JLabel.RIGHT );
-        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setCellRenderer( rightRenderer );
-        
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+
         tablasPendientes.get(tablasPendientes.size() - 1).getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "borrar");
         return tablasPendientes.get(tablasPendientes.size() - 1);
     }
@@ -275,7 +279,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         } else {
 
-            JOptionPane pane = new JOptionPane("¿Esta seguro de querer borrar las canciones Seleccionadas?", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE);
+            JOptionPane pane = new JOptionPane("¿Esta seguro de querer borrar las canciones seleccionadas?", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
             JDialog dialog = pane.createDialog(null, "Borrar canciones");
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
@@ -326,16 +330,17 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     }
 
-    private String formatearDuracion(long duracion){
-        
-        String minutos = ""+duracion/60000;
-        String segundos = ""+ ((duracion-((duracion/60000)*60000))/1000);
-        if (segundos.length()==1){
-             segundos = "0" + segundos;
+    private String formatearDuracion(long duracion) {
+
+        String minutos = "" + duracion / 60000;
+        String segundos = "" + ((duracion - ((duracion / 60000) * 60000)) / 1000);
+        if (segundos.length() == 1) {
+            segundos = "0" + segundos;
         }
-        String duracionFormateada = ""+minutos+":"+segundos + " ";
+        String duracionFormateada = "" + minutos + ":" + segundos + " ";
         return duracionFormateada;
     }
+
     @Override
     public void mediaChanged(MediaPlayer mp, libvlc_media_t l, String string) {
         //throw new UnsupportedOperationException("Not supported yet.");

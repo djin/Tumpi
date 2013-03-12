@@ -31,10 +31,7 @@ public class Main {
                     @Override
                     public void run() {
 //                        NativeDiscovery nd = new NativeDiscovery();
-//                        if(!nd.discover()){
-                            NativeLibrary.addSearchPath("libvlc", "VLC/");
-//                        }
-
+                        NativeLibrary.addSearchPath("libvlc", "VLC/");
                         interfaz = new FramePrincipal();
 
                         try {
