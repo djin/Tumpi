@@ -47,6 +47,9 @@ public class FramePrincipal extends JFrame implements WindowListener {
         ladoIzquierdo = new Dimension(screen.width * 35 / 100, 50);
 //      this.setSize(screen.width, screen.height - 30);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        Image icon = new ImageIcon("icons/socialDJ.png").getImage();
+        setIconImage(icon);
+        setTitle("socialDj");
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 5, 20));
         //Listas de canciones en el programa en este momento
         listas_manager = ListasCancionesManager.getInstance();
