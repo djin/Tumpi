@@ -21,6 +21,6 @@ public class FrameInicial extends JFrame {
         setIconImage(icon);
         setTitle("socialDj Loader");
         setLocation(500, 300);
-        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }

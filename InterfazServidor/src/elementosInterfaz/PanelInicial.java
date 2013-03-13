@@ -25,18 +25,18 @@ public class PanelInicial extends JPanel {
 
     public PanelInicial() {
 
-        Timer time = new Timer(2, new ActionListener() {
+        Timer time = new Timer(4, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (n <= tamanio.width && !direccion) {
                     n++;
-                    if(n==tamanio.width){
+                    if (n == tamanio.width) {
                         direccion = true;
                     }
                 } else {
                     n--;
-                    if(n==0){
+                    if (n == 0) {
                         direccion = false;
                     }
                 }
@@ -54,7 +54,7 @@ public class PanelInicial extends JPanel {
         if (imagenFondo != null) {
             g.setColor(Color.DARK_GRAY);
             g.fillRect(0, 0, tamanio.width, tamanio.height);
-            g.setColor(Color.LIGHT_GRAY);
+            g.setColor(new Color(107,107,107));
             g.fillRect(0, 0, tamanio.width - (tamanio.width - n), tamanio.height);
             g.drawImage(imagenFondo.getImage(), 50, 65, tamanio.width - 110, tamanio.height - 130, null);
             setOpaque(false);
