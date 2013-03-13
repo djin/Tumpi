@@ -19,24 +19,24 @@ import javax.swing.Timer;
  */
 public class PanelInicial extends JPanel {
 
-    private int n = 0;
+    private int w = 0;
     private Dimension tamanio;
     private boolean direccion = false;
 
     public PanelInicial() {
-
+        tamanio = new Dimension(400, 200);
         Timer time = new Timer(4, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (n <= tamanio.width && !direccion) {
-                    n++;
-                    if (n == tamanio.width) {
+                if (w <= tamanio.width && !direccion) {
+                    w++;
+                    if (w == tamanio.width) {
                         direccion = true;
                     }
                 } else {
-                    n--;
-                    if (n == 0) {
+                    w--;
+                    if (w == 0) {
                         direccion = false;
                     }
                 }
@@ -55,7 +55,7 @@ public class PanelInicial extends JPanel {
             g.setColor(Color.DARK_GRAY);
             g.fillRect(0, 0, tamanio.width, tamanio.height);
             g.setColor(new Color(107,107,107));
-            g.fillRect(0, 0, tamanio.width - (tamanio.width - n), tamanio.height);
+            g.fillRect(0, 0, tamanio.width - (tamanio.width - w), tamanio.height);
             g.drawImage(imagenFondo.getImage(), 50, 65, tamanio.width - 110, tamanio.height - 130, null);
             setOpaque(false);
         } else {

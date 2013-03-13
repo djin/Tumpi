@@ -3,10 +3,8 @@ package main;
 import com.sun.jna.NativeLibrary;
 import elementosInterfaz.FrameInicial;
 import elementosInterfaz.FramePrincipal;
-import java.awt.Component;
-import java.awt.HeadlessException;
+import elementosInterfaz.Imagenes;
 import javax.swing.*;
-import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 /**
  * Prueba para hacer push desde netbeans
@@ -27,11 +25,10 @@ public class Main {
             public void run() {
                 final FrameInicial ventanaInicio = new FrameInicial();
                 Thread cargarLibrerias = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
 //                        NativeDiscovery nd = new NativeDiscovery();
-//                        NativeLibrary.addSearchPath("libvlc", "VLC/");
+                        NativeLibrary.addSearchPath("libvlc", Imagenes.getVLCPath());
                         interfaz = new FramePrincipal();
 
                         try {

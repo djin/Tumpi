@@ -50,7 +50,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     private static final ListasCancionesManager manager = new ListasCancionesManager();
 
     private ListasCancionesManager() {
-
+        
         reproductor = new PlayerReproductor();
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
         listas_canciones = new ArrayList();

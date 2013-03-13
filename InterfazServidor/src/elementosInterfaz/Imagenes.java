@@ -42,4 +42,8 @@ public class Imagenes {
          
         return imagenes.get(nombreImagen);
     }
+    
+    public static String getVLCPath(){
+        return Imagenes.class.getResource("VLC/").getPath();
+    }
 }

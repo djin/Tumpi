@@ -12,14 +12,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 import modelos.ModeloTabla;
-import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 /**
  *
@@ -54,6 +52,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         setTitle("socialDj");
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 5, 20));
         //Listas de canciones en el programa en este momento
+        
         listas_manager = ListasCancionesManager.getInstance();
 
         panelReproductor = new ReproductorPanel(listas_manager);
