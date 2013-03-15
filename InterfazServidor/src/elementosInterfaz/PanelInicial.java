@@ -22,31 +22,25 @@ public class PanelInicial extends JPanel {
 
     private Dimension tamanio;
     private Random random;
-    private boolean direccion1 = false, direccion2 = false, direccion3 = false, direccion4 = false, direccion5 = false;
+    private boolean direccion1 = false, direccion2 = false, direccion3 = false, direccion4 = false, direccion5 = true;
     private int tamanoVolumen = 80, columna1 = 0, columna2 = 20, columna3 = 40, columna4 = 10, columna5 = 50;
     private int maximo1 = 140, minimo1 = 30, maximo2 = 140, minimo2 = 30, maximo3 = 140, minimo3 = 30, maximo4 = 120, minimo4 = 30, maximo5 = 120, minimo5 = 30;
 
     public PanelInicial() {
         tamanio = new Dimension(400, 200);
         random = new Random();
-        Timer time = new Timer(2, new ActionListener() {
+        Timer time = new Timer(3, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!direccion1) {
                     columna1++;
-//                    columna3++;
-//                    columna4++;
-//                    columna5++;
                     if (columna1 == maximo1) {
                         direccion1 = true;
                         minimo1 = random.nextInt(80);
                     }
                 } else {
                     columna1--;
-//                    columna3--;
-//                    columna4--;
-//                    columna5--;
                     if (columna1 == minimo1) {
                         direccion1 = false;
                         maximo1 = random.nextInt(80) + 120;

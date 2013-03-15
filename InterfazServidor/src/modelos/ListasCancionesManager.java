@@ -11,6 +11,8 @@ import elementosInterfaz.Tabla;
 import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +52,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     private static final ListasCancionesManager manager = new ListasCancionesManager();
 
     private ListasCancionesManager() {
-        
+
         reproductor = new PlayerReproductor();
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
         listas_canciones = new ArrayList();
@@ -231,10 +233,28 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                         tablasPendientes.get(index).getTabla().setValueAt(c.getDisco(), x + comienzo, columnaPendienteAlbum);
                         tablasPendientes.get(index).getTabla().setValueAt(duracionFormateada, x + comienzo, columnaPendienteDuracion);
                         x++;
+
                     }
                 }
+                borrarMouseListener(index);
             }
         }
+    }
+
+    public void borrarMouseListener(int index) {
+        tablasPendientes.get(index).removeMouseListener(tablasPendientes.get(index).getMouseListeners()[2]);
+    }
+
+    public void anadirMouseListener(final int index) {
+        tablasPendientes.get(index).addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 && tablasPendientes.get(index).getSelectedRow() == 0) {
+                    manager.addCanciones(index);
+                }
+            }
+        });
     }
 
     public Tabla crearTabla() {
@@ -244,7 +264,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 1);
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 2);
         tablasPendientes.get(tablasPendientes.size() - 1).setValueAt("", 0, 3);
-
+        anadirMouseListener(tablasPendientes.size() - 1);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(0).setMinWidth(160);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(1).setMinWidth(160);
         tablasPendientes.get(tablasPendientes.size() - 1).getColumnModel().getColumn(2).setMaxWidth(250);
@@ -311,6 +331,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                         tablasPendientes.get(index).setValueAt("", 0, columnaPendienteAlbum);
                         tablasPendientes.get(index).setValueAt("", 0, columnaPendienteAutor);
                         tablasPendientes.get(index).setValueAt("", 0, columnaPendienteDuracion);
+                        anadirMouseListener(index);
                     }
                 }
             }
