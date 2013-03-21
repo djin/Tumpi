@@ -67,7 +67,7 @@ public class PantallaPrincipal extends Activity {
             }
         });     
     }
-    
+    //Esto sirve para...
     public void focusStng(View v){
         Intent intent = new Intent(PantallaPrincipal.this, PantallaDatosServidor.class);
         startActivity(intent);
