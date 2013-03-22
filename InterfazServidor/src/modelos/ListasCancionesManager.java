@@ -226,6 +226,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                         listas_canciones.get(index).getCanciones().add(c);
                         if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
                             tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() + 1);
+                            
+                        } else {
+                            borrarMouseListener(index);
                         }
 
                         tablasPendientes.get(index).getTabla().setValueAt(c.getNombre(), x + comienzo, columnaPendienteCancion);
@@ -236,7 +239,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
                     }
                 }
-                borrarMouseListener(index);
             }
         }
     }
