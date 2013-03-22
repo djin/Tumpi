@@ -28,7 +28,7 @@ public class Main {
                     @Override
                     public void run() {
 //                        NativeDiscovery nd = new NativeDiscovery();
-                        NativeLibrary.addSearchPath("libvlc", Imagenes.getVLCPath());
+                        NativeLibrary.addSearchPath("libvlc", "VLC/");
                         interfaz = new FramePrincipal();
 
                         try {

@@ -215,7 +215,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
     }
 
     private void iniciarListaSonando() {
-
+//CHIRRIA, esto deberia de estar casi con toda seguridad en una funcion de listas_manager.
         modeloTablaSonando = new ModeloTabla(listas_manager.nombresColumnaSonando, 1);
         listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
         listas_manager.tabla_sonando.getTableHeader().setReorderingAllowed(false);
