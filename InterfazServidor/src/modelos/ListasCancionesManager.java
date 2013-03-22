@@ -34,6 +34,8 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
  *
  * @author 66785270
  */
+
+//Tres cuartas partes de lo mismo, hay que mirarselo muchisimo, demasidas cosas, habra que delegar.
 public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public static HashMap<String, ArrayList<Integer>> votos_cliente = new HashMap<String, ArrayList<Integer>>();

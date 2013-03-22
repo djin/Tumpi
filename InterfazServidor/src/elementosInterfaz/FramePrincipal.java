@@ -23,6 +23,7 @@ import modelos.ModeloTabla;
  *
  * @author 66786575
  */
+//Habra que mirarse esta clase DETALLADAMENTE, para empezar a refactorizar aqui a saco, es simplemente demasiado grande.
 public class FramePrincipal extends JFrame implements WindowListener {
 
     private JPanel panel = (JPanel) this.getContentPane();
