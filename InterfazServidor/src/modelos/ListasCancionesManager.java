@@ -101,7 +101,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             dialog.setVisible(true);
         }
     }
-
+    //¿Prorque es estatica?!, revisar.
     public static boolean procesarVoto(int id_cancion, boolean tipo) {
         int x = 0;
         for (Cancion p : canciones) {
@@ -354,7 +354,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         tablasPendientes.remove(index);
 
     }
-
+    //Esto deberia de estar aqui!?
     private String formatearDuracion(long duracion) {
 
         String minutos = "" + duracion / 60000;
