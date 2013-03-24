@@ -7,10 +7,15 @@ package lista.android.conexion;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.widget.Toast;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import lista.android.PantallaDatosServidor;
+import java.net.InetSocketAddress;
+import lista.android.ListaCanciones;
 import lista.android.PantallaPrincipal;
 
 /**
@@ -61,6 +66,20 @@ public class ConnectionManager {
           //  }
         }
     }
+     public String getIpAddr() {
+       WifiManager wifiManager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+       WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+       int ip = wifiInfo.getIpAddress();
+
+       String ipString = String.format(
+       "%d.%d.%d.%d",
+       (ip & 0xff),
+       (ip >> 8 & 0xff),
+       (ip >> 16 & 0xff),
+       (ip >> 24 & 0xff));
+
+       return ipString;
+    }
     class BuscarServer extends AsyncTask<Void, Void, String> {
         private int port;
         public BuscarServer(int _port){
@@ -73,27 +92,57 @@ public class ConnectionManager {
         }
         @Override
         protected String doInBackground(Void... params) {
+           DatagramSocket socket=null;
+            String ip_cliente=getIpAddr();
             try {
-                DatagramSocket socket=new DatagramSocket(port);
+                socket=new DatagramSocket(port);
                 socket.setBroadcast(true);
-                socket.setSoTimeout(5000);
+                socket.setSoTimeout(1000);
+                String identificacion="cliente_socialDj|"+ip_cliente;
+                byte[] mensaje_id=identificacion.getBytes("utf-8");
+                socket.send(new DatagramPacket(mensaje_id,mensaje_id.length, new InetSocketAddress("255.255.255.255",port)));
                 byte[] datos = new byte[50];
-                DatagramPacket paquete=new DatagramPacket(datos,50);
-                socket.receive(paquete);
-                String mensaje=new String(paquete.getData(),"utf-8");
-                if("socialDj".equals(mensaje.split("\\|")[0]))
-                    return mensaje.split("\\|")[1]+"|"+mensaje.split("\\|")[2];
-                else
-                    return null;
+                DatagramPacket paquete;
+                int cont=0;
+                while(cont<5){
+                    paquete=new DatagramPacket(datos,50);
+                    socket.receive(paquete);                
+                    String mensaje=new String(paquete.getData(),"utf-8");
+                    if("servidor_socialDj".equals(mensaje.split("\\|")[0]))
+                        return mensaje.split("\\|")[1];
+                    cont++;
+                }           
+                return null;     
             }catch (Exception ex){
                 return null;
+            }finally{
+                if(socket!=null)
+                    socket.close();
             }
         }
 
         @Override
-        protected void onPostExecute(String result) {
-//            if(pd != null)
-//                pd.dismiss();
+        protected void onPostExecute(String info) {
+            if(pd != null)
+                pd.dismiss();
+            try{
+                if(info!=null){
+                    String ip=info.split("\\|")[0];
+                    int port_aux=2222;
+                    if(conectar(ip,port_aux,(Activity)context)){
+                        conexion.startListeningServer();
+                        Intent inte = new Intent(context, ListaCanciones.class);
+                        context.startActivity(inte);
+                        
+                    }
+                    else
+                        Toast.makeText(context, "Error al conectar al servidor: "+info, Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(context, "Error al buscar al servidor", Toast.LENGTH_SHORT).show();
+            }catch(Exception ex){
+                Toast.makeText(context, ex.toString(), Toast.LENGTH_SHORT).show();
+            }
         }        
     }
 }
