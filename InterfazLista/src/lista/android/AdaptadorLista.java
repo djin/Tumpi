@@ -43,47 +43,53 @@ public class AdaptadorLista extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-    public void setDatos(ArrayList<Cancion> datos_aux){
-        datos=datos_aux;
+
+    public void setDatos(ArrayList<Cancion> datos_aux) {
+        datos = datos_aux;
     }
 
     public ArrayList<Cancion> getDatos() {
         return datos;
     }
-    public void limpiarDatos(){
+
+    public void limpiarDatos() {
         int n = datos.size();
-        for(int i=0; i < n ; i++){
+        for (int i = 0; i < n; i++) {
             datos.remove(0);
         }
     }
+
     public View getView(int position, View convertView, ViewGroup parent) {
-//        View v = convertView;
-//        if (v == null) {
+        View v = convertView;
+        if (v == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View v = inflater.inflate(R.layout.rowstyle, parent, false);
-            TextView txt = (TextView) v.findViewById(R.id.songName);
-            
-            txt.setText(getDatos().get(position).getNombreCancion());
-            txt.setSelected(true);
-            TextView txtAutor = (TextView) v.findViewById(R.id.autorName);
-            txtAutor.setText(getDatos().get(position).getNombreAutor());
-            ImageButton btn = (ImageButton) v.findViewById(R.id.btnVotar);
-            btn.setOnClickListener(new ClickListener(position));
-            
+            v = inflater.inflate(R.layout.rowstyle, parent, false);
+        }
+        TextView txt = (TextView) v.findViewById(R.id.songName);
+
+        txt.setText(getDatos().get(position).getNombreCancion());
+        txt.setSelected(true);
+        TextView txtAutor = (TextView) v.findViewById(R.id.autorName);
+        txtAutor.setText(getDatos().get(position).getNombreAutor());
+        ImageButton btn = (ImageButton) v.findViewById(R.id.btnVotar);
+        btn.setOnClickListener(new ClickListener(position));
+
+        if (getDatos().get(position).getSonado()) {
+            txt.setTextColor(Color.parseColor("#ff848484"));
+            txtAutor.setTextColor(Color.parseColor("#ff848484"));
+            btn.setImageDrawable(null);
+            btn.setEnabled(false);
+        } else {
+            txt.setTextColor(Color.parseColor("#ffe5e5e5"));
+            txtAutor.setTextColor(Color.parseColor("#ffe5e5e5"));
             if (getDatos().get(position).getVotado()) {
                 btn.setImageResource(R.raw.ico_small_star_focus);
-                
+
             } else {
                 btn.setImageResource(R.raw.ico_medium_star);
             }
-            
-            if(getDatos().get(position).getSonado()){
-                txt.setTextColor(Color.parseColor("#ff848484"));
-                txtAutor.setTextColor(Color.parseColor("#ff848484"));
-                btn.setImageDrawable(null);
-                btn.setEnabled(false);
-            }
-      //  }
+            btn.setEnabled(true);
+        }
         return v;
     }
 
@@ -96,15 +102,14 @@ public class AdaptadorLista extends BaseAdapter {
         }
 
         public void onClick(View v) {
-            if(getDatos().get(position).getVotado()){
+            if (getDatos().get(position).getVotado()) {
                 try {
-                    conex.conexion.enviarMensaje("3|"+Integer.toString(getDatos().get(position).getId()));
+                    conex.conexion.enviarMensaje("3|" + Integer.toString(getDatos().get(position).getId()));
                 } catch (Exception ex) {
                 }
-            }
-            else {
+            } else {
                 try {
-                    conex.conexion.enviarMensaje("1|"+Integer.toString(getDatos().get(position).getId()));
+                    conex.conexion.enviarMensaje("1|" + Integer.toString(getDatos().get(position).getId()));
                 } catch (Exception ex) {
                 }
             }
