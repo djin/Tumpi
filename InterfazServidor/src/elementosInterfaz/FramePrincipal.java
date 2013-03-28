@@ -302,7 +302,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 anadirLista();
             }
         });
-        anadirLista.setMnemonic('l');
+        anadirLista.setMnemonic('A');
         menus[0].add(anadirLista);
 
         JMenuItem borrarLista = new JMenuItem("Borrar Lista");
@@ -320,7 +320,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 }
             }
         });
-        borrarLista.setMnemonic('B');
+        borrarLista.setMnemonic('L');
         menus[0].add(borrarLista);
 
         JMenuItem promocionar = new JMenuItem("Promocionar");
@@ -333,13 +333,35 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
         promocionar.setMnemonic('P');
         menus[0].add(promocionar);
+        
+        JMenuItem guardarSesion = new JMenuItem("Guardar Sesion");
+        guardarSesion.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+            }
+        });
+        guardarSesion.setMnemonic('G');
+        menus[0].add(guardarSesion);
+        
+        JMenuItem cargarSesion = new JMenuItem("Cargar Sesion");
+        cargarSesion.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+            }
+        });
+        cargarSesion.setMnemonic('S');
+        menus[0].add(cargarSesion);
 
         barramenus.add(menus[0]);
 
         menus[1] = new JMenu("Canciones");
         menus[1].setMnemonic('C');
 
-        JMenuItem anadirCancion = new JMenuItem("Añadir canciones");
+        JMenuItem anadirCancion = new JMenuItem("Añadir Canciones");
         anadirCancion.addActionListener(new ActionListener() {
 
             @Override
@@ -347,10 +369,10 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 anadirCanciones();
             }
         });
-        anadirCancion.setMnemonic('c');
+        anadirCancion.setMnemonic('C');
         menus[1].add(anadirCancion);
 
-        JMenuItem borrarCancion = new JMenuItem("Borrar canciones");
+        JMenuItem borrarCancion = new JMenuItem("Borrar Canciones");
         borrarCancion.addActionListener(new ActionListener() {
 
             @Override
@@ -365,6 +387,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 }
             }
         });
+        borrarCancion.setMnemonic('B');
         menus[1].add(borrarCancion);
 
         barramenus.add(menus[1]);
@@ -388,7 +411,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 ventana.setVisible(true);
             }
         });
-        acerca.setMnemonic('A');
+        acerca.setMnemonic('D');
         menus[2].add(acerca);
 
         barramenus.add(menus[2]);
