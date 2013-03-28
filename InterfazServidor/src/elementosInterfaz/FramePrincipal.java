@@ -34,8 +34,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private ReproductorPanel panelReproductor;
     private ArrayList<String> nombresLista;
     private ArrayList<JButton> botonesCerrar = new ArrayList<JButton>();
-    private JMenuBar barramenus = new JMenuBar();
-    private JMenu[] menus;
+    private Menus barramenus;
     private Dimension screen, ladoDerecho, ladoIzquierdo;
     ConnectionManager server = null;
     int puerto_socket = 2222;
@@ -43,6 +42,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private boolean nuevo;
 
     public FramePrincipal() {
+        
         screen = Toolkit.getDefaultToolkit().getScreenSize();
         ladoDerecho = new Dimension(screen.width * 55 / 100, 300);
         ladoIzquierdo = new Dimension(screen.width * 35 / 100, 50);
@@ -69,6 +69,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
             iniciarListasCanciones();
         }
         //Se inicializan los menus
+        barramenus = new Menus();
         setMenus();
 
         //Se inicializa la tabla de canciones en reproduccion
@@ -147,8 +148,11 @@ public class FramePrincipal extends JFrame implements WindowListener {
             nombresLista.remove(0);
             pestanasPendientes.remove(0);
         }
-        pestanasPendientes.remove(pestanasPendientes.getTabCount() - 1);
+        
+        int numListas = pestanasPendientes.getTabCount() - 1;
+        pestanasPendientes.remove(numListas);
         listas_manager.addLista(new ListaCanciones());
+        listas_manager.listas_canciones.get(numListas).nombreLista=nombreLista;
         JScrollPane panelTabla = new JScrollPane(listas_manager.crearTabla());
         listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1).getActionMap().put("borrar", new AbstractAction() {
 
@@ -288,25 +292,16 @@ public class FramePrincipal extends JFrame implements WindowListener {
     }
 
     private void setMenus() {
-
-        menus = new JMenu[3];
-
-        menus[0] = new JMenu("Listas");
-        menus[0].setMnemonic('L');
-
-        JMenuItem anadirLista = new JMenuItem("Añadir Lista");
-        anadirLista.addActionListener(new ActionListener() {
+        
+        barramenus.menuItems.get(0).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 anadirLista();
             }
         });
-        anadirLista.setMnemonic('A');
-        menus[0].add(anadirLista);
 
-        JMenuItem borrarLista = new JMenuItem("Borrar Lista");
-        borrarLista.addActionListener(new ActionListener() {
+        barramenus.menuItems.get(1).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -320,60 +315,40 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 }
             }
         });
-        borrarLista.setMnemonic('L');
-        menus[0].add(borrarLista);
 
-        JMenuItem promocionar = new JMenuItem("Promocionar");
-        promocionar.addActionListener(new ActionListener() {
+        barramenus.menuItems.get(2).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
             }
         });
-        promocionar.setMnemonic('P');
-        menus[0].add(promocionar);
         
-        JMenuItem guardarSesion = new JMenuItem("Guardar Sesion");
-        guardarSesion.addActionListener(new ActionListener() {
+        barramenus.menuItems.get(3).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
             }
         });
-        guardarSesion.setMnemonic('G');
-        menus[0].add(guardarSesion);
         
-        JMenuItem cargarSesion = new JMenuItem("Cargar Sesion");
-        cargarSesion.addActionListener(new ActionListener() {
+        barramenus.menuItems.get(4).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
             }
         });
-        cargarSesion.setMnemonic('S');
-        menus[0].add(cargarSesion);
-
-        barramenus.add(menus[0]);
-
-        menus[1] = new JMenu("Canciones");
-        menus[1].setMnemonic('C');
-
-        JMenuItem anadirCancion = new JMenuItem("Añadir Canciones");
-        anadirCancion.addActionListener(new ActionListener() {
+        
+        barramenus.menuItems.get(5).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 anadirCanciones();
             }
         });
-        anadirCancion.setMnemonic('C');
-        menus[1].add(anadirCancion);
-
-        JMenuItem borrarCancion = new JMenuItem("Borrar Canciones");
-        borrarCancion.addActionListener(new ActionListener() {
+        
+        barramenus.menuItems.get(6).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -387,15 +362,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 }
             }
         });
-        borrarCancion.setMnemonic('B');
-        menus[1].add(borrarCancion);
-
-        barramenus.add(menus[1]);
-
-        menus[2] = new JMenu("Sobre");
-
-        JMenuItem acerca = new JMenuItem("Acerca De");
-        acerca.addActionListener(new ActionListener() {
+        
+        barramenus.menuItems.get(7).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -411,11 +379,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 ventana.setVisible(true);
             }
         });
-        acerca.setMnemonic('D');
-        menus[2].add(acerca);
-
-        barramenus.add(menus[2]);
-
         barramenus.add(botonesVentana());
         setJMenuBar(barramenus);
 

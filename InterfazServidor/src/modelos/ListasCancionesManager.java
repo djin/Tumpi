@@ -365,6 +365,15 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         String duracionFormateada = "" + minutos + ":" + segundos + " ";
         return duracionFormateada;
     }
+    
+    @Override
+    public String toString() {
+        
+        for(ListaCanciones c:  listas_canciones){
+            
+        }
+        return "ggdfgfd";
+    }
 
     @Override
     public void mediaChanged(MediaPlayer mp, libvlc_media_t l, String string) {

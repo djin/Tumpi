@@ -19,7 +19,7 @@ public class FicherosManager {
 
     private static ListasCancionesManager listas_manager;
     private File fichSelector;
-    private File fichListas;
+    private File fichSesion;
     private Properties propiedades;
     private FileInputStream entradaDatos = null;
     private FileOutputStream salidaDatos;
@@ -32,7 +32,7 @@ public class FicherosManager {
     public boolean cargarPreferencias() {
 
 
-        fichListas = new File("fich_listas");
+        fichSesion = new File("fich_listas");
         fichSelector = new File("fich_selector");
         propiedades = new Properties();
         boolean i = false;
@@ -68,15 +68,15 @@ public class FicherosManager {
         }
 
 
-        if (fichListas.exists()) {
+        if (fichSesion.exists()) {
 
             entradaDatos = null;
 
             try {
 
                 i = false;
-                i = fichListas.createNewFile();
-                entradaDatos = new FileInputStream(fichListas);
+                i = fichSesion.createNewFile();
+                entradaDatos = new FileInputStream(fichSesion);
                 
 
             } catch (IOException ex) {
@@ -101,20 +101,20 @@ public class FicherosManager {
 
     public void guardarPreferencias() {
 
-        fichListas = new File("fich_listas");
+        fichSesion = new File("fich_sesion");
         fichSelector = new File("fich_selector");
         propiedades = new Properties();
         
         try {
-            salidaDatos = new FileOutputStream(fichListas);
+            salidaDatos = new FileOutputStream(fichSesion);
             
         } catch (IOException ex) {
-            System.err.println("Error al guardar el fichero del selector" + ex);
+            System.err.println("Error al guardar el fichero de sesion" + ex);
         } finally {
             try {
                 salidaDatos.close();
             } catch (IOException ex) {
-                System.err.println("Error al guardar el fichero del selector++" + ex);
+                System.err.println("Error al guardar el fichero de sesion++" + ex);
             }
         }
         

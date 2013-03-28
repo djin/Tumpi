@@ -14,9 +14,11 @@ public class ListaCanciones {
 
     private ArrayList<ListaCancionesChangedListener> listeners;
     private ArrayList<Cancion> canciones;
+    public String nombreLista;
 
     public ListaCanciones() {
-
+        
+        nombreLista = null;
         listeners = new ArrayList();
         canciones = new ArrayList();
     }
