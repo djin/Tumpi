@@ -369,8 +369,10 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     @Override
     public String toString() {
         
-        for(ListaCanciones c:  listas_canciones){
-            
+        for(ListaCanciones l :  listas_canciones){
+            for(Cancion c : l.getCanciones()){
+                
+            }
         }
         return "ggdfgfd";
     }

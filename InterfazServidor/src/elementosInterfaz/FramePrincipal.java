@@ -38,8 +38,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private Dimension screen, ladoDerecho, ladoIzquierdo;
     ConnectionManager server = null;
     int puerto_socket = 2222;
-    private Imagenes imagen = new Imagenes();
-    private boolean nuevo;
 
     public FramePrincipal() {
         
@@ -59,15 +57,10 @@ public class FramePrincipal extends JFrame implements WindowListener {
         panelReproductor = new ReproductorPanel(listas_manager);
         //Manejador de ficheros
         ficheros_manager = new FicherosManager(listas_manager);
-        nuevo = ficheros_manager.cargarPreferencias();
-
-        if (nuevo) {
-            //Se inicializa las tablas de listas de canciones pendientes dado que no habia ninguno anterior
-            iniciarListasCanciones();
-        } else {
-            //temporal, hasta que se implemente el cargado de listas.
-            iniciarListasCanciones();
-        }
+        ficheros_manager.cargarPreferencias();
+        
+        iniciarListasCanciones();
+        
         //Se inicializan los menus
         barramenus = new Menus();
         setMenus();
@@ -328,7 +321,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+                //GuardarSesion
             }
         });
         
@@ -336,7 +329,12 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+                if(ficheros_manager.cargarSesion()){
+                    
+                }
+                else{
+                    
+                }
             }
         });
         

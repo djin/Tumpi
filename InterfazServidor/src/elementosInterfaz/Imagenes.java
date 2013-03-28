@@ -10,7 +10,6 @@ package elementosInterfaz;
  */
 import java.util.HashMap;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
  
 /**
  * Clase que permite cargar imágenes dentro del paquete e implementa un buffer

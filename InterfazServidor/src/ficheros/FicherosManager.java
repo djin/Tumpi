@@ -4,11 +4,16 @@
  */
 package ficheros;
 
+import java.awt.Component;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 import modelos.ListasCancionesManager;
 
 /**
@@ -28,11 +33,76 @@ public class FicherosManager {
 
         listas_manager = _listas_manager;
     }
+    
+    public static boolean acabaEnsdj(File f) {
+        return f.getName().endsWith(".sdj");
+    }
+    
+    public boolean cargarSesion() {
+        
+        JFileChooser chooser = new JFileChooser() {
+            @Override
+            protected JDialog createDialog(Component parent) throws HeadlessException {
+                JDialog dialog = super.createDialog(parent);
+                dialog.setAlwaysOnTop(true);
+                return dialog;
+            }
+        };
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setCurrentDirectory(new File(""));
+        chooser.setFileFilter(new FileFilter() {
 
-    public boolean cargarPreferencias() {
+            @Override
+            public boolean accept(File f) {
+                if (acabaEnsdj(f) || f.isDirectory()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            @Override
+            public String getDescription() {
+                return "Filtro sdj";
+            }
+        });
+        
+        fichSesion = new File("");
+        boolean i = false;
+
+        if (fichSesion.exists()) {
+
+            entradaDatos = null;
+
+            try {
+
+                i = false;
+                i = fichSesion.createNewFile();
+                entradaDatos = new FileInputStream(fichSesion);
+                
+
+            } catch (IOException ex) {
+                if (i == false) {
+                    System.err.println("Error al cargar el fichero de listas" + ex);
+                }
+            } finally {
+                try {
+                    entradaDatos.close();
+                    return true;
+                } catch (IOException ex) {
+                    System.err.println("Error al cargar el fichero de listas++" + ex);
+                    return false;
+                }
+            }
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public void cargarPreferencias() {
 
 
-        fichSesion = new File("fich_listas");
         fichSelector = new File("fich_selector");
         propiedades = new Properties();
         boolean i = false;
@@ -65,37 +135,6 @@ public class FicherosManager {
         } else {
 
             listas_manager.path = "C:\\Users\\66785361\\Documents";
-        }
-
-
-        if (fichSesion.exists()) {
-
-            entradaDatos = null;
-
-            try {
-
-                i = false;
-                i = fichSesion.createNewFile();
-                entradaDatos = new FileInputStream(fichSesion);
-                
-
-            } catch (IOException ex) {
-                if (i == false) {
-                    System.err.println("Error al cargar el fichero de listas" + ex);
-                }
-            } finally {
-                try {
-                    entradaDatos.close();
-                } catch (IOException ex) {
-                    System.err.println("Error al cargar el fichero de listas++" + ex);
-                }
-            }
-
-            return false;
-
-        } else {
-
-            return true;
         }
     }
 
