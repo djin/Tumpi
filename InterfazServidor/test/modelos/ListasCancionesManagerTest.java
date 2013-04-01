@@ -46,9 +46,9 @@ public class ListasCancionesManagerTest {
         lista = new ListaCanciones();
         canciones = new ArrayList();
         id_lista=0;
-        canciones.add(new Cancion(1, "cancion prueba1", "album prueba", "el probador", 180, "prueba1.mp3"));
-        canciones.add(new Cancion(2, "cancion prueba2", "album prueba", "el probador", 180, "prueba1.mp3"));
-        canciones.add(new Cancion(3, "cancion prueba3", "album prueba", "el probador", 180, "prueba1.mp3"));
+        canciones.add(new Cancion(1, "Love Lost", "Conditions", "The Temper Trap", 216140, "01 Love Lost.mp3"));
+        canciones.add(new Cancion(2, "Love Lost", "Conditions", "The Temper Trap", 216140, "01 Love Lost.mp3"));
+        canciones.add(new Cancion(3, "Love Lost", "Conditions", "The Temper Trap", 216140, "01 Love Lost.mp3"));
 
         lista.setCanciones(canciones);
 
@@ -96,7 +96,7 @@ public class ListasCancionesManagerTest {
     public void testPromocionarListaCompCancion() {
         //la cancion de la fila 3 coincide con la que hemos creado
         instance.promocionarLista(id_lista);
-        assertEquals("cancion prueba3", instance.tabla_sonando.getTabla().getValueAt(2, 0));
+        assertEquals("Love Lost", instance.tabla_sonando.getTabla().getValueAt(2, 0));
     }
     
     @Test

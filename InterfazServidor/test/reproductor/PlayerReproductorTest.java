@@ -4,7 +4,6 @@
  */
 package reproductor;
 
-import java.awt.image.BufferedImage;
 import modelos.Cancion;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,7 +11,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import uk.co.caprica.vlcj.player.MediaPlayer;
 
 /**
  *
@@ -37,8 +35,8 @@ public class PlayerReproductorTest {
 
     @Before
     public void setUp() {
-        cancion = new Cancion(0, "Love Lost", "Conditions", "The Temper Trap", 216140, "C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
-        cancion2 = new Cancion(0, "Love Lost", "Conditions", "The Temper Trap", 216140, "C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
+        cancion = new Cancion(0, "Love Lost", "Conditions", "The Temper Trap", 216140, "01 Love Lost.mp3");
+        cancion2 = new Cancion(0, "Love Lost", "Conditions", "The Temper Trap", 216140, "01 Love Lost.mp3");
         reproductor = new PlayerReproductor();
     }
 
@@ -51,7 +49,6 @@ public class PlayerReproductorTest {
 
     @Test
     public void testGetCancion() {
-        //reproductor.getMediaPlayer().playMedia("C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3");
-        assertEquals(cancion, reproductor.getCancion("C:\\Users\\66785379\\Desktop\\Musica\\Conditions (2009)\\01 Love Lost.mp3"));
+        assertEquals(cancion, reproductor.getCancion("01 Love Lost.mp3"));
     }
 }
