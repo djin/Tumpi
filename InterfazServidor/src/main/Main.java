@@ -3,10 +3,7 @@ package main;
 import com.sun.jna.NativeLibrary;
 import elementosInterfaz.FrameInicial;
 import elementosInterfaz.FramePrincipal;
-import elementosInterfaz.Imagenes;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -21,24 +18,28 @@ public class Main {
      */
     public static void main(String[] args) {
 
+
         SwingUtilities.invokeLater(new Runnable() {
             private FramePrincipal interfaz;
 
             @Override
             public void run() {
-                String path;
-                try {
-                    path = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-                    JOptionPane.showConfirmDialog(null, path);
-                } catch (URISyntaxException ex) {
-                    ex.printStackTrace();
-                }
                 final FrameInicial ventanaInicio = new FrameInicial();
                 Thread cargarLibrerias = new Thread(new Runnable() {
                     @Override
                     public void run() {
 //                        NativeDiscovery nd = new NativeDiscovery();
-                        NativeLibrary.addSearchPath("libvlc", "VLC/");
+                        String path, pathVlc = null;
+                        try {
+                            path = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+                            pathVlc = path.replace("InterfazServidor.jar", "VLC");
+                            System.out.println(pathVlc);
+                            JOptionPane.showConfirmDialog(null, pathVlc);
+                        } catch (URISyntaxException ex) {
+                            ex.printStackTrace();
+                        }
+                        NativeLibrary.addSearchPath("libvlc", pathVlc);
+                        NativeLibrary.addSearchPath("libvlc", "/VLC");
                         interfaz = new FramePrincipal();
 
                         try {
