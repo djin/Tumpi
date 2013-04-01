@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,6 +28,7 @@ public class ReproductorPanel extends JPanel {
     private ImageIcon pausePress;
     public static JPanel panelBotones;
     public static JPanel panelNombres;
+    public static JPanel panelLogo;
     public static JLabel song;
     public static JLabel artist;
     public static PanelCaratula panelCaratula;
@@ -136,8 +136,6 @@ public class ReproductorPanel extends JPanel {
             }
         });
         
-        
-        //panelBotones.add(stop);
         panelBotones.add(play);
         panelBotones.add(next);
         this.add(panelBotones);
@@ -155,7 +153,10 @@ public class ReproductorPanel extends JPanel {
         
         this.add(panelNombres);
         
+        
+        panelLogo = new PanelLogo();
+        panelLogo.setPreferredSize(new Dimension(800,70));
+        this.add(panelLogo);
     }
-    
     
 }

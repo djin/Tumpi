@@ -1,9 +1,11 @@
 package main;
 
+import com.jtattoo.plaf.hifi.HiFiLookAndFeel;
 import com.sun.jna.NativeLibrary;
 import elementosInterfaz.FrameInicial;
 import elementosInterfaz.FramePrincipal;
 import java.net.URISyntaxException;
+import java.util.Properties;
 import javax.swing.*;
 
 /**
@@ -43,8 +45,13 @@ public class Main {
                         interfaz = new FramePrincipal();
 
                         try {
+
+                            Properties props = new Properties();
+                            props.put("logoString", "socialDj");
+                            HiFiLookAndFeel.setCurrentTheme(props);
                             UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
                             SwingUtilities.updateComponentTreeUI(interfaz);
+
                             interfaz.setUndecorated(true);
                             interfaz.setVisible(true);
 
