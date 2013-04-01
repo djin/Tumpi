@@ -53,7 +53,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:textSize="25dp"
-                android:text="Entrar"
+                android:text="@string/entrar"
                 android:layout_marginRight="5dp"
         />
     </LinearLayout>
