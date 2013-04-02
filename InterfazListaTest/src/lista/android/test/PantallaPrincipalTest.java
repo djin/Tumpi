@@ -7,28 +7,16 @@ package lista.android.test;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import com.jayway.android.robotium.solo.Solo;
-import android.content.res.Resources;
-import android.content.Context;
+import android.view.KeyEvent;
+import lista.android.PantallaDatosServidor;
 import lista.android.PantallaPrincipal;
 import lista.android.R;
 
 public class PantallaPrincipalTest extends ActivityInstrumentationTestCase2<PantallaPrincipal> {
 
-    private static final String TARGET_PACKAGE_ID = "lista.android";
-    private static final String LAUNCHER_ACTIVITY_FULL_CLASSNAME = "lista.android.PantallaPrincipal";
-    private static Class<?> launcherActivityClass;
+    private Activity a;
     private Solo solo;
-    private Resources res;
-    private Context context;
 
-    // This will launch the application specified above on the device
-//    static {
-//        try {
-//            launcherActivityClass = Class.forName(LAUNCHER_ACTIVITY_FULL_CLASSNAME);
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
     public PantallaPrincipalTest() throws ClassNotFoundException {
         super(PantallaPrincipal.class);
     }
@@ -36,9 +24,8 @@ public class PantallaPrincipalTest extends ActivityInstrumentationTestCase2<Pant
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        solo = new Solo(getInstrumentation(), getActivity());
-        context = getInstrumentation().getContext();
-        res = context.getResources();
+        a = getActivity();
+        solo = new Solo(getInstrumentation(), a);
     }
 
     public void testPrueba() throws Throwable {
@@ -48,20 +35,20 @@ public class PantallaPrincipalTest extends ActivityInstrumentationTestCase2<Pant
     }
 
     public void testUI() throws Throwable {
-        // ....
 
-        // Robotium code begins here
-
-        // Wait for the 'Cancel' button
-        solo.waitForText(res.getString(R.string.entrar));
-
-        // We may want to take a screen capture...
+        //guarda una foto en /sdCard/Robotium.screenshots (no funciona, aunque le des permisos T_T)
         solo.takeScreenshot();
 
-        // Click the cancel button
-        solo.clickOnText(res.getString(R.string.entrar));
+        assertTrue(solo.searchButton("Entrar"));
 
-        // ....
+        assertTrue(solo.searchText(a.getString(R.string.entrar)));
+    }
+
+    public void testPassActivityConectionManual() throws Throwable {
+        solo.clickOnImageButton(0);
+        solo.assertCurrentActivity("No es la actividad esperada", PantallaDatosServidor.class);
+        sendKeys(KeyEvent.KEYCODE_BACK);
+        solo.assertCurrentActivity("No ha vuelto a la actividad", PantallaPrincipal.class);
     }
 
     @Override
@@ -69,7 +56,6 @@ public class PantallaPrincipalTest extends ActivityInstrumentationTestCase2<Pant
         try {
             solo.finishOpenedActivities();
         } catch (Throwable e) {
-            // Catch this
         }
         getActivity().finish();
         super.tearDown();
