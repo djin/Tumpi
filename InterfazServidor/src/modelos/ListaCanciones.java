@@ -53,6 +53,9 @@ public class ListaCanciones {
             }
             cadena = cadena.substring(0, cadena.length() - 1);
         }
+        else{
+            cadena = "empty";
+        }
         return cadena;
     }
 

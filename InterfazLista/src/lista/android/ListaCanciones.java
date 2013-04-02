@@ -1,6 +1,8 @@
 package lista.android;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,7 +39,6 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         btn1.setImageDrawable(null);
         btn1.setEnabled(false);
         //////////////////////////////////////////////////////////////////////////////////////
-
         listadoAdapter = new AdaptadorLista(this, lista, R.layout.rowstyle);
         setListAdapter(listadoAdapter);
         text_playing = (TextView) findViewById(R.id.txtPlaying);
@@ -46,9 +47,8 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         conex = new ConnectionManager(this);
         conex.conexion.addServerMessageListener(this);
         if (cancion_sonando == null) {
-            cancion_sonando = new Cancion("Nombre canción", "Artista", "Album", 0,0, false, false);
+            cancion_sonando = new Cancion("Nombre canción", "Artista", "Album", 0, 0, false, false);
             text_playing.post(new Runnable() {
-
                 public void run() {
                     try {
                         conex.conexion.enviarMensaje("0|0");
@@ -67,7 +67,6 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         inflater.inflate(R.menu.menuactionbar, menu);
         MenuItem btn = menu.findItem(R.id.btnSettings);
         btn.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(ListaCanciones.this, Settings.class);
 
@@ -80,7 +79,6 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
 
     private void refrescarCancionSonando() {
         text_playing.post(new Runnable() {
-
             public void run() {
                 text_playing.setText(cancion_sonando.getNombreCancion());
                 text_autorPlaying.setText(cancion_sonando.getNombreAutor());
@@ -89,24 +87,27 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
     }
 
     public void interpretarLista(String[] canciones) {
-        ArrayList<Cancion> lista_aux = new ArrayList();
-        for (String cancion : canciones) {
-            String[] datos_cancion = cancion.split("\\*");
-            if (!"1".equals(datos_cancion[5])) {
-                lista.add(new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]),Long.parseLong(datos_cancion[4]), false, false));
-            } else {
-                lista_aux.add(new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]),Long.parseLong(datos_cancion[4]), false, true));
+        if (canciones[0].equals("empty")) {
+            lista.add(new Cancion("El Dj no ha propuesto canciones", "En breves minutos aparecerá", " ", 0, 100, false, true));
+        } else {
+            ArrayList<Cancion> lista_aux = new ArrayList();
+            for (String cancion : canciones) {
+                String[] datos_cancion = cancion.split("\\*");
+                if (!"1".equals(datos_cancion[5])) {
+                    lista.add(new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), Long.parseLong(datos_cancion[4]), false, false));
+                } else {
+                    lista_aux.add(new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), Long.parseLong(datos_cancion[4]), false, true));
+                }
             }
-        }
-        if (lista_aux.size() > 0) {
-            lista.addAll(lista_aux);
+            if (lista_aux.size() > 0) {
+                lista.addAll(lista_aux);
+            }
         }
     }
 
     public void onMessageReceive(final String men) {
 
         this.getListView().post(new Runnable() {
-
             public void run() {
                 String message = men;
                 if (!"exit".equals(message)) {
@@ -162,7 +163,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
                             break;
                         case 4:
                             String[] datos_cancion = message.split("\\*");
-                            cancion_sonando = new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]),Long.parseLong(datos_cancion[4]), false, "1".equals(datos_cancion[5]));
+                            cancion_sonando = new Cancion(datos_cancion[1], datos_cancion[2], datos_cancion[3], Integer.parseInt(datos_cancion[0]), Long.parseLong(datos_cancion[4]), false, "1".equals(datos_cancion[5]));
                             refrescarCancionSonando();
                             break;
                     }
@@ -182,10 +183,10 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
 
     }
     /*@Override
-    public void onConfigurationChanged (Configuration newConfig){
-    super.onConfigurationChanged(newConfig);
-    super.onBackPressed();
-    }*/
+     public void onConfigurationChanged (Configuration newConfig){
+     super.onConfigurationChanged(newConfig);
+     super.onBackPressed();
+     }*/
 
     @Override
     public void onBackPressed() {

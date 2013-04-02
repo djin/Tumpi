@@ -92,8 +92,10 @@ public class ConnectionManager implements ServerSocketListener{
             message=message.split("\\|")[1]; 
             switch(tipo){
                 case 0:
-                    if(ListasCancionesManager.lista_sonando!=null)
+                    if(ListasCancionesManager.lista_sonando!=null){
+                        System.out.println("0|"+ListasCancionesManager.lista_sonando.toString());
                         socket.enviarMensajeServer(ip,"0|"+ListasCancionesManager.lista_sonando.toString());
+                    }
                     if(ListasCancionesManager.cancion_sonando!=null)
                         socket.enviarMensajeServer(ip,"4|"+ListasCancionesManager.cancion_sonando.toString());
                     if(votos_cliente!=null){
