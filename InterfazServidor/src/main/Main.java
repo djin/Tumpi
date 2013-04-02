@@ -35,8 +35,6 @@ public class Main {
                         try {
                             path = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
                             pathVlc = path.replace("InterfazServidor.jar", "VLC");
-                            System.out.println(pathVlc);
-                            JOptionPane.showConfirmDialog(null, pathVlc);
                         } catch (URISyntaxException ex) {
                             ex.printStackTrace();
                         }

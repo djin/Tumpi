@@ -25,7 +25,6 @@ public class PanelPestana extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 4;
         add(nombre, gbc);
-//        setPreferredSize(new Dimension(nombre.getWidth() + 40, 16));
     }
 
     @Override

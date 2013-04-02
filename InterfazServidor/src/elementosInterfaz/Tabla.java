@@ -22,19 +22,6 @@ public class Tabla extends JTable {
         setModel(tabla);
         setRowHeight(20);
 
-        /*this.addFocusListener(new FocusListener(){
-
-         @Override
-         public void focusGained(FocusEvent e) {
-                
-         }
-
-         @Override
-         public void focusLost(FocusEvent e) {
-         clearSelection();
-         }
-            
-         });*/
     }
 
     /**

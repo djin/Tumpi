@@ -6,7 +6,6 @@ package elementosInterfaz;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
@@ -23,7 +22,7 @@ public class PanelCaratula extends JPanel {
     PanelCaratula(String path){
         this.path = path;
 //        this.path_def = path;
-        image=new BufferedImage(1024,768,BufferedImage.SCALE_SMOOTH);
+        image=new BufferedImage(1024,768,BufferedImage.TYPE_INT_ARGB_PRE);
         image.createGraphics().drawImage(Imagenes.getImagen(path).getImage(), 0, 0, null);
         this.setPreferredSize(new Dimension(80, 80));
     }
@@ -37,7 +36,7 @@ public class PanelCaratula extends JPanel {
         if(im!=null)
             image=im;
         else{
-            image=new BufferedImage(1024,768,Image.SCALE_DEFAULT);
+            image=new BufferedImage(1024,768,BufferedImage.TYPE_INT_ARGB_PRE);
             image.createGraphics().drawImage(Imagenes.getImagen(path).getImage(), 0, 0, null);
         }
         this.setPreferredSize(new Dimension(80,80));
