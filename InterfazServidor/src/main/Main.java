@@ -34,14 +34,10 @@ public class Main {
                         String path, pathVlc = null;
                         try {
                             path = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-<<<<<<< HEAD
-                            pathVlc = path.replace("InterfazServidor.jar", "VLC");
-=======
 //                            pathVlc = path.replace("InterfazServidor.jar", "VLC");
                             pathVlc = path + "VLC";
                             System.out.println(pathVlc);
 //                            JOptionPane.showConfirmDialog(null, pathVlc);
->>>>>>> arreglado bug al conectar
                         } catch (URISyntaxException ex) {
                             ex.printStackTrace();
                         }
