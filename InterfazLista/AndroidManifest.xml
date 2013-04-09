@@ -29,7 +29,7 @@
                  android:exported="false"/>
         <uses-library android:name="android.test.runner" />
     </application>
-    <uses-sdk android:minSdkVersion="7" />
+    <uses-sdk android:minSdkVersion="14" />
     <uses-sdk android:targetSdkVersion="16" />
     <instrumentation android:name="android.test.InstrumentationTestRunner"
        android:targetPackage="lista.android"/>

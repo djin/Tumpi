@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:id="@+id/itemAnadirLista"
+            android:text="Añadir Lista"
+            android:title="Añadir Lista"
+            />
+            <item android:id="@+id/itemAnadirCanciones"
+            android:text="Anadir Canciones"
+            android:title="Anadir Canciones"
+            />
+            <item android:id="@+id/itemImportar"
+            android:text="Importar"
+            android:title="Importar"
+            />
+            <item android:id="@+id/itemVerImportarda"
+            android:text="Ver Importarda"
+            android:title="Ver Importard"
+            />
+</menu>
