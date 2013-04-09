@@ -4,11 +4,11 @@
     android:layout_weight="8"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#ffDBDBDB"
     >
     <LinearLayout android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
-    android:background="#ffFF00FF"
     >
         <LinearLayout android:orientation="horizontal"
             android:layout_width="fill_parent"
@@ -19,7 +19,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="3"
-            android:src="@drawable/socialdj"
+            android:src="@drawable/caratula_default"
             />
             <LinearLayout android:orientation="vertical"
             android:layout_width="fill_parent"

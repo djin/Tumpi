@@ -7,16 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
 public class ListasCanciones extends FragmentActivity {
-    /**
-     * HOLA SOY SERGEY MANCDONDO
-     * COMO NABOS Y CHUPO BICHOS
-     * SOY MUY GAY
-     * ... DECLARADO...
-     * ME ENCULA MIKE GONZALEZ
-     * ... Y ME GUSTA...
-     */
 
     ActionBar.TabListener tabListener;
     // When requested, this adapter returns a DemoObjectFragment,
@@ -27,7 +20,26 @@ public class ListasCanciones extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        setTitle("");
+        final ActionBar actionBar = getActionBar();
+        // Specify that a dropdown list should be displayed in the action bar.
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
+        actionBar.setListNavigationCallbacks(
+                // Specify a SpinnerAdapter to populate the dropdown list.
+                new ArrayAdapter(actionBar.getThemedContext(),
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
+                new String[]{"Listas Preparadas", "Lista en reproduccion"}),
+                // Provide a listener to be called when an item is selected.
+                new ActionBar.OnNavigationListener() {
+            public boolean onNavigationItemSelected(
+                    int position, long id) {
+                // Take action here, e.g. switching to the
+                // corresponding fragment.
+                return true;
+            }
+        });
         // ViewPager and its adapters use support library
         // fragments, so use getSupportFragmentManager.
         mSwipeViewPagerAdapter = new SwipeViewPagerAdapter(getSupportFragmentManager());
@@ -47,7 +59,9 @@ public class ListasCanciones extends FragmentActivity {
         switch (item.getItemId()) {
             case R.id.itemAnadirCanciones:
                 return true;
-            case R.id.itemAnadirLista:
+            case R.id.itemCrearLista:
+                mSwipeViewPagerAdapter.crearLista();
+                mSwipeViewPagerAdapter.notifyDataSetChanged();
                 return true;
             case R.id.itemImportar:
                 return true;

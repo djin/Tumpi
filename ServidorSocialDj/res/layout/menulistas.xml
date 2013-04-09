@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-            <item android:id="@+id/itemAnadirLista"
-            android:text="Añadir Lista"
-            android:title="Añadir Lista"
+            <item android:id="@+id/itemCrearLista"
+            android:text="Crear Lista"
+            android:title="Crear Lista"
             />
             <item android:id="@+id/itemAnadirCanciones"
             android:text="Anadir Canciones"

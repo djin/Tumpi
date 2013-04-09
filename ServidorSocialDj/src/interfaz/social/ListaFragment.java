@@ -9,7 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,7 +18,7 @@ import android.widget.TextView;
  */
 public class ListaFragment extends Fragment {
 
-    public static final String ARG_OBJECT = "object";
+    public ArrayList<String> datos = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,7 +26,9 @@ public class ListaFragment extends Fragment {
         // properly.
         View rootView = inflater.inflate(R.layout.style_listas_preparacion, container, false);
         Bundle args = getArguments();
-        ((TextView) rootView.findViewById(R.id.text1)).setText(Integer.toString(args.getInt(ARG_OBJECT)));
+        ListView listaCanciones = (ListView) rootView.findViewById(R.id.listaCanciones);
+        AdaptadorLista adapter = new AdaptadorLista(this.getActivity(), datos, R.layout.row_style_preparation);
+        listaCanciones.setAdapter(adapter);
         return rootView;
     }
 }
