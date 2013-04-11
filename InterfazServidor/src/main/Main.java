@@ -34,16 +34,12 @@ public class Main {
                         String path, pathVlc = null;
                         try {
                             path = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-                            pathVlc = path.replace("InterfazServidor.jar", "VLC");
 //                            pathVlc = path.replace("InterfazServidor.jar", "VLC");
-                            pathVlc = path + "VLC";
-                            System.out.println(pathVlc);
-//                            JOptionPane.showConfirmDialog(null, pathVlc);
                         } catch (URISyntaxException ex) {
                             ex.printStackTrace();
                         }
 //                        NativeLibrary.addSearchPath("libvlc", pathVlc);
-                        NativeLibrary.addSearchPath("libvlc", "/VLC");
+                        NativeLibrary.addSearchPath("libvlc", "VLC/");
                         interfaz = new FramePrincipal();
 
                         try {

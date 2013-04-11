@@ -4,16 +4,11 @@
  */
 package ficheros;
 
-import java.awt.Component;
-import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
 import modelos.ListasCancionesManager;
 
 /**
@@ -34,39 +29,8 @@ public class FicherosManager {
         listas_manager = _listas_manager;
     }
     
-    public static boolean acabaEnsdj(File f) {
-        return f.getName().endsWith(".sdj");
-    }
-    
     public boolean cargarSesion() {
-        
-        JFileChooser chooser = new JFileChooser() {
-            @Override
-            protected JDialog createDialog(Component parent) throws HeadlessException {
-                JDialog dialog = super.createDialog(parent);
-                dialog.setAlwaysOnTop(true);
-                return dialog;
-            }
-        };
-        chooser.setMultiSelectionEnabled(false);
-        chooser.setCurrentDirectory(new File(""));
-        chooser.setFileFilter(new FileFilter() {
-
-            @Override
-            public boolean accept(File f) {
-                if (acabaEnsdj(f) || f.isDirectory()) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-
-            @Override
-            public String getDescription() {
-                return "Filtro sdj";
-            }
-        });
-        
+                
         fichSesion = new File("");
         boolean i = false;
 
@@ -97,6 +61,24 @@ public class FicherosManager {
         }
         else{
             return false;
+        }
+    }
+    
+    public void guardarSesion(){
+        
+        fichSesion = new File("fich_sesion");
+        
+        try {
+            salidaDatos = new FileOutputStream(fichSesion);
+            
+        } catch (IOException ex) {
+            System.err.println("Error al guardar el fichero de sesion" + ex);
+        } finally {
+            try {
+                salidaDatos.close();
+            } catch (IOException ex) {
+                System.err.println("Error al guardar el fichero de sesion++" + ex);
+            }
         }
     }
     
@@ -140,23 +122,9 @@ public class FicherosManager {
 
     public void guardarPreferencias() {
 
-        fichSesion = new File("fich_sesion");
         fichSelector = new File("fich_selector");
         propiedades = new Properties();
-        
-        try {
-            salidaDatos = new FileOutputStream(fichSesion);
-            
-        } catch (IOException ex) {
-            System.err.println("Error al guardar el fichero de sesion" + ex);
-        } finally {
-            try {
-                salidaDatos.close();
-            } catch (IOException ex) {
-                System.err.println("Error al guardar el fichero de sesion++" + ex);
-            }
-        }
-        
+              
         propiedades.setProperty("selector", listas_manager.path);
         salidaDatos = null;
 
