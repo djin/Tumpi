@@ -72,6 +72,8 @@ public class AdaptadorLista extends BaseAdapter {
             txtNombreCancion.setTextSize(15);
             txtNombreCancion.setTextColor(Color.parseColor("#445e4e"));
             txtNombreCancion.setTypeface(txtNombreCancion.getTypeface(), Typeface.BOLD);
+            txtNombreArtista.setTextSize(13);
+            txtNombreArtista.setTextColor(Color.parseColor("#445e4e"));
         }
         return v;
     }

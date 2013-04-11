@@ -82,14 +82,14 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
         return numeroListas;
     }
 
-    public void crearLista(ViewGroup container) {
+    public void crearLista(String nombreLista) {
         if (!nombresListas.isEmpty()) {
             numeroListas++;
         } else {
             primerFragment.notificarPrimeraListaCreada();
         }
         nListasCreadas++;
-        nombresListas.add("Lista " + nListasCreadas);
+        nombresListas.add(nombreLista);
     }
 
     public void borrarLista(ViewGroup container,int position) {

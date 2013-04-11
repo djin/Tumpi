@@ -1,6 +1,8 @@
 package interfaz.social;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -8,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class ListasCanciones extends FragmentActivity {
 
@@ -58,15 +62,31 @@ public class ListasCanciones extends FragmentActivity {
             case R.id.itemAnadirCanciones:
                 return true;
             case R.id.itemCrearLista:
-                mSwipeViewPagerAdapter.crearLista(mViewPager);
-                mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
-                mSwipeViewPagerAdapter.notifyDataSetChanged();
+                final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                final EditText input = new EditText(this);
+                alert.setView(input);
+                alert.setTitle("Nombre Lista");
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String value = input.getText().toString();
+                        mSwipeViewPagerAdapter.crearLista(value);
+                        mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
+                        mSwipeViewPagerAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.cancel();
+                    }
+                });
+                alert.show();
                 return true;
             case R.id.itemImportar:
                 return true;
             case R.id.itemBorrarLista:
                 int pestanaBorrar = mViewPager.getCurrentItem();
-                mViewPager.setCurrentItem(pestanaBorrar-1, true);
+                mViewPager.setCurrentItem(pestanaBorrar - 1, true);
                 mSwipeViewPagerAdapter.borrarLista(mViewPager, pestanaBorrar);
                 mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
                 mSwipeViewPagerAdapter.notifyDataSetChanged();
