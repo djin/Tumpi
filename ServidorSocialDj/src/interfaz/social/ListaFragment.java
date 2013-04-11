@@ -52,7 +52,7 @@ public class ListaFragment extends Fragment {
 
     public void notificarUltimaListaBorrada() {
         adapter.limpiarDatos();
-        datos.add(new Cancion("Crea una Lista para EMPEZAR!!", "Puedes mandarla en Obciones -> Crear Lista", "", 0, 0, false, false));
+        datos.add(new Cancion("Crea una Lista para EMPEZAR!!", "Puedes mandarla en Obciones, Crear Lista", "", 0, 0, false, false));
         adapter.cambioEstilo(true);
         adapter.notifyDataSetChanged();
     }

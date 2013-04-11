@@ -5,6 +5,8 @@
 package interfaz.social;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,14 +61,22 @@ public class AdaptadorLista extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(estiloFila, parent, false);
         }
-        TextView txt = (TextView) v.findViewById(R.id.textRow);
+        TextView txtNombreCancion = (TextView) v.findViewById(R.id.textNombreCancion);
+        txtNombreCancion.setText(getDatos().get(position).getNombreCancion());
+        TextView txtNombreALbum = (TextView) v.findViewById(R.id.textNombreAlbum);
+        txtNombreALbum.setText(getDatos().get(position).getNombreAlbum());
+        TextView txtNombreArtista = (TextView) v.findViewById(R.id.textNombreArtista);
+        txtNombreArtista.setText(getDatos().get(position).getNombreAutor());
 
-        txt.setText(getDatos().get(position).getNombreCancion());
-        txt.setSelected(true);
+        if (estilo) {
+            txtNombreCancion.setTextSize(15);
+            txtNombreCancion.setTextColor(Color.parseColor("#445e4e"));
+            txtNombreCancion.setTypeface(txtNombreCancion.getTypeface(), Typeface.BOLD);
+        }
         return v;
     }
-    
-    public void cambioEstilo(boolean bol){
+
+    public void cambioEstilo(boolean bol) {
         estilo = bol;
     }
 }

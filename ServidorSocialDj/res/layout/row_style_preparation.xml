@@ -8,9 +8,19 @@
     android:paddingRight="5dp"
     android:orientation="vertical"
 >
-    <TextView android:id="@+id/textRow"
+    <TextView android:id="@+id/textNombreCancion"
     android:layout_width="fill_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:text="Nombre Cancion"
+    />
+    <TextView android:id="@+id/textNombreArtista"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="Nombre Artista"
+    />
+    <TextView android:id="@+id/textNombreAlbum"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="Nombre Album"
     />
 </LinearLayout>
