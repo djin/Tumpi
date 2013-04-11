@@ -27,14 +27,11 @@ public class ListasCanciones extends FragmentActivity {
 
         actionBar.setListNavigationCallbacks(
                 // Specify a SpinnerAdapter to populate the dropdown list.
-                new ArrayAdapter(actionBar.getThemedContext(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                new String[]{"Listas Preparadas", "Lista en reproduccion"}),
+                new ArrayAdapter(actionBar.getThemedContext(), android.R.layout.simple_list_item_1,
+                android.R.id.text1, new String[]{"Listas Preparadas", "Lista en reproduccion"}),
                 // Provide a listener to be called when an item is selected.
                 new ActionBar.OnNavigationListener() {
-            public boolean onNavigationItemSelected(
-                    int position, long id) {
+            public boolean onNavigationItemSelected(int position, long id) {
                 // Take action here, e.g. switching to the
                 // corresponding fragment.
                 return true;
@@ -60,12 +57,19 @@ public class ListasCanciones extends FragmentActivity {
             case R.id.itemAnadirCanciones:
                 return true;
             case R.id.itemCrearLista:
-                mSwipeViewPagerAdapter.crearLista();
+                mSwipeViewPagerAdapter.crearLista(mViewPager);
+                mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
                 mSwipeViewPagerAdapter.notifyDataSetChanged();
                 return true;
             case R.id.itemImportar:
                 return true;
-            case R.id.itemVerImportarda:
+            case R.id.itemBorrarLista:
+                int pestanaBorrar = mViewPager.getCurrentItem();
+                mViewPager.setCurrentItem(pestanaBorrar-1, true);
+//                mViewPager.removeViewAt(pestanaBorrar);
+                mSwipeViewPagerAdapter.borrarLista(mViewPager, pestanaBorrar);
+                mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
+                mSwipeViewPagerAdapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

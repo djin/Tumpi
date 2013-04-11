@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import java.util.ArrayList;
+import modelo.datos.Cancion;
 
 /**
  *
@@ -18,17 +19,34 @@ import java.util.ArrayList;
  */
 public class ListaFragment extends Fragment {
 
-    public ArrayList<String> datos = new ArrayList<String>();
+    public ArrayList<Cancion> datos = new ArrayList<Cancion>();
+    private Boolean primera;
+    private AdaptadorLista adapter;
+
+    public ListaFragment(Boolean pri) {
+        primera = pri;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // The last two arguments ensure LayoutParams are inflated
         // properly.
+        
         View rootView = inflater.inflate(R.layout.style_listas_preparacion, container, false);
-        Bundle args = getArguments();
         ListView listaCanciones = (ListView) rootView.findViewById(R.id.listaCanciones);
-        AdaptadorLista adapter = new AdaptadorLista(this.getActivity(), datos, R.layout.row_style_preparation);
+        if(!primera){
+            datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+        }
+        else{
+            datos.add(new Cancion("Crea una Lista de canciones de EMPEZAR!!", "Puedes mandarla en Obciones -> Crear Lista", " ", 0, 0, false, false));
+        }
+        adapter = new AdaptadorLista(this.getActivity(), datos, R.layout.row_style_preparation);
         listaCanciones.setAdapter(adapter);
         return rootView;
+    }
+    
+    public void notificarPrimeraListaCreada(){
+        datos.set(0, new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+        adapter.notifyDataSetChanged();
     }
 }

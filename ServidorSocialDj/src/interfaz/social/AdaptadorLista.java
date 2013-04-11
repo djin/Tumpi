@@ -11,14 +11,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
+import modelo.datos.Cancion;
 
 public class AdaptadorLista extends BaseAdapter {
 
     Context mContext;
-    private ArrayList<String> datos;
+    private ArrayList<Cancion> datos;
     int estiloFila;
 
-    public AdaptadorLista(Context c, ArrayList<String> d, int v) {
+    public AdaptadorLista(Context c, ArrayList<Cancion> d, int v) {
         mContext = c;
         datos = d;
         estiloFila = v;
@@ -36,11 +37,11 @@ public class AdaptadorLista extends BaseAdapter {
         return position;
     }
 
-    public void setDatos(ArrayList<String> datos_aux) {
+    public void setDatos(ArrayList<Cancion> datos_aux) {
         datos = datos_aux;
     }
 
-    public ArrayList<String> getDatos() {
+    public ArrayList<Cancion> getDatos() {
         return datos;
     }
 
@@ -59,7 +60,7 @@ public class AdaptadorLista extends BaseAdapter {
         }
         TextView txt = (TextView) v.findViewById(R.id.textRow);
 
-        txt.setText(getDatos().get(position));
+        txt.setText(getDatos().get(position).getNombreCancion());
         txt.setSelected(true);
         return v;
     }

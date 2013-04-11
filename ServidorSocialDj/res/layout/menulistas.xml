@@ -5,6 +5,10 @@
             android:text="Crear Lista"
             android:title="Crear Lista"
             />
+            <item android:id="@+id/itemBorrarLista"
+            android:text="Borrar Lista"
+            android:title="Borrar Lista"
+            />
             <item android:id="@+id/itemAnadirCanciones"
             android:text="Anadir Canciones"
             android:title="Anadir Canciones"
@@ -12,9 +16,5 @@
             <item android:id="@+id/itemImportar"
             android:text="Importar"
             android:title="Importar"
-            />
-            <item android:id="@+id/itemVerImportarda"
-            android:text="Ver Importarda"
-            android:title="Ver Importard"
             />
 </menu>
