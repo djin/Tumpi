@@ -17,6 +17,7 @@ public class ListasCanciones extends FragmentActivity {
     SwipeViewPagerAdapter mSwipeViewPagerAdapter;
     ViewPager mViewPager;
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
@@ -66,7 +67,6 @@ public class ListasCanciones extends FragmentActivity {
             case R.id.itemBorrarLista:
                 int pestanaBorrar = mViewPager.getCurrentItem();
                 mViewPager.setCurrentItem(pestanaBorrar-1, true);
-//                mViewPager.removeViewAt(pestanaBorrar);
                 mSwipeViewPagerAdapter.borrarLista(mViewPager, pestanaBorrar);
                 mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
                 mSwipeViewPagerAdapter.notifyDataSetChanged();

@@ -18,6 +18,7 @@ public class AdaptadorLista extends BaseAdapter {
     Context mContext;
     private ArrayList<Cancion> datos;
     int estiloFila;
+    Boolean estilo = false;
 
     public AdaptadorLista(Context c, ArrayList<Cancion> d, int v) {
         mContext = c;
@@ -56,12 +57,16 @@ public class AdaptadorLista extends BaseAdapter {
         View v = convertView;
         if (v == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.row_style_preparation, parent, false);
+            v = inflater.inflate(estiloFila, parent, false);
         }
         TextView txt = (TextView) v.findViewById(R.id.textRow);
 
         txt.setText(getDatos().get(position).getNombreCancion());
         txt.setSelected(true);
         return v;
+    }
+    
+    public void cambioEstilo(boolean bol){
+        estilo = bol;
     }
 }

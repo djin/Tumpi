@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private int numeroListas = 1;
+    private int numeroListas = 1, nListasCreadas;
     private ArrayList<String> nombresListas;
     private ListaFragment primerFragment;
     private ArrayList<Object> listasCreadas;
@@ -83,24 +83,26 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void crearLista(ViewGroup container) {
-        startUpdate(container);
         if (!nombresListas.isEmpty()) {
             numeroListas++;
         } else {
             primerFragment.notificarPrimeraListaCreada();
         }
-        nombresListas.add("Lista " + numeroListas);
-        finishUpdate(container);
+        nListasCreadas++;
+        nombresListas.add("Lista " + nListasCreadas);
     }
 
     public void borrarLista(ViewGroup container,int position) {
         if (nombresListas.size() > 1) {
-            startUpdate(container);
             nombresListas.remove(position);
             Fragment aBorrar = (Fragment) listasCreadas.get(position);
             listasCreadas.remove(aBorrar);
             numeroListas--;
-            finishUpdate(container);
+        }
+        else {
+            ((ListaFragment)listasCreadas.get(position)).notificarUltimaListaBorrada();
+            nombresListas.remove(0);
+            nListasCreadas=0;
         }
     }
 

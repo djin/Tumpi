@@ -31,22 +31,29 @@ public class ListaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // The last two arguments ensure LayoutParams are inflated
         // properly.
-        
+
         View rootView = inflater.inflate(R.layout.style_listas_preparacion, container, false);
         ListView listaCanciones = (ListView) rootView.findViewById(R.id.listaCanciones);
-        if(!primera){
-            datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        }
-        else{
-            datos.add(new Cancion("Crea una Lista de canciones de EMPEZAR!!", "Puedes mandarla en Obciones -> Crear Lista", " ", 0, 0, false, false));
-        }
         adapter = new AdaptadorLista(this.getActivity(), datos, R.layout.row_style_preparation);
+        if (!primera) {
+            datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+        } else {
+            notificarUltimaListaBorrada();
+        }
+        
         listaCanciones.setAdapter(adapter);
         return rootView;
     }
-    
-    public void notificarPrimeraListaCreada(){
+
+    public void notificarPrimeraListaCreada() {
         datos.set(0, new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+        adapter.notifyDataSetChanged();
+    }
+
+    public void notificarUltimaListaBorrada() {
+        adapter.limpiarDatos();
+        datos.add(new Cancion("Crea una Lista para EMPEZAR!!", "Puedes mandarla en Obciones -> Crear Lista", "", 0, 0, false, false));
+        adapter.cambioEstilo(true);
         adapter.notifyDataSetChanged();
     }
 }
