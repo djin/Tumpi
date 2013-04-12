@@ -4,7 +4,15 @@
     <item android:id="@+id/itemBuscarLista"
           android:icon="@drawable/image_search"
           android:title="Buscar Lista"
-          android:showAsAction="ifRoom"/>
+          android:showAsAction="ifRoom"
+    >
+        <menu>
+            <item android:id="@+id/lista1"
+                android:text="Lista 1"
+                android:title="Lista 1"
+            />
+        </menu>
+    </item>
     <item android:id="@+id/itemCrearLista"
               android:text="Crear Lista"
               android:title="Crear Lista"
@@ -12,9 +20,5 @@
     <item android:id="@+id/itemBorrarLista"
               android:text="Borrar Lista"
               android:title="Borrar Lista"
-    />
-    <item android:id="@+id/itemAnadirCanciones"
-          android:text="Anadir Canciones"
-          android:title="Anadir Canciones"
     />
 </menu>

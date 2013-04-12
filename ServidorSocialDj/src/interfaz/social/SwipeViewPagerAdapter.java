@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private int numeroListas = 1, nListasCreadas;
-    private ArrayList<String> nombresListas;
+    private ArrayList<String> nombresListas; 
     private ListaFragment primerFragment;
     private ArrayList<Object> listasCreadas;
 
@@ -85,7 +86,7 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
         return numeroListas;
     }
 
-    public void crearLista(ViewGroup container) {
+    public void crearLista(final ViewGroup container) {
         final AlertDialog.Builder alert = new AlertDialog.Builder(container.getContext());
         final EditText input = new EditText(container.getContext());
         alert.setView(input);
@@ -102,6 +103,8 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
                     nListasCreadas++;
                     nombresListas.add(value);
                     notifyDataSetChanged();
+                    ViewPager vp = (ViewPager)container;
+                    vp.setCurrentItem(vp.getChildCount());
                 }
                 else {
                     dialog.cancel();
@@ -142,5 +145,9 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
         } else {
             return nombresListas.get(position);
         }
+    }
+    
+    public ArrayList<String> getNombresListas (){
+        return nombresListas;
     }
 }

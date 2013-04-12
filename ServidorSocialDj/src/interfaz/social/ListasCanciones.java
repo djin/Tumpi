@@ -9,9 +9,11 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 public class ListasCanciones extends FragmentActivity {
 
@@ -20,6 +22,7 @@ public class ListasCanciones extends FragmentActivity {
     // representing an object in the collection.
     SwipeViewPagerAdapter mSwipeViewPagerAdapter;
     ViewPager mViewPager;
+    private Menu menuApp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,39 +48,79 @@ public class ListasCanciones extends FragmentActivity {
         // ViewPager and its adapters use support library
         // fragments, so use getSupportFragmentManager.
         mSwipeViewPagerAdapter = new SwipeViewPagerAdapter(getSupportFragmentManager());
+//        mViewPager.setPageMargin(10);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSwipeViewPagerAdapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menuApp = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.menulistas, menu);
+        menu.getItem(0).getSubMenu().clear();
         menu.add(13, 58, 4, "Promocionar");
+        menu.add(12, 57, 3, "Añadir Canciones");
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.itemAnadirCanciones:
-                Toast.makeText(this, "Pulsado añadir", Toast.LENGTH_SHORT).show();
+            //ID añadir canciones
+            case 57:
+                if (mSwipeViewPagerAdapter.getNombresListas().isEmpty()) {
+                    Toast.makeText(this, "No tienes listas creadas", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Pulsado añadir", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id.itemCrearLista:
                 mSwipeViewPagerAdapter.crearLista(mViewPager);
                 return true;
             case R.id.itemBuscarLista:
-                Toast.makeText(this, "Pulsado Buscar", Toast.LENGTH_SHORT).show();
+                SubMenu sMenu = item.getSubMenu();
+                sMenu.clear();
+                if (mSwipeViewPagerAdapter.getNombresListas().isEmpty()) {
+                    Toast.makeText(this, "No tienes listas creadas", Toast.LENGTH_SHORT).show();
+                } else {
+                    ArrayList<String> listas = mSwipeViewPagerAdapter.getNombresListas();
+                    int idg = 1,
+                            id = 1,
+                            orden = 0;
+                    for (String nombre : listas) {
+                        sMenu.add(idg, id, orden, nombre);
+                        MenuItem sItem = sMenu.getItem(orden);
+                        sItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            public boolean onMenuItemClick(MenuItem item) {
+                                mViewPager.setCurrentItem(item.getOrder(), true);
+                                return true;
+                            }
+                        });
+                        idg++;
+                        id++;
+                        orden++;
+                    }
+                }
                 return true;
             case R.id.itemBorrarLista:
-                int pestanaBorrar = mViewPager.getCurrentItem();
-                mViewPager.setCurrentItem(pestanaBorrar - 1, true);
-                mSwipeViewPagerAdapter.borrarLista(mViewPager, pestanaBorrar);
-                mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
-                mSwipeViewPagerAdapter.notifyDataSetChanged();
+                if (mSwipeViewPagerAdapter.getNombresListas().isEmpty()) {
+                    Toast.makeText(this, "No tienes listas creadas", Toast.LENGTH_SHORT).show();
+                } else {
+                    int pestanaBorrar = mViewPager.getCurrentItem();
+                    mViewPager.setCurrentItem(pestanaBorrar - 1, true);
+                    mSwipeViewPagerAdapter.borrarLista(mViewPager, pestanaBorrar);
+                    mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
+                    mSwipeViewPagerAdapter.notifyDataSetChanged();
+                }
                 return true;
+            //ID de promocionar
             case 58:
-                Toast.makeText(this, "Pulsado Promocionar", Toast.LENGTH_SHORT).show();
+                if (mSwipeViewPagerAdapter.getNombresListas().isEmpty()) {
+                    Toast.makeText(this, "No tienes listas creadas", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Pulsado Promocionar", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
