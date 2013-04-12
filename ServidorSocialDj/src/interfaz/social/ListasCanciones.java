@@ -35,20 +35,22 @@ public class ListasCanciones extends FragmentActivity {
 
         actionBar.setListNavigationCallbacks(
                 // Specify a SpinnerAdapter to populate the dropdown list.
-                new ArrayAdapter(actionBar.getThemedContext(), android.R.layout.simple_list_item_1,
-                android.R.id.text1, new String[]{"Listas Preparadas", "Lista en reproduccion"}),
+                new ArrayAdapter(actionBar.getThemedContext(), R.layout.style_row_spinner,
+                R.id.textSpinner, new String[]{"Listas Preparadas", "Lista en reproduccion"}),
                 // Provide a listener to be called when an item is selected.
                 new ActionBar.OnNavigationListener() {
             public boolean onNavigationItemSelected(int position, long id) {
                 // Take action here, e.g. switching to the
                 // corresponding fragment.
+                if(position ==1){
+                    Toast.makeText(mViewPager.getContext(), "pulsado lista promocionada", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
         // ViewPager and its adapters use support library
         // fragments, so use getSupportFragmentManager.
         mSwipeViewPagerAdapter = new SwipeViewPagerAdapter(getSupportFragmentManager());
-//        mViewPager.setPageMargin(10);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSwipeViewPagerAdapter);
     }
