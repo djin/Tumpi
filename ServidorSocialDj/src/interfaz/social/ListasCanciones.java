@@ -1,8 +1,7 @@
 package interfaz.social;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -11,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Toast;
 import java.util.ArrayList;
 
@@ -28,7 +26,6 @@ public class ListasCanciones extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        setTitle("");
         final ActionBar actionBar = getActionBar();
         // Specify that a dropdown list should be displayed in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -43,11 +40,15 @@ public class ListasCanciones extends FragmentActivity {
                 // Take action here, e.g. switching to the
                 // corresponding fragment.
                 if(position ==1){
-                    Toast.makeText(mViewPager.getContext(), "pulsado lista promocionada", Toast.LENGTH_SHORT).show();
+                    actionBar.setSelectedNavigationItem(0);
+                    Intent inte = new Intent(ListasCanciones.this, ListaPromocionada.class);
+                    startActivity(inte);
                 }
                 return true;
             }
         });
+        actionBar.setDisplayShowTitleEnabled(false);
+        
         // ViewPager and its adapters use support library
         // fragments, so use getSupportFragmentManager.
         mSwipeViewPagerAdapter = new SwipeViewPagerAdapter(getSupportFragmentManager());
