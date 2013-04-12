@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-            <item android:id="@+id/itemCrearLista"
-            android:text="Crear Lista"
-            android:title="Crear Lista"
-            />
-            <item android:id="@+id/itemBorrarLista"
-            android:text="Borrar Lista"
-            android:title="Borrar Lista"
-            />
-            <item android:id="@+id/itemAnadirCanciones"
-            android:text="Anadir Canciones"
-            android:title="Anadir Canciones"
-            />
-            <item android:id="@+id/itemImportar"
-            android:text="Importar"
-            android:title="Importar"
-            />
+    <item android:id="@+id/itemBuscarLista"
+          android:icon="@drawable/image_search"
+          android:title="Buscar Lista"
+          android:showAsAction="ifRoom"/>
+    <item android:id="@+id/itemCrearLista"
+              android:text="Crear Lista"
+              android:title="Crear Lista"
+    />
+    <item android:id="@+id/itemBorrarLista"
+              android:text="Borrar Lista"
+              android:title="Borrar Lista"
+    />
+    <item android:id="@+id/itemAnadirCanciones"
+          android:text="Anadir Canciones"
+          android:title="Anadir Canciones"
+    />
 </menu>

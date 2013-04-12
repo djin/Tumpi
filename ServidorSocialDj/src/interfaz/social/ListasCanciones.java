@@ -53,6 +53,7 @@ public class ListasCanciones extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.menulistas, menu);
+        menu.add(13, 58, 4, "Promocionar");
         return true;
     }
 
@@ -60,11 +61,13 @@ public class ListasCanciones extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemAnadirCanciones:
+                Toast.makeText(this, "Pulsado añadir", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.itemCrearLista:
                 mSwipeViewPagerAdapter.crearLista(mViewPager);
                 return true;
-            case R.id.itemImportar:
+            case R.id.itemBuscarLista:
+                Toast.makeText(this, "Pulsado Buscar", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.itemBorrarLista:
                 int pestanaBorrar = mViewPager.getCurrentItem();
@@ -72,6 +75,9 @@ public class ListasCanciones extends FragmentActivity {
                 mSwipeViewPagerAdapter.borrarLista(mViewPager, pestanaBorrar);
                 mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
                 mSwipeViewPagerAdapter.notifyDataSetChanged();
+                return true;
+            case 58:
+                Toast.makeText(this, "Pulsado Promocionar", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
