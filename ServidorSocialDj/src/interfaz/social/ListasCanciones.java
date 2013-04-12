@@ -62,25 +62,7 @@ public class ListasCanciones extends FragmentActivity {
             case R.id.itemAnadirCanciones:
                 return true;
             case R.id.itemCrearLista:
-                final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                final EditText input = new EditText(this);
-                alert.setView(input);
-                alert.setTitle("Nombre Lista");
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        String value = input.getText().toString();
-                        mSwipeViewPagerAdapter.crearLista(value);
-                        mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
-                        mSwipeViewPagerAdapter.notifyDataSetChanged();
-                    }
-                });
-
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.cancel();
-                    }
-                });
-                alert.show();
+                mSwipeViewPagerAdapter.crearLista(mViewPager);
                 return true;
             case R.id.itemImportar:
                 return true;

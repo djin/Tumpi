@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal"
 >
-    <ListView android:id="@+id/listaCanciones"
+    <ListView android:id="@android:id/list"
         android:layout_weight="1"
         android:layout_width="fill_parent"
         android:paddingLeft="3dp"

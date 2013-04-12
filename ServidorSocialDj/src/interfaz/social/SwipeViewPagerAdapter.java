@@ -4,10 +4,13 @@
  */
 package interfaz.social;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import java.util.ArrayList;
 
 /**
@@ -82,27 +85,48 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
         return numeroListas;
     }
 
-    public void crearLista(String nombreLista) {
-        if (!nombresListas.isEmpty()) {
-            numeroListas++;
-        } else {
-            primerFragment.notificarPrimeraListaCreada();
-        }
-        nListasCreadas++;
-        nombresListas.add(nombreLista);
+    public void crearLista(ViewGroup container) {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(container.getContext());
+        final EditText input = new EditText(container.getContext());
+        alert.setView(input);
+        alert.setTitle("Nombre Lista");
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = input.getText().toString();
+                if (!value.equals("")) {
+                    if (!nombresListas.isEmpty()) {
+                        numeroListas++;
+                    } else {
+                        primerFragment.notificarPrimeraListaCreada();
+                    }
+                    nListasCreadas++;
+                    nombresListas.add(value);
+                    notifyDataSetChanged();
+                }
+                else {
+                    dialog.cancel();
+                }
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+        alert.show();
     }
 
-    public void borrarLista(ViewGroup container,int position) {
+    public void borrarLista(ViewGroup container, int position) {
         if (nombresListas.size() > 1) {
             nombresListas.remove(position);
             Fragment aBorrar = (Fragment) listasCreadas.get(position);
             listasCreadas.remove(aBorrar);
             numeroListas--;
-        }
-        else {
-            ((ListaFragment)listasCreadas.get(position)).notificarUltimaListaBorrada();
+        } else {
+            ((ListaFragment) listasCreadas.get(position)).notificarUltimaListaBorrada();
             nombresListas.remove(0);
-            nListasCreadas=0;
+            nListasCreadas = 0;
         }
     }
 
@@ -110,8 +134,7 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
-    
-    
+
     @Override
     public CharSequence getPageTitle(int position) {
         if (nombresListas.isEmpty()) {
