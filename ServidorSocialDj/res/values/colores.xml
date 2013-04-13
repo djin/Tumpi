@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <color name="colorTitulo">#ff45ad73</color>
+    <color name="colorLetraSecundaria">#ff909190</color>
 </resources>

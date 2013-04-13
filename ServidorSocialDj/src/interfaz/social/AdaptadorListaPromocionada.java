@@ -6,6 +6,7 @@
 package interfaz.social;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,12 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
         txtNombreArtistaPromocionada.setText(datos.get(position).getNombreAutor());
         TextView txtNombreAlbumPromocionada = (TextView)rootView.findViewById(R.id.textNombreAlbumPromocionada);
         txtNombreAlbumPromocionada.setText(datos.get(position).getNombreAlbum());
+        if(rootView.isSelected()){
+            rootView.setBackgroundColor(Color.parseColor("#ffFF0000"));
+        }
+        else {
+            rootView.setBackgroundColor(Color.parseColor("#00000000"));
+        }
         return rootView;
     }
 

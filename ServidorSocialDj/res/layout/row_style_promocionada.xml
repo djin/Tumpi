@@ -22,14 +22,14 @@
         <TextView android:id="@+id/textNombreArtistaPromocionada"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
-                  android:textColor="#909190"
+                  android:textColor="@color/colorLetraSecundaria"
                   android:textSize="10dp"
                   android:text="HUEAG"
         />
         <TextView android:id="@+id/textNombreAlbumPromocionada"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
-                  android:textColor="#909190"
+                  android:textColor="@color/colorLetraSecundaria"
                   android:textSize="10dp"
                   android:text="HUEAG"
         />

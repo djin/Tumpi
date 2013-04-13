@@ -8,7 +8,11 @@ import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
 import modelo.datos.ModeloDatos;
@@ -64,5 +68,14 @@ public class ListaPromocionada extends ListActivity {
         datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
         AdaptadorListaPromocionada adapter = new AdaptadorListaPromocionada(this, datosListaPromocionada , R.layout.row_style_promocionada);
         setListAdapter(adapter);
+        ListView lista = (ListView)findViewById(android.R.id.list);
+        lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        v.setSelected(true);
+    }
+    
 }
