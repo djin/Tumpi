@@ -22,6 +22,4 @@ public class ModeloDatos {
     public static ModeloDatos getInstance(){
         return INSTANCE;
     }
-    
-    
 }
