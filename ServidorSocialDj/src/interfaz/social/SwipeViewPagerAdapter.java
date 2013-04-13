@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import java.util.ArrayList;
+import modelo.datos.ModeloDatos;
 
 /**
  *
@@ -20,15 +21,18 @@ import java.util.ArrayList;
  */
 public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private int numeroListas = 1, nListasCreadas;
-    private ArrayList<String> nombresListas; 
+    private int numeroListas = 1;
+    private ArrayList<String> nombresListas;
     private ListaFragment primerFragment;
     private ArrayList<Object> listasCreadas;
+    private ModeloDatos modelo;
 
     public SwipeViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        nombresListas = new ArrayList<String>();
+        modelo = ModeloDatos.getInstance();
+        nombresListas = modelo.nombreLista;
         listasCreadas = new ArrayList<Object>();
+        
     }
 
     @Override
@@ -83,7 +87,11 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return numeroListas;
+        if (nombresListas.isEmpty()) {
+            return 1;
+        } else {
+            return nombresListas.size();
+        }
     }
 
     public void crearLista(final ViewGroup container) {
@@ -100,13 +108,11 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
                     } else {
                         primerFragment.notificarPrimeraListaCreada();
                     }
-                    nListasCreadas++;
                     nombresListas.add(value);
                     notifyDataSetChanged();
-                    ViewPager vp = (ViewPager)container;
-                    vp.setCurrentItem(vp.getChildCount());
-                }
-                else {
+                    ViewPager vp = (ViewPager) container;
+                    vp.setCurrentItem(numeroListas);
+                } else {
                     dialog.cancel();
                 }
             }
@@ -129,7 +135,6 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
         } else {
             ((ListaFragment) listasCreadas.get(position)).notificarUltimaListaBorrada();
             nombresListas.remove(0);
-            nListasCreadas = 0;
         }
     }
 
@@ -146,8 +151,8 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
             return nombresListas.get(position);
         }
     }
-    
-    public ArrayList<String> getNombresListas (){
+
+    public ArrayList<String> getNombresListas() {
         return nombresListas;
     }
 }
