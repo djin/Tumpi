@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
 
@@ -54,6 +55,8 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rootView = inflater.inflate(estiloFila, parent, false);
         }
+        TextView txtNombreCancionPromocionada = (TextView)rootView.findViewById(R.id.textNombreCancionPromocionada);
+        txtNombreCancionPromocionada.setText(datos.get(position).getNombreCancion());
         return rootView;
     }
 

@@ -15,6 +15,7 @@ public class ModeloDatos {
     
     private static ModeloDatos INSTANCE = new ModeloDatos();
     public ArrayList<String> nombreLista = new ArrayList<String>();
+    public ArrayList<Cancion> listaPromocionada = new ArrayList<Cancion>();
 
     private ModeloDatos() {
     }

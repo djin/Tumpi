@@ -9,12 +9,18 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import java.util.ArrayList;
+import modelo.datos.Cancion;
+import modelo.datos.ModeloDatos;
 
 /**
  *
  * @author Zellyalgo
  */
 public class ListaPromocionada extends ListActivity {
+    
+    private ArrayList<Cancion> datosListaPromocionada;
+    private ModeloDatos modelo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,7 @@ public class ListaPromocionada extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.style_lista_promocionada);
         final ActionBar actionBar = getActionBar();
+        modelo = ModeloDatos.getInstance();
         // Specify that a dropdown list should be displayed in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
@@ -43,5 +50,10 @@ public class ListaPromocionada extends ListActivity {
             }
         });
         actionBar.setDisplayShowTitleEnabled(false);
+        
+        datosListaPromocionada = modelo.listaPromocionada;
+        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+        AdaptadorListaPromocionada adapter = new AdaptadorListaPromocionada(this, datosListaPromocionada , R.layout.row_style_promocionada);
+        setListAdapter(adapter);
     }
 }
