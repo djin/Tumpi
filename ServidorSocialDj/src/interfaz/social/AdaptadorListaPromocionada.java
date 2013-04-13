@@ -57,6 +57,10 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
         }
         TextView txtNombreCancionPromocionada = (TextView)rootView.findViewById(R.id.textNombreCancionPromocionada);
         txtNombreCancionPromocionada.setText(datos.get(position).getNombreCancion());
+        TextView txtNombreArtistaPromocionada = (TextView)rootView.findViewById(R.id.textNombreArtistaPromocionada);
+        txtNombreArtistaPromocionada.setText(datos.get(position).getNombreAutor());
+        TextView txtNombreAlbumPromocionada = (TextView)rootView.findViewById(R.id.textNombreAlbumPromocionada);
+        txtNombreAlbumPromocionada.setText(datos.get(position).getNombreAlbum());
         return rootView;
     }
 

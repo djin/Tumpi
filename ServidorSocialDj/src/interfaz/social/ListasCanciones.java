@@ -42,6 +42,7 @@ public class ListasCanciones extends FragmentActivity {
                 if(position ==1){
                     actionBar.setSelectedNavigationItem(0);
                     Intent inte = new Intent(ListasCanciones.this, ListaPromocionada.class);
+                    inte.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(inte);
                 }
                 return true;
