@@ -8,19 +8,31 @@
     >
         <menu>
             <item android:id="@+id/lista1"
-                android:text="Lista 1"
-                android:title="Lista 1"
+                  android:text="Lista 1"
+                  android:title="Lista 1"
             />
         </menu>
     </item>
     <item android:id="@+id/itemCrearLista"
-              android:text="Crear Lista"
-              android:title="Crear Lista"
-              android:icon="@drawable/image_add"
-              android:showAsAction="ifRoom"
+          android:text="Crear Lista"
+          android:title="Crear Lista"
+          android:icon="@drawable/image_add"
+          android:showAsAction="ifRoom"
+    />
+    <item android:id="@+id/itemBorrar"
+          android:text="Borrar Canciones"
+          android:title="Borrar Canciones"
+          android:icon="@drawable/image_delete"
+          android:showAsAction="ifRoom"
+    />
+    <item android:id="@+id/itemCancelar"
+          android:text="Cancelar"
+          android:title="Cancelar"
+          android:icon="@drawable/image_cancel"
+          android:showAsAction="ifRoom"
     />
     <item android:id="@+id/itemBorrarLista"
-              android:text="Borrar Lista"
-              android:title="Borrar Lista"
+          android:text="Borrar Lista"
+          android:title="Borrar Lista"
     />
 </menu>

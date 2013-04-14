@@ -1,5 +1,6 @@
 package interfaz.social;
 
+import Manejador.ManejadorAcciones;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
@@ -21,11 +22,14 @@ public class ListasCanciones extends FragmentActivity {
     SwipeViewPagerAdapter mSwipeViewPagerAdapter;
     ViewPager mViewPager;
     private Menu menuApp;
+    private ManejadorAcciones manejador;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        manejador = ManejadorAcciones.getInstance();
+        manejador.setListaCanciones(this);
         final ActionBar actionBar = getActionBar();
         // Specify that a dropdown list should be displayed in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -39,7 +43,7 @@ public class ListasCanciones extends FragmentActivity {
             public boolean onNavigationItemSelected(int position, long id) {
                 // Take action here, e.g. switching to the
                 // corresponding fragment.
-                if(position ==1){
+                if (position == 1) {
                     actionBar.setSelectedNavigationItem(0);
                     Intent inte = new Intent(ListasCanciones.this, ListaPromocionada.class);
                     inte.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -49,12 +53,31 @@ public class ListasCanciones extends FragmentActivity {
             }
         });
         actionBar.setDisplayShowTitleEnabled(false);
-        
+
         // ViewPager and its adapters use support library
         // fragments, so use getSupportFragmentManager.
         mSwipeViewPagerAdapter = new SwipeViewPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSwipeViewPagerAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            public void onPageScrolled(int i, float f, int i1) {
+                cancelarSeleccion();
+            }
+
+            public void onPageSelected(int i) {
+                cancelarSeleccion();
+            }
+
+            public void onPageScrollStateChanged(int i) {
+                cancelarSeleccion();
+            }
+        });
+    }
+    
+    public void cancelarSeleccion(){
+        manejador.cancelarSeleccion();
+        desapareceMenuSeleccion();
     }
 
     @Override
@@ -63,9 +86,24 @@ public class ListasCanciones extends FragmentActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.menulistas, menu);
         menu.getItem(0).getSubMenu().clear();
-        menu.add(13, 58, 4, "Promocionar");
-        menu.add(12, 57, 3, "Añadir Canciones");
+        menu.add(13, 58, 6, "Promocionar");
+        menu.add(12, 57, 5, "Añadir Canciones");
+        desapareceMenuSeleccion();
         return true;
+    }
+
+    public void desapareceMenuSeleccion() {
+        menuApp.getItem(0).setVisible(true);
+        menuApp.getItem(1).setVisible(true);
+        menuApp.getItem(2).setVisible(false);
+        menuApp.getItem(3).setVisible(false);
+    }
+
+    public void apareceMenuSeleccion() {
+        menuApp.getItem(0).setVisible(false);
+        menuApp.getItem(1).setVisible(false);
+        menuApp.getItem(2).setVisible(true);
+        menuApp.getItem(3).setVisible(true);
     }
 
     @Override
@@ -81,6 +119,11 @@ public class ListasCanciones extends FragmentActivity {
                 return true;
             case R.id.itemCrearLista:
                 mSwipeViewPagerAdapter.crearLista(mViewPager);
+                return true;
+            case R.id.itemBorrar:
+                return true;
+            case R.id.itemCancelar:
+                cancelarSeleccion();
                 return true;
             case R.id.itemBuscarLista:
                 SubMenu sMenu = item.getSubMenu();

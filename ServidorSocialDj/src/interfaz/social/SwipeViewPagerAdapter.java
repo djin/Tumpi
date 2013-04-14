@@ -4,6 +4,7 @@
  */
 package interfaz.social;
 
+import Manejador.ManejadorAcciones;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
@@ -27,13 +28,14 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
     private ListaFragment primerFragment;
     private ArrayList<Object> listasCreadas;
     private ModeloDatos modelo;
+    private ManejadorAcciones manejador;
 
     public SwipeViewPagerAdapter(FragmentManager fm) {
         super(fm);
         modelo = ModeloDatos.getInstance();
         nombresListas = modelo.nombreLista;
         listasCreadas = new ArrayList<Object>();
-        
+        manejador = ManejadorAcciones.getInstance();
     }
 
     @Override
@@ -44,36 +46,6 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
             primerFragment = fragment;
         } else {
             fragment = new ListaFragment(false);
-        }
-        // Our object is just an integer :-P
-        switch (i) {
-            case 0:
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                break;
-            case 1:
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                break;
-            case 2:
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                
-                break;
-            default:
-                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
         }
         listasCreadas.add(fragment);
         return fragment;
@@ -129,9 +101,10 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
         } else {
             ((ListaFragment) listasCreadas.get(position)).notificarUltimaListaBorrada();
             nombresListas.remove(0);
+            manejador.finModoSeleccion();
         }
     }
-
+    
     @Override
     public int getItemPosition(Object object) {
         return POSITION_NONE;

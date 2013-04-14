@@ -4,16 +4,15 @@
  */
 package interfaz.social;
 
+import Manejador.ManejadorAcciones;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
 
@@ -27,9 +26,13 @@ public class ListaFragment extends ListFragment {
     private Boolean primera;
     private AdaptadorLista adapter;
     private ViewPager viewPager;
+    private Boolean modoSeleccion = false;
+    private ManejadorAcciones manejador;
+    private ListaFragment lf = this;
 
     public ListaFragment(Boolean pri) {
         primera = pri;
+        manejador = ManejadorAcciones.getInstance();
     }
 
     @Override
@@ -41,11 +44,26 @@ public class ListaFragment extends ListFragment {
         ListView listaCanciones = (ListView) rootView.findViewById(android.R.id.list);
         adapter = new AdaptadorLista(this.getActivity(), datos, R.layout.row_style_preparation);
         if (!primera) {
-            datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+            //rellenar las listas
+            for (int i = 0; i <= 10; i++) {
+                datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                adapter.seleccionados.add(false);
+            }
+            listaCanciones.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    modoSeleccion = true;
+                    manejador.setListaFragment(lf);
+                    adapter.seleccionados.set(position, true);
+                    adapter.notifyDataSetChanged();
+                    manejador.modoSeleccion();
+                    return true;
+                }
+            });
         } else {
             notificarUltimaListaBorrada();
         }
         listaCanciones.setAdapter(adapter);
+
         return rootView;
     }
 
@@ -54,17 +72,39 @@ public class ListaFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         if (primera) {
             ((SwipeViewPagerAdapter) viewPager.getAdapter()).crearLista(viewPager);
+        } else {
+            if (modoSeleccion) {
+                if (adapter.seleccionados.get(position)) {
+                    adapter.seleccionados.set(position, false);
+                } else {
+                    adapter.seleccionados.set(position, true);
+                }
+                adapter.notifyDataSetChanged();
+            }
         }
+    }
+    
+    public void cancelarSeleccion(){
+        int i=0;
+        for(Boolean b : adapter.seleccionados){
+            b=false;
+            adapter.seleccionados.set(i, b);
+            i++;
+        }
+        modoSeleccion = false;
+        adapter.notifyDataSetChanged();
     }
 
     public void notificarPrimeraListaCreada() {
         datos.set(0, new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+        adapter.seleccionados.add(false);
         adapter.notifyDataSetChanged();
     }
 
     public void notificarUltimaListaBorrada() {
         adapter.limpiarDatos();
         datos.add(new Cancion("Crea una Lista para EMPEZAR!!", "Puedes crearla en Opciones -> Crear Lista", "o sino.. PULSAME", 0, 0, false, false));
+        adapter.seleccionados.add(false);
         adapter.cambioEstilo(true);
         adapter.notifyDataSetChanged();
     }

@@ -19,6 +19,7 @@ public class AdaptadorLista extends BaseAdapter {
 
     Context mContext;
     private ArrayList<Cancion> datos;
+    ArrayList<Boolean> seleccionados;
     int estiloFila;
     Boolean estilo = false;
 
@@ -26,6 +27,7 @@ public class AdaptadorLista extends BaseAdapter {
         mContext = c;
         datos = d;
         estiloFila = v;
+        seleccionados = new ArrayList<Boolean>();
     }
 
     public int getCount() {
@@ -74,6 +76,11 @@ public class AdaptadorLista extends BaseAdapter {
             txtNombreCancion.setTypeface(txtNombreCancion.getTypeface(), Typeface.BOLD);
             txtNombreArtista.setTextSize(13);
             txtNombreArtista.setTextColor(Color.parseColor("#445e4e"));
+        }
+        if(!seleccionados.get(position)){
+            v.setBackgroundColor(Color.parseColor("#00000000"));
+        } else {
+            v.setBackgroundColor(Color.parseColor("#55439743"));
         }
         return v;
     }
