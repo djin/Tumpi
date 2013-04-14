@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import java.util.ArrayList;
+import modelo.datos.Cancion;
 import modelo.datos.ModeloDatos;
 
 /**
@@ -45,42 +46,35 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
             fragment = new ListaFragment(false);
         }
         // Our object is just an integer :-P
-//        switch (i) {
-//            case 0:
-//                fragment.datos.add("Cancion1");
-//                fragment.datos.add("Cancion2");
-//                fragment.datos.add("Cancion3");
-//                fragment.datos.add("Cancion4");
-//                fragment.datos.add("Cancion5");
-//                fragment.datos.add("Cancion6");
-//                fragment.datos.add("Cancion7");
-//                fragment.datos.add("Cancion8");
-//                fragment.datos.add("Cancion9");
-//                fragment.datos.add("Cancion10");
-//                break;
-//            case 1:
-//                fragment.datos.add("Cancioncita1");
-//                fragment.datos.add("Cancioncita2");
-//                fragment.datos.add("Cancioncita3");
-//                fragment.datos.add("Cancioncita4");
-//                break;
-//            case 2:
-//                fragment.datos.add("Los Redondeles1");
-//                fragment.datos.add("Los Redondeles2");
-//                fragment.datos.add("Los Redondeles3");
-//                fragment.datos.add("Los Redondeles4");
-//                fragment.datos.add("Los Redondeles5");
-//                fragment.datos.add("Los Redondeles6");
-//                fragment.datos.add("Los Redondeles7");
-//                fragment.datos.add("Los Redondeles8");
-//                fragment.datos.add("Los Redondeles9");
-//                fragment.datos.add("Los Redondeles10");
-//                fragment.datos.add("Los Redondeles11");
-//                fragment.datos.add("Los Redondeles12");
-//                break;
-//            default:
-//                fragment.datos.add("Otra Cancioncita");
-//        }
+        switch (i) {
+            case 0:
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                break;
+            case 1:
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                break;
+            case 2:
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+                
+                break;
+            default:
+                fragment.datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+        }
         listasCreadas.add(fragment);
         return fragment;
     }

@@ -23,12 +23,14 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
     
     Context mContext;
     private ArrayList<Cancion> datos;
+    ArrayList<Boolean> seleccionados;
     int estiloFila;
     
     public AdaptadorListaPromocionada(Context c, ArrayList<Cancion> d, int v) {
         mContext = c;
         datos = d;
         estiloFila = v;
+        seleccionados = new ArrayList<Boolean>();
     }
 
     public int getCount() {
@@ -62,11 +64,10 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
         txtNombreArtistaPromocionada.setText(datos.get(position).getNombreAutor());
         TextView txtNombreAlbumPromocionada = (TextView)rootView.findViewById(R.id.textNombreAlbumPromocionada);
         txtNombreAlbumPromocionada.setText(datos.get(position).getNombreAlbum());
-        if(rootView.isSelected()){
-            rootView.setBackgroundColor(Color.parseColor("#ffFF0000"));
-        }
-        else {
+        if(!seleccionados.get(position)){
             rootView.setBackgroundColor(Color.parseColor("#00000000"));
+        } else {
+            rootView.setBackgroundColor(Color.parseColor("#55439743"));
         }
         return rootView;
     }

@@ -8,11 +8,13 @@ import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
 import modelo.datos.ModeloDatos;
@@ -22,9 +24,12 @@ import modelo.datos.ModeloDatos;
  * @author Zellyalgo
  */
 public class ListaPromocionada extends ListActivity {
-    
+
     private ArrayList<Cancion> datosListaPromocionada;
     private ModeloDatos modelo;
+    private AdaptadorListaPromocionada adapter;
+    private Boolean modoSeleccion = false;
+    private Menu menuApp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,7 @@ public class ListaPromocionada extends ListActivity {
             public boolean onNavigationItemSelected(int position, long id) {
                 // Take action here, e.g. switching to the
                 // corresponding fragment.
-                if(position ==1){
+                if (position == 1) {
                     actionBar.setSelectedNavigationItem(0);
                     Intent inte = new Intent(ListaPromocionada.this, ListasCanciones.class);
                     startActivity(inte);
@@ -54,7 +59,7 @@ public class ListaPromocionada extends ListActivity {
             }
         });
         actionBar.setDisplayShowTitleEnabled(false);
-        
+
         datosListaPromocionada = modelo.listaPromocionada;
         datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
         datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
@@ -66,16 +71,74 @@ public class ListaPromocionada extends ListActivity {
         datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
         datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
         datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        AdaptadorListaPromocionada adapter = new AdaptadorListaPromocionada(this, datosListaPromocionada , R.layout.row_style_promocionada);
+        adapter = new AdaptadorListaPromocionada(this, datosListaPromocionada, R.layout.row_style_promocionada);
+        for (Cancion c : datosListaPromocionada) {
+            adapter.seleccionados.add(false);
+        }
         setListAdapter(adapter);
-        ListView lista = (ListView)findViewById(android.R.id.list);
+        ListView lista = (ListView) findViewById(android.R.id.list);
         lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                adapter.seleccionados.set(position, true);
+                adapter.notifyDataSetChanged();
+                modoSeleccion = true;
+                apareceMenu();
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menuApp = menu;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.layout.menu_promocionada, menu);
+        desapareceMenu();
+        return true;
+    }
+    
+    public void desapareceMenu(){
+        menuApp.getItem(0).setVisible(false);
+        menuApp.getItem(1).setVisible(false);
+    }
+
+    public void apareceMenu(){
+        menuApp.getItem(0).setVisible(true);
+        menuApp.getItem(1).setVisible(true);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itemBorrarPromocionada:
+                return true;
+            case R.id.itemCancelarPromocionada:
+                int i=0;
+                for(Boolean b : adapter.seleccionados){
+                    b = false;
+                    adapter.seleccionados.set(i, b);
+                    i++;
+                }
+                adapter.notifyDataSetChanged();
+                modoSeleccion = false;
+                desapareceMenu();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        v.setSelected(true);
+        if (modoSeleccion) {
+            if (adapter.seleccionados.get(position)) {
+                adapter.seleccionados.set(position, false);
+            } else {
+                adapter.seleccionados.set(position, true);
+            }
+            adapter.notifyDataSetChanged();
+        }
     }
-    
 }

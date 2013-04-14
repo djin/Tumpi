@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/itemBorrarPromocionada"
+          android:icon="@drawable/image_delete"
+          android:title="Cancelar"
+          android:showAsAction="ifRoom"
+    />
+    <item android:id="@+id/itemCancelarPromocionada"
+          android:text="Borrar"
+          android:title="Borrar"
+          android:icon="@drawable/image_cancel"
+          android:showAsAction="ifRoom"
+    />
+</menu>

@@ -16,6 +16,8 @@
     <item android:id="@+id/itemCrearLista"
               android:text="Crear Lista"
               android:title="Crear Lista"
+              android:icon="@drawable/image_add"
+              android:showAsAction="ifRoom"
     />
     <item android:id="@+id/itemBorrarLista"
               android:text="Borrar Lista"
