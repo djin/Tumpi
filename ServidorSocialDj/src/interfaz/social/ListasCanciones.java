@@ -13,6 +13,8 @@ import android.view.SubMenu;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import java.util.ArrayList;
+import modelo.datos.Cancion;
+import modelo.datos.ModeloDatos;
 
 public class ListasCanciones extends FragmentActivity {
 
@@ -23,6 +25,7 @@ public class ListasCanciones extends FragmentActivity {
     ViewPager mViewPager;
     private Menu menuApp;
     private ManejadorAcciones manejador;
+    private ModeloDatos modelo = ModeloDatos.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,9 +48,7 @@ public class ListasCanciones extends FragmentActivity {
                 // corresponding fragment.
                 if (position == 1) {
                     actionBar.setSelectedNavigationItem(0);
-                    Intent inte = new Intent(ListasCanciones.this, ListaPromocionada.class);
-                    inte.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(inte);
+                    irPromocionada();
                 }
                 return true;
             }
@@ -60,7 +61,6 @@ public class ListasCanciones extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSwipeViewPagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
             public void onPageScrolled(int i, float f, int i1) {
                 cancelarSeleccion();
             }
@@ -74,13 +74,19 @@ public class ListasCanciones extends FragmentActivity {
             }
         });
     }
-    
-    public void cancelarSeleccion(){
+
+    public void irPromocionada() {
+        Intent inte = new Intent(ListasCanciones.this, ListaPromocionada.class);
+        inte.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(inte);
+    }
+
+    public void cancelarSeleccion() {
         manejador.cancelarSeleccion();
         desapareceMenuSeleccion();
     }
-    
-    public void borrarCanciones(){
+
+    public void borrarCanciones() {
         manejador.borrarCanciones();
         desapareceMenuSeleccion();
     }
@@ -119,7 +125,12 @@ public class ListasCanciones extends FragmentActivity {
                 if (mSwipeViewPagerAdapter.getNombresListas().isEmpty()) {
                     Toast.makeText(this, "No tienes listas creadas", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Pulsado añadir", Toast.LENGTH_SHORT).show();
+                    ArrayList<Cancion> anadir = new ArrayList<Cancion>();
+                    for(int i = 0; i<3; i++){
+                        anadir.add(new Cancion("Los Redondeles añadido", "Siempre Fuertes 2", "HUAEx34", 0, 24567, false, false));
+                    }
+                    modelo.anadirCanciones(mViewPager.getCurrentItem(), anadir);
+                    mSwipeViewPagerAdapter.notifyDataSetChanged();
                 }
                 return true;
             case R.id.itemCrearLista:
@@ -172,7 +183,8 @@ public class ListasCanciones extends FragmentActivity {
                 if (mSwipeViewPagerAdapter.getNombresListas().isEmpty()) {
                     Toast.makeText(this, "No tienes listas creadas", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Pulsado Promocionar", Toast.LENGTH_SHORT).show();
+                    modelo.promocionar(mViewPager.getCurrentItem());
+                    irPromocionada();
                 }
                 return true;
             default:

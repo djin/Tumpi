@@ -21,25 +21,38 @@ public class ModeloDatos {
         nombreLista = new ArrayList<String>();
         listasCanciones = new ArrayList<ArrayList<Cancion>>();
         listaPromocionada = new ArrayList<Cancion>();
-        for (int i = 0; i <= 10; i++) {
-            listaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        }
     }
     
+    public void limpiarDatos(ArrayList<Cancion> datos) {
+        int n = datos.size();
+        for (int i = 0; i < n; i++) {
+            datos.remove(0);
+        }
+    }
+
     public static ModeloDatos getInstance() {
         return INSTANCE;
     }
 
     public ArrayList<Cancion> getLista(int posicion) {
         ArrayList<Cancion> dar = listasCanciones.get(posicion);
-        if (dar.isEmpty()) {
-            for (int i = 0; i <= 10; i++) {
-                dar.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-            }
-        }
         return dar;
     }
-    public void borrarCanciones (int posicion, ArrayList<Cancion> listaDeBorradas){
+
+    public void borrarCanciones(int posicion, ArrayList<Cancion> listaDeBorradas) {
         listasCanciones.get(posicion).removeAll(listaDeBorradas);
+    }
+
+    public void promocionar(int posicion) {
+        limpiarDatos(listaPromocionada);
+        for (Cancion c : listasCanciones.get(posicion)) {
+            listaPromocionada.add(c);
+        }
+    }
+    
+    public void anadirCanciones (int posicion, ArrayList<Cancion> listaCanciones){
+        for(Cancion c : listaCanciones){
+            listasCanciones.get(posicion).add(c);
+        }
     }
 }
