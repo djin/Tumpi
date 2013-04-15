@@ -79,6 +79,11 @@ public class ListasCanciones extends FragmentActivity {
         manejador.cancelarSeleccion();
         desapareceMenuSeleccion();
     }
+    
+    public void borrarCanciones(){
+        manejador.borrarCanciones();
+        desapareceMenuSeleccion();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,6 +126,7 @@ public class ListasCanciones extends FragmentActivity {
                 mSwipeViewPagerAdapter.crearLista(mViewPager);
                 return true;
             case R.id.itemBorrar:
+                borrarCanciones();
                 return true;
             case R.id.itemCancelar:
                 cancelarSeleccion();

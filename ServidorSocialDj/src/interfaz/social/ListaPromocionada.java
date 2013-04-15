@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
 import modelo.datos.ModeloDatos;
@@ -61,16 +62,6 @@ public class ListaPromocionada extends ListActivity {
         actionBar.setDisplayShowTitleEnabled(false);
 
         datosListaPromocionada = modelo.listaPromocionada;
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-        datosListaPromocionada.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
         adapter = new AdaptadorListaPromocionada(this, datosListaPromocionada, R.layout.row_style_promocionada);
         for (Cancion c : datosListaPromocionada) {
             adapter.seleccionados.add(false);
@@ -97,25 +88,49 @@ public class ListaPromocionada extends ListActivity {
         desapareceMenu();
         return true;
     }
-    
-    public void desapareceMenu(){
+
+    public void desapareceMenu() {
         menuApp.getItem(0).setVisible(false);
         menuApp.getItem(1).setVisible(false);
     }
 
-    public void apareceMenu(){
+    public void apareceMenu() {
         menuApp.getItem(0).setVisible(true);
         menuApp.getItem(1).setVisible(true);
     }
-    
+
+    public void borrarCanciones() {
+        ArrayList<Cancion> nuevaLista = new ArrayList<Cancion>();
+        int buscarBorrados = 0;
+        for (Boolean b : adapter.seleccionados) {
+            if (!b) {
+                nuevaLista.add(datosListaPromocionada.get(buscarBorrados));
+            }
+            buscarBorrados++;
+        }
+        adapter.limpiarDatos();
+        datosListaPromocionada = nuevaLista;
+        
+        ArrayList<Boolean> seleccion = new ArrayList<Boolean>();
+        for(Cancion c: datosListaPromocionada){
+            adapter.anadirCancion(c);
+            seleccion.add(false);
+        }
+        adapter.seleccionados = seleccion;
+        adapter.notifyDataSetChanged();
+        Toast.makeText(this, "numero borradas" + modelo.listaPromocionada.size(), Toast.LENGTH_SHORT).show();
+        desapareceMenu();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemBorrarPromocionada:
+                borrarCanciones();
                 return true;
             case R.id.itemCancelarPromocionada:
-                int i=0;
-                for(Boolean b : adapter.seleccionados){
+                int i = 0;
+                for (Boolean b : adapter.seleccionados) {
                     b = false;
                     adapter.seleccionados.set(i, b);
                     i++;

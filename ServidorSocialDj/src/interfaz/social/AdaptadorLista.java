@@ -23,11 +23,11 @@ public class AdaptadorLista extends BaseAdapter {
     int estiloFila;
     Boolean estilo = false;
 
-    public AdaptadorLista(Context c, ArrayList<Cancion> d, int v) {
+    public AdaptadorLista(Context c, ArrayList<Cancion> d, ArrayList<Boolean> se, int v) {
         mContext = c;
         datos = d;
         estiloFila = v;
-        seleccionados = new ArrayList<Boolean>();
+        seleccionados = se;
     }
 
     public int getCount() {

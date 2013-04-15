@@ -45,6 +45,10 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
         return position;
     }
     
+    public void anadirCancion(Cancion c){
+        datos.add(c);
+    }
+    
     public void limpiarDatos() {
         int n = datos.size();
         for (int i = 0; i < n; i++) {

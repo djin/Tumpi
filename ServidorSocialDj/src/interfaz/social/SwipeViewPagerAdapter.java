@@ -36,16 +36,17 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
         nombresListas = modelo.nombreLista;
         listasCreadas = new ArrayList<Object>();
         manejador = ManejadorAcciones.getInstance();
+        modelo.listasCanciones.add(new ArrayList<Cancion>());
     }
 
     @Override
     public Fragment getItem(int i) {
         ListaFragment fragment;
         if (nombresListas.isEmpty()) {
-            fragment = new ListaFragment(true);
+            fragment = new ListaFragment(true, i);
             primerFragment = fragment;
         } else {
-            fragment = new ListaFragment(false);
+            fragment = new ListaFragment(false, i);
         }
         listasCreadas.add(fragment);
         return fragment;
@@ -75,9 +76,11 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
                         primerFragment.notificarPrimeraListaCreada();
                     }
                     nombresListas.add(value);
+                    modelo.listasCanciones.add(new ArrayList<Cancion>());
                     notifyDataSetChanged();
                     ViewPager vp = (ViewPager) container;
                     vp.setCurrentItem(numeroListas);
+                    ((ListaFragment)listasCreadas.get(numeroListas)).datos = modelo.getLista(numeroListas);
                 } else {
                     dialog.cancel();
                 }
@@ -103,6 +106,7 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
             nombresListas.remove(0);
             manejador.finModoSeleccion();
         }
+        modelo.listasCanciones.remove(position);
     }
     
     @Override

@@ -47,4 +47,8 @@ public class ManejadorAcciones {
     public void finModoSeleccion(){
         listasCanciones.desapareceMenuSeleccion();
     }
+    
+    public void borrarCanciones (){
+        listaFragment.borrarCanciones();
+    }
 }

@@ -8,13 +8,16 @@ import Manejador.ManejadorAcciones;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
+import modelo.datos.ModeloDatos;
 
 /**
  *
@@ -23,16 +26,21 @@ import modelo.datos.Cancion;
 public class ListaFragment extends ListFragment {
 
     public ArrayList<Cancion> datos = new ArrayList<Cancion>();
+    private ArrayList<Boolean> seleccionados = new ArrayList<Boolean>();
     private Boolean primera;
     private AdaptadorLista adapter;
     private ViewPager viewPager;
     private Boolean modoSeleccion = false;
     private ManejadorAcciones manejador;
     private ListaFragment lf = this;
+    private int posicion;
+    private ModeloDatos modelo;
 
-    public ListaFragment(Boolean pri) {
+    public ListaFragment(Boolean pri, int posi) {
         primera = pri;
         manejador = ManejadorAcciones.getInstance();
+        posicion = posi;
+        modelo = ModeloDatos.getInstance();
     }
 
     @Override
@@ -42,13 +50,17 @@ public class ListaFragment extends ListFragment {
         viewPager = (ViewPager) container;
         View rootView = inflater.inflate(R.layout.style_listas_preparacion, container, false);
         ListView listaCanciones = (ListView) rootView.findViewById(android.R.id.list);
-        adapter = new AdaptadorLista(this.getActivity(), datos, R.layout.row_style_preparation);
         if (!primera) {
-            //rellenar las listas
-            for (int i = 0; i <= 10; i++) {
-                datos.add(new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
-                adapter.seleccionados.add(false);
+            datos = modelo.getLista(posicion);
+            for (Cancion c : datos) {
+                seleccionados.add(false);
             }
+        }
+        adapter = new AdaptadorLista(this.getActivity(), datos, seleccionados, R.layout.row_style_preparation);
+        if (!primera) {
+            if (adapter.seleccionados.isEmpty()) {
+            }
+            Toast.makeText(this.getActivity(), "posicion " + adapter.seleccionados.size(), Toast.LENGTH_SHORT).show();
             listaCanciones.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                     modoSeleccion = true;
@@ -63,6 +75,7 @@ public class ListaFragment extends ListFragment {
             notificarUltimaListaBorrada();
         }
         listaCanciones.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         return rootView;
     }
@@ -83,11 +96,11 @@ public class ListaFragment extends ListFragment {
             }
         }
     }
-    
-    public void cancelarSeleccion(){
-        int i=0;
-        for(Boolean b : adapter.seleccionados){
-            b=false;
+
+    public void cancelarSeleccion() {
+        int i = 0;
+        for (Boolean b : adapter.seleccionados) {
+            b = false;
             adapter.seleccionados.set(i, b);
             i++;
         }
@@ -106,6 +119,30 @@ public class ListaFragment extends ListFragment {
         datos.add(new Cancion("Crea una Lista para EMPEZAR!!", "Puedes crearla en Opciones -> Crear Lista", "o sino.. PULSAME", 0, 0, false, false));
         adapter.seleccionados.add(false);
         adapter.cambioEstilo(true);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void borrarCanciones() {
+        ArrayList<Cancion> datosBorrar = new ArrayList<Cancion>();
+        ArrayList<Boolean> borrar = new ArrayList<Boolean>();
+        int posicionABorrar = 0;
+        for (Boolean b : adapter.seleccionados) {
+            if (b) {
+                borrar.add(b);
+                datosBorrar.add(datos.get(posicionABorrar));
+            }
+            posicionABorrar++;
+        }
+        modoSeleccion = false;
+//        for (Cancion c : datosBorrar) {
+//            datos.remove(c);
+//        }
+//        
+//        for (Boolean b : borrar) {
+//            adapter.seleccionados.remove(b);
+//        }
+        adapter.seleccionados.removeAll(borrar);
+        modelo.borrarCanciones(posicion, datosBorrar);
         adapter.notifyDataSetChanged();
     }
 }
