@@ -60,7 +60,6 @@ public class ListaFragment extends ListFragment {
         if (!primera) {
             if (adapter.seleccionados.isEmpty()) {
             }
-            Toast.makeText(this.getActivity(), "posicion " + adapter.seleccionados.size(), Toast.LENGTH_SHORT).show();
             listaCanciones.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                     modoSeleccion = true;
@@ -123,26 +122,23 @@ public class ListaFragment extends ListFragment {
     }
 
     public void borrarCanciones() {
-        ArrayList<Cancion> datosBorrar = new ArrayList<Cancion>();
-        ArrayList<Boolean> borrar = new ArrayList<Boolean>();
+        ArrayList<Cancion> nueva = new ArrayList<Cancion>();
+        ArrayList<Boolean> seleccion = new ArrayList<Boolean>();
         int posicionABorrar = 0;
         for (Boolean b : adapter.seleccionados) {
-            if (b) {
-                borrar.add(b);
-                datosBorrar.add(datos.get(posicionABorrar));
+            if (!b) {
+                nueva.add(datos.get(posicionABorrar));
             }
             posicionABorrar++;
         }
         modoSeleccion = false;
-//        for (Cancion c : datosBorrar) {
-//            datos.remove(c);
-//        }
-//        
-//        for (Boolean b : borrar) {
-//            adapter.seleccionados.remove(b);
-//        }
-        adapter.seleccionados.removeAll(borrar);
-        modelo.borrarCanciones(posicion, datosBorrar);
+        adapter.limpiarDatos();
+        datos = nueva;
+        for(Cancion c: datos){
+            adapter.anadirCancion(c);
+            seleccion.add(false);
+        }
+        adapter.seleccionados = seleccion;
         adapter.notifyDataSetChanged();
     }
 }

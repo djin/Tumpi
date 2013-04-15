@@ -45,6 +45,10 @@ public class AdaptadorLista extends BaseAdapter {
     public void setDatos(ArrayList<Cancion> datos_aux) {
         datos = datos_aux;
     }
+    
+    public void anadirCancion(Cancion c){
+        datos.add(c);
+    }
 
     public ArrayList<Cancion> getDatos() {
         return datos;

@@ -26,10 +26,6 @@ public class ModeloDatos {
         }
     }
     
-    public Boolean borrarCancionesPromocionadas(ArrayList<Cancion> listaBorrar){
-        return listaPromocionada.removeAll(listaBorrar);
-    }
-
     public static ModeloDatos getInstance() {
         return INSTANCE;
     }

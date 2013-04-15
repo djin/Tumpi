@@ -120,6 +120,7 @@ public class ListaPromocionada extends ListActivity {
         adapter.notifyDataSetChanged();
         Toast.makeText(this, "numero borradas" + modelo.listaPromocionada.size(), Toast.LENGTH_SHORT).show();
         desapareceMenu();
+        modoSeleccion = false;
     }
 
     @Override
