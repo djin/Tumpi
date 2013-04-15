@@ -40,19 +40,20 @@ public class ListasCanciones extends FragmentActivity {
         actionBar.setListNavigationCallbacks(
                 // Specify a SpinnerAdapter to populate the dropdown list.
                 new ArrayAdapter(actionBar.getThemedContext(), R.layout.style_row_spinner,
-                R.id.textSpinner, new String[]{"Listas Preparadas", "Lista en reproduccion"}),
+                R.id.textSpinner, new String[]{"Lista Promocionada", "Listas Pendientes"}),
                 // Provide a listener to be called when an item is selected.
                 new ActionBar.OnNavigationListener() {
             public boolean onNavigationItemSelected(int position, long id) {
                 // Take action here, e.g. switching to the
                 // corresponding fragment.
-                if (position == 1) {
-                    actionBar.setSelectedNavigationItem(0);
+                if (position == 0) {
+                    actionBar.setSelectedNavigationItem(1);
                     irPromocionada();
                 }
                 return true;
             }
         });
+        actionBar.setSelectedNavigationItem(1);
         actionBar.setDisplayShowTitleEnabled(false);
 
         // ViewPager and its adapters use support library

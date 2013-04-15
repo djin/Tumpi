@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="horizontal"
 >
     <ListView android:id="@android:id/list"
-        android:layout_weight="1"
-        android:layout_width="fill_parent"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:layout_height="fill_parent"
-        android:cacheColorHint="#00000000"
+              android:layout_weight="1"
+              android:layout_width="fill_parent"
+              android:paddingLeft="3dp"
+              android:paddingRight="3dp"
+              android:layout_height="fill_parent"
+              android:cacheColorHint="#00000000"
     >
     </ListView>
+    <LinearLayout android:id="@android:id/empty"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_weight="1"
+                  android:gravity="center"
+                  android:orientation="vertical"
+    >
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:textStyle="bold"
+                  android:textSize="18dp"
+                  android:text="Añade canciones para comenzar"
+        />
+    </LinearLayout>
     <LinearLayout android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:minWidth="3dp"
-        android:layout_weight="300"
-        android:background="#ffDBDBDB"
-        android:orientation="vertical"
-    ></LinearLayout>
+                  android:layout_height="fill_parent"
+                  android:minWidth="3dp"
+                  android:layout_weight="300"
+                  android:background="#ffDBDBDB"
+                  android:orientation="vertical"
+    >
+    </LinearLayout>
 </LinearLayout>

@@ -45,7 +45,7 @@ public class ListaPromocionada extends ListActivity {
         actionBar.setListNavigationCallbacks(
                 // Specify a SpinnerAdapter to populate the dropdown list.
                 new ArrayAdapter(actionBar.getThemedContext(), R.layout.style_row_spinner,
-                R.id.textSpinner, new String[]{"Listas Promocionada", "Listas Pendientes"}),
+                R.id.textSpinner, new String[]{"Lista Promocionada", "Listas Pendientes"}),
                 // Provide a listener to be called when an item is selected.
                 new ActionBar.OnNavigationListener() {
             public boolean onNavigationItemSelected(int position, long id) {
