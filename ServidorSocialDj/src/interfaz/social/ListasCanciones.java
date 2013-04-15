@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
@@ -74,6 +75,12 @@ public class ListasCanciones extends FragmentActivity {
                 cancelarSeleccion();
             }
         });
+        if (modelo.getCancionReproduciendo() != null) {
+            TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
+            txtNombreCancionReproduciendo.setText(modelo.getCancionReproduciendo().getNombreCancion());
+            TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
+            txtNombreAlbumReproduciendo.setText(modelo.getCancionReproduciendo().getNombreAlbum());
+        }
     }
 
     public void irPromocionada() {

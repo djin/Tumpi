@@ -16,11 +16,13 @@ public class ModeloDatos {
     public ArrayList<String> nombreLista;
     public ArrayList<Cancion> listaPromocionada;
     public ArrayList<ArrayList<Cancion>> listasCanciones;
+    private Cancion cancionReproduciendo;
 
     private ModeloDatos() {
         nombreLista = new ArrayList<String>();
         listasCanciones = new ArrayList<ArrayList<Cancion>>();
         listaPromocionada = new ArrayList<Cancion>();
+        cancionReproduciendo = new Cancion("Cancion Sonando", "Mangurrian", "HUAE", 0, 1234, false, false);
     }
     
     public void limpiarDatos(ArrayList<Cancion> datos) {
@@ -28,6 +30,14 @@ public class ModeloDatos {
         for (int i = 0; i < n; i++) {
             datos.remove(0);
         }
+    }
+    
+    public Cancion getCancionReproduciendo (){
+        return cancionReproduciendo;
+    }
+    
+    public void setCancionReproduciendo (Cancion c){
+        cancionReproduciendo = c;
     }
 
     public static ModeloDatos getInstance() {

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
@@ -78,6 +79,12 @@ public class ListaPromocionada extends ListActivity {
                 return true;
             }
         });
+        if (modelo.getCancionReproduciendo() != null) {
+            TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
+            txtNombreCancionReproduciendo.setText(modelo.getCancionReproduciendo().getNombreCancion());
+            TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
+            txtNombreAlbumReproduciendo.setText(modelo.getCancionReproduciendo().getNombreAlbum());
+        }
     }
 
     @Override
@@ -110,9 +117,9 @@ public class ListaPromocionada extends ListActivity {
         }
         adapter.limpiarDatos();
         datosListaPromocionada = nuevaLista;
-        
+
         ArrayList<Boolean> seleccion = new ArrayList<Boolean>();
-        for(Cancion c: datosListaPromocionada){
+        for (Cancion c : datosListaPromocionada) {
             adapter.anadirCancion(c);
             seleccion.add(false);
         }
