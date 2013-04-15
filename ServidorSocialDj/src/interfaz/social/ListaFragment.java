@@ -115,7 +115,7 @@ public class ListaFragment extends ListFragment {
 
     public void notificarUltimaListaBorrada() {
         adapter.limpiarDatos();
-        datos.add(new Cancion("Crea una Lista para EMPEZAR!!", "Puedes crearla en Opciones -> Crear Lista", "o sino.. PULSAME", 0, 0, false, false));
+        datos.add(new Cancion("Crea una Lista para EMPEZAR", "Puedes pulsando el +", "o... PULSAME", 0, 0, false, false));
         adapter.seleccionados.add(false);
         adapter.cambioEstilo(true);
         adapter.notifyDataSetChanged();
