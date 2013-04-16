@@ -142,4 +142,18 @@ public class Cancion {
     public String toString(){
         return nombreCancion + " " + nombreAutor + " " + nombreAlbum + " " + id;
     }
+
+    /**
+     * @return the duracion
+     */
+    public long getDuracion() {
+        return duracion;
+    }
+
+    /**
+     * @param duracion the duracion to set
+     */
+    public void setDuracion(long duracion) {
+        this.duracion = duracion;
+    }
 }

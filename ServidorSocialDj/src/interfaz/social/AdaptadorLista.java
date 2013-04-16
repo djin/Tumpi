@@ -73,6 +73,8 @@ public class AdaptadorLista extends BaseAdapter {
         txtNombreALbum.setText(getDatos().get(position).getNombreAlbum());
         TextView txtNombreArtista = (TextView) v.findViewById(R.id.textNombreArtista);
         txtNombreArtista.setText(getDatos().get(position).getNombreAutor());
+        TextView txtDuracion = (TextView) v.findViewById(R.id.txtDuracion);
+        txtDuracion.setText(String.valueOf(getDatos().get(position).getDuracion()));
 
         if (estilo) {
             txtNombreCancion.setTextSize(15);

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <color name="colorTitulo">#ffea8f00</color>
+    <color name="colorTituloInicio">#ffea8f00</color>
+    <color name="colorTituloFin">#ffca8210</color>
     <color name="colorLetraSecundaria">#ff909190</color>
-    <color name="colorFondoReproductor">#ffea8f00</color>
+    <color name="colorFondoReproductorInicio">#ffea8f00</color>
+    <color name="colorFondoReproductorFin">#ffb7760f</color>
     <color name="rowNormal">#00000000</color>
     <color name="rowPulsado">#fffab341</color>
-    <color name="btnReproductorPulsado">#776e5735</color>
+    <color name="btnReproductorPulsadoInicio">#77b7760f</color>
+    <color name="btnReproductorPulsadoFin">#776e5735</color>
     <color name="btnReproductorNormal">#00000000</color>
     <color name="btnMenuNormal">#00000000</color>
     <color name="btnMenuPulsado">#776e5735</color>

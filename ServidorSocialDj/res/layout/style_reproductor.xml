@@ -4,7 +4,7 @@
     android:layout_weight="8"
     android:layout_width="fill_parent"
     android:layout_height="450dp"
-    android:background="@color/colorFondoReproductor"
+    android:background="@drawable/background_panel_reproductor"
     >
     <LinearLayout android:orientation="horizontal"
     android:layout_width="fill_parent"

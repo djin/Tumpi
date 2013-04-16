@@ -125,7 +125,6 @@ public class ListaPromocionada extends ListActivity {
         }
         adapter.seleccionados = seleccion;
         adapter.notifyDataSetChanged();
-        Toast.makeText(this, "numero borradas" + modelo.listaPromocionada.size(), Toast.LENGTH_SHORT).show();
         desapareceMenu();
         modoSeleccion = false;
     }
@@ -135,6 +134,7 @@ public class ListaPromocionada extends ListActivity {
         switch (item.getItemId()) {
             case R.id.itemBorrarPromocionada:
                 borrarCanciones();
+                Toast.makeText(this, "Canciones Borradas", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.itemCancelarPromocionada:
                 int i = 0;
