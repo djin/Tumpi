@@ -56,7 +56,6 @@ public class ListasCanciones extends FragmentActivity {
         });
         actionBar.setSelectedNavigationItem(1);
         actionBar.setDisplayShowTitleEnabled(false);
-
         // ViewPager and its adapters use support library
         // fragments, so use getSupportFragmentManager.
         mSwipeViewPagerAdapter = new SwipeViewPagerAdapter(getSupportFragmentManager());

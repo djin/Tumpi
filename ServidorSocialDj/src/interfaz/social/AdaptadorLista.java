@@ -76,15 +76,15 @@ public class AdaptadorLista extends BaseAdapter {
 
         if (estilo) {
             txtNombreCancion.setTextSize(15);
-            txtNombreCancion.setTextColor(Color.parseColor("#445e4e"));
+            txtNombreCancion.setTextColor(Color.parseColor("#ff8f5d0d"));
             txtNombreCancion.setTypeface(txtNombreCancion.getTypeface(), Typeface.BOLD);
             txtNombreArtista.setTextSize(13);
-            txtNombreArtista.setTextColor(Color.parseColor("#445e4e"));
+            txtNombreArtista.setTextColor(Color.parseColor("#ff8f5d0d"));
         }
         if(!seleccionados.get(position)){
             v.setBackgroundColor(Color.parseColor("#00000000"));
         } else {
-            v.setBackgroundColor(Color.parseColor("#55439743"));
+            v.setBackgroundColor(Color.parseColor("#55fbb74b"));
         }
         return v;
     }

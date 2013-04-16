@@ -71,7 +71,7 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
         if(!seleccionados.get(position)){
             rootView.setBackgroundColor(Color.parseColor("#00000000"));
         } else {
-            rootView.setBackgroundColor(Color.parseColor("#55439743"));
+            rootView.setBackgroundColor(Color.parseColor("#55fbb74b"));
         }
         return rootView;
     }
