@@ -8,6 +8,11 @@ package modelos;
  *
  * @author 66786575
  */
-public interface ListaCancionesChangedListener {
-    public void listaChanged(ListaCanciones e);
+public class ListaSonando {
+    
+    private ListaCanciones lista_sonando;
+    
+    public ListaSonando(ListaCanciones lista_promocionada){
+        
+    }
 }

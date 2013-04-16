@@ -12,35 +12,13 @@ import java.util.ArrayList;
  */
 public class ListaCanciones {
 
-    private ArrayList<ListaCancionesChangedListener> listeners;
     private ArrayList<Cancion> canciones;
     public String nombreLista;
 
     public ListaCanciones() {
         
         nombreLista = null;
-        listeners = new ArrayList();
         canciones = new ArrayList();
-    }
-
-    public void addListaChangedListener(ListaCancionesChangedListener l) {
-        if (getListeners() == null) {
-            setListeners((ArrayList<ListaCancionesChangedListener>) new ArrayList());
-        }
-        getListeners().add(l);
-    }
-
-    public void removeListaChangedListener(ListaCancionesChangedListener l) {
-        if (getListeners() == null) {
-            setListeners((ArrayList<ListaCancionesChangedListener>) new ArrayList());
-        }
-        getListeners().remove(l);
-    }
-
-    protected void fireListaChanged() {
-        for (ListaCancionesChangedListener l : getListeners()) {
-            l.listaChanged(this);
-        }
     }
 
     @Override
@@ -68,21 +46,6 @@ public class ListaCanciones {
         }
         return max_id;
     }
-
-    /**
-     * @return the listeners
-     */
-    public ArrayList<ListaCancionesChangedListener> getListeners() {
-        return listeners;
-    }
-
-    /**
-     * @param listeners the listeners to set
-     */
-    public void setListeners(ArrayList<ListaCancionesChangedListener> listeners) {
-        this.listeners = listeners;
-    }
-
     /**
      * @return the canciones
      */

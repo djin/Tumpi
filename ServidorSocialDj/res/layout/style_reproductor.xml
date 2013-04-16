@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_weight="8"
+    android:layout_width="fill_parent"
+    android:layout_height="450dp"
+    android:background="#ffDBDBDB"
+    >
+    <LinearLayout android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    >
+        <LinearLayout android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="left"
+        >
+            <ImageView android:id="@+id/caratulaDisco"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            android:layout_weight="3"
+            android:src="@drawable/caratula_default"
+            />
+            <LinearLayout android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            >
+                <TextView android:id="@+id/txtNombreCancionReproduciendo"
+                android:layout_width="fill_parent"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Nombre Cancion"
+                />
+                <TextView android:id="@+id/txtNombreAlbumReproduciendo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:textSize="14sp"
+                android:text="Nombre Album"
+                />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="right"
+            android:layout_weight="2"
+            >
+            <ImageButton android:id="@+id/btnPlay"
+            android:layout_width="50dp"
+            android:layout_height="fill_parent"
+            android:src="@drawable/image_play"
+            />
+            <ImageButton android:id="@+id/btnNext"
+            android:layout_width="50dp"
+            android:layout_height="fill_parent"
+            android:src="@drawable/image_next"
+            />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
