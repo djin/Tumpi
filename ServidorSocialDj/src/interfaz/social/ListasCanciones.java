@@ -138,6 +138,7 @@ public class ListasCanciones extends FragmentActivity {
                     }
                     modelo.anadirCanciones(mViewPager.getCurrentItem(), anadir);
                     mSwipeViewPagerAdapter.notifyDataSetChanged();
+                    Toast.makeText(this, "Canciones añadidas", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             case R.id.itemCrearLista:
@@ -145,6 +146,7 @@ public class ListasCanciones extends FragmentActivity {
                 return true;
             case R.id.itemBorrar:
                 borrarCanciones();
+                Toast.makeText(this, "Canciones Borradas", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.itemCancelar:
                 cancelarSeleccion();
@@ -184,6 +186,7 @@ public class ListasCanciones extends FragmentActivity {
                     mViewPager.setOffscreenPageLimit(mSwipeViewPagerAdapter.getCount());
                     mSwipeViewPagerAdapter.notifyDataSetChanged();
                 }
+                Toast.makeText(this, "Lista Borrada", Toast.LENGTH_SHORT).show();
                 return true;
             //ID de promocionar
             case 58:
