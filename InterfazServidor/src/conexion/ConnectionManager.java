@@ -15,6 +15,8 @@ import modelos.ListasCancionesManager;
  * @author 66785270
  */
 public class ConnectionManager implements ServerSocketListener{
+    
+    ListasCancionesManager listas_canciones;
     public static SocketServidor socket=null;
     private DatagramSocket dsocket;
     private Thread publicador;
@@ -23,6 +25,7 @@ public class ConnectionManager implements ServerSocketListener{
     
     public ConnectionManager(){
         
+        listas_canciones.getInstance();
     }
     
     public boolean createSocket(final int _port) throws Exception{
@@ -87,24 +90,24 @@ public class ConnectionManager implements ServerSocketListener{
         FramePrincipal.log(ip+": "+men);
         try {
             String message=men;
-            ArrayList<Integer> votos_cliente=ListasCancionesManager.votos_cliente.get(ip);
+            ArrayList<Integer> votos_cliente=listas_canciones.votos_cliente.get(ip);
             int tipo=Integer.parseInt(message.split("\\|")[0]);
             message=message.split("\\|")[1]; 
             switch(tipo){
                 case 0:
-                    if(ListasCancionesManager.lista_sonando!=null){
-                        System.out.println("0|"+ListasCancionesManager.lista_sonando.toString());
-                        socket.enviarMensajeServer(ip,"0|"+ListasCancionesManager.lista_sonando.toString());
+                    if(listas_canciones.lista_sonando!=null){
+                        System.out.println("0|"+listas_canciones.lista_sonando.toString());
+                        socket.enviarMensajeServer(ip,"0|"+listas_canciones.lista_sonando.toString());
                     }
-                    if(ListasCancionesManager.cancion_sonando!=null)
-                        socket.enviarMensajeServer(ip,"4|"+ListasCancionesManager.cancion_sonando.toString());
+                    if(listas_canciones.cancion_sonando!=null)
+                        socket.enviarMensajeServer(ip,"4|"+listas_canciones.cancion_sonando.toString());
                     if(votos_cliente!=null){
                         for(int id_cancion:votos_cliente)
                             socket.enviarMensajeServer(ip,"1|"+id_cancion);
                     }
                     break;
                 case 1:
-                    if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),true)){
+                    if(listas_canciones.procesarVoto(Integer.parseInt(message),true)){
                         socket.enviarMensajeServer(ip,"1|"+message);
                         if(votos_cliente!=null && !votos_cliente.contains(Integer.decode(message)))
                            votos_cliente.add(Integer.parseInt(message)); 
@@ -113,7 +116,7 @@ public class ConnectionManager implements ServerSocketListener{
                         socket.enviarMensajeServer(ip,"1|0");   
                     break;
                 case 3:
-                    if(ListasCancionesManager.procesarVoto(Integer.parseInt(message),false)){
+                    if(listas_canciones.procesarVoto(Integer.parseInt(message),false)){
                         socket.enviarMensajeServer(ip,"3|"+message);
                         if(votos_cliente!=null)
                             votos_cliente.remove(Integer.decode(message));
@@ -131,8 +134,8 @@ public class ConnectionManager implements ServerSocketListener{
     public void onClientConnected(String ip) {
         try{
             FramePrincipal.log("Cliente conectado: "+ip+"\nNumero de clientes: "+socket.getClientsCount());
-            if(ListasCancionesManager.votos_cliente.get(ip)==null){
-                ListasCancionesManager.votos_cliente.put(ip, new ArrayList<Integer>());
+            if(listas_canciones.votos_cliente.get(ip)==null){
+                listas_canciones.votos_cliente.put(ip, new ArrayList<Integer>());
                 FramePrincipal.log("Hash de votos creado para el cliente");
             }
         }catch(Exception ex){

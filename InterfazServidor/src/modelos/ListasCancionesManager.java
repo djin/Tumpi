@@ -102,7 +102,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         }
     }
     //¿Prorque es estatica?!, revisar.
-    public static boolean procesarVoto(int id_cancion, boolean tipo) {
+    public boolean procesarVoto(int id_cancion, boolean tipo) {
         int x = 0;
         for (Cancion p : canciones) {
             if (p.getId() == id_cancion) {

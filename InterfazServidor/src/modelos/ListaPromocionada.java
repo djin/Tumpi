@@ -8,11 +8,11 @@ package modelos;
  *
  * @author 66786575
  */
-public class ListaSonando {
+public class ListaPromocionada {
     
     private ListaCanciones lista_sonando;
     
-    public ListaSonando(ListaCanciones lista_promocionada){
+    public ListaPromocionada(ListaCanciones lista_promocionada){
         
     }
 }
