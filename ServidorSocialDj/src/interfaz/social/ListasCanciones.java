@@ -139,6 +139,7 @@ public class ListasCanciones extends FragmentActivity {
 //                    modelo.anadirCanciones(mViewPager.getCurrentItem(), anadir);
 //                    mSwipeViewPagerAdapter.notifyDataSetChanged();
                     Intent inte = new Intent(ListasCanciones.this, SeleccionCanciones.class);
+                    inte.putExtra("numList", mViewPager.getCurrentItem());
                     startActivity(inte);
                 }
                 return true;

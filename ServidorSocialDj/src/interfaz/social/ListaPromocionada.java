@@ -55,6 +55,7 @@ public class ListaPromocionada extends ListActivity {
                 if (position == 1) {
                     actionBar.setSelectedNavigationItem(0);
                     Intent inte = new Intent(ListaPromocionada.this, ListasCanciones.class);
+                    inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(inte);
                 }
                 return true;
