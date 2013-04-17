@@ -132,13 +132,14 @@ public class ListasCanciones extends FragmentActivity {
                 if (mSwipeViewPagerAdapter.getNombresListas().isEmpty()) {
                     Toast.makeText(this, "No tienes listas creadas", Toast.LENGTH_SHORT).show();
                 } else {
-                    ArrayList<Cancion> anadir = new ArrayList<Cancion>();
-                    for(int i = 0; i<3; i++){
-                        anadir.add(new Cancion("Los Redondeles añadido", "Siempre Fuertes 2", "HUAEx34", 0, 24567, false, false));
-                    }
-                    modelo.anadirCanciones(mViewPager.getCurrentItem(), anadir);
-                    mSwipeViewPagerAdapter.notifyDataSetChanged();
-                    Toast.makeText(this, "Canciones añadidas", Toast.LENGTH_SHORT).show();
+//                    ArrayList<Cancion> anadir = new ArrayList<Cancion>();
+//                    for(int i = 0; i<3; i++){
+//                        anadir.add(new Cancion("Los Redondeles añadido", "Siempre Fuertes 2", "HUAEx34", 0, 24567, false, false));
+//                    }
+//                    modelo.anadirCanciones(mViewPager.getCurrentItem(), anadir);
+//                    mSwipeViewPagerAdapter.notifyDataSetChanged();
+                    Intent inte = new Intent(ListasCanciones.this, SeleccionCanciones.class);
+                    startActivity(inte);
                 }
                 return true;
             case R.id.itemCrearLista:

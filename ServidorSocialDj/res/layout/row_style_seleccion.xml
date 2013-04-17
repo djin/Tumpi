@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingTop="2dp"
+              android:paddingBottom="2dp"
+              android:orientation="vertical"
+>
+    <TextView android:id="@+id/textNombreCancionSeleccion"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:textSize="15dp"
+              android:text="Nombre Cancion"
+    />
+    <TextView android:id="@+id/textNombreArtistaSeleccion"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorLetraSecundaria"
+              android:textSize="10dp"
+              android:text="Nombre Artista"
+    />
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+    >
+        <TextView android:id="@+id/textNombreAlbumSeleccion"
+                  android:layout_width="fill_parent"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/colorLetraSecundaria"
+                  android:textSize="10dp"
+                  android:gravity="left"
+                  android:text="Nombre Album"
+        />
+        <TextView android:id="@+id/txtDuracionSeleccion"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:textSize="10dp"
+                  android:gravity="right"
+                  android:textColor="@color/colorLetraSecundaria"
+        />
+    </LinearLayout>
+</LinearLayout>
