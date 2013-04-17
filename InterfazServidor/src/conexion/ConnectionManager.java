@@ -25,7 +25,7 @@ public class ConnectionManager implements ServerSocketListener{
     
     public ConnectionManager(){
         
-        listas_canciones.getInstance();
+        listas_canciones=ListasCancionesManager.getInstance();
     }
     
     public boolean createSocket(final int _port) throws Exception{
