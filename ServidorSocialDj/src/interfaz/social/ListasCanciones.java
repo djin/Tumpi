@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import modelo.datos.Cancion;
 import modelo.datos.ModeloDatos;
 
 public class ListasCanciones extends FragmentActivity {
