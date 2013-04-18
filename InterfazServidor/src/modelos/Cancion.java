@@ -97,21 +97,7 @@ public class Cancion {
 
     @Override
     public String toString() {
-        return getId() + "*" + getNombre() + "*" + getArtista() + "*" + getDisco() + "*" + getDuracion() + "*" + getReproducida();
-    }
-
-    /**
-     * @return the reproducida
-     */
-    public int getReproducida() {
-        return reproducida;
-    }
-
-    /**
-     * @param reproducida the reproducida to set
-     */
-    public void setReproducida(int reproducida) {
-        this.reproducida = reproducida;
+        return getId() + "*" + getNombre() + "*" + getArtista() + "*" + getDisco() + "*" + getDuracion();
     }
 
     @Override

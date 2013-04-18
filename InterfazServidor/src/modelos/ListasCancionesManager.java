@@ -43,9 +43,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public static Tabla tabla_sonando;
     public static ArrayList<ListaCanciones> listas_canciones;
     public static ArrayList<Tabla> tablasPendientes;
-    public static ListaCanciones lista_sonando = new ListaCanciones();
+    public static ListaPromocionada lista_sonando;
     private PlayerReproductor reproductor;
-    private static ArrayList<Cancion> canciones;
+    private static ArrayList<CancionPromocionada> canciones;
     public static String path;
     private static int columnaSonandoCancion = 0, columnaSonandoAutor = 1, columnaSonandoVotos = 2;
     private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
@@ -59,6 +59,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
         listas_canciones = new ArrayList();
         tablasPendientes = new ArrayList();
+        lista_sonando = new ListaPromocionada();
     }
 
     public static ListasCancionesManager getInstance() {
@@ -69,23 +70,18 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         int x = 0;
         canciones = new ArrayList();
-
         if (!listas_canciones.isEmpty() && !listas_canciones.get(id_lista).getCanciones().isEmpty()) {
-            tabla_sonando.getTabla().setFilas(listas_canciones.get(id_lista).getCanciones().size());
-            for (Cancion p : listas_canciones.get(id_lista).getCanciones()) {
+            
+            lista_sonando = new ListaPromocionada(listas_canciones.get(id_lista));
+            tabla_sonando.getTabla().setFilas(lista_sonando.getCanciones().size());
+            for (CancionPromocionada p : lista_sonando.getCanciones()) {
 
-                canciones.add(p);
                 tabla_sonando.getTabla().setValueAt(p.getNombre(), x, columnaSonandoCancion);
                 tabla_sonando.getTabla().setValueAt(p.getArtista(), x, columnaSonandoAutor);
                 tabla_sonando.getTabla().setValueAt(0, x, columnaSonandoVotos);
                 x++;
             }
 
-            //fragmento cutre del siglo
-            lista_sonando.getCanciones().clear();
-            for (Cancion p : canciones) {
-                lista_sonando.getCanciones().add(new Cancion(p.getId(), p.getNombre(), p.getDisco(), p.getArtista(), p.getDuracion(), p.getPath()));
-            }
             canciones = lista_sonando.getCanciones();
 
             votos_cliente = new HashMap();
@@ -101,12 +97,12 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             dialog.setVisible(true);
         }
     }
-    //¿Prorque es estatica?!, revisar.
+    
     public boolean procesarVoto(int id_cancion, boolean tipo) {
         int x = 0;
-        for (Cancion p : canciones) {
+        for (CancionPromocionada p : canciones) {
             if (p.getId() == id_cancion) {
-                String value_votos = (String) tabla_sonando.getValueAt(x, columnaSonandoVotos);
+                String value_votos = String.valueOf(canciones.get(x).getVotos());
                 if (!"*".equals(value_votos)) {
                     int votos = Integer.parseInt(value_votos);
                     if (tipo) {
@@ -130,7 +126,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
             int x = 0, votos, id_max = 0;
             String valor, valor_max;
-            for (Cancion p : canciones) {
+            for (CancionPromocionada p : canciones) {
                 valor = (String) tabla_sonando.getValueAt(x, columnaSonandoVotos);
                 if (!valor.equals("*")) {
                     votos = Integer.parseInt(valor);
@@ -141,7 +137,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 }
                 x++;
             }
-            Cancion cancion = canciones.get(id_max);
+            CancionPromocionada cancion = canciones.get(id_max);
             cancion_sonando = cancion;
             //lista_sonando.getCanciones().remove(id_max);
             tabla_sonando.setValueAt("*", id_max, columnaSonandoVotos);
