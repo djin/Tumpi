@@ -22,7 +22,7 @@ public class ModeloDatos {
         nombreLista = new ArrayList<String>();
         listasCanciones = new ArrayList<ArrayList<Cancion>>();
         listaPromocionada = new ArrayList<Cancion>();
-        cancionReproduciendo = new Cancion("Cancion Sonando", "Mangurrian", "HUAE", 0, 1234, false, false);
+        cancionReproduciendo = new Cancion("Cancion Sonando", "Mangurrian", "HUAE", 0, 1234);
     }
     
     public void limpiarDatos(ArrayList<Cancion> datos) {

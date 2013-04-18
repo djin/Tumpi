@@ -4,12 +4,7 @@
  */
 package multimedia;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
-import android.provider.MediaStore;
-import android.util.Log;
 
 /**
  *
@@ -47,7 +42,6 @@ public class Player {
             
             return true;
         }catch(Exception ex){
-            Log.e("Multimedia", ex.toString());
             throw ex;
         }
     }

@@ -108,14 +108,14 @@ public class ListaFragment extends ListFragment {
     }
 
     public void notificarPrimeraListaCreada() {
-        datos.set(0, new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567, false, false));
+        datos.set(0, new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567));
         adapter.seleccionados.add(false);
         adapter.notifyDataSetChanged();
     }
 
     public void notificarUltimaListaBorrada() {
         adapter.limpiarDatos();
-        datos.add(new Cancion("Crea una Lista para EMPEZAR", "Puedes pulsando el +", "o... PULSAME", 0, 0, false, false));
+        datos.add(new Cancion("Crea una Lista para EMPEZAR", "Puedes pulsando el +", "o... PULSAME", 0, 0));
         adapter.seleccionados.add(false);
         adapter.cambioEstilo(true);
         adapter.notifyDataSetChanged();

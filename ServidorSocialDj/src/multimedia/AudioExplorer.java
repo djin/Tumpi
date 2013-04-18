@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -74,7 +73,7 @@ public class AudioExplorer {
                 cancion=new HashMap();
                 cancion.put("name", cursor.getString(cursor.getColumnIndex("title")));
                 cancion.put("album", cursor.getString(cursor.getColumnIndex("album")));
-                cancion.put("image", getArtworkQuick(cursor.getInt(cursor.getColumnIndex("album_id"))));
+                cancion.put("album_id", cursor.getInt(cursor.getColumnIndex("album_id")));
                 cancion.put("artist", cursor.getString(cursor.getColumnIndex("artist")));
                 cancion.put("length", cursor.getString(cursor.getColumnIndex("duration")));
                 cancion.put("path", cursor.getString(cursor.getColumnIndex("_data")));
@@ -93,7 +92,7 @@ public class AudioExplorer {
             track_info=new HashMap();
             track_info.put("name", cursor.getString(cursor.getColumnIndex("title")));
             track_info.put("album", cursor.getString(cursor.getColumnIndex("album")));
-            track_info.put("image", getArtworkQuick(cursor.getInt(cursor.getColumnIndex("album_id"))));
+            track_info.put("album_id", cursor.getInt(cursor.getColumnIndex("album_id")));
             track_info.put("artist", cursor.getString(cursor.getColumnIndex("artist")));
             track_info.put("length", cursor.getString(cursor.getColumnIndex("duration")));
         }
@@ -109,7 +108,7 @@ public class AudioExplorer {
                 flag=true;
         return flag;
     }
-    private Bitmap getArtworkQuick(int album_id ) {
+    public Bitmap getAlbumImage(int album_id ) {
         // NOTE: There is in fact a 1 pixel frame in the ImageView used to
         // display this drawable. Take it into account now, so we don't have to
         // scale later.

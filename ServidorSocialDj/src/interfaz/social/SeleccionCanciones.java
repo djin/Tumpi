@@ -40,7 +40,7 @@ public class SeleccionCanciones extends ListActivity {
         modelo = ModeloDatos.getInstance();
         datos = new ArrayList<Cancion>();
         for (int i = 0; i < 10; i++) {
-            datos.add(new Cancion("Los Redondeles añadido", "Siempre Fuertes 2", "HUAEx34", 0, 24567, false, false));
+            datos.add(new Cancion("Los Redondeles añadido", "Siempre Fuertes 2", "HUAEx34", 0, 24567));
         }
         adapter = new AdaptadorListaSeleccionar(this, datos, R.layout.row_style_seleccion);
         for (Cancion c : datos) {
