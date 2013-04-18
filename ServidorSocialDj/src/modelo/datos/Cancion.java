@@ -13,11 +13,11 @@ public class Cancion {
     private String nombreCancion;
     private String nombreAutor;
     private String nombreAlbum;
-    private long duracion;
+    private int duracion;
     private int id;
     private int album_id;
 
-    public Cancion(String n, String a, String al, int i, long dur) {
+    public Cancion(String n, String a, String al, int i, int dur) {
         nombreCancion = n;
         nombreAutor = a;
         nombreAlbum = al;
@@ -114,14 +114,14 @@ public class Cancion {
     /**
      * @return the duracion
      */
-    public long getDuracion() {
+    public int getDuracion() {
         return duracion;
     }
 
     /**
      * @param duracion the duracion to set
      */
-    public void setDuracion(long duracion) {
+    public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
 }

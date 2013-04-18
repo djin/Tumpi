@@ -15,8 +15,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.HashMap;
 import modelo.datos.Cancion;
 import modelo.datos.ModeloDatos;
+import multimedia.AudioExplorer;
 
 /**
  *
@@ -28,6 +30,7 @@ public class SeleccionCanciones extends ListActivity {
     private ArrayList<Cancion> datos;
     private ModeloDatos modelo;
     private int numList;
+    private AudioExplorer explorer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,10 @@ public class SeleccionCanciones extends ListActivity {
         actionBar.setTitle("Seleccionar");
         modelo = ModeloDatos.getInstance();
         datos = new ArrayList<Cancion>();
-        for (int i = 0; i < 10; i++) {
-            datos.add(new Cancion("Los Redondeles añadido", "Siempre Fuertes 2", "HUAEx34", 0, 24567));
+        explorer=AudioExplorer.getInstance(this.getApplicationContext());
+        ArrayList<HashMap> canciones=explorer.searchAudio();
+        for (HashMap cancion:canciones) {
+            datos.add(new Cancion((String)cancion.get("name"),(String)cancion.get("artist"),(String)cancion.get("album"), 0,Integer.parseInt((String)cancion.get("length"))));
         }
         adapter = new AdaptadorListaSeleccionar(this, datos, R.layout.row_style_seleccion);
         for (Cancion c : datos) {
@@ -49,6 +54,7 @@ public class SeleccionCanciones extends ListActivity {
         setListAdapter(adapter);
         ListView lista = (ListView) findViewById(android.R.id.list);
         lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        
     }
 
     @Override
