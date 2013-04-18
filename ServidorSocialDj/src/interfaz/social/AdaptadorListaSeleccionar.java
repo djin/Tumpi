@@ -88,7 +88,7 @@ public class AdaptadorListaSeleccionar extends BaseAdapter {
         TextView txtDuracionSeleccionada = (TextView) rootView.findViewById(R.id.txtDuracionSeleccion);
         txtDuracionSeleccionada.setText(datos.get(position).getLengthString());
         if (!seleccionados.get(position)) {
-            rootView.setBackgroundColor(Color.parseColor("#00000000"));
+            rootView.setBackgroundResource(R.drawable.background_row_seleccionar);
         } else {
             rootView.setBackgroundColor(Color.parseColor("#55fbb74b"));
         }

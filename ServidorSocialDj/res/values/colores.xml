@@ -12,4 +12,5 @@
     <color name="btnReproductorNormal">#00000000</color>
     <color name="btnMenuNormal">#00000000</color>
     <color name="btnMenuPulsado">#776e5735</color>
+    <color name="colorFondoRowFinal">#33f1b75a</color>
 </resources>

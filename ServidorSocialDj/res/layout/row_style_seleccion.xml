@@ -6,12 +6,18 @@
               android:paddingLeft="5dp"
               android:paddingRight="8dp"
               android:paddingBottom="2dp"
+              android:background="@drawable/background_row_seleccionar"
               android:orientation="vertical"
 >
     <TextView android:id="@+id/textNombreCancionSeleccion"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:textSize="15dp"
+              android:singleLine="true"
+              android:ellipsize="marquee"
+              android:marqueeRepeatLimit="marquee_forever"
+              android:scrollHorizontally="true"
+              android:fadingEdge="horizontal"
               android:text="Nombre Cancion"
     />
     <TextView android:id="@+id/textNombreArtistaSeleccion"
