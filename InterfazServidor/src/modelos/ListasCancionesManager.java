@@ -104,13 +104,12 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             if (p.getId() == id_cancion) {
                 String value_votos = String.valueOf(canciones.get(x).getVotos());
                 if (!"*".equals(value_votos)) {
-                    int votos = Integer.parseInt(value_votos);
                     if (tipo) {
-                        votos++;
+                        canciones.get(x).setVotos(canciones.get(x).getVotos()+1);
                     } else {
-                        votos--;
+                        canciones.get(x).setVotos(canciones.get(x).getVotos()-1);
                     }
-                    tabla_sonando.setValueAt(votos, x, columnaSonandoVotos);
+                    tabla_sonando.setValueAt(canciones.get(x).getVotos(), x, columnaSonandoVotos);
                     return true;
                 }
                 return false;
@@ -220,7 +219,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                         max_id++;
                         c.setId(max_id);
 
-                        duracionFormateada = formatearDuracion(c.getDuracion());
+                        duracionFormateada = reproductor.formatearDuracion(c.getDuracion());
                         listas_canciones.get(index).getCanciones().add(c);
                         if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
                             tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() + 1);
@@ -349,17 +348,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         listas_canciones.remove(index);
         tablasPendientes.remove(index);
 
-    }
-    //Esto deberia de estar aqui!?
-    private String formatearDuracion(long duracion) {
-
-        String minutos = "" + duracion / 60000;
-        String segundos = "" + ((duracion - ((duracion / 60000) * 60000)) / 1000);
-        if (segundos.length() == 1) {
-            segundos = "0" + segundos;
-        }
-        String duracionFormateada = "" + minutos + ":" + segundos + " ";
-        return duracionFormateada;
     }
     
     @Override
