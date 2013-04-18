@@ -68,11 +68,11 @@ public class AdaptadorLista extends BaseAdapter {
             v = inflater.inflate(estiloFila, parent, false);
         }
         TextView txtNombreCancion = (TextView) v.findViewById(R.id.textNombreCancion);
-        txtNombreCancion.setText(getDatos().get(position).getNombreCancion());
+        txtNombreCancion.setText(getDatos().get(position).nombreCancion);
         TextView txtNombreALbum = (TextView) v.findViewById(R.id.textNombreAlbum);
-        txtNombreALbum.setText(getDatos().get(position).getNombreAlbum());
+        txtNombreALbum.setText(getDatos().get(position).nombreAlbum);
         TextView txtNombreArtista = (TextView) v.findViewById(R.id.textNombreArtista);
-        txtNombreArtista.setText(getDatos().get(position).getNombreAutor());
+        txtNombreArtista.setText(getDatos().get(position).nombreAutor);
         TextView txtDuracion = (TextView) v.findViewById(R.id.txtDuracion);
         txtDuracion.setText(datos.get(position).getLengthString());
 

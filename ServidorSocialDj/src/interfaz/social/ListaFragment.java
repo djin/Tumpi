@@ -8,13 +8,11 @@ import Manejador.ManejadorAcciones;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
 import modelo.datos.ListasManager;
@@ -34,13 +32,13 @@ public class ListaFragment extends ListFragment {
     private ManejadorAcciones manejador;
     private ListaFragment lf = this;
     private int posicion;
-    private ListasManager modelo;
+    private ListasManager manager;
 
     public ListaFragment(Boolean pri, int posi) {
         primera = pri;
         manejador = ManejadorAcciones.getInstance();
         posicion = posi;
-        modelo = ListasManager.getInstance();
+        manager = ListasManager.getInstance();
     }
 
     @Override
@@ -51,7 +49,7 @@ public class ListaFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.style_listas_preparacion, container, false);
         ListView listaCanciones = (ListView) rootView.findViewById(android.R.id.list);
         if (!primera) {
-            datos = modelo.getLista(posicion);
+            datos = manager.getLista(posicion).getCanciones();
             for (Cancion c : datos) {
                 seleccionados.add(false);
             }
@@ -108,14 +106,14 @@ public class ListaFragment extends ListFragment {
     }
 
     public void notificarPrimeraListaCreada() {
-        datos.set(0, new Cancion("Los Redondeles", "Siempre Fuertes", "HUAE", 0, 24567));
+        datos.set(0, new Cancion(0, "Los Redondeles", "Siempre Fuertes", 1, "HUAE", 1234, "C:/"));
         adapter.seleccionados.add(false);
         adapter.notifyDataSetChanged();
     }
 
     public void notificarUltimaListaBorrada() {
         adapter.limpiarDatos();
-        datos.add(new Cancion("Crea una Lista para EMPEZAR", "Puedes pulsando el +", "o... PULSAME", 0, 0));
+        datos.add(new Cancion(0, "Crea una Lista para EMPEZAR", "Puedes pulsando el +", 1,"o... PULSAME", 0, "C:/"));
         adapter.seleccionados.add(false);
         adapter.cambioEstilo(true);
         adapter.notifyDataSetChanged();

@@ -82,9 +82,9 @@ public class ListasCanciones extends FragmentActivity {
         });
         if (modelo.getCancionReproduciendo() != null) {
             TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
-            txtNombreCancionReproduciendo.setText(modelo.getCancionReproduciendo().getNombreCancion());
+            txtNombreCancionReproduciendo.setText(modelo.getCancionReproduciendo().nombreCancion);
             TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
-            txtNombreAlbumReproduciendo.setText(modelo.getCancionReproduciendo().getNombreAlbum());
+            txtNombreAlbumReproduciendo.setText(modelo.getCancionReproduciendo().nombreAlbum);
         }
     }
 

@@ -8,7 +8,6 @@ import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
+import modelo.datos.CancionPromocionada;
 import modelo.datos.ListasManager;
 
 /**
@@ -28,8 +28,8 @@ import modelo.datos.ListasManager;
  */
 public class ListaPromocionada extends ListActivity {
 
-    private ArrayList<Cancion> datosListaPromocionada;
-    private ListasManager modelo;
+    private ArrayList<CancionPromocionada> datosListaPromocionada;
+    private ListasManager manager;
     private AdaptadorListaPromocionada adapter;
     private Boolean modoSeleccion = false;
     private Menu menuApp;
@@ -40,7 +40,7 @@ public class ListaPromocionada extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.style_lista_promocionada);
         final ActionBar actionBar = getActionBar();
-        modelo = ListasManager.getInstance();
+        manager = ListasManager.getInstance();
         // Specify that a dropdown list should be displayed in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
@@ -64,7 +64,7 @@ public class ListaPromocionada extends ListActivity {
         });
         actionBar.setDisplayShowTitleEnabled(false);
 
-        datosListaPromocionada = modelo.listaPromocionada;
+        datosListaPromocionada = manager.lista_promocionada.getCanciones();
         adapter = new AdaptadorListaPromocionada(this, datosListaPromocionada, R.layout.row_style_promocionada);
         for (Cancion c : datosListaPromocionada) {
             adapter.seleccionados.add(false);
@@ -81,11 +81,11 @@ public class ListaPromocionada extends ListActivity {
                 return true;
             }
         });
-        if (modelo.getCancionReproduciendo() != null) {
+        if (manager.getCancionReproduciendo() != null) {
             TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
-            txtNombreCancionReproduciendo.setText(modelo.getCancionReproduciendo().getNombreCancion());
+            txtNombreCancionReproduciendo.setText(manager.getCancionReproduciendo().nombreCancion);
             TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
-            txtNombreAlbumReproduciendo.setText(modelo.getCancionReproduciendo().getNombreAlbum());
+            txtNombreAlbumReproduciendo.setText(manager.getCancionReproduciendo().nombreAlbum);
         }
     }
 
@@ -109,7 +109,7 @@ public class ListaPromocionada extends ListActivity {
     }
 
     public void borrarCanciones() {
-        ArrayList<Cancion> nuevaLista = new ArrayList<Cancion>();
+        ArrayList<CancionPromocionada> nuevaLista = new ArrayList<CancionPromocionada>();
         int buscarBorrados = 0;
         for (Boolean b : adapter.seleccionados) {
             if (!b) {
@@ -121,7 +121,7 @@ public class ListaPromocionada extends ListActivity {
         datosListaPromocionada = nuevaLista;
 
         ArrayList<Boolean> seleccion = new ArrayList<Boolean>();
-        for (Cancion c : datosListaPromocionada) {
+        for (CancionPromocionada c : datosListaPromocionada) {
             adapter.anadirCancion(c);
             seleccion.add(false);
         }

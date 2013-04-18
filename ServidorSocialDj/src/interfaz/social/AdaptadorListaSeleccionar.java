@@ -80,11 +80,11 @@ public class AdaptadorListaSeleccionar extends BaseAdapter {
             rootView = inflater.inflate(estiloFila, parent, false);
         }
         TextView txtNombreCancionSeleccionada = (TextView) rootView.findViewById(R.id.textNombreCancionSeleccion);
-        txtNombreCancionSeleccionada.setText(datos.get(position).getNombreCancion());
+        txtNombreCancionSeleccionada.setText(datos.get(position).nombreCancion);
         TextView txtNombreArtistaSeleccionada = (TextView) rootView.findViewById(R.id.textNombreArtistaSeleccion);
-        txtNombreArtistaSeleccionada.setText(datos.get(position).getNombreAutor());
+        txtNombreArtistaSeleccionada.setText(datos.get(position).nombreAutor);
         TextView txtNombreAlbumSeleccionada = (TextView) rootView.findViewById(R.id.textNombreAlbumSeleccion);
-        txtNombreAlbumSeleccionada.setText(datos.get(position).getNombreAlbum());
+        txtNombreAlbumSeleccionada.setText(datos.get(position).nombreAlbum);
         TextView txtDuracionSeleccionada = (TextView) rootView.findViewById(R.id.txtDuracionSeleccion);
         txtDuracionSeleccionada.setText(datos.get(position).getLengthString());
         if (!seleccionados.get(position)) {

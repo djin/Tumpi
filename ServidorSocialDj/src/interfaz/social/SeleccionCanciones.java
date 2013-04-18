@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.datos.Cancion;
@@ -28,7 +27,7 @@ public class SeleccionCanciones extends ListActivity {
 
     private AdaptadorListaSeleccionar adapter;
     private ArrayList<Cancion> datos;
-    private ListasManager modelo;
+    private ListasManager manager;
     private int numList;
     private AudioExplorer explorer;
 
@@ -40,12 +39,13 @@ public class SeleccionCanciones extends ListActivity {
         numList = inte.getInt("numList");
         final ActionBar actionBar = getActionBar();
         actionBar.setTitle("Seleccionar");
-        modelo = ListasManager.getInstance();
+        manager = ListasManager.getInstance();
         datos = new ArrayList<Cancion>();
-        explorer=AudioExplorer.getInstance(this.getApplicationContext());
-        ArrayList<HashMap> canciones=explorer.searchAudio();
-        for (HashMap cancion:canciones) {
-            datos.add(new Cancion((String)cancion.get("name"),(String)cancion.get("artist"),(String)cancion.get("album"), 0,Integer.parseInt((String)cancion.get("length"))));
+        explorer = AudioExplorer.getInstance(this.getApplicationContext());
+        ArrayList<HashMap> canciones = explorer.searchAudio();
+        for (HashMap cancion : canciones) {
+            datos.add(new Cancion(0, (String) cancion.get("name"), (String) cancion.get("album"), (Integer)cancion.get("album_id"),
+                    (String) cancion.get("artist"), Integer.parseInt((String) cancion.get("length")), (String) cancion.get("path")));
         }
         adapter = new AdaptadorListaSeleccionar(this, datos, R.layout.row_style_seleccion);
         for (Cancion c : datos) {
@@ -54,7 +54,7 @@ public class SeleccionCanciones extends ListActivity {
         setListAdapter(adapter);
         ListView lista = (ListView) findViewById(android.R.id.list);
         lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        
+
     }
 
     @Override
@@ -91,9 +91,9 @@ public class SeleccionCanciones extends ListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemAceptarSeleccion:
-                modelo.anadirCanciones(numList, getCancionSeleccionadas());
+                manager.anadirCanciones(numList, getCancionSeleccionadas());
                 Intent inte = new Intent(this, ListasCanciones.class);
-                inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);               
+                inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 inte.putExtra("numList", numList);
                 startActivity(inte);
                 return true;

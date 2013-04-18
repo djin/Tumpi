@@ -13,9 +13,9 @@ public class CancionPromocionada extends Cancion {
     private int reproducida;
     private int votos;
     
-    public CancionPromocionada(int _id, String name, String album, String artist, int length, String _path) {
+    public CancionPromocionada(int _id, String name, String album,int album_id, String artist, int length, String _path) {
         
-        super(_id, name, album, artist, length, _path);
+        super(_id, name, album, album_id, artist, length, _path);
         reproducida = 0;
         votos = 0;
         

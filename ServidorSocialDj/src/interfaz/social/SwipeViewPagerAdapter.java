@@ -14,7 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import java.util.ArrayList;
-import modelo.datos.Cancion;
 import modelo.datos.ListaCanciones;
 import modelo.datos.ListasManager;
 
@@ -28,16 +27,16 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<String> nombresListas;
     private ListaFragment primerFragment;
     private ArrayList<Object> listasCreadas;
-    private ListasManager modelo;
+    private ListasManager manager;
     private ManejadorAcciones manejador;
 
     public SwipeViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        modelo = ListasManager.getInstance();
-        nombresListas = modelo.nombreLista;
+        manager = ListasManager.getInstance();
+        nombresListas = manager.nombreLista;
         listasCreadas = new ArrayList<Object>();
         manejador = ManejadorAcciones.getInstance();
-        modelo.listasCanciones.add(new ListaCanciones());
+        manager.listasCanciones.add(new ListaCanciones());
     }
 
     @Override
@@ -77,11 +76,11 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
                         primerFragment.notificarPrimeraListaCreada();
                     }
                     nombresListas.add(value);
-                    modelo.listasCanciones.add(new ArrayList<Cancion>());
+                    manager.listasCanciones.add(new ListaCanciones());
                     notifyDataSetChanged();
                     ViewPager vp = (ViewPager) container;
                     vp.setCurrentItem(numeroListas);
-                    ((ListaFragment)listasCreadas.get(numeroListas)).datos = modelo.getLista(numeroListas);
+                    ((ListaFragment)listasCreadas.get(numeroListas)).datos = manager.getLista(numeroListas).getCanciones();
                 } else {
                     dialog.cancel();
                 }
@@ -107,7 +106,7 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
             nombresListas.remove(0);
             manejador.finModoSeleccion();
         }
-        modelo.listasCanciones.remove(position);
+        manager.listasCanciones.remove(position);
     }
     
     @Override

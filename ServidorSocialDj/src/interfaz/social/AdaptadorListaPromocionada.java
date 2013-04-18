@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
+import modelo.datos.CancionPromocionada;
 
 /**
  * 
@@ -22,11 +23,11 @@ import modelo.datos.Cancion;
 public class AdaptadorListaPromocionada extends BaseAdapter{
     
     Context mContext;
-    private ArrayList<Cancion> datos;
+    private ArrayList<CancionPromocionada> datos;
     ArrayList<Boolean> seleccionados;
     int estiloFila;
     
-    public AdaptadorListaPromocionada(Context c, ArrayList<Cancion> d, int v) {
+    public AdaptadorListaPromocionada(Context c, ArrayList<CancionPromocionada> d, int v) {
         mContext = c;
         datos = d;
         estiloFila = v;
@@ -45,7 +46,7 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
         return position;
     }
     
-    public void anadirCancion(Cancion c){
+    public void anadirCancion(CancionPromocionada c){
         datos.add(c);
     }
     
@@ -63,11 +64,11 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
             rootView = inflater.inflate(estiloFila, parent, false);
         }
         TextView txtNombreCancionPromocionada = (TextView)rootView.findViewById(R.id.textNombreCancionPromocionada);
-        txtNombreCancionPromocionada.setText(datos.get(position).getNombreCancion());
+        txtNombreCancionPromocionada.setText(datos.get(position).nombreCancion);
         TextView txtNombreArtistaPromocionada = (TextView)rootView.findViewById(R.id.textNombreArtistaPromocionada);
-        txtNombreArtistaPromocionada.setText(datos.get(position).getNombreAutor());
+        txtNombreArtistaPromocionada.setText(datos.get(position).nombreAutor);
         TextView txtNombreAlbumPromocionada = (TextView)rootView.findViewById(R.id.textNombreAlbumPromocionada);
-        txtNombreAlbumPromocionada.setText(datos.get(position).getNombreAlbum());
+        txtNombreAlbumPromocionada.setText(datos.get(position).nombreAlbum);
         if(!seleccionados.get(position)){
             rootView.setBackgroundColor(Color.parseColor("#00000000"));
         } else {

@@ -15,14 +15,14 @@ public class ListasManager {
     private static ListasManager INSTANCE = new ListasManager();
     public ArrayList<String> nombreLista;
     public ArrayList<ListaCanciones> listasCanciones;
-    private ListaPromocionada lista_promocionada;
+    public ListaPromocionada lista_promocionada;
     private Cancion cancionReproduciendo;
 
     private ListasManager() {
         nombreLista = new ArrayList<String>();
         listasCanciones = new ArrayList<ListaCanciones>();
         lista_promocionada=new ListaPromocionada(new ListaCanciones());
-        cancionReproduciendo = new Cancion("Cancion Sonando", "Mangurrian", "HUAE", 0, 1234);
+        cancionReproduciendo = new CancionPromocionada(0, "Los Redondeles", "Siempre Fuertes", 1, "HUAE", 1234, "C:/");
     }
     
     public void limpiarDatos(ArrayList<Cancion> datos) {
@@ -30,6 +30,10 @@ public class ListasManager {
         for (int i = 0; i < n; i++) {
             datos.remove(0);
         }
+    }
+    
+    public void anadirCanciones(int posicion, ArrayList<Cancion> canciones_anadir){
+        listasCanciones.get(posicion).addCanciones(canciones_anadir);
     }
     
     public Cancion getCancionReproduciendo (){
@@ -54,15 +58,6 @@ public class ListasManager {
     }
 
     public void promocionar(int posicion) {
-        limpiarDatos(listaPromocionada);
-        for (Cancion c : listasCanciones.get(posicion)) {
-            listaPromocionada.add(c);
-        }
-    }
-    
-    public void anadirCanciones (int posicion, ArrayList<Cancion> listaCanciones){
-        for(Cancion c : listaCanciones){
-            listasCanciones.get(posicion).add(c);
-        }
+        lista_promocionada = new ListaPromocionada(listasCanciones.get(posicion));
     }
 }
