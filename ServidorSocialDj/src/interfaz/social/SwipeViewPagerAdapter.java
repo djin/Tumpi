@@ -15,7 +15,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
-import modelo.datos.ModeloDatos;
+import modelo.datos.ListaCanciones;
+import modelo.datos.ListasManager;
 
 /**
  *
@@ -27,16 +28,16 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<String> nombresListas;
     private ListaFragment primerFragment;
     private ArrayList<Object> listasCreadas;
-    private ModeloDatos modelo;
+    private ListasManager modelo;
     private ManejadorAcciones manejador;
 
     public SwipeViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        modelo = ModeloDatos.getInstance();
+        modelo = ListasManager.getInstance();
         nombresListas = modelo.nombreLista;
         listasCreadas = new ArrayList<Object>();
         manejador = ManejadorAcciones.getInstance();
-        modelo.listasCanciones.add(new ArrayList<Cancion>());
+        modelo.listasCanciones.add(new ListaCanciones());
     }
 
     @Override

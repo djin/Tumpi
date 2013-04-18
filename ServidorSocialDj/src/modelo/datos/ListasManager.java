@@ -10,18 +10,18 @@ import java.util.ArrayList;
  *
  * @author zellyalgo
  */
-public class ModeloDatos {
+public class ListasManager {
 
-    private static ModeloDatos INSTANCE = new ModeloDatos();
+    private static ListasManager INSTANCE = new ListasManager();
     public ArrayList<String> nombreLista;
-    public ArrayList<Cancion> listaPromocionada;
-    public ArrayList<ArrayList<Cancion>> listasCanciones;
+    public ArrayList<ListaCanciones> listasCanciones;
+    private ListaPromocionada lista_promocionada;
     private Cancion cancionReproduciendo;
 
-    private ModeloDatos() {
+    private ListasManager() {
         nombreLista = new ArrayList<String>();
-        listasCanciones = new ArrayList<ArrayList<Cancion>>();
-        listaPromocionada = new ArrayList<Cancion>();
+        listasCanciones = new ArrayList<ListaCanciones>();
+        lista_promocionada=new ListaPromocionada(new ListaCanciones());
         cancionReproduciendo = new Cancion("Cancion Sonando", "Mangurrian", "HUAE", 0, 1234);
     }
     
@@ -40,17 +40,17 @@ public class ModeloDatos {
         cancionReproduciendo = c;
     }
 
-    public static ModeloDatos getInstance() {
+    public static ListasManager getInstance() {
         return INSTANCE;
     }
 
-    public ArrayList<Cancion> getLista(int posicion) {
-        ArrayList<Cancion> dar = listasCanciones.get(posicion);
+    public ListaCanciones getLista(int posicion) {
+        ListaCanciones dar = listasCanciones.get(posicion);
         return dar;
     }
 
     public void borrarCanciones(int posicion, ArrayList<Cancion> listaDeBorradas) {
-        listasCanciones.get(posicion).removeAll(listaDeBorradas);
+        listasCanciones.get(posicion).removeCanciones(listaDeBorradas);
     }
 
     public void promocionar(int posicion) {

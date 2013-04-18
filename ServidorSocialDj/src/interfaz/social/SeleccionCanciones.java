@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.datos.Cancion;
-import modelo.datos.ModeloDatos;
+import modelo.datos.ListasManager;
 import multimedia.AudioExplorer;
 
 /**
@@ -28,7 +28,7 @@ public class SeleccionCanciones extends ListActivity {
 
     private AdaptadorListaSeleccionar adapter;
     private ArrayList<Cancion> datos;
-    private ModeloDatos modelo;
+    private ListasManager modelo;
     private int numList;
     private AudioExplorer explorer;
 
@@ -40,7 +40,7 @@ public class SeleccionCanciones extends ListActivity {
         numList = inte.getInt("numList");
         final ActionBar actionBar = getActionBar();
         actionBar.setTitle("Seleccionar");
-        modelo = ModeloDatos.getInstance();
+        modelo = ListasManager.getInstance();
         datos = new ArrayList<Cancion>();
         explorer=AudioExplorer.getInstance(this.getApplicationContext());
         ArrayList<HashMap> canciones=explorer.searchAudio();

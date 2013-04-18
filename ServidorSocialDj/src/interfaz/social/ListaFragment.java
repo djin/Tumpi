@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
-import modelo.datos.ModeloDatos;
+import modelo.datos.ListasManager;
 
 /**
  *
@@ -34,13 +34,13 @@ public class ListaFragment extends ListFragment {
     private ManejadorAcciones manejador;
     private ListaFragment lf = this;
     private int posicion;
-    private ModeloDatos modelo;
+    private ListasManager modelo;
 
     public ListaFragment(Boolean pri, int posi) {
         primera = pri;
         manejador = ManejadorAcciones.getInstance();
         posicion = posi;
-        modelo = ModeloDatos.getInstance();
+        modelo = ListasManager.getInstance();
     }
 
     @Override

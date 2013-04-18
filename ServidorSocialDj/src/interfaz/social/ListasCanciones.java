@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import modelo.datos.ModeloDatos;
+import modelo.datos.ListasManager;
 
 public class ListasCanciones extends FragmentActivity {
 
@@ -25,7 +25,7 @@ public class ListasCanciones extends FragmentActivity {
     ViewPager mViewPager;
     private Menu menuApp;
     private ManejadorAcciones manejador;
-    private ModeloDatos modelo = ModeloDatos.getInstance();
+    private ListasManager modelo = ListasManager.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

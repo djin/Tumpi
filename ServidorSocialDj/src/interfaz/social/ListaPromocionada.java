@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
-import modelo.datos.ModeloDatos;
+import modelo.datos.ListasManager;
 
 /**
  *
@@ -29,7 +29,7 @@ import modelo.datos.ModeloDatos;
 public class ListaPromocionada extends ListActivity {
 
     private ArrayList<Cancion> datosListaPromocionada;
-    private ModeloDatos modelo;
+    private ListasManager modelo;
     private AdaptadorListaPromocionada adapter;
     private Boolean modoSeleccion = false;
     private Menu menuApp;
@@ -40,7 +40,7 @@ public class ListaPromocionada extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.style_lista_promocionada);
         final ActionBar actionBar = getActionBar();
-        modelo = ModeloDatos.getInstance();
+        modelo = ListasManager.getInstance();
         // Specify that a dropdown list should be displayed in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
