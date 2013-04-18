@@ -86,22 +86,12 @@ public class AdaptadorListaSeleccionar extends BaseAdapter {
         TextView txtNombreAlbumSeleccionada = (TextView) rootView.findViewById(R.id.textNombreAlbumSeleccion);
         txtNombreAlbumSeleccionada.setText(datos.get(position).getNombreAlbum());
         TextView txtDuracionSeleccionada = (TextView) rootView.findViewById(R.id.txtDuracionSeleccion);
-        txtDuracionSeleccionada.setText(String.valueOf(getLengthString(datos.get(position).getDuracion())));
+        txtDuracionSeleccionada.setText(datos.get(position).getLengthString());
         if (!seleccionados.get(position)) {
             rootView.setBackgroundColor(Color.parseColor("#00000000"));
         } else {
             rootView.setBackgroundColor(Color.parseColor("#55fbb74b"));
         }
         return rootView;
-    }
-    private String getLengthString(int length){
-        int secs=length/1000;
-        int mins=secs/60;
-        secs=secs-(mins*60);
-        String duration=mins+" : ";
-        if(secs<10)
-            duration=duration+"0";
-        duration=duration+secs;
-        return duration;
     }
 }

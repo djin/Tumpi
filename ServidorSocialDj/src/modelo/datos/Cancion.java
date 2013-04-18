@@ -124,4 +124,14 @@ public class Cancion {
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
+    public String getLengthString(){
+        int secs=duracion/1000;
+        int mins=secs/60;
+        secs=secs-(mins*60);
+        String duration=mins+" : ";
+        if(secs<10)
+            duration=duration+"0";
+        duration=duration+secs;
+        return duration;
+    }
 }

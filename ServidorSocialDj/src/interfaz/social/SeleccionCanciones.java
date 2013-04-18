@@ -93,7 +93,8 @@ public class SeleccionCanciones extends ListActivity {
             case R.id.itemAceptarSeleccion:
                 modelo.anadirCanciones(numList, getCancionSeleccionadas());
                 Intent inte = new Intent(this, ListasCanciones.class);
-                inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);               
+                inte.putExtra("numList", numList);
                 startActivity(inte);
                 return true;
             case R.id.itemCancelarSeleccion:

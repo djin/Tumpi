@@ -32,6 +32,7 @@ public class AudioExplorer {
     private Cursor cursor=null;
     private BitmapFactory.Options sBitmapOptionsCache ;
     private Uri sArtworkUri ;
+    private ArrayList<HashMap> cache_canciones=null;
     
     private AudioExplorer(Context c){
         formatos="mp3,mp4,acc,m4a,3gp,ogp".split(",");
@@ -61,8 +62,11 @@ public class AudioExplorer {
     }
     public void setInitPath(String path){
         init_path=path;
+        cache_canciones=null;
     }
     public ArrayList<HashMap> searchAudio(){
+        if(cache_canciones!=null)
+            return cache_canciones;
         ArrayList<HashMap> paths=new ArrayList();
         Uri uri = MediaStore.Audio.Media.getContentUriForPath(init_path);
         cursor = resolver.query(uri, track_properties, filtro, null, "title asc");
@@ -81,6 +85,7 @@ public class AudioExplorer {
             }
         }
         cursor.close();
+        cache_canciones=paths;
         return paths;
     }
     public HashMap getTrackInfo(String path){

@@ -30,6 +30,7 @@ public class ListasCanciones extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+            
         setContentView(R.layout.main);
         manejador = ManejadorAcciones.getInstance();
         manejador.setListaCanciones(this);
@@ -60,6 +61,12 @@ public class ListasCanciones extends FragmentActivity {
         mSwipeViewPagerAdapter = new SwipeViewPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSwipeViewPagerAdapter);
+        Bundle inte = getIntent().getExtras();
+        if(inte!=null){
+            int numList = inte.getInt("numList");
+            if(numList!=0)
+                mViewPager.setCurrentItem(numList);
+        }        
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrolled(int i, float f, int i1) {
                 cancelarSeleccion();
