@@ -10,75 +10,21 @@ package modelo.datos;
  */
 public class Cancion {
 
-    private String nombreCancion;
-    private String nombreAutor;
-    private String nombreAlbum;
-    private int duracion;
-    private int id;
-    private int album_id;
+    public String nombreCancion;
+    public String nombreAutor;
+    public String nombreAlbum;
+    public int duracion;
+    public int id;
+    public int album_id;
+    public String path;
 
-    public Cancion(String n, String a, String al, int i, int dur) {
-        nombreCancion = n;
-        nombreAutor = a;
-        nombreAlbum = al;
-        duracion = dur;
-        id = i;
-    }
-
-    /**
-     * @return the nombreCancion
-     */
-    public String getNombreCancion() {
-        return nombreCancion;
-    }
-
-    /**
-     * @param nombreCancion the nombreCancion to set
-     */
-    public void setNombreCancion(String nombreCancion) {
-        this.nombreCancion = nombreCancion;
-    }
-
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the nombreAutor
-     */
-    public String getNombreAutor() {
-        return nombreAutor;
-    }
-
-    /**
-     * @param nombreAutor the nombreAutor to set
-     */
-    public void setNombreAutor(String nombreAutor) {
-        this.nombreAutor = nombreAutor;
-    }
-
-    /**
-     * @return the nombreAlbum
-     */
-    public String getNombreAlbum() {
-        return nombreAlbum;
-    }
-
-    /**
-     * @param nombreAlbum the nombreAlbum to set
-     */
-    public void setNombreAlbum(String nombreAlbum) {
-        this.nombreAlbum = nombreAlbum;
+    public Cancion(int _id, String name, String album, int album_id,String artist, int length, String _path) {
+        nombreCancion = name;
+        nombreAutor = artist;
+        nombreAlbum = album;
+        duracion = length;
+        id = _id;
+        path=_path;
     }
 
 
@@ -106,24 +52,6 @@ public class Cancion {
 //        return hash;
 //    }
     
-    @Override
-    public String toString(){
-        return nombreCancion + " " + nombreAutor + " " + nombreAlbum + " " + id;
-    }
-
-    /**
-     * @return the duracion
-     */
-    public int getDuracion() {
-        return duracion;
-    }
-
-    /**
-     * @param duracion the duracion to set
-     */
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
-    }
     public String getLengthString(){
         int secs=duracion/1000;
         int mins=secs/60;
