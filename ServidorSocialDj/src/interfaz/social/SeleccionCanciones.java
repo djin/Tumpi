@@ -32,6 +32,7 @@ public class SeleccionCanciones extends ListActivity {
     private ArrayList<Cancion> datos;
     private ListasManager manager;
     private int numList;
+    private Menu menuApp;
     private AudioExplorer explorer;
 
     @Override
@@ -72,6 +73,7 @@ public class SeleccionCanciones extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+        menuApp = menu;
         inflater.inflate(R.layout.menu_seleccionar, menu);
         final SearchView searchView = (SearchView) menu.findItem(R.id.itemBuscarSeleccion).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -124,6 +126,8 @@ public class SeleccionCanciones extends ListActivity {
                 return true;
             case R.id.itemSeleccionarTodo:
                 adapter.seleccionarTodo();
+                return true;
+            case R.id.itemBuscarSeleccion:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
