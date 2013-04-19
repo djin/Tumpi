@@ -8,6 +8,7 @@ import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +18,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import conexion.ConnectionManager;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.datos.Cancion;
 import modelo.datos.CancionPromocionada;
 import modelo.datos.ListasManager;
@@ -86,6 +90,13 @@ public class ListaPromocionada extends ListActivity {
             txtNombreCancionReproduciendo.setText(manager.getCancionReproduciendo().nombreCancion);
             TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
             txtNombreAlbumReproduciendo.setText(manager.getCancionReproduciendo().nombreAlbum);
+        }
+        ConnectionManager conex=new ConnectionManager(getApplicationContext());
+        try {
+            if(conex.createSocket(2222))
+                Log.i("Conexion","Socket creado con éxito");
+        } catch (Exception ex) {
+            Log.e("Conexion","Error al crear el socket: "+ex.toString());
         }
     }
 
