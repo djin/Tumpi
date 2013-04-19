@@ -8,11 +8,14 @@ import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.datos.Cancion;
@@ -38,19 +41,16 @@ public class SeleccionCanciones extends ListActivity {
         Bundle inte = getIntent().getExtras();
         numList = inte.getInt("numList");
         final ActionBar actionBar = getActionBar();
-        actionBar.setTitle("Seleccionar");
+        actionBar.setDisplayShowTitleEnabled(false);
         manager = ListasManager.getInstance();
         datos = new ArrayList<Cancion>();
         explorer = AudioExplorer.getInstance(this.getApplicationContext());
         ArrayList<HashMap> canciones = explorer.searchAudio();
         for (HashMap cancion : canciones) {
-            datos.add(new Cancion(0, (String) cancion.get("name"), (String) cancion.get("album"), (Integer)cancion.get("album_id"),
+            datos.add(new Cancion(0, (String) cancion.get("name"), (String) cancion.get("album"), (Integer) cancion.get("album_id"),
                     (String) cancion.get("artist"), Integer.parseInt((String) cancion.get("length")), (String) cancion.get("path")));
         }
         adapter = new AdaptadorListaSeleccionar(this, datos, R.layout.row_style_seleccion);
-        for (Cancion c : datos) {
-            adapter.seleccionados.add(false);
-        }
         setListAdapter(adapter);
         ListView lista = (ListView) findViewById(android.R.id.list);
         lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -60,10 +60,11 @@ public class SeleccionCanciones extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if (adapter.seleccionados.get(position)) {
-            adapter.seleccionados.set(position, false);
+        Cancion cancionSeleccionada = (Cancion) adapter.getItem(position);
+        if (adapter.isExist(cancionSeleccionada)) {
+            adapter.seleccionados.remove(cancionSeleccionada.path);
         } else {
-            adapter.seleccionados.set(position, true);
+            adapter.seleccionados.add(cancionSeleccionada.path);
         }
         adapter.notifyDataSetChanged();
     }
@@ -72,17 +73,37 @@ public class SeleccionCanciones extends ListActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.menu_seleccionar, menu);
+        final SearchView searchView = (SearchView) menu.findItem(R.id.itemBuscarSeleccion).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            public boolean onQueryTextChange(String newText) {
+                buscarQuery(newText);
+                return true;
+            }
+        });
         return true;
+    }
+    
+    public void buscarQuery(String query) {
+        ArrayList<Cancion> cancionesEncontradas = new ArrayList<Cancion>();
+        for (Cancion c : datos) {
+            if (c.nombreCancion.contains(query) || c.nombreAutor.contains(query) || c.nombreAlbum.contains(query)) {
+                cancionesEncontradas.add(c);
+            }
+        }
+        adapter.cambiarDatos(cancionesEncontradas);
+        adapter.notifyDataSetChanged();
     }
 
     public ArrayList<Cancion> getCancionSeleccionadas() {
         ArrayList<Cancion> canciones = new ArrayList<Cancion>();
-        int buscarBorrados = 0;
-        for (Boolean b : adapter.seleccionados) {
-            if (b) {
-                canciones.add(datos.get(buscarBorrados));
+        for (Cancion c : datos) {
+            if (adapter.isExist(c)) {
+                canciones.add(c);
             }
-            buscarBorrados++;
         }
         return canciones;
     }

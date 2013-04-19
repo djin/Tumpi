@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/itemBuscarSeleccion"
+          android:title="Buscar Cancion"
+          android:icon="@drawable/image_search"
+          android:showAsAction="always|collapseActionView"
+          android:actionViewClass="android.widget.SearchView" 
+    />
     <item android:id="@+id/itemAceptarSeleccion"
           android:icon="@drawable/image_aceptar"
           android:text="Aceptar"
           android:title="Aceptar"
-          android:showAsAction="ifRoom"
+          android:showAsAction="always"
     />
     <item android:id="@+id/itemCancelarSeleccion"
           android:text="Cancelar"

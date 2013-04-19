@@ -22,14 +22,14 @@ public class AdaptadorListaSeleccionar extends BaseAdapter {
 
     Context mContext;
     private ArrayList<Cancion> datos;
-    ArrayList<Boolean> seleccionados;
+    ArrayList<String> seleccionados;
     int estiloFila;
 
     public AdaptadorListaSeleccionar(Context c, ArrayList<Cancion> d, int v) {
         mContext = c;
         datos = d;
         estiloFila = v;
-        seleccionados = new ArrayList<Boolean>();
+        seleccionados = new ArrayList<String>();
     }
 
     public int getCount() {
@@ -42,6 +42,13 @@ public class AdaptadorListaSeleccionar extends BaseAdapter {
 
     public long getItemId(int position) {
         return position;
+    }
+    
+    public void cambiarDatos (ArrayList<Cancion> nuevosDatos){
+        datos = nuevosDatos;
+        for (Cancion c : datos){
+            
+        }
     }
 
     public void anadirCancion(Cancion c) {
@@ -56,19 +63,27 @@ public class AdaptadorListaSeleccionar extends BaseAdapter {
     }
 
     public void cancelarSeleccion() {
-        int i = 0;
-        for (Boolean b : seleccionados) {
-            seleccionados.set(i, false);
-            i++;
+        int i = seleccionados.size();
+        for (int n = 0; n< i; n++) {
+            seleccionados.remove(0);
         }
         notifyDataSetChanged();
     }
+    
+    public boolean isExist(Cancion cancion){
+        boolean seleccionado = false;
+        for (String texto : seleccionados){
+            if(texto.equals(cancion.path)){
+                seleccionado = true;
+                return seleccionado;
+            }
+        }
+        return seleccionado;
+    }
 
     public void seleccionarTodo() {
-        int i = 0;
-        for (Boolean b : seleccionados) {
-            seleccionados.set(i, true);
-            i++;
+        for (Cancion c : datos) {
+            seleccionados.add(c.path);
         }
         notifyDataSetChanged();
     }
@@ -87,7 +102,7 @@ public class AdaptadorListaSeleccionar extends BaseAdapter {
         txtNombreAlbumSeleccionada.setText(datos.get(position).nombreAlbum);
         TextView txtDuracionSeleccionada = (TextView) rootView.findViewById(R.id.txtDuracionSeleccion);
         txtDuracionSeleccionada.setText(datos.get(position).getLengthString());
-        if (!seleccionados.get(position)) {
+        if (!isExist(datos.get(position))) {
             rootView.setBackgroundResource(R.drawable.background_row_seleccionar);
         } else {
             rootView.setBackgroundColor(Color.parseColor("#55fbb74b"));
