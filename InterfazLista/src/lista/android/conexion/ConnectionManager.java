@@ -98,7 +98,7 @@ public class ConnectionManager {
                 socket=new DatagramSocket(port);
                 socket.setBroadcast(true);
                 socket.setSoTimeout(1000);
-                String identificacion="cliente_socialDj|"+ip_cliente;
+                String identificacion="cliente_socialDj|"+ip_cliente+"|";
                 byte[] mensaje_id=identificacion.getBytes("utf-8");
                 socket.send(new DatagramPacket(mensaje_id,mensaje_id.length, new InetSocketAddress("255.255.255.255",port)));
                 byte[] datos = new byte[50];
@@ -109,7 +109,7 @@ public class ConnectionManager {
                     socket.receive(paquete);                
                     String mensaje=new String(paquete.getData(),"utf-8");
                     if("servidor_socialDj".equals(mensaje.split("\\|")[0]))
-                        return mensaje.split("\\|")[1];
+                        return paquete.getAddress().getHostAddress();
                     cont++;
                 }           
                 return null;     
@@ -127,7 +127,7 @@ public class ConnectionManager {
                 pd.dismiss();
             try{
                 if(info!=null){
-                    String ip=info.split("\\|")[0];
+                    String ip=info;
                     int port_aux=2222;
                     if(conectar(ip,port_aux,(Activity)context)){
                         conexion.startListeningServer();
