@@ -89,8 +89,9 @@ public class SeleccionCanciones extends ListActivity {
     
     public void buscarQuery(String query) {
         ArrayList<Cancion> cancionesEncontradas = new ArrayList<Cancion>();
+        query = query.toUpperCase();
         for (Cancion c : datos) {
-            if (c.nombreCancion.contains(query) || c.nombreAutor.contains(query) || c.nombreAlbum.contains(query)) {
+            if (c.nombreCancion.toUpperCase().contains(query) || c.nombreAutor.toUpperCase().contains(query) || c.nombreAlbum.toUpperCase().contains(query)) {
                 cancionesEncontradas.add(c);
             }
         }

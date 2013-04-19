@@ -6,11 +6,14 @@ package interfaz.social;
 
 import Manejador.ManejadorAcciones;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import java.util.ArrayList;
@@ -63,11 +66,15 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public void crearLista(final ViewGroup container) {
         final AlertDialog.Builder alert = new AlertDialog.Builder(container.getContext());
-        final EditText input = new EditText(container.getContext());
-        alert.setView(input);
-        alert.setTitle("Nombre Lista");
+//        final EditText input = new EditText(container.getContext());
+        LayoutInflater inflater = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View v = inflater.inflate(R.layout.style_alert_crear_lista, container, false);
+        alert.setView(v);
+//        alert.setView(input);
+//        alert.setTitle("Nombre Lista");
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                EditText input = (EditText)v.findViewById(R.id.txtInputNombreLista);
                 String value = input.getText().toString();
                 if (!value.equals("")) {
                     if (!nombresListas.isEmpty()) {

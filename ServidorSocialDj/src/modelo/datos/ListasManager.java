@@ -4,7 +4,10 @@
  */
 package modelo.datos;
 
+import interfaces.CambiarListaListener;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -17,6 +20,7 @@ public class ListasManager {
     public ArrayList<ListaCanciones> listasCanciones;
     public ListaPromocionada lista_promocionada;
     private Cancion cancionReproduciendo;
+    List <CambiarListaListener> listeners = new LinkedList();
 
     private ListasManager() {
         nombreLista = new ArrayList<String>();
@@ -30,6 +34,10 @@ public class ListasManager {
         for (int i = 0; i < n; i++) {
             datos.remove(0);
         }
+    }
+    
+    public void procesarVotos (){
+        CancionPromocionada cancionASonar = lista_promocionada.getMaxVoto();
     }
     
     public void anadirCanciones(int posicion, ArrayList<Cancion> canciones_anadir){
@@ -59,5 +67,17 @@ public class ListasManager {
 
     public void promocionar(int posicion) {
         lista_promocionada = new ListaPromocionada(listasCanciones.get(posicion));
+    }
+    
+    public void addModeloChangedListener(CambiarListaListener l){
+        listeners.add(l);
+    }
+    public void removeModeloChangedListener(CambiarListaListener l){
+        listeners.remove(l);
+    }
+    protected void fireModeloChanged(){
+        for(CambiarListaListener l:listeners){
+            l.modeloCambio();
+        }
     }
 }

@@ -5,6 +5,7 @@
 package modelo.datos;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -34,5 +35,27 @@ public class ListaPromocionada {
 
     public void removeCanciones(ArrayList<CancionPromocionada> canciones) {
         this.canciones.removeAll(canciones);
+    }
+
+    public CancionPromocionada getMaxVoto() {
+        int i = 0;
+        ArrayList<CancionPromocionada> maxCancion = new ArrayList<CancionPromocionada>();
+        for (CancionPromocionada c : canciones) {
+            if (i <= c.getVotos()) {
+                i = c.getVotos();
+            }
+        }
+        for(CancionPromocionada c : canciones){
+            if(i == c.getVotos()){
+                maxCancion.add(c);
+            }
+        }
+        if(maxCancion.size() > 1){
+            Random r = new Random();
+            i = r.nextInt(maxCancion.size());
+        } else {
+            i = 0;
+        }
+        return maxCancion.get(i);
     }
 }
