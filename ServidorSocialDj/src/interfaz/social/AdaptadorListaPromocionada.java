@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
-import modelo.datos.Cancion;
 import modelo.datos.CancionPromocionada;
 
 /**
@@ -71,6 +70,7 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
         txtNombreAlbumPromocionada.setText(datos.get(position).nombreAlbum);
         TextView txtVotos = (TextView)rootView.findViewById(R.id.txtNumeroVotos);
         txtVotos.setText(datos.get(position).getVotos()+"");
+        txtNombreCancionPromocionada.setSelected(true);
         if(!seleccionados.get(position)){
             rootView.setBackgroundColor(Color.parseColor("#00000000"));
         } else {

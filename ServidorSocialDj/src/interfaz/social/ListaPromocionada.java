@@ -189,6 +189,8 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
             txtNombreAlbumReproduciendo.setText(manager.getCancionReproduciendo().nombreAutor);
             ImageView imagen = (ImageView) findViewById(R.id.caratulaDisco);
             imagen.setImageBitmap(explorer.getAlbumImage(manager.getCancionReproduciendo().album_id));
+            txtNombreCancionReproduciendo.setSelected(true);
+            txtNombreAlbumReproduciendo.setSelectAllOnFocus(true);
             ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
             if (manager.player.isPlaying()) {
                 boton.setImageResource(R.drawable.image_pause);

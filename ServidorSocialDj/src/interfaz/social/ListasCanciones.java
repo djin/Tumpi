@@ -223,6 +223,8 @@ public class ListasCanciones extends FragmentActivity {
             ImageView imagen=(ImageView) findViewById(R.id.caratulaDisco);
             imagen.setImageBitmap(explorer.getAlbumImage(modelo.getCancionReproduciendo().album_id));
             ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+            txtNombreCancionReproduciendo.setSelected(true);
+            txtNombreAlbumReproduciendo.setSelectAllOnFocus(true);
             if(modelo.player.isPlaying())
                 boton.setImageResource(R.drawable.image_pause);
             else

@@ -75,7 +75,7 @@ public class AdaptadorLista extends BaseAdapter {
         txtNombreArtista.setText(getDatos().get(position).nombreAutor);
         TextView txtDuracion = (TextView) v.findViewById(R.id.txtDuracion);
         txtDuracion.setText(datos.get(position).getLengthString());
-
+        txtNombreCancion.setSelected(true);
         if (estilo) {
             txtNombreCancion.setTextSize(15);
             txtNombreCancion.setTextColor(Color.parseColor("#ff8f5d0d"));

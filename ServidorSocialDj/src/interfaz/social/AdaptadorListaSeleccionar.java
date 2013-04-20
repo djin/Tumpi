@@ -102,6 +102,7 @@ public class AdaptadorListaSeleccionar extends BaseAdapter {
         txtNombreAlbumSeleccionada.setText(datos.get(position).nombreAlbum);
         TextView txtDuracionSeleccionada = (TextView) rootView.findViewById(R.id.txtDuracionSeleccion);
         txtDuracionSeleccionada.setText(datos.get(position).getLengthString());
+        txtNombreCancionSeleccionada.setSelected(true);
         if (!isExist(datos.get(position))) {
             rootView.setBackgroundResource(R.drawable.background_row_seleccionar);
         } else {
