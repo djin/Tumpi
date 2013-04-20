@@ -21,8 +21,10 @@ public class ListaPromocionada {
 
     public ListaPromocionada(ListaCanciones lista_promocionada) {
         canciones = new ArrayList();
+        int cont=0;
         for (Cancion c : lista_promocionada.getCanciones()) {
-            canciones.add(new CancionPromocionada(c.id, c.nombreCancion, c.nombreAlbum, c.album_id, c.nombreAutor, c.duracion, c.path));
+            cont++;
+            canciones.add(new CancionPromocionada(cont, c.nombreCancion, c.nombreAlbum, c.album_id, c.nombreAutor, c.duracion, c.path));
         }
     }
 
@@ -32,7 +34,15 @@ public class ListaPromocionada {
     public ArrayList<CancionPromocionada> getCanciones() {
         return canciones;
     }
-
+    
+    public CancionPromocionada getCancionById(int id){
+        for (CancionPromocionada cancion : canciones) {
+            if(cancion.id==id)
+                return cancion;
+        }
+        return null;
+    }
+    
     public void removeCanciones(ArrayList<CancionPromocionada> canciones) {
         this.canciones.removeAll(canciones);
     }
@@ -57,5 +67,20 @@ public class ListaPromocionada {
             i = 0;
         }
         return maxCancion.get(i);
+    }
+    @Override
+    public String toString() {
+        String cadena = "";
+
+        if (!canciones.isEmpty()) {
+            for (CancionPromocionada c : canciones) {
+                cadena = cadena + c + ";";
+            }
+            cadena = cadena.substring(0, cadena.length() - 1);
+        }
+        else{
+            cadena = "empty";
+        }
+        return cadena;
     }
 }

@@ -53,4 +53,5 @@ public class CancionPromocionada extends Cancion {
     public void setVotos(int votos) {
         this.votos = votos;
     }
+    
 }

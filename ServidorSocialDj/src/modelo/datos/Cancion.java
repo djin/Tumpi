@@ -18,10 +18,11 @@ public class Cancion {
     public int album_id;
     public String path;
 
-    public Cancion(int _id, String name, String album, int album_id,String artist, int length, String _path) {
+    public Cancion(int _id, String name, String album, int _album_id,String artist, int length, String _path) {
         nombreCancion = name;
         nombreAutor = artist;
         nombreAlbum = album;
+        album_id= _album_id;
         duracion = length;
         id = _id;
         path=_path;

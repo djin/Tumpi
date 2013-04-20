@@ -18,7 +18,7 @@ import java.net.*;
 public class ConnectionManager implements ServerSocketListener{
     
     //ListasCancionesManager listas_canciones;
-    public static SocketServidor socket=null;
+    public SocketServidor socket=null;
     private DatagramSocket dsocket;
     private Thread publicador;
     private String ip_server=null;
@@ -108,58 +108,13 @@ public class ConnectionManager implements ServerSocketListener{
     
     @Override
     public void onMessageReceived(String ip, String men) {
-        try {
-            String message=men;
-            Log.i("Conexion", "Mensaje de "+ip+" : "+men);
-            //ArrayList<Integer> votos_cliente=listas_canciones.votos_cliente.get(ip);
-            int tipo=Integer.parseInt(message.split("\\|")[0]);
-            message=message.split("\\|")[1]; 
-            switch(tipo){
-                case 0:
-                        socket.enviarMensajeServer(ip,"0|empty");
-//                    if(listas_canciones.lista_sonando!=null){
-//                        Log.i("Conexion","0|"+listas_canciones.lista_sonando.toString());
-//                        socket.enviarMensajeServer(ip,"0|"+listas_canciones.lista_sonando.toString());
-//                    }
-//                    if(listas_canciones.cancion_sonando!=null)
-//                        socket.enviarMensajeServer(ip,"4|"+listas_canciones.cancion_sonando.toString());
-//                    if(votos_cliente!=null){
-//                        for(int id_cancion:votos_cliente)
-//                            socket.enviarMensajeServer(ip,"1|"+id_cancion);
-//                    }
-                    break;
-                case 1:
-//                    if(listas_canciones.procesarVoto(Integer.parseInt(message),true)){
-//                        socket.enviarMensajeServer(ip,"1|"+message);
-//                        if(votos_cliente!=null && !votos_cliente.contains(Integer.decode(message)))
-//                           votos_cliente.add(Integer.parseInt(message)); 
-//                    }
-//                    else
-//                        socket.enviarMensajeServer(ip,"1|0");   
-                    break;
-                case 3:
-//                    if(listas_canciones.procesarVoto(Integer.parseInt(message),false)){
-//                        socket.enviarMensajeServer(ip,"3|"+message);
-//                        if(votos_cliente!=null)
-//                            votos_cliente.remove(Integer.decode(message));
-//                    }
-//                    else
-//                        socket.enviarMensajeServer(ip,"3|0"); 
-                    break;
-            }
-        } catch (Exception ex) {
-            //FramePrincipal.log("Error al procesar mensaje recivido: "+ex.toString());
-        }
+        
     }
 
     @Override
     public void onClientConnected(String ip) {
         try{
             Log.i("Conexion","Cliente conectado: "+ip+"\nNumero de clientes: "+socket.getClientsCount());
-//            if(listas_canciones.votos_cliente.get(ip)==null){
-//                listas_canciones.votos_cliente.put(ip, new ArrayList<Integer>());
-//                FramePrincipal.log("Hash de votos creado para el cliente");
-//            }
         }catch(Exception ex){
             Log.e("Conexion",ex.toString());
         }

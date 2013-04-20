@@ -7,6 +7,8 @@ package interfaz.social;
 import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,28 +17,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import conexion.ConnectionManager;
+import interfaces.CambiarListaListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.datos.Cancion;
 import modelo.datos.CancionPromocionada;
 import modelo.datos.ListasManager;
+import multimedia.AudioExplorer;
+import multimedia.PlayerListener;
 
 /**
  *
  * @author Zellyalgo
  */
-public class ListaPromocionada extends ListActivity {
+public class ListaPromocionada extends ListActivity implements CambiarListaListener,PlayerListener {
 
     private ArrayList<CancionPromocionada> datosListaPromocionada;
     private ListasManager manager;
     private AdaptadorListaPromocionada adapter;
     private Boolean modoSeleccion = false;
     private Menu menuApp;
+    private AudioExplorer explorer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,9 @@ public class ListaPromocionada extends ListActivity {
         setContentView(R.layout.style_lista_promocionada);
         final ActionBar actionBar = getActionBar();
         manager = ListasManager.getInstance();
+        manager.abrirConexion(getApplicationContext());
+        manager.addModeloChangedListener(this);
+        explorer=AudioExplorer.getInstance(getApplicationContext());
         // Specify that a dropdown list should be displayed in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
@@ -85,19 +96,7 @@ public class ListaPromocionada extends ListActivity {
                 return true;
             }
         });
-        if (manager.getCancionReproduciendo() != null) {
-            TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
-            txtNombreCancionReproduciendo.setText(manager.getCancionReproduciendo().nombreCancion);
-            TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
-            txtNombreAlbumReproduciendo.setText(manager.getCancionReproduciendo().nombreAlbum);
-        }
-        ConnectionManager conex=new ConnectionManager(getApplicationContext());
-        try {
-            if(conex.createSocket(2222))
-                Log.i("Conexion","Socket creado con éxito");
-        } catch (Exception ex) {
-            Log.e("Conexion","Error al crear el socket: "+ex.toString());
-        }
+        updatePlayer();
     }
 
     @Override
@@ -176,5 +175,66 @@ public class ListaPromocionada extends ListActivity {
             }
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void modeloCambio() {
+        getListView().post(new Runnable(){
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }            
+        });
+    }
+    
+    public void updatePlayer(){
+        if (manager.getCancionReproduciendo() != null) {
+            TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
+            txtNombreCancionReproduciendo.setText(manager.getCancionReproduciendo().nombreCancion);
+            TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
+            txtNombreAlbumReproduciendo.setText(manager.getCancionReproduciendo().nombreAutor);
+            ImageView imagen=(ImageView) findViewById(R.id.caratulaDisco);
+            imagen.setImageBitmap(explorer.getAlbumImage(manager.getCancionReproduciendo().album_id));
+            ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+            if(manager.player.isPlaying())
+                boton.setImageResource(R.drawable.image_pause);
+            else
+                boton.setImageResource(R.drawable.image_play);
+        }
+    }
+    
+    public void clickPlay(View v){
+        manager.player.pause();
+        ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+        if(manager.player.isPlaying())
+            boton.setImageResource(R.drawable.image_pause);
+        else
+            boton.setImageResource(R.drawable.image_play);
+    }
+    
+    public void clickNext(View v){
+        manager.procesarVotos();
+        getListView().post(new Runnable(){
+            public void run() {
+                updatePlayer();
+            }            
+        });
+    }
+    
+    public void onPrepared(MediaPlayer mp) {
+        ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+        boton.setImageResource(R.drawable.image_pause);
+    }
+
+    public void onCompletion(MediaPlayer mp) {
+        clickNext(null);
+    }
+
+    public boolean onInfo(MediaPlayer mp, int what, int extra) {
+        Log.i("Multimedia", "Informacion de parte del reproductor");
+        return false;
+    }
+
+    public boolean onError(MediaPlayer mp, int what, int extra) {
+        Log.e("Multimedia", "Error al reproducir cancion");
+        return false;
     }
 }

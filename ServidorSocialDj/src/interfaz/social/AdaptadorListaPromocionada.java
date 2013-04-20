@@ -69,6 +69,8 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
         txtNombreArtistaPromocionada.setText(datos.get(position).nombreAutor);
         TextView txtNombreAlbumPromocionada = (TextView)rootView.findViewById(R.id.textNombreAlbumPromocionada);
         txtNombreAlbumPromocionada.setText(datos.get(position).nombreAlbum);
+        TextView txtVotos = (TextView)rootView.findViewById(R.id.txtNumeroVotos);
+        txtVotos.setText(datos.get(position).getVotos()+"");
         if(!seleccionados.get(position)){
             rootView.setBackgroundColor(Color.parseColor("#00000000"));
         } else {

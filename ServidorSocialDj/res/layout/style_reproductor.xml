@@ -59,12 +59,14 @@
             android:layout_height="fill_parent"
             android:background="@drawable/background_boton_reproductor"
             android:src="@drawable/image_play"
+            android:onClick="clickPlay"
             />
             <ImageButton android:id="@+id/btnNext"
             android:layout_width="50dp"
             android:layout_height="fill_parent"
             android:background="@drawable/background_boton_reproductor"
             android:src="@drawable/image_next"
+            android:onClick="clickNext"
             />
         </LinearLayout>
     </LinearLayout>

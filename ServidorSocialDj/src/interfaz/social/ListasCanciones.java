@@ -4,18 +4,24 @@ import Manejador.ManejadorAcciones;
 import android.app.ActionBar;
 import android.content.ClipData.Item;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.ListasManager;
+import multimedia.AudioExplorer;
 
 public class ListasCanciones extends FragmentActivity {
 
@@ -27,6 +33,7 @@ public class ListasCanciones extends FragmentActivity {
     private Menu menuApp;
     private ManejadorAcciones manejador;
     private ListasManager modelo = ListasManager.getInstance();
+    private AudioExplorer explorer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,12 +88,8 @@ public class ListasCanciones extends FragmentActivity {
                 cancelarSeleccion();
             }
         });
-        if (modelo.getCancionReproduciendo() != null) {
-            TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
-            txtNombreCancionReproduciendo.setText(modelo.getCancionReproduciendo().nombreCancion);
-            TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
-            txtNombreAlbumReproduciendo.setText(modelo.getCancionReproduciendo().nombreAlbum);
-        }
+        explorer=AudioExplorer.getInstance(getApplicationContext());
+        updatePlayer();
     }
 
     public void irPromocionada() {
@@ -210,4 +213,62 @@ public class ListasCanciones extends FragmentActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    
+    public void updatePlayer(){
+        if (modelo.getCancionReproduciendo() != null) {
+            TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
+            txtNombreCancionReproduciendo.setText(modelo.getCancionReproduciendo().nombreCancion);
+            TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
+            txtNombreAlbumReproduciendo.setText(modelo.getCancionReproduciendo().nombreAutor);
+            ImageView imagen=(ImageView) findViewById(R.id.caratulaDisco);
+            imagen.setImageBitmap(explorer.getAlbumImage(modelo.getCancionReproduciendo().album_id));
+            ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+            if(modelo.player.isPlaying())
+                boton.setImageResource(R.drawable.image_pause);
+            else
+                boton.setImageResource(R.drawable.image_play);
+        }
+    }
+    
+     public void clickPlay(View v){
+        try{
+            modelo.player.pause();
+        }catch(Exception ex){
+            clickNext(null);
+        }
+        ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+        if(modelo.player.isPlaying())
+            boton.setImageResource(R.drawable.image_pause);
+        else
+            boton.setImageResource(R.drawable.image_play);
+    }
+    
+    public void clickNext(View v){
+        modelo.procesarVotos();
+        findViewById(R.id.btnPlay).post(new Runnable(){
+            public void run() {
+                updatePlayer();
+            }            
+        });
+    }
+    
+    public void onPrepared(MediaPlayer mp) {
+        ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+        boton.setImageResource(R.drawable.image_pause);
+    }
+
+    public void onCompletion(MediaPlayer mp) {
+        clickNext(null);
+    }
+
+    public boolean onInfo(MediaPlayer mp, int what, int extra) {
+        Log.i("Multimedia", "Informacion de parte del reproductor");
+        return false;
+    }
+
+    public boolean onError(MediaPlayer mp, int what, int extra) {
+        Log.e("Multimedia", "Error al reproducir cancion");
+        return false;
+    }
+    
 }
