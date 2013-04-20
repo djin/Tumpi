@@ -22,71 +22,73 @@ import multimedia.Player;
  *
  * @author zellyalgo
  */
-public class ListasManager  implements ServerSocketListener{
+public class ListasManager implements ServerSocketListener {
 
     private static ListasManager INSTANCE = new ListasManager();
     public ArrayList<String> nombreLista;
     public ArrayList<ListaCanciones> listasCanciones;
     public ListaPromocionada lista_promocionada;
     private CancionPromocionada cancionReproduciendo;
-    List <CambiarListaListener> listeners = new LinkedList();
+    List<CambiarListaListener> listeners = new LinkedList();
     private ConnectionManager conex;
-    private HashMap<String,ArrayList> votos_cliente;
+    private HashMap<String, ArrayList> votos_cliente;
     public Player player;
 
-    private ListasManager(){
+    private ListasManager() {
         nombreLista = new ArrayList<String>();
         listasCanciones = new ArrayList<ListaCanciones>();
-        lista_promocionada=new ListaPromocionada(new ListaCanciones());
+        lista_promocionada = new ListaPromocionada(new ListaCanciones());
         cancionReproduciendo = new CancionPromocionada(0, "Los Redondeles", "Siempre Fuertes", 1, "HUAE", 1234, "");
-        votos_cliente=new HashMap();
-        player=Player.getInstance();
-        
+        votos_cliente = new HashMap();
+        player = Player.getInstance();
+
     }
-    
+
     public void limpiarDatos(ArrayList<Cancion> datos) {
         int n = datos.size();
         for (int i = 0; i < n; i++) {
             datos.remove(0);
         }
     }
-    public boolean abrirConexion(Context c){
-        if(conex==null){
-            conex=new ConnectionManager(c);
+
+    public boolean abrirConexion(Context c) {
+        if (conex == null) {
+            conex = new ConnectionManager(c);
             try {
-                if(conex.createSocket(2222)){
+                if (conex.createSocket(2222)) {
                     conex.socket.addServerSocketListener(this);
-                    Log.i("Conexion","Socket creado con éxito");
+                    Log.i("Conexion", "Socket creado con éxito");
                 }
             } catch (Exception ex) {
-                Log.e("Conexion","Error al crear el socket: "+ex.toString());
-                conex=null;
+                Log.e("Conexion", "Error al crear el socket: " + ex.toString());
+                conex = null;
                 return false;
             }
-        } 
-        return true;           
+        }
+        return true;
     }
-    
-    public void procesarVotos (){
+
+    public void procesarVotos() {
         CancionPromocionada cancionASonar = lista_promocionada.getMaxVoto();
-        cancionReproduciendo=cancionASonar;
+        cancionReproduciendo = cancionASonar;
         try {
             player.playSong(cancionReproduciendo.path);
-            conex.socket.enviarMensajeServer("*", "2|"+cancionReproduciendo.id);
+            conex.socket.enviarMensajeServer("*", "2|" + cancionReproduciendo.id);
         } catch (Exception ex) {
-            Log.e("Multimedia", "Error al reproducir cancion "+cancionReproduciendo.nombreCancion);
+            Log.e("Multimedia", "Error al reproducir cancion " + cancionReproduciendo.nombreCancion);
         }
+        fireModeloChanged();
     }
-    
-    public void anadirCanciones(int posicion, ArrayList<Cancion> canciones_anadir){
+
+    public void anadirCanciones(int posicion, ArrayList<Cancion> canciones_anadir) {
         listasCanciones.get(posicion).addCanciones(canciones_anadir);
     }
-    
-    public Cancion getCancionReproduciendo (){
+
+    public Cancion getCancionReproduciendo() {
         return cancionReproduciendo;
     }
-    
-    public void setCancionReproduciendo (CancionPromocionada c){
+
+    public void setCancionReproduciendo(CancionPromocionada c) {
         cancionReproduciendo = c;
     }
 
@@ -106,92 +108,99 @@ public class ListasManager  implements ServerSocketListener{
     public void promocionar(int posicion) {
         lista_promocionada = new ListaPromocionada(listasCanciones.get(posicion));
         try {
-            conex.socket.enviarMensajeServer("*","0|"+lista_promocionada.toString());
+            conex.socket.enviarMensajeServer("*", "0|" + lista_promocionada.toString());
         } catch (IOException ex) {
-            Log.e("Conexion", "Error al enviar la lista promocionada a los clientes: "+ex.toString());
+            Log.e("Conexion", "Error al enviar la lista promocionada a los clientes: " + ex.toString());
         }
     }
-    private boolean votoCliente(int id_cancion,boolean tipo){
-        CancionPromocionada cancion=lista_promocionada.getCancionById(id_cancion);
-        if(cancion!=null){
-            if(tipo)
-                cancion.setVotos(cancion.getVotos()+1);
-            else
-                cancion.setVotos(cancion.getVotos()-1);
+
+    private boolean votoCliente(int id_cancion, boolean tipo) {
+        CancionPromocionada cancion = lista_promocionada.getCancionById(id_cancion);
+        if (cancion != null) {
+            if (tipo) {
+                cancion.setVotos(cancion.getVotos() + 1);
+            } else {
+                cancion.setVotos(cancion.getVotos() - 1);
+            }
             fireModeloChanged();
             return true;
         }
         return false;
     }
-    
-    public void addModeloChangedListener(CambiarListaListener l){
+
+    public void addModeloChangedListener(CambiarListaListener l) {
         listeners.add(l);
     }
-    public void removeModeloChangedListener(CambiarListaListener l){
+
+    public void removeModeloChangedListener(CambiarListaListener l) {
         listeners.remove(l);
     }
-    protected void fireModeloChanged(){
-        for(CambiarListaListener l:listeners){
+
+    protected void fireModeloChanged() {
+        for (CambiarListaListener l : listeners) {
             l.modeloCambio();
         }
     }
 
     public void onMessageReceived(String ip, String message) {
         try {
-            String men=message;
+            String men = message;
             int id_cancion;
-            Log.i("Conexion", "Mensaje de "+ip+" : "+men);
-            ArrayList<Integer> _votos_cliente=votos_cliente.get(ip);
-            int tipo=Integer.parseInt(message.split("\\|")[0]);
-            message=message.split("\\|")[1]; 
-            switch(tipo){
+            Log.i("Conexion", "Mensaje de " + ip + " : " + men);
+            ArrayList<Integer> _votos_cliente = votos_cliente.get(ip);
+            int tipo = Integer.parseInt(message.split("\\|")[0]);
+            message = message.split("\\|")[1];
+            switch (tipo) {
                 case 0:
-                        //conex.socket.enviarMensajeServer(ip,"0|empty");
-                    if(lista_promocionada!=null){
-                        Log.i("Conexion","0|"+lista_promocionada.toString());
-                        conex.socket.enviarMensajeServer(ip,"0|"+lista_promocionada.toString());
+                    //conex.socket.enviarMensajeServer(ip,"0|empty");
+                    if (lista_promocionada != null) {
+                        Log.i("Conexion", "0|" + lista_promocionada.toString());
+                        conex.socket.enviarMensajeServer(ip, "0|" + lista_promocionada.toString());
                     }
-                    if(cancionReproduciendo!=null)
-                        conex.socket.enviarMensajeServer(ip,"4|"+cancionReproduciendo.toString());
-                    if(_votos_cliente!=null){
-                        for(int id:_votos_cliente)
-                            conex.socket.enviarMensajeServer(ip,"1|"+id);
+                    if (cancionReproduciendo != null) {
+                        conex.socket.enviarMensajeServer(ip, "4|" + cancionReproduciendo.toString());
+                    }
+                    if (_votos_cliente != null) {
+                        for (int id : _votos_cliente) {
+                            conex.socket.enviarMensajeServer(ip, "1|" + id);
+                        }
                     }
                     break;
                 case 1:
-                    id_cancion=Integer.parseInt(message);
-                    if(votoCliente(id_cancion,true)){
-                        conex.socket.enviarMensajeServer(ip,"1|"+message);
-                        if(_votos_cliente!=null && !_votos_cliente.contains(id_cancion))
-                           _votos_cliente.add(id_cancion); 
+                    id_cancion = Integer.parseInt(message);
+                    if (votoCliente(id_cancion, true)) {
+                        conex.socket.enviarMensajeServer(ip, "1|" + message);
+                        if (_votos_cliente != null && !_votos_cliente.contains(id_cancion)) {
+                            _votos_cliente.add(id_cancion);
+                        }
+                    } else {
+                        conex.socket.enviarMensajeServer(ip, "1|0");
                     }
-                    else
-                        conex.socket.enviarMensajeServer(ip,"1|0");   
                     break;
                 case 3:
-                    id_cancion=Integer.parseInt(message);
-                    if(votoCliente(id_cancion,false)){
-                        conex.socket.enviarMensajeServer(ip,"3|"+message);
-                        if(_votos_cliente!=null)
-                            _votos_cliente.remove((Integer)id_cancion);
+                    id_cancion = Integer.parseInt(message);
+                    if (votoCliente(id_cancion, false)) {
+                        conex.socket.enviarMensajeServer(ip, "3|" + message);
+                        if (_votos_cliente != null) {
+                            _votos_cliente.remove((Integer) id_cancion);
+                        }
+                    } else {
+                        conex.socket.enviarMensajeServer(ip, "3|0");
                     }
-                    else
-                        conex.socket.enviarMensajeServer(ip,"3|0"); 
                     break;
             }
         } catch (Exception ex) {
-            Log.e("Conexion","Error al procesar mensaje recivido: "+ex.toString());
+            Log.e("Conexion", "Error al procesar mensaje recivido: " + ex.toString());
         }
     }
-    
+
     public void onClientConnected(String ip) {
-        if(votos_cliente.get(ip)==null){
+        if (votos_cliente.get(ip) == null) {
             votos_cliente.put(ip, new ArrayList<Integer>());
-            Log.i("Modelo","Hash de votos creado para el cliente "+ip);
+            Log.i("Modelo", "Hash de votos creado para el cliente " + ip);
         }
     }
 
     public void onClientDisconnected(String ip) {
-        
     }
 }

@@ -7,7 +7,6 @@ package interfaz.social;
 import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,11 +21,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import conexion.ConnectionManager;
 import interfaces.CambiarListaListener;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.datos.Cancion;
 import modelo.datos.CancionPromocionada;
 import modelo.datos.ListasManager;
@@ -37,7 +33,7 @@ import multimedia.PlayerListener;
  *
  * @author Zellyalgo
  */
-public class ListaPromocionada extends ListActivity implements CambiarListaListener,PlayerListener {
+public class ListaPromocionada extends ListActivity implements CambiarListaListener, PlayerListener {
 
     private ArrayList<CancionPromocionada> datosListaPromocionada;
     private ListasManager manager;
@@ -55,14 +51,14 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         manager = ListasManager.getInstance();
         manager.abrirConexion(getApplicationContext());
         manager.addModeloChangedListener(this);
-        explorer=AudioExplorer.getInstance(getApplicationContext());
+        explorer = AudioExplorer.getInstance(getApplicationContext());
         // Specify that a dropdown list should be displayed in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
         actionBar.setListNavigationCallbacks(
                 // Specify a SpinnerAdapter to populate the dropdown list.
                 new ArrayAdapter(actionBar.getThemedContext(), R.layout.style_row_spinner,
-                R.id.textSpinner, new String[]{"Lista Promocionada", "Listas Pendientes"}),
+                R.id.textSpinner, new String[]{"Promocionada", "Tus Listas"}),
                 // Provide a listener to be called when an item is selected.
                 new ActionBar.OnNavigationListener() {
             public boolean onNavigationItemSelected(int position, long id) {
@@ -178,53 +174,56 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
     }
 
     public void modeloCambio() {
-        getListView().post(new Runnable(){
+        getListView().post(new Runnable() {
             public void run() {
                 adapter.notifyDataSetChanged();
-            }            
+            }
         });
     }
-    
-    public void updatePlayer(){
+
+    public void updatePlayer() {
         if (manager.getCancionReproduciendo() != null) {
             TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
             txtNombreCancionReproduciendo.setText(manager.getCancionReproduciendo().nombreCancion);
             TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
             txtNombreAlbumReproduciendo.setText(manager.getCancionReproduciendo().nombreAutor);
-            ImageView imagen=(ImageView) findViewById(R.id.caratulaDisco);
+            ImageView imagen = (ImageView) findViewById(R.id.caratulaDisco);
             imagen.setImageBitmap(explorer.getAlbumImage(manager.getCancionReproduciendo().album_id));
-            ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
-            if(manager.player.isPlaying())
+            ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
+            if (manager.player.isPlaying()) {
                 boton.setImageResource(R.drawable.image_pause);
-            else
+            } else {
                 boton.setImageResource(R.drawable.image_play);
+            }
         }
     }
-    
-    public void clickPlay(View v){
+
+    public void clickPlay(View v) {
         manager.player.pause();
-        ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
-        if(manager.player.isPlaying())
+        ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
+        if (manager.player.isPlaying()) {
             boton.setImageResource(R.drawable.image_pause);
-        else
+        } else {
             boton.setImageResource(R.drawable.image_play);
+        }
     }
-    
-    public void clickNext(View v){
+
+    public void clickNext(View v) {
         manager.procesarVotos();
-        getListView().post(new Runnable(){
+        getListView().post(new Runnable() {
             public void run() {
                 updatePlayer();
-            }            
+            }
         });
     }
-    
+
     public void onPrepared(MediaPlayer mp) {
-        ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+        ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
         boton.setImageResource(R.drawable.image_pause);
     }
 
     public void onCompletion(MediaPlayer mp) {
+        Toast.makeText(this, "Termino!", Toast.LENGTH_SHORT).show();
         clickNext(null);
     }
 
