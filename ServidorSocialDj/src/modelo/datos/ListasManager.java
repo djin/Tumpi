@@ -82,18 +82,20 @@ public class ListasManager implements ServerSocketListener {
             fireModeloChanged();
         }
         else{
-            try {
-                Collection<ArrayList> clientes=votos_cliente.values();
-                for(ArrayList<Integer> votos: clientes){
-                    int n = votos.size();
-                    for (int i = 0; i < n; i++) {
-                        votos.remove(0);
+            if(lista_promocionada.getCanciones().size()>0){
+                try {
+                    Collection<ArrayList> clientes=votos_cliente.values();
+                    for(ArrayList<Integer> votos: clientes){
+                        int n = votos.size();
+                        for (int i = 0; i < n; i++) {
+                            votos.remove(0);
+                        }
                     }
+                    conex.socket.enviarMensajeServer("*", "0|" + lista_promocionada.toString());
+                    procesarVotos();
+                } catch (IOException ex) {
+                    Log.e("Conexion", "Error al actualizar lista: "+ex.toString());
                 }
-                conex.socket.enviarMensajeServer("*", "0|" + lista_promocionada.toString());
-                procesarVotos();
-            } catch (IOException ex) {
-                Log.e("Conexion", "Error al actualizar lista: "+ex.toString());
             }
         }    
     }
