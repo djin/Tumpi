@@ -22,8 +22,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import modelo.datos.ListasManager;
 import multimedia.AudioExplorer;
+import multimedia.PlayerListener;
 
-public class ListasCanciones extends FragmentActivity {
+public class ListasCanciones extends FragmentActivity implements PlayerListener{
 
     ActionBar.TabListener tabListener;
     // When requested, this adapter returns a DemoObjectFragment,
@@ -89,6 +90,7 @@ public class ListasCanciones extends FragmentActivity {
             }
         });
         explorer=AudioExplorer.getInstance(getApplicationContext());
+        modelo.player.addPlayerListener(this);
         updatePlayer();
     }
 

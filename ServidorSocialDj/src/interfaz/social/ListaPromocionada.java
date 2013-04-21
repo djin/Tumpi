@@ -51,6 +51,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         manager = ListasManager.getInstance();
         manager.abrirConexion(getApplicationContext());
         manager.addModeloChangedListener(this);
+        manager.player.addPlayerListener(this);
         explorer = AudioExplorer.getInstance(getApplicationContext());
         // Specify that a dropdown list should be displayed in the action bar.
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -225,7 +226,6 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
     }
 
     public void onCompletion(MediaPlayer mp) {
-        Toast.makeText(this, "Termino!", Toast.LENGTH_SHORT).show();
         clickNext(null);
     }
 

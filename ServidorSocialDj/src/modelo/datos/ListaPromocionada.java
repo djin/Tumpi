@@ -72,7 +72,7 @@ public class ListaPromocionada {
                 c.setVotos(0);
                 c.setReproducida(0);
             }
-            maxCancion.add(canciones.get(i));
+            return null;
         }
         maxCancion.get(i).setReproducida(1);
         maxCancion.get(i).setVotos(-1);

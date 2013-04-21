@@ -11,6 +11,7 @@ import conexion.ServerSocketListener;
 import interfaces.CambiarListaListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -71,13 +72,30 @@ public class ListasManager implements ServerSocketListener {
     public void procesarVotos() {
         CancionPromocionada cancionASonar = lista_promocionada.getMaxVoto();
         cancionReproduciendo = cancionASonar;
-        try {
-            player.playSong(cancionReproduciendo.path);
-            conex.socket.enviarMensajeServer("*", "2|" + cancionReproduciendo.id);
-        } catch (Exception ex) {
-            Log.e("Multimedia", "Error al reproducir cancion " + cancionReproduciendo.nombreCancion);
+        if(cancionReproduciendo!=null){
+            try {
+                player.playSong(cancionReproduciendo.path);
+                conex.socket.enviarMensajeServer("*", "2|" + cancionReproduciendo.id);
+            } catch (Exception ex) {
+                Log.e("Multimedia", "Error al reproducir cancion " + cancionReproduciendo.nombreCancion);
+            }
+            fireModeloChanged();
         }
-        fireModeloChanged();
+        else{
+            try {
+                Collection<ArrayList> clientes=votos_cliente.values();
+                for(ArrayList<Integer> votos: clientes){
+                    int n = votos.size();
+                    for (int i = 0; i < n; i++) {
+                        votos.remove(0);
+                    }
+                }
+                conex.socket.enviarMensajeServer("*", "0|" + lista_promocionada.toString());
+                procesarVotos();
+            } catch (IOException ex) {
+                Log.e("Conexion", "Error al actualizar lista: "+ex.toString());
+            }
+        }    
     }
 
     public void anadirCanciones(int posicion, ArrayList<Cancion> canciones_anadir) {
