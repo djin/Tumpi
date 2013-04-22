@@ -44,9 +44,9 @@ public class PlayerReproductor {
         String duracion = "";
         long dur = 0;
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
+    //    SwingUtilities.invokeLater(new Runnable() {
+    //        @Override
+    //        public void run() {
                 MediaPlayer player = identificador.getMediaPlayer();
                 player.prepareMedia(mrl);
                 player.parseMedia();
@@ -64,7 +64,7 @@ public class PlayerReproductor {
 
                 cancion = new Cancion(0, metadata.getTitle(), metadata.getAlbum(), metadata.getArtist(), dur, mrl);
                 player.stop();
-            }});
+    //        }});
         return cancion;
         }
     
