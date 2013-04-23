@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import ModuloLogico.ThreadAddCancion;
 import conexion.ConnectionManager;
 import elementosInterfaz.FramePrincipal;
 import elementosInterfaz.ReproductorPanel;
@@ -23,6 +24,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import reproductor.PlayerReproductor;
@@ -207,15 +209,14 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 int comienzo = listas_canciones.get(index).getCanciones().size();
                 ListaCanciones lista = listas_canciones.get(index);
                 int max_id = lista.getMaxId();
-                Cancion c;
+                Cancion c = null;
 
                 for (File f : listaFiles) {
                     if (f.exists()) {
 
                         String duracionFormateada;
-
-                        c = reproductor.getCancion(f.getAbsolutePath());
-
+                        ThreadAddCancion thread = new ThreadAddCancion(f.getAbsolutePath(),reproductor.identificador);
+                        c = thread.formatearCancion();
                         max_id++;
                         c.setId(max_id);
 
