@@ -4,13 +4,14 @@
  */
 package modelo.datos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author 66785270
  */
-public class ListaCanciones {
+public class ListaCanciones implements Serializable{
     private ArrayList<Cancion> canciones;
 
     public ListaCanciones() {

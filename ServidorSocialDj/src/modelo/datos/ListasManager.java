@@ -42,8 +42,7 @@ public class ListasManager implements ServerSocketListener {
         cancionReproduciendo = new CancionPromocionada(0, "Los Redondeles", "Siempre Fuertes", 1, "HUAE", 1234, "");
         votos_cliente = new HashMap();
         player = Player.getInstance();
-//        GuardarListas guardar = new GuardarListas ();
-
+        GuardarListas guardar = new GuardarListas (this);
     }
 
     public void limpiarDatos(ArrayList<Cancion> datos) {

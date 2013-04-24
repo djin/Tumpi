@@ -4,11 +4,13 @@
  */
 package modelo.datos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 66785320
  */
-public class Cancion {
+public class Cancion implements Serializable{
 
     public String nombreCancion;
     public String nombreAutor;

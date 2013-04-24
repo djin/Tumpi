@@ -16,8 +16,8 @@ public class GuardarListas implements ListenerListaCambio {
     ListasManager manager;
     boolean terminado = true;
 
-    public GuardarListas() {
-        manager = ListasManager.getInstance();
+    public GuardarListas(ListasManager _manager) {
+        manager = _manager;
         initListeners();
     }
 
