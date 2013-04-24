@@ -9,14 +9,13 @@ import android.util.Log;
 import conexion.ConnectionManager;
 import conexion.ServerSocketListener;
 import interfaces.CambiarListaListener;
+import interfaces.ListenerListaCambio;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import multimedia.Player;
 
 /**
@@ -31,6 +30,7 @@ public class ListasManager implements ServerSocketListener {
     public ListaPromocionada lista_promocionada;
     private CancionPromocionada cancionReproduciendo;
     List<CambiarListaListener> listeners = new LinkedList();
+    List<ListenerListaCambio> listenersLista = new LinkedList();
     private ConnectionManager conex;
     private HashMap<String, ArrayList> votos_cliente;
     public Player player;
@@ -42,6 +42,7 @@ public class ListasManager implements ServerSocketListener {
         cancionReproduciendo = new CancionPromocionada(0, "Los Redondeles", "Siempre Fuertes", 1, "HUAE", 1234, "");
         votos_cliente = new HashMap();
         player = Player.getInstance();
+//        GuardarListas guardar = new GuardarListas ();
 
     }
 
@@ -102,6 +103,7 @@ public class ListasManager implements ServerSocketListener {
 
     public void anadirCanciones(int posicion, ArrayList<Cancion> canciones_anadir) {
         listasCanciones.get(posicion).addCanciones(canciones_anadir);
+        fireListasChanged();
     }
 
     public Cancion getCancionReproduciendo() {
@@ -123,6 +125,7 @@ public class ListasManager implements ServerSocketListener {
 
     public void borrarCanciones(int posicion, ArrayList<Cancion> listaDeBorradas) {
         listasCanciones.get(posicion).removeCanciones(listaDeBorradas);
+        fireListasChanged();
     }
 
     public void promocionar(int posicion) {
@@ -159,6 +162,20 @@ public class ListasManager implements ServerSocketListener {
     protected void fireModeloChanged() {
         for (CambiarListaListener l : listeners) {
             l.modeloCambio();
+        }
+    }
+    
+    public void addListasChangedListener(ListenerListaCambio l) {
+        listenersLista.add(l);
+    }
+
+    public void removeListasChangedListener(ListenerListaCambio l) {
+        listenersLista.remove(l);
+    }
+
+    protected void fireListasChanged() {
+        for (ListenerListaCambio l : listenersLista) {
+            l.ListasChanged(listasCanciones, nombreLista);
         }
     }
 
