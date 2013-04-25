@@ -46,12 +46,14 @@
                       android:layout_height="fill_parent"
                       android:gravity="center"
         >
-            <TextView android:layout_width="wrap_content"
+            <Button android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_gravity="center"
                       android:textColor="#ff6D6D6D"
                       android:text="Crea tus listas para empezar"
+                      android:background="@drawable/background_boton_empty"
                       android:textStyle="bold"
+                      android:onClick="crearLista"
                       android:textSize="20dp"
             />
         </LinearLayout>

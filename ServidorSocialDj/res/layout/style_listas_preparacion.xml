@@ -23,12 +23,14 @@
                   android:gravity="center"
                   android:orientation="vertical"
     >
-        <TextView android:layout_width="wrap_content"
+        <Button android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
                   android:textStyle="bold"
                   android:textSize="18dp"
                   android:textColor="#ff6D6D6D"
+                  android:onClick="anadirCancion"
+                  android:background="@drawable/background_boton_empty"
                   android:text="Añade canciones para comenzar"
         />
     </LinearLayout>

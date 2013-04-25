@@ -108,6 +108,10 @@ public class ListasManager implements ServerSocketListener {
             }
         }
     }
+    
+    public void guardar (){
+        fireListasChanged();
+    }
 
     public void anadirCanciones(int posicion, ArrayList<Cancion> canciones_anadir) {
         listasCanciones.get(posicion).addCanciones(canciones_anadir);

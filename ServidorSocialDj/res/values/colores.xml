@@ -15,4 +15,8 @@
     <color name="colorFondoRowFinal">#00000000</color>
     <color name="colorLetraMensaje">#ff8f5d0d</color>
     <color name="colorFondolista">#fffbf0de</color>
+    <color name="colorFondoBotonInicioNormal">#ffffffff</color>
+    <color name="colorFondoBotonFinNormal">#ffffffff</color>
+    <color name="colorFondoBotonInicioPulsado">#fffbf0de</color>
+    <color name="colorFondoBotonFinPulsado">#fff6dfba</color>
 </resources>

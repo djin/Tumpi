@@ -114,6 +114,7 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
             manejador.finModoSeleccion();
         }
         manager.listasCanciones.remove(position);
+        manager.guardar();
     }
     
     @Override

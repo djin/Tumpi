@@ -220,6 +220,13 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         });
     }
 
+    public void crearLista(View v) {
+        Intent inte = new Intent(ListaPromocionada.this, ListasCanciones.class);
+        inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        inte.putExtra("crearLista", true);
+        startActivity(inte);
+    }
+
     public void onPrepared(MediaPlayer mp) {
         ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
         boton.setImageResource(R.drawable.image_pause);

@@ -24,7 +24,7 @@ import modelo.datos.ListasManager;
 import multimedia.AudioExplorer;
 import multimedia.PlayerListener;
 
-public class ListasCanciones extends FragmentActivity implements PlayerListener{
+public class ListasCanciones extends FragmentActivity implements PlayerListener {
 
     ActionBar.TabListener tabListener;
     // When requested, this adapter returns a DemoObjectFragment,
@@ -39,7 +39,7 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            
+
         setContentView(R.layout.main);
         manejador = ManejadorAcciones.getInstance();
         manejador.setListaCanciones(this);
@@ -71,11 +71,16 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener{
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSwipeViewPagerAdapter);
         Bundle inte = getIntent().getExtras();
-        if(inte!=null){
+        if (inte != null) {
             int numList = inte.getInt("numList");
-            if(numList!=0)
+            boolean pulsado = inte.getBoolean("crearLista");
+            if (numList != 0) {
                 mViewPager.setCurrentItem(numList);
-        }        
+            }
+            if (pulsado) {
+                mSwipeViewPagerAdapter.crearLista(mViewPager);
+            }
+        }
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrolled(int i, float f, int i1) {
                 cancelarSeleccion();
@@ -89,14 +94,13 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener{
                 cancelarSeleccion();
             }
         });
-        explorer=AudioExplorer.getInstance(getApplicationContext());
+        explorer = AudioExplorer.getInstance(getApplicationContext());
         modelo.player.addPlayerListener(this);
         updatePlayer();
     }
 
     public void irPromocionada() {
         Intent inte = new Intent(ListasCanciones.this, ListaPromocionada.class);
-        inte.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(inte);
     }
 
@@ -120,6 +124,12 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener{
         menu.add(12, 57, 5, "Añadir Canciones");
         desapareceMenuSeleccion();
         return true;
+    }
+
+    public void anadirCancion(View v) {
+        Intent inte = new Intent(ListasCanciones.this, SeleccionCanciones.class);
+        inte.putExtra("numList", mViewPager.getCurrentItem());
+        startActivity(inte);
     }
 
     public void desapareceMenuSeleccion() {
@@ -215,49 +225,51 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener{
                 return super.onOptionsItemSelected(item);
         }
     }
-    
-    public void updatePlayer(){
+
+    public void updatePlayer() {
         if (modelo.getCancionReproduciendo() != null) {
             TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
             txtNombreCancionReproduciendo.setText(modelo.getCancionReproduciendo().nombreCancion);
             TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
             txtNombreAlbumReproduciendo.setText(modelo.getCancionReproduciendo().nombreAutor);
-            ImageView imagen=(ImageView) findViewById(R.id.caratulaDisco);
+            ImageView imagen = (ImageView) findViewById(R.id.caratulaDisco);
             imagen.setImageBitmap(explorer.getAlbumImage(modelo.getCancionReproduciendo().album_id));
-            ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+            ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
             txtNombreCancionReproduciendo.setSelected(true);
             txtNombreAlbumReproduciendo.setSelectAllOnFocus(true);
-            if(modelo.player.isPlaying())
+            if (modelo.player.isPlaying()) {
                 boton.setImageResource(R.drawable.image_pause);
-            else
+            } else {
                 boton.setImageResource(R.drawable.image_play);
+            }
         }
     }
-    
-     public void clickPlay(View v){
-        try{
+
+    public void clickPlay(View v) {
+        try {
             modelo.player.pause();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             clickNext(null);
         }
-        ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
-        if(modelo.player.isPlaying())
+        ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
+        if (modelo.player.isPlaying()) {
             boton.setImageResource(R.drawable.image_pause);
-        else
+        } else {
             boton.setImageResource(R.drawable.image_play);
+        }
     }
-    
-    public void clickNext(View v){
+
+    public void clickNext(View v) {
         modelo.procesarVotos();
-        findViewById(R.id.btnPlay).post(new Runnable(){
+        findViewById(R.id.btnPlay).post(new Runnable() {
             public void run() {
                 updatePlayer();
-            }            
+            }
         });
     }
-    
+
     public void onPrepared(MediaPlayer mp) {
-        ImageButton boton=(ImageButton) findViewById(R.id.btnPlay);
+        ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
         boton.setImageResource(R.drawable.image_pause);
     }
 
@@ -274,5 +286,4 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener{
         Log.e("Multimedia", "Error al reproducir cancion");
         return false;
     }
-    
 }

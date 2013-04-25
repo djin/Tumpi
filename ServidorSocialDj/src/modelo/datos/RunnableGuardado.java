@@ -24,7 +24,6 @@ public class RunnableGuardado implements Runnable {
     ArrayList<String> nombres;
     GuardarListas parent;
     boolean sdDisponible = false, sdAccesoEscritura = false;
-    Storage guardar;
 
     public RunnableGuardado(ArrayList<ListaCanciones> listas, ArrayList<String> nombresLista, GuardarListas _parent) {
         this.listas = listas;
@@ -41,7 +40,6 @@ public class RunnableGuardado implements Runnable {
             sdDisponible = false;
             sdAccesoEscritura = false;
         }
-        guardar = new Storage();
     }
 
     public void run() {
