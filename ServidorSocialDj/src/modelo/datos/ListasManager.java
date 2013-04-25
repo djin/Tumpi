@@ -5,17 +5,26 @@
 package modelo.datos;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 import conexion.ConnectionManager;
 import conexion.ServerSocketListener;
 import interfaces.CambiarListaListener;
 import interfaces.ListenerListaCambio;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.OptionalDataException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import multimedia.Player;
 
 /**
@@ -42,7 +51,8 @@ public class ListasManager implements ServerSocketListener {
         cancionReproduciendo = new CancionPromocionada(0, "Los Redondeles", "Siempre Fuertes", 1, "HUAE", 1234, "");
         votos_cliente = new HashMap();
         player = Player.getInstance();
-        GuardarListas guardar = new GuardarListas (this);
+        GuardarListas guardar = new GuardarListas(this);
+        cargarDatos();
     }
 
     public void limpiarDatos(ArrayList<Cancion> datos) {
@@ -72,7 +82,7 @@ public class ListasManager implements ServerSocketListener {
     public void procesarVotos() {
         CancionPromocionada cancionASonar = lista_promocionada.getMaxVoto();
         cancionReproduciendo = cancionASonar;
-        if(cancionReproduciendo!=null){
+        if (cancionReproduciendo != null) {
             try {
                 player.playSong(cancionReproduciendo.path);
                 conex.socket.enviarMensajeServer("*", "2|" + cancionReproduciendo.id);
@@ -80,12 +90,11 @@ public class ListasManager implements ServerSocketListener {
                 Log.e("Multimedia", "Error al reproducir cancion " + cancionReproduciendo.nombreCancion);
             }
             fireModeloChanged();
-        }
-        else{
-            if(lista_promocionada.getCanciones().size()>0){
+        } else {
+            if (lista_promocionada.getCanciones().size() > 0) {
                 try {
-                    Collection<ArrayList> clientes=votos_cliente.values();
-                    for(ArrayList<Integer> votos: clientes){
+                    Collection<ArrayList> clientes = votos_cliente.values();
+                    for (ArrayList<Integer> votos : clientes) {
                         int n = votos.size();
                         for (int i = 0; i < n; i++) {
                             votos.remove(0);
@@ -94,10 +103,10 @@ public class ListasManager implements ServerSocketListener {
                     conex.socket.enviarMensajeServer("*", "0|" + lista_promocionada.toString());
                     procesarVotos();
                 } catch (IOException ex) {
-                    Log.e("Conexion", "Error al actualizar lista: "+ex.toString());
+                    Log.e("Conexion", "Error al actualizar lista: " + ex.toString());
                 }
             }
-        }    
+        }
     }
 
     public void anadirCanciones(int posicion, ArrayList<Cancion> canciones_anadir) {
@@ -163,7 +172,7 @@ public class ListasManager implements ServerSocketListener {
             l.modeloCambio();
         }
     }
-    
+
     public void addListasChangedListener(ListenerListaCambio l) {
         listenersLista.add(l);
     }
@@ -238,5 +247,24 @@ public class ListasManager implements ServerSocketListener {
     }
 
     public void onClientDisconnected(String ip) {
+    }
+
+    private void cargarDatos() {
+        try {
+            File ruta_sd = Environment.getExternalStorageDirectory();
+            File f = new File(ruta_sd.getAbsolutePath(), "ListasGuardadas.txt");
+            
+            if (f.exists()) {
+                ObjectInputStream fin = new ObjectInputStream(new FileInputStream(f));
+                nombreLista = (ArrayList<String>) fin.readObject();
+                listasCanciones = (ArrayList<ListaCanciones>) fin.readObject();
+                fin.close();
+            }
+        } catch (IOException ex) {
+            Log.e("Cargar", "Error entrada salida");
+        } catch (ClassNotFoundException ex) {
+            Log.e("Cargar", "No se encontro la clase");
+        }
+
     }
 }

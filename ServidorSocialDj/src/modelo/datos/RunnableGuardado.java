@@ -24,6 +24,7 @@ public class RunnableGuardado implements Runnable {
     ArrayList<String> nombres;
     GuardarListas parent;
     boolean sdDisponible = false, sdAccesoEscritura = false;
+    Storage guardar;
 
     public RunnableGuardado(ArrayList<ListaCanciones> listas, ArrayList<String> nombresLista, GuardarListas _parent) {
         this.listas = listas;
@@ -40,6 +41,7 @@ public class RunnableGuardado implements Runnable {
             sdDisponible = false;
             sdAccesoEscritura = false;
         }
+        guardar = new Storage();
     }
 
     public void run() {
@@ -47,17 +49,14 @@ public class RunnableGuardado implements Runnable {
             File ruta_sd = Environment.getExternalStorageDirectory();
             String rutaFichero = ruta_sd.getAbsolutePath();
             File ficheroGuardarBorrar = new File(rutaFichero, "ListasGuardadas.txt");
-            if(ficheroGuardarBorrar.exists()){
+            if (ficheroGuardarBorrar.exists()) {
                 ficheroGuardarBorrar.delete();
             }
             File ficheroGuardar = new File(rutaFichero, "ListasGuardadas.txt");
-            
-            ObjectOutputStream fout = new ObjectOutputStream(new FileOutputStream(ficheroGuardar));
 
-            for(ListaCanciones l : listas){
-                fout.writeObject(l);
-            }
-            
+            ObjectOutputStream fout = new ObjectOutputStream(new FileOutputStream(ficheroGuardar));
+            fout.writeObject(nombres);
+            fout.writeObject(listas);
             fout.close();
         } catch (FileNotFoundException ex) {
             Log.e("Guardar", "Error al abrir el Stream");
