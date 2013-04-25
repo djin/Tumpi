@@ -11,4 +11,10 @@
           android:icon="@drawable/image_cancel"
           android:showAsAction="ifRoom"
     />
+    <item android:id="@+id/itemConectarServidor"
+          android:text="Conectar"
+          android:title="Conectar"
+          android:icon="@drawable/image_conectar"
+          android:showAsAction="always"
+    />
 </menu>

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <style name="textStyle" parent="android:Theme.Holo.Light">
-
+        <item name="android:actionButtonStyle">@style/buttonActionBar</item>
+        <item name="android:itemBackground">@drawable/estilo_item_action_bar</item>
+     <!--   <item name="android:actionDropDownStyle">@style/mySpinner</item> -->
     </style>
+    <style name="buttonActionBar">
+        <item name="android:background">@drawable/estilo_item_action_bar</item>
+    </style>
+   <!--> <style name="mySpinner" parent="android:style/Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/estilo_item_action_bar</item>
+        <item name="android:popupBackground">@drawable/background_spinner</item>
+        <item name="android:dropDownSelector">@drawable/image_spinner</item>
+    </style>-->
 </resources>

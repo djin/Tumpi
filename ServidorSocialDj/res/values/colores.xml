@@ -19,4 +19,10 @@
     <color name="colorFondoBotonFinNormal">#ffffffff</color>
     <color name="colorFondoBotonInicioPulsado">#fffbf0de</color>
     <color name="colorFondoBotonFinPulsado">#fff6dfba</color>
+    <color name="colorFondoItemMenuInicioNormal">#00000000</color>
+    <color name="colorFondoItemMenuFinNormal">#00000000</color>
+    <color name="colorFondoItemMenuInicioPulsado">#ffebb65f</color>
+    <color name="colorFondoItemMenuFinPulsado">#ffebb65f</color>
+    <color name="colorFondoSpinnerFin">#ffe4e4e4</color>
+    <color name="colorFondoSpinnerInicio">#ffe4e4e4</color>
 </resources>

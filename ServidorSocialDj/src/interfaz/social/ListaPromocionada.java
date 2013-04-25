@@ -5,17 +5,23 @@
 package interfaz.social;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -25,6 +31,7 @@ import interfaces.CambiarListaListener;
 import java.util.ArrayList;
 import modelo.datos.Cancion;
 import modelo.datos.CancionPromocionada;
+import modelo.datos.ListaCanciones;
 import modelo.datos.ListasManager;
 import multimedia.AudioExplorer;
 import multimedia.PlayerListener;
@@ -155,6 +162,30 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                 adapter.notifyDataSetChanged();
                 modoSeleccion = false;
                 desapareceMenu();
+                return true;
+            case R.id.itemConectarServidor:
+                final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final View v = inflater.inflate(R.layout.style_view_nombre_servidor, this.getListView(), false);
+                alert.setView(v);
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        EditText input = (EditText) v.findViewById(R.id.txtInputNombreServidor);
+                        String value = input.getText().toString();
+                        if (!value.equals("")) {
+                            Toast.makeText(alert.getContext(), "El nombre es: " + value, Toast.LENGTH_SHORT).show();
+                        } else {
+                            dialog.cancel();
+                        }
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.cancel();
+                    }
+                });
+                alert.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
