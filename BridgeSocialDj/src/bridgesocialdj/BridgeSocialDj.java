@@ -4,6 +4,8 @@
  */
 package bridgesocialdj;
 
+import Managers.ServerManager;
+
 /**
  *
  * @author 66785270
@@ -15,5 +17,8 @@ public class BridgeSocialDj {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        ServerManager bridge=new ServerManager();
+        if(bridge.arrancarBridge())
+            System.out.println("BridgeSocialDj arrancado correctamente. A disfrutar!");
     }
 }
