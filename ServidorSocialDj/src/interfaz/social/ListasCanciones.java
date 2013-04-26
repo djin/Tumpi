@@ -251,7 +251,7 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener 
         } catch (Exception ex) {
             clickNext(null);
         }
-        ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
+        ImageButton boton = (ImageButton) v;
         if (modelo.player.isPlaying()) {
             boton.setImageResource(R.drawable.image_pause);
         } else {

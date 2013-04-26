@@ -234,7 +234,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
 
     public void clickPlay(View v) {
         manager.player.pause();
-        ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
+        ImageButton boton = (ImageButton) v;
         if (manager.player.isPlaying()) {
             boton.setImageResource(R.drawable.image_pause);
         } else {
