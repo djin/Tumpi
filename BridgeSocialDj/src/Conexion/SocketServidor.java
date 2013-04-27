@@ -73,6 +73,7 @@ public class SocketServidor {
     }
     public void enviarMensajeServer(String id_cliente,String mensaje) throws IOException{
         clientes.get(id_cliente).enviarMensaje(mensaje);
+        System.out.println("Mensaje enviado a "+id_cliente+" : "+mensaje);;
     }
     public int getClientsCount(){
         return clientes.size();

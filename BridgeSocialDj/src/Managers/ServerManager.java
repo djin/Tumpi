@@ -78,7 +78,7 @@ public class ServerManager implements ServerSocketListener{
                 case "s":
                     if(isServer(destino))
                         if(getServer(destino).isClient(origen))
-                            socket.enviarMensajeServer(getServer(destino).id, origen+":"+message);
+                            socket.enviarMensajeServer(getServer(destino).id, origen+"|"+message);
                     break;
             }
         }catch(Exception ex){
