@@ -44,7 +44,7 @@ public class ServerManager implements ServerSocketListener{
                     ServidorSocialDj server=getServer(nick);
                     if(!server.isClient(id)){
                         server.clientes.add(new ClienteSocialDj(id));
-                        sendNewClientNotification(server.id, id);
+                        sendClientNotification(server.id, id,"on");
                         sendLoginResponse(id,1);
                     }
                 }
@@ -88,13 +88,17 @@ public class ServerManager implements ServerSocketListener{
         }
     }
     
-    private void procesarExit(String id,String tipo){
-        
+    private void procesarExit(String id){
+        try {
+            socket.clientes.get(id).close();
+        } catch (IOException ex) {
+            System.out.println("Error al desconectar al cliente "+id+" : "+ex);
+        }
     }
     
-    private void sendNewClientNotification(String id_server,String id_cliente){
+    private void sendClientNotification(String id_server,String id_cliente,String estado){
         try {
-            socket.enviarMensajeServer(id_server, "b:client|"+id_cliente);
+            socket.enviarMensajeServer(id_server, "b:client_"+estado+"|"+id_cliente);
         } catch (IOException ex) {
             System.out.println("Error al enviar la notificacion de nuevo cliente: "+ex);
         }        
@@ -118,7 +122,7 @@ public class ServerManager implements ServerSocketListener{
                 procesarLogIn(id,tipo,getMessage(message));
                 break;
             case "exit":
-                procesarExit(id,tipo);
+                procesarExit(id);
                 break;
             default:
                 procesarMessage(id,tipo,id_dest,getMessage(message)); 
@@ -128,12 +132,33 @@ public class ServerManager implements ServerSocketListener{
 
     @Override
     public void onClientConnected(String id) {
-        System.out.println("Conexion abierta de "+id);
+        System.out.println("Conexion abierta >> "+id);
     }
 
     @Override
     public void onClientDisconnected(String id){
-        System.out.println("Cliente desconectado");
+        if(isServer(id)){
+            ServidorSocialDj server=getServer(id);
+            try {
+                int size=server.clientes.size();
+                for(int cont=0;cont<size;cont++){
+                    socket.clientes.get(server.clientes.get(0).id).close();
+                    server.clientes.remove(server.getClient(id));
+                }
+            } catch (IOException ex) {
+                System.out.println("Error al desconectar al cliente");
+            }
+            servidores.remove(server);
+        }
+        else{
+            for(ServidorSocialDj server:servidores){
+                if(server.isClient(id)){
+                    server.clientes.remove(server.getClient(id));
+                    sendClientNotification(server.id, id, "off");
+                }
+            }
+        }
+        System.out.println("Cliente desconectado >> "+id);
         
     }
     private boolean isServer(String id){

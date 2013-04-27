@@ -26,4 +26,10 @@ public class ServidorSocialDj {
                 return true;
         return false;
     }
+    public ClienteSocialDj getClient(String id){
+        for(ClienteSocialDj client:clientes)
+            if(client.id.equals(id))
+                return client;
+        return null;
+    }
 }
