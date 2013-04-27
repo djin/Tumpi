@@ -66,7 +66,7 @@ public class ListasManager implements ServerSocketListener {
         if (conex == null) {
             conex = new ConnectionManager(c);
             try {
-                if (conex.createSocket(2222)) {
+                if (conex.createSocket()) {
                     conex.socket.addServerSocketListener(this);
                     Log.i("Conexion", "Socket creado con éxito");
                 }
@@ -75,10 +75,22 @@ public class ListasManager implements ServerSocketListener {
                 conex = null;
                 return false;
             }
+            return false;
         }
         return true;
     }
-
+    public boolean logInBridge(String nick){
+        try {
+            if(conex.socket.logIn(nick)){
+                conex.socket.startListenBridge();
+                return true;
+            }
+        } catch (Exception ex) {
+            Log.e("Conexion","Error al logarse en el bridge: "+ex);
+            return false;
+        }
+        return false;
+    }
     public void procesarVotos() {
         CancionPromocionada cancionASonar = lista_promocionada.getMaxVoto();
         cancionReproduciendo = cancionASonar;

@@ -59,9 +59,9 @@ public class PantallaDatosServidor extends Activity{
 //                    if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
                         try {
 //                                pd = ProgressDialog.show(p, "Procesando", "Espere unos segundos...", true, false);
-                                conex = new ConnectionManager(p);  
+                                conex = new ConnectionManager();  
                                     
-                                if(conex.conectar(ip,port,p)){
+                                if(conex.conectar()){
                                     conex.conexion.startListeningServer();
                                     Intent inte = new Intent(PantallaDatosServidor.this, ListaCanciones.class);
                                     startActivity(inte);

@@ -10,8 +10,6 @@ import conexion.ServerSocketListener;
 import conexion.SocketServidor;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -80,7 +78,7 @@ public class ServerManager implements ServerSocketListener{
                 case "s":
                     if(isServer(destino))
                         if(getServer(destino).isClient(origen))
-                            socket.enviarMensajeServer(getServer(destino).id, message);
+                            socket.enviarMensajeServer(getServer(destino).id, origen+":"+message);
                     break;
             }
         }catch(Exception ex){

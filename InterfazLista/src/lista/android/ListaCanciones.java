@@ -45,7 +45,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         text_playing = (TextView) findViewById(R.id.txtPlaying);
         text_playing.setSelected(true);
         text_autorPlaying = (TextView) findViewById(R.id.txtPlayingAutor);
-        conex = new ConnectionManager(this);
+        conex = new ConnectionManager();
         conex.conexion.addServerMessageListener(this);
         if (cancion_sonando == null) {
             cancion_sonando = new Cancion("Nombre canción", "Artista", "Album", 0, 0, false, false);

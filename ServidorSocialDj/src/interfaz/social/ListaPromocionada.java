@@ -173,9 +173,14 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                         EditText input = (EditText) v.findViewById(R.id.txtInputNombreServidor);
                         String value = input.getText().toString();
                         if (!value.equals("")) {
-                            Toast.makeText(alert.getContext(), "El nombre es: " + value, Toast.LENGTH_SHORT).show();
+                            if(manager.logInBridge(value)){
+                                Toast.makeText(alert.getContext(), "Servidor conectado", Toast.LENGTH_SHORT).show();                                
+                            }
+                            else
+                                Toast.makeText(alert.getContext(), "Error al publicar el servidor", Toast.LENGTH_SHORT).show();
                         } else {
-                            dialog.cancel();
+                            Toast.makeText(alert.getContext(), "Escriba un nombre para el servidor", Toast.LENGTH_SHORT).show();
+                            //dialog.cancel();
                         }
                     }
                 });

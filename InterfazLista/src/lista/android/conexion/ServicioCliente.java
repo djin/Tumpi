@@ -14,24 +14,24 @@ import lista.android.PantallaDatosServidor;
  * @author 66785270
  */
 public class ServicioCliente extends IntentService{
-    String texto_recivido;
+//    String texto_recivido;
     public ServicioCliente() {
         super("ServicioCliente");
     }
     
     @Override
     protected void onHandleIntent(Intent intent) {
-        texto_recivido="";
-        try{
-            do{
-                texto_recivido=SocketConnector.listenServer();            
-                SocketConnector.fireMessageEvent(texto_recivido);
-            }while(texto_recivido!="exit");
-        }catch(Exception ex){
-            SocketConnector.fireMessageEvent("exit");
-        }finally{
-            this.stopSelf();            
-        }
+//        texto_recivido="";
+//        try{
+//            do{
+//                texto_recivido=SocketConnector.listenServer();            
+//                SocketConnector.fireMessageEvent(texto_recivido);
+//            }while(texto_recivido!="exit");
+//        }catch(Exception ex){
+//            SocketConnector.fireMessageEvent("exit");
+//        }finally{
+//            this.stopSelf();            
+//        }
     }
     
 }
