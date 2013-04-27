@@ -89,8 +89,8 @@ public class SocketServidor {
             }
         }
         else{
-            String id_cliente=mensaje.substring(0,mensaje.indexOf(":"));
-            mensaje=mensaje.substring(mensaje.indexOf(":")+1);
+            String id_cliente=mensaje.substring(0,mensaje.indexOf("|"));
+            mensaje=mensaje.substring(mensaje.indexOf("|")+1);
             fireMessageReceivedEvent(id_cliente, mensaje);
         }            
     }

@@ -42,7 +42,7 @@ public class SocketConnector {
     }
     public void enviarMensaje(String mensaje) throws Exception {
         if(socket_cliente.isConnected() && !socket_cliente.isClosed()){            
-            output.writeUTF("s:"+servidor+":"+mensaje);
+            output.writeUTF("s:"+servidor+"|"+mensaje);
             output.flush();
         }
         else
