@@ -5,10 +5,8 @@
 package lista.android;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.*;
-import android.net.ConnectivityManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -17,13 +15,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.Inet4Address;
 import java.net.InetSocketAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
 import lista.android.conexion.ConnectionManager;
 
 /**
@@ -49,20 +45,27 @@ public class PantallaPrincipal extends Activity {
         btnEntrarDisco.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
-                if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
-                    new BuscarServer(8888).execute();
-                }
-                else{
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
-                    dialogBuilder.setMessage("Se necesita estar conectado a una red wifi que disponga de servidor socialDJ");
-                    dialogBuilder.setTitle("¡No esta conectado!");
-                    dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    dialogBuilder.show();
+//                ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
+//                if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
+//                    new BuscarServer(8888).execute();
+//                }
+//                else{
+//                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
+//                    dialogBuilder.setMessage("Se necesita estar conectado a una red wifi que disponga de servidor socialDJ");
+//                    dialogBuilder.setTitle("¡No esta conectado!");
+//                    dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    dialogBuilder.show();
+//                }
+                EditText nombre_server = (EditText) findViewById(R.id.txtNombreServer);
+                String nombre = nombre_server.getText().toString();
+                if(!nombre.equals("")){
+                    //aqui introduce el codigo
+                } else {
+                    Toast.makeText(p, "Introduce un nombre de servidor", Toast.LENGTH_SHORT).show();
                 }
             }
         });     
