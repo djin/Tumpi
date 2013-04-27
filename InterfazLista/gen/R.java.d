@@ -32,6 +32,7 @@ C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-hdpi\tab_
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-hdpi\tab_unselected_focused_socialtheme.9.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-hdpi\tab_unselected_pressed_socialtheme.9.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-ldpi\ic_launcher.png \
+C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-ldpi\list_view_scroll_color.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-mdpi\ab_bottom_solid_socialtheme.9.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-mdpi\ab_solid_socialtheme.9.png \
 C:\Users\66785320\Documents\GitHub\socialDj\InterfazLista\res\drawable-mdpi\ab_stacked_solid_socialtheme.9.png \

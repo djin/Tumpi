@@ -14,7 +14,7 @@
     
     <LinearLayout android:layout_width="fill_parent"
     android:layout_height="3dp"
-    android:background="#ff2E9AFE"
+    android:background="#FF3bcd4f"
     android:orientation="vertical"
     ></LinearLayout>
     <LinearLayout android:layout_width="fill_parent"
