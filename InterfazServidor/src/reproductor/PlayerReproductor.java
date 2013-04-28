@@ -1,6 +1,5 @@
 package reproductor;
 
-import ModuloLogico.ThreadAddCancion;
 import java.awt.image.BufferedImage;
 import javax.swing.SwingUtilities;
 import modelos.Cancion;
@@ -16,8 +15,12 @@ public class PlayerReproductor {
 
     public static AudioMediaPlayerComponent reproductor = new AudioMediaPlayerComponent();
     public static AudioMediaPlayerComponent identificador = new AudioMediaPlayerComponent();
+    private MediaMeta metadata;
+    private MediaPlayer player;
+    private Cancion cancion;
 
     public PlayerReproductor() {
+        
     }
 
     public boolean reproducir(String mrl) {
@@ -36,6 +39,16 @@ public class PlayerReproductor {
         identificador.getMediaPlayer().prepareMedia(reproductor.getMediaPlayer().mrl());
         identificador.getMediaPlayer().parseMedia();
         return identificador.getMediaPlayer().getMediaMeta().getArtwork();
+    }
+    
+    public Cancion getCancion(String mrl){
+        
+        player = identificador.getMediaPlayer();
+        player.prepareMedia(mrl);
+        player.parseMedia();
+        metadata = player.getMediaMeta();
+        cancion = new Cancion(0, metadata.getTitle(), metadata.getAlbum(), metadata.getArtist(), player.getLength(), mrl);
+        return cancion;
     }
 
     public String formatearDuracion(long duracion) {

@@ -4,7 +4,7 @@
  */
 package modelos;
 
-import ModuloLogico.ThreadAddCancion;
+import reproductor.ThreadGetDuraciones;
 import conexion.ConnectionManager;
 import elementosInterfaz.FramePrincipal;
 import elementosInterfaz.ReproductorPanel;
@@ -150,10 +150,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             ReproductorPanel.song.setText(cancion.getNombre());
             ReproductorPanel.artist.setText(cancion.getArtista());
 
-            //Esto no se por que no funciona
-
-            //for(ArrayList<Integer> v:votos_cliente.values())
-            //v.remove(cancion.getId());
             FramePrincipal.log("Reproduciendo cancion: " + cancion.getNombre());
             try {
                 ConnectionManager.socket.enviarMensajeServer("*", "2|" + cancion.getId());
@@ -178,7 +174,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             }
         };
         List<File> listaFiles;
-
+        ArrayList<Cancion> cancionesDuracion = new ArrayList();
+        
         chooser.setMultiSelectionEnabled(true);
         chooser.setCurrentDirectory(new File(path));
         chooser.setFileFilter(new FileFilter() {
@@ -215,11 +212,10 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                     if (f.exists()) {
 
                         String duracionFormateada;
-                        ThreadAddCancion thread = new ThreadAddCancion(f.getAbsolutePath(),reproductor.identificador);
-                        c = thread.formatearCancion();
+                        c = reproductor.getCancion(f.getAbsolutePath());
                         max_id++;
                         c.setId(max_id);
-
+                        cancionesDuracion.add(c);
                         duracionFormateada = reproductor.formatearDuracion(c.getDuracion());
                         listas_canciones.get(index).getCanciones().add(c);
                         if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
@@ -234,9 +230,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                         tablasPendientes.get(index).getTabla().setValueAt(c.getDisco(), x + comienzo, columnaPendienteAlbum);
                         tablasPendientes.get(index).getTabla().setValueAt(duracionFormateada, x + comienzo, columnaPendienteDuracion);
                         x++;
-
+                        
                     }
                 }
+                ThreadGetDuraciones thread = new ThreadGetDuraciones(cancionesDuracion, reproductor.getMediaPlayer());
+                thread.start();
             }
         }
     }
