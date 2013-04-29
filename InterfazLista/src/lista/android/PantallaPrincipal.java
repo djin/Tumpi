@@ -32,21 +32,23 @@ import lista.android.conexion.ConnectionManager;
  */
 public class PantallaPrincipal extends Activity {
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     ConnectionManager conex;
     Activity p;
     public static ProgressDialog pd;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        p=this;
+        p = this;
         // ToDo add your GUI initialization code here  
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.stylepantallainicial);
-        
-        Button btnEntrarDisco = (Button)findViewById(R.id.btnAntiguaConexion);
-        btnEntrarDisco.setOnClickListener(new OnClickListener() {
 
+        Button btnEntrarDisco = (Button) findViewById(R.id.btnAntiguaConexion);
+        btnEntrarDisco.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 //                ConnectivityManager connMgr =(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);                    
 //                if(connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()){
@@ -65,45 +67,45 @@ public class PantallaPrincipal extends Activity {
 //                }
                 EditText nombre_server = (EditText) findViewById(R.id.txtNombreServer);
                 String nombre = nombre_server.getText().toString();
-                if(!nombre.equals("")){
-                    
+                if (!nombre.equals("")) {
+
                     try {
-                            pd = ProgressDialog.show(p, "Conectando", "Espere unos segundos...", true, false);
-                            conex = new ConnectionManager();  
-                        
-                        if(conex.conectar() && conex.logInBridge(nombre)){
+                        pd = ProgressDialog.show(p, "Conectando", "Espere unos segundos...", true, false);
+                        conex = new ConnectionManager();
+
+                        if (conex.conectar() && conex.logInBridge(nombre)) {
                             conex.conexion.startListeningServer();
                             Intent inte = new Intent(PantallaPrincipal.this, ListaCanciones.class);
                             startActivity(inte);
-                        }
-                        else {
-                            pd.dismiss();   
-                            conex=null;
-                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
-                             dialogBuilder.setMessage("No existe un servidor publicado con este nombre o no tiene conexion con la central de socialDj");
-                             dialogBuilder.setTitle("Error de conexion");
-                             dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
+                        } else {
+                            pd.dismiss();
+                            conex = null;
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
+                            dialogBuilder.setMessage("No existe un servidor publicado con este nombre o no tiene conexion con la central de socialDj");
+                            dialogBuilder.setTitle("Error de conexion");
+                            dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                 }
-                             });
-                             dialogBuilder.show();
+                            });
+                            dialogBuilder.show();
                         }
-                    }catch (Exception ex){
-                            pd.dismiss();
-                        conex=null;
-                        Toast.makeText(p, "Ha ocurrido un error al intentar conectar, intentelo mas tarde: \n"+ex.toString(), Toast.LENGTH_LONG).show();
-                    }      
-                pd.dismiss();        
-                    
+                    } catch (Exception ex) {
+                        pd.dismiss();
+                        conex = null;
+                        Toast.makeText(p, "Ha ocurrido un error al intentar conectar, intentelo mas tarde: \n" + ex.toString(), Toast.LENGTH_LONG).show();
+                    }
+                    pd.dismiss();
+
                 } else {
                     Toast.makeText(p, "Introduce un nombre de servidor", Toast.LENGTH_SHORT).show();
                 }
             }
-        });     
+        });
     }
     //Esto sirve para...
-    public void focusStng(View v){
+
+    public void focusStng(View v) {
         Intent intent = new Intent(PantallaPrincipal.this, PantallaDatosServidor.class);
         startActivity(intent);
     }
