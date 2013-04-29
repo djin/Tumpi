@@ -29,6 +29,22 @@ public class ListaPromocionada {
         
     
     }
+    
+    @Override
+    public String toString() {
+        String cadena = "";
+
+        if (!canciones.isEmpty()) {
+            for (Cancion c : canciones) {
+                cadena = cadena + c + ";";
+            }
+            cadena = cadena.substring(0, cadena.length() - 1);
+        }
+        else{
+            cadena = "empty";
+        }
+        return cadena;
+    }
 
     /**
      * @return the canciones

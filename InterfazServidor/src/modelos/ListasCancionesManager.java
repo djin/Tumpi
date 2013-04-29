@@ -4,7 +4,6 @@
  */
 package modelos;
 
-import reproductor.ThreadGetDuraciones;
 import conexion.ConnectionManager;
 import elementosInterfaz.FramePrincipal;
 import elementosInterfaz.ReproductorPanel;
@@ -24,10 +23,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import reproductor.PlayerReproductor;
+import reproductor.ThreadGetDuraciones;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
@@ -206,7 +205,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                 int comienzo = listas_canciones.get(index).getCanciones().size();
                 ListaCanciones lista = listas_canciones.get(index);
                 int max_id = lista.getMaxId();
-                Cancion c = null;
+                Cancion c;
 
                 for (File f : listaFiles) {
                     if (f.exists()) {
