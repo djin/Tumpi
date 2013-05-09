@@ -13,6 +13,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import modelos.ListaCanciones;
@@ -254,8 +256,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private void iniciarConexion() {
 
         try {
-            server = new ConnectionManager();
-            if (server.createSocket(puerto_socket)) {
+            server = listas_manager.getConector();
+            if (server.createSocket()) {
                 log("Socket creado con exito!!!");
             }
         } catch (Exception ex) {
@@ -467,8 +469,10 @@ public class FramePrincipal extends JFrame implements WindowListener {
         ficheros_manager.guardarPreferencias();
 
         try {
-            ConnectionManager.socket.closeSocket();
+            server.closeSocket();
         } catch (IOException ex) {
+            FramePrincipal.log("Error al intentar cerrar el socket: " + ex.toString());
+        } catch (Exception ex) {
             FramePrincipal.log("Error al intentar cerrar el socket: " + ex.toString());
         }
     }

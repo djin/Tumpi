@@ -45,6 +45,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public static ArrayList<ListaCanciones> listas_canciones;
     public static ArrayList<Tabla> tablasPendientes;
     public static ListaPromocionada lista_sonando;
+    private ConnectionManager conection;
     private PlayerReproductor reproductor;
     private static ArrayList<CancionPromocionada> canciones;
     public static String path;
@@ -61,6 +62,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         listas_canciones = new ArrayList();
         tablasPendientes = new ArrayList();
         lista_sonando = new ListaPromocionada();
+        conection = new ConnectionManager();
+    }
+    
+    public ConnectionManager getConector (){
+        return conection;
     }
 
     public static ListasCancionesManager getInstance() {
@@ -87,7 +93,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
             votos_cliente = new HashMap();
             try {
-                ConnectionManager.socket.enviarMensajeServer("*", "0|" + lista_sonando);
+                conection.getSocket().enviarMensajeServer("*", "0|" + lista_sonando);
             } catch (Exception ex) {
                 FramePrincipal.log("Error al enviar la lista: " + ex.toString());
             }
@@ -151,7 +157,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
             FramePrincipal.log("Reproduciendo cancion: " + cancion.getNombre());
             try {
-                ConnectionManager.socket.enviarMensajeServer("*", "2|" + cancion.getId());
+                conection.getSocket().enviarMensajeServer("*", "2|" + cancion.getId());
             } catch (Exception ex) {
                 FramePrincipal.log("Error al enviar la cancion a reproducir: ");
             }
