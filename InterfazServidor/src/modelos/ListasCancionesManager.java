@@ -16,7 +16,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -39,21 +38,16 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 //Tres cuartas partes de lo mismo, hay que mirarselo muchisimo, demasidas cosas, habra que delegar.
 public class ListasCancionesManager implements MediaPlayerEventListener {
 
-    public static HashMap<String, ArrayList<Integer>> votos_cliente = new HashMap<String, ArrayList<Integer>>();
-    public static Cancion cancion_sonando;
-    public static Tabla tabla_sonando;
     public static ArrayList<ListaCanciones> listas_canciones;
     public static ArrayList<Tabla> tablasPendientes;
     public static ListaPromocionada lista_sonando;
     private ConnectionManager conection;
     private PlayerReproductor reproductor;
-    private static ArrayList<CancionPromocionada> canciones;
     public static String path;
-    private static int columnaSonandoCancion = 0, columnaSonandoAutor = 1, columnaSonandoVotos = 2;
     private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
-    public String[] nombresColumnaSonando = {"Cancion", "Artista", "Votos"};
     public static String[] nombresColumnaPendientes = {"Cancion", "Artista", "Album", "Duración"};
     private static final ListasCancionesManager manager = new ListasCancionesManager();
+    private static boolean hay_lista_promocionada;
 
     private ListasCancionesManager() {
 
@@ -63,6 +57,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         tablasPendientes = new ArrayList();
         lista_sonando = new ListaPromocionada();
         conection = new ConnectionManager();
+        hay_lista_promocionada = false;
     }
     
     public ConnectionManager getConector (){
@@ -74,24 +69,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     }
 
     public void promocionarLista(int id_lista) {
-
-        int x = 0;
-        canciones = new ArrayList();
+  
         if (!listas_canciones.isEmpty() && !listas_canciones.get(id_lista).getCanciones().isEmpty()) {
             
-            lista_sonando = new ListaPromocionada(listas_canciones.get(id_lista));
-            tabla_sonando.getTabla().setFilas(lista_sonando.getCanciones().size());
-            for (CancionPromocionada p : lista_sonando.getCanciones()) {
-
-                tabla_sonando.getTabla().setValueAt(p.getNombre(), x, columnaSonandoCancion);
-                tabla_sonando.getTabla().setValueAt(p.getArtista(), x, columnaSonandoAutor);
-                tabla_sonando.getTabla().setValueAt(0, x, columnaSonandoVotos);
-                x++;
-            }
-
-            canciones = lista_sonando.getCanciones();
-
-            votos_cliente = new HashMap();
+            lista_sonando.NuevasCanciones(listas_canciones.get(id_lista));
+            hay_lista_promocionada = true;
             try {
                 conection.getSocket().enviarMensajeServer("*", "0|" + lista_sonando);
             } catch (Exception ex) {
@@ -106,52 +88,24 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     }
     
     public boolean procesarVoto(int id_cancion, boolean tipo) {
-        int x = 0;
-        for (CancionPromocionada p : canciones) {
-            if (p.getId() == id_cancion) {
-                String value_votos = String.valueOf(canciones.get(x).getVotos());
-                if (!"*".equals(value_votos)) {
-                    if (tipo) {
-                        canciones.get(x).setVotos(canciones.get(x).getVotos()+1);
-                    } else {
-                        canciones.get(x).setVotos(canciones.get(x).getVotos()-1);
-                    }
-                    tabla_sonando.setValueAt(canciones.get(x).getVotos(), x, columnaSonandoVotos);
-                    return true;
-                }
-                return false;
-            }
-            x++;
+        
+        if(lista_sonando.añadirVoto(id_cancion, tipo)){
+            return true;
         }
-        return false;
+        else{
+            return false;
+        }
     }
 
     public boolean playNext() {
 
-        if (canciones != null && !canciones.isEmpty()) {
+        if (hay_lista_promocionada) {
 
-            int x = 0, votos, id_max = 0;
-            String valor, valor_max;
-            for (CancionPromocionada p : canciones) {
-                valor = (String) tabla_sonando.getValueAt(x, columnaSonandoVotos);
-                if (!valor.equals("*")) {
-                    votos = Integer.parseInt(valor);
-                    valor_max = (String) tabla_sonando.getValueAt(id_max, columnaSonandoVotos);
-                    if (valor_max.equals("*") || votos >= Integer.parseInt(valor_max)) {
-                        id_max = x;
-                    }
-                }
-                x++;
-            }
-            CancionPromocionada cancion = canciones.get(id_max);
-            cancion_sonando = cancion;
-            //lista_sonando.getCanciones().remove(id_max);
-            tabla_sonando.setValueAt("*", id_max, columnaSonandoVotos);
+            CancionPromocionada cancion = lista_sonando.reproducirCancion();
+            
             if (!reproductor.reproducir(cancion.getPath())) {
                 FramePrincipal.log("Error al reproducir la cancion.");
             }
-
-            cancion.setReproducida(1);
             ReproductorPanel.song.setText(cancion.getNombre());
             ReproductorPanel.artist.setText(cancion.getArtista());
 
@@ -159,7 +113,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             try {
                 conection.getSocket().enviarMensajeServer("*", "2|" + cancion.getId());
             } catch (Exception ex) {
-                FramePrincipal.log("Error al enviar la cancion a reproducir: ");
+                FramePrincipal.log("Error al enviar la cancion a reproducir: "+ex);
             }
             return true;
         } else {

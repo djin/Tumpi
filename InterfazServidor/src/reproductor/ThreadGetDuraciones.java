@@ -6,8 +6,6 @@ package reproductor;
 
 import java.util.ArrayList;
 import modelos.Cancion;
-import uk.co.caprica.vlcj.component.AudioMediaPlayerComponent;
-import uk.co.caprica.vlcj.player.MediaMeta;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 
 /**
@@ -35,7 +33,7 @@ public class ThreadGetDuraciones extends Thread {
             try {
                 wait(150);
             } catch (InterruptedException ex) {
-                ex.printStackTrace();
+                System.err.println("Error en el thread que obtiene las duraciones" +ex);
             }
             player.stop();
             dur = player.getLength();

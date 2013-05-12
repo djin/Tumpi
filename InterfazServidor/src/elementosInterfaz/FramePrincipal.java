@@ -13,13 +13,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.table.TableCellRenderer;
 import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
-import modelos.ModeloTabla;
 
 /**
  *
@@ -31,7 +27,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private JPanel panel = (JPanel) this.getContentPane();
     private ListasCancionesManager listas_manager;
     private FicherosManager ficheros_manager;
-    private ModeloTabla modeloTablaSonando;
+    private TablaSonando tabla_sonando;
     private JTabbedPane pestanasPendientes;
     private ReproductorPanel panelReproductor;
     private ArrayList<String> nombresLista;
@@ -215,28 +211,10 @@ public class FramePrincipal extends JFrame implements WindowListener {
     }
 
     private void iniciarListaSonando() {
-//CHIRRIA, esto deberia de estar casi con toda seguridad en una funcion de listas_manager.
-        modeloTablaSonando = new ModeloTabla(listas_manager.nombresColumnaSonando, 1);
-        listas_manager.tabla_sonando = new Tabla(modeloTablaSonando);
-        listas_manager.tabla_sonando.getTableHeader().setReorderingAllowed(false);
-        listas_manager.tabla_sonando.getColumnModel().getColumn(2).setMaxWidth(60);
-        listas_manager.tabla_sonando.getColumnModel().getColumn(2).setMinWidth(60);
-        listas_manager.tabla_sonando.getColumnModel().getColumn(1).setMinWidth(150);
-        listas_manager.tabla_sonando.getColumnModel().getColumn(0).setMinWidth(150);
-        listas_manager.tabla_sonando.setValueAt("Promociona una lista", 0, 0);
-        listas_manager.tabla_sonando.setValueAt("", 0, 1);
-        listas_manager.tabla_sonando.setValueAt("", 0, 2);
-        listas_manager.tabla_sonando.getColumnModel().getColumn(2).setCellRenderer(new TableCellRenderer() {
-
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                JLabel valor = new JLabel(value.toString());
-                valor.setHorizontalAlignment(JLabel.CENTER);
-                return valor;
-            }
-        });
-
-        JScrollPane scrollSonando = new JScrollPane(listas_manager.tabla_sonando);
+        
+        tabla_sonando = new TablaSonando();
+        listas_manager.lista_sonando.addListaPromocionadaListener(tabla_sonando);
+        JScrollPane scrollSonando = new JScrollPane(tabla_sonando);
         scrollSonando.setPreferredSize(ladoIzquierdo);
         panel.add(scrollSonando, BorderLayout.WEST);
     }

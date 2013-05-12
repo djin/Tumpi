@@ -10,13 +10,13 @@ package modelos;
  */
 public class CancionPromocionada extends Cancion {
     
-    private int reproducida;
+    private boolean reproducida;
     private int votos;
     
     public CancionPromocionada(int _id, String name, String album, String artist, long length, String _path) {
         
         super(_id, name, album, artist, length, _path);
-        reproducida = 0;
+        reproducida = false;
         votos = 0;
         
     }
@@ -29,14 +29,14 @@ public class CancionPromocionada extends Cancion {
     /**
      * @return the reproducida
      */
-    public int getReproducida() {
+    public boolean getReproducida() {
         return reproducida;
     }
 
     /**
      * @param reproducida the reproducida to set
      */
-    public void setReproducida(int reproducida) {
+    public void setReproducida(boolean reproducida) {
         this.reproducida = reproducida;
     }
 

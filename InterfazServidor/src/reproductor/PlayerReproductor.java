@@ -32,7 +32,7 @@ public class PlayerReproductor {
     }
 
     public MediaPlayer getMediaPlayer() {
-        return reproductor.getMediaPlayer();
+        return identificador.getMediaPlayer();
     }
 
     public static BufferedImage getImage() {
