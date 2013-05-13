@@ -269,11 +269,19 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                listas_manager.setNombreServidor();
+            }
+        });
+        
+        barramenus.menuItems.get(1).addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 anadirLista();
             }
         });
 
-        barramenus.menuItems.get(1).addActionListener(new ActionListener() {
+        barramenus.menuItems.get(2).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -288,7 +296,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
             }
         });
 
-        barramenus.menuItems.get(2).addActionListener(new ActionListener() {
+        barramenus.menuItems.get(3).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -296,28 +304,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
             }
         });
         
-        barramenus.menuItems.get(3).addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //GuardarSesion
-            }
-        });
-        
         barramenus.menuItems.get(4).addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(ficheros_manager.cargarSesion()){
-                    
-                }
-                else{
-                    
-                }
-            }
-        });
-        
-        barramenus.menuItems.get(5).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -325,7 +312,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
             }
         });
         
-        barramenus.menuItems.get(6).addActionListener(new ActionListener() {
+        barramenus.menuItems.get(5).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -340,7 +327,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
             }
         });
         
-        barramenus.menuItems.get(7).addActionListener(new ActionListener() {
+        barramenus.menuItems.get(6).addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {

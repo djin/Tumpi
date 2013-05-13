@@ -48,6 +48,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
     public static String[] nombresColumnaPendientes = {"Cancion", "Artista", "Album", "Duración"};
     private static boolean hay_lista_promocionada;
+    private static String nombre_servidor;
 
     private ListasCancionesManager() {
 
@@ -58,6 +59,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         lista_sonando = new ListaPromocionada();
         conection = new ConnectionManager();
         hay_lista_promocionada = false;
+        nombre_servidor = "servidor";
     }
 
     public void promocionarLista(int id_lista) {
@@ -300,15 +302,18 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     }
     
-    @Override
-    public String toString() {
+    public void setNombreServidor(){
         
-        for(ListaCanciones l :  listas_canciones){
-            for(Cancion c : l.getCanciones()){
-                
-            }
-        }
-        return "ggdfgfd";
+        JOptionPane pane = new JOptionPane("Nombre del servidor", JOptionPane.PLAIN_MESSAGE);
+        pane.setWantsInput(true);
+        JDialog dialog = pane.createDialog(null, "Nombre Servidor");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+        nombre_servidor = (String) pane.getInputValue();
+    }
+    
+    public String getNombreServidor(){
+        return nombre_servidor;
     }
     
     public static ListasCancionesManager getInstance() {
