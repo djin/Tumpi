@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +45,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
     private static final ListasCancionesManager manager = new ListasCancionesManager();
     public static ArrayList<ListaCanciones> listas_canciones;
     public static ArrayList<Tabla> tablasPendientes;
+    private HashMap<String, ArrayList> votos_cliente;
     private static ListaPromocionada lista_sonando;
     private ConnectionManager conection;
     private PlayerReproductor reproductor;
@@ -478,7 +480,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
 
     @Override
     public void onMessageReceived(String ip, String message) {
-//        ArrayList<Integer> votos_cliente = votos_cliente.get(ip);
+        ArrayList<Integer> _votos_cliente = votos_cliente.get(ip);
         int tipo = Integer.parseInt(message.split("\\|")[0]);
         message = message.split("\\|")[1];
         try {
@@ -491,37 +493,33 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                     if (lista_sonando.getCancionSonando() != null) {
                         conection.getSocket().enviarMensajeServer(ip, "4|" + lista_sonando.getCancionSonando().toString());
                     }
-//                    if (votos_cliente != null) {
-//                        for (int id_cancion : votos_cliente) {
-//                            socket.enviarMensajeServer(ip, "1|" + id_cancion);
-//                        }
-//                    }
+                    if (_votos_cliente != null) {
+                        for (int id_cancion : _votos_cliente) {
+                            conection.getSocket().enviarMensajeServer(ip, "1|" + id_cancion);
+                        }
+                    }
                     break;
                 case 1:
                     int id_cancion = Integer.parseInt(message);
-                    lista_sonando.añadirVoto(id_cancion, true);
-//                    if (votoCliente(id_cancion, true)) {
-//                        conex.socket.enviarMensajeServer(ip, "1|" + message);
-//                        if (_votos_cliente != null && !_votos_cliente.contains(id_cancion)) {
-//                            _votos_cliente.add(id_cancion);
-//                        }
-//                    } else {
-                    conection.getSocket().enviarMensajeServer(ip, "1|" + message);
-//                        conection.getSocket().enviarMensajeServer(ip, "1|0");
-//                    }
+                    if (lista_sonando.añadirVoto(id_cancion, true)) {
+                        conection.getSocket().enviarMensajeServer(ip, "1|" + message);
+                        if (_votos_cliente != null && !_votos_cliente.contains(id_cancion)) {
+                            _votos_cliente.add(id_cancion);
+                        }
+                    } else {
+                        conection.getSocket().enviarMensajeServer(ip, "1|0");
+                    }
                     break;
                 case 3:
                     id_cancion = Integer.parseInt(message);
-                    lista_sonando.añadirVoto(id_cancion, false);
-//                    if (votoCliente(id_cancion, false)) {
-//                        conex.socket.enviarMensajeServer(ip, "3|" + message);
-//                        if (_votos_cliente != null) {
-//                            _votos_cliente.remove((Integer) id_cancion);
-//                        }
-//                    } else {
-                    conection.getSocket().enviarMensajeServer(ip, "3|" + message);
-//                        conection.getSocket().enviarMensajeServer(ip, "3|0");
-//                    }
+                    if (lista_sonando.añadirVoto(id_cancion, false)) {
+                        conection.getSocket().enviarMensajeServer(ip, "3|" + message);
+                        if (_votos_cliente != null) {
+                            _votos_cliente.remove((Integer) id_cancion);
+                        }
+                    } else {
+                        conection.getSocket().enviarMensajeServer(ip, "3|0");
+                    }
                     break;
             }
         } catch (IOException ex) {
@@ -531,6 +529,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
 
     @Override
     public void onClientConnected(String ip) {
+        if (votos_cliente.get(ip) == null) {
+            votos_cliente.put(ip, new ArrayList<Integer>());
+        }
     }
 
     @Override
