@@ -4,8 +4,6 @@
  */
 package conexion;
 
-import java.net.*;
-
 /**
  *
  * @author 66785270
@@ -21,7 +19,7 @@ public class ConnectionManager implements ServerSocketListener {
     public boolean createSocket() throws Exception {
         boolean creado;
         try {
-            String ip = "";
+            String ip;
 //            ip = InetAddress.getByName("socialdj.no-ip.biz").getHostAddress();
             ip = "192.168.43.115";
             socket = new SocketServidor(ip, 2222);
@@ -52,7 +50,7 @@ public class ConnectionManager implements ServerSocketListener {
         try {
             System.out.println("Cliente conectado: " + ip + "\nNumero de clientes: " + socket.getClientsCount());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.append("No se pudo conectar al cliente: "+ex);
         }
     }
 

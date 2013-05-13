@@ -17,7 +17,7 @@ public class ListaCanciones {
 
     public ListaCanciones(String _nombre_lista) {
         
-        nombre_lista = nombre_lista;
+        nombre_lista = _nombre_lista;
         canciones = new ArrayList();
     }
 

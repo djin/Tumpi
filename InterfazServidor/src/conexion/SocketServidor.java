@@ -31,7 +31,6 @@ package conexion;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -97,7 +96,7 @@ public class SocketServidor {
                 logIn = false;
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.err.println("El logIn no funciono: "+ex);
             logIn = false;
         }
         return logIn;
@@ -127,17 +126,17 @@ public class SocketServidor {
             @Override
             public void run() {
                 while (thread_server != null && socket_server.isConnected()) {
-                    String mensaje = "";
+                    String mensaje;
                     try {
                         socket_server.setSoTimeout(0);
                         mensaje = input.readUTF();
                         mensajeRecivido(mensaje);
                     } catch (IOException ex) {
                         try {
-                            ex.printStackTrace();
+                            System.err.println("Error al escuchar al bridge 1: "+ex);
                             closeSocket();
                         } catch (IOException ex1) {
-                            ex.printStackTrace();
+                            System.err.println("Error al escuchar al bridge 2: "+ex1);
                         }
                         thread_server = null;
                     }

@@ -29,9 +29,13 @@ public class PlayerReproductor {
     public static void pausar() {
         reproductor.getMediaPlayer().pause();
     }
-
-    public MediaPlayer getMediaPlayer() {
+    
+    public MediaPlayer getIdentificadorMediaPlayer() {
         return identificador.getMediaPlayer();
+    }
+    
+    public MediaPlayer getReproductorMediaPlayer() {
+        return reproductor.getMediaPlayer();
     }
 
     public static BufferedImage getImage() {

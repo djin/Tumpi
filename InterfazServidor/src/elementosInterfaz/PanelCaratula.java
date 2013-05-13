@@ -33,8 +33,9 @@ public class PanelCaratula extends JPanel {
         }
         else
             this.path=path_def;*/
-        if(im!=null)
+        if(im!=null) {
             image=im;
+        }
         else{
             image=new BufferedImage(1024,768,BufferedImage.TYPE_INT_ARGB_PRE);
             image.createGraphics().drawImage(Imagenes.getImagen(path).getImage(), 0, 0, null);

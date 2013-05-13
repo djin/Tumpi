@@ -12,68 +12,57 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.*;
-import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 
 /**
  *
  * @author 66786575
  */
-//Habra que mirarse esta clase DETALLADAMENTE, para empezar a refactorizar aqui a saco, es simplemente demasiado grande.
 public class FramePrincipal extends JFrame implements WindowListener {
 
     private JPanel panel = (JPanel) this.getContentPane();
     private ListasCancionesManager listas_manager;
     private FicherosManager ficheros_manager;
     private TablaSonando tabla_sonando;
-    private JTabbedPane pestanasPendientes;
+    private PanelTablasPendientes pestanas_pendientes;
     private ReproductorPanel panelReproductor;
-    private ArrayList<String> nombresLista;
-    private ArrayList<JButton> botonesCerrar = new ArrayList<JButton>();
     private Menus barramenus;
-    private Dimension screen, ladoDerecho, ladoIzquierdo;
+    private Dimension screen, ladoIzquierdo;
     ConnectionManager server = null;
     int puerto_socket = 2222;
 
     public FramePrincipal() {
         
         screen = Toolkit.getDefaultToolkit().getScreenSize();
-        ladoDerecho = new Dimension(screen.width * 55 / 100, 300);
         ladoIzquierdo = new Dimension(screen.width * 35 / 100, 50);
-//      this.setSize(screen.width, screen.height - 30);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         Image icon = Imagenes.getImagen("icons/socialDJ.png").getImage();
         setIconImage(icon);
         setTitle("socialDj");
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 5, 20));
-        //Listas de canciones en el programa en este momento
         
         listas_manager = ListasCancionesManager.getInstance();
-
+        listas_manager.getReproductor().getReproductorMediaPlayer().addMediaPlayerEventListener(listas_manager);
         panelReproductor = new ReproductorPanel(listas_manager);
-        //Manejador de ficheros
         ficheros_manager = new FicherosManager(listas_manager);
         ficheros_manager.cargarPreferencias();
         
         iniciarListasCanciones();
-        
-        //Se inicializan los menus
+        iniciarListaSonando();
         barramenus = new Menus();
         setMenus();
 
-        //Se inicializa la tabla de canciones en reproduccion
-        iniciarListaSonando();
+        
 
         JButton botonPromocion = new JButton(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+                listas_manager.promocionarLista(pestanas_pendientes.getSelectedIndex());
             }
         });
-        anularPintadoBotonParaImagen(botonPromocion, "icons/promocionar.png", "icons/promocionar.png", new Dimension(60, 60));
+        Pintado.anularPintadoBotonParaImagen(botonPromocion, "icons/promocionar.png", "icons/promocionar.png", new Dimension(60, 60));
         botonPromocion.setToolTipText("Promocionar lista");
         JPanel panelBotonPromocion = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -91,15 +80,15 @@ public class FramePrincipal extends JFrame implements WindowListener {
             }
         });
         anadirCancion.setToolTipText("Añadir canción");
-        anularPintadoBotonParaImagen(anadirCancion, "icons/anadirConCarpeta.png", "icons/anadirConCarpeta.png", new Dimension(31, 31));
+        Pintado.anularPintadoBotonParaImagen(anadirCancion, "icons/anadirConCarpeta.png", "icons/anadirConCarpeta.png", new Dimension(31, 31));
 
 
         JButton borrarCancion = new JButton(new AbstractAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!pestanasPendientes.getTitleAt(0).equals("Inicio")) {
-                    listas_manager.removeCancion(pestanasPendientes.getSelectedIndex());
+                if (!pestanas_pendientes.getTitleAt(0).equals("Inicio")) {
+                    listas_manager.removeCancion(pestanas_pendientes.getSelectedIndex());
                 } else {
                     JOptionPane pane = new JOptionPane("Debes tener al menos una lista con canciones creada", JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
                     JDialog dialog = pane.createDialog(null, "Error");
@@ -110,7 +99,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
 
         borrarCancion.setToolTipText("Borrar canción");
-        anularPintadoBotonParaImagen(borrarCancion, "icons/borrarCancion1.png", "icons/borrarCancion1.png", new Dimension(31, 31));
+        Pintado.anularPintadoBotonParaImagen(borrarCancion, "icons/borrarCancion1.png", "icons/borrarCancion1.png", new Dimension(31, 31));
 
 
         JPanel panelSituarBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -121,7 +110,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
         pestanasBotones.add(panelSituarBoton, BorderLayout.NORTH);
 
-        pestanasBotones.add(pestanasPendientes, BorderLayout.CENTER);
+        pestanasBotones.add(pestanas_pendientes, BorderLayout.CENTER);
 
         panel.add(pestanasBotones, BorderLayout.EAST);
 
@@ -133,80 +122,11 @@ public class FramePrincipal extends JFrame implements WindowListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void addPestana(String nombre_lista) {
-
-        if (pestanasPendientes.getTitleAt(0).equals("Inicio")) {
-            nombresLista.remove(0);
-            pestanasPendientes.remove(0);
-        }
-        
-        int numListas = pestanasPendientes.getTabCount() - 1;
-        pestanasPendientes.remove(numListas);
-        listas_manager.addLista(new ListaCanciones(nombre_lista));
-        JScrollPane panelTabla = new JScrollPane(listas_manager.crearTabla());
-        listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1).getActionMap().put("borrar", new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listas_manager.removeCancion(pestanasPendientes.getSelectedIndex());
-            }
-        });
-
-        nombresLista.add(nombre_lista);
-        pestanasPendientes.addTab(nombre_lista, panelTabla);
-        GridBagConstraints gbc = new GridBagConstraints();
-        PanelPestana panelPestana = new PanelPestana(nombre_lista, gbc);
-        JButton botonCerrar = new JButton(new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                borrarPestana(botonesCerrar.indexOf(e.getSource()));
-            }
-        });
-        anularPintadoBotonParaImagen(botonCerrar, "icons/borrarpestana.png", "icons/borrarpestana2.png", new Dimension(13, 13));
-        botonesCerrar.add(botonCerrar);
-        gbc.gridx++;
-        gbc.ipady = 3;
-        gbc.weightx = 0;
-        panelPestana.add(botonCerrar, gbc);
-        pestanasPendientes.setTabComponentAt(nombresLista.size() - 1, panelPestana);
-        pestanasPendientes.setSelectedIndex(nombresLista.size() - 1);
-        anadirPestanaFinal();
-    }
-
     private void iniciarListasCanciones() {
-
-        nombresLista = new ArrayList();
-
-        pestanasPendientes = new JTabbedPane();
-        nombresLista.add("Inicio");
-
-        pestanasPendientes.addTab(nombresLista.get(0), generarPanelInicio());
-        anadirPestanaFinal();
-        pestanasPendientes.setPreferredSize(ladoDerecho);
-    }
-
-    public void anadirPestanaFinal() {
-        pestanasPendientes.addTab("AnadirPestana", null);
-        JButton anadirPestana;
-        anadirPestana = new JButton(new AbstractAction() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane pane = new JOptionPane("Nombre Lista", JOptionPane.PLAIN_MESSAGE);
-                pane.setWantsInput(true);
-                JDialog dialog = pane.createDialog(null, "Lista Nueva");
-                dialog.setAlwaysOnTop(true);
-                dialog.setVisible(true);
-                String nombreLista = (String) pane.getInputValue();
-                if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
-                    addPestana(nombreLista);
-                }
-            }
-        });
-        anularPintadoBotonParaImagen(anadirPestana, "icons/anadirpestana.png", "icons/anadirpestana2.png", new Dimension(16, 16));
-        pestanasPendientes.setTabComponentAt(pestanasPendientes.getTabCount() - 1, anadirPestana);
-        pestanasPendientes.setEnabledAt(pestanasPendientes.getTabCount() - 1, false);
+        
+        pestanas_pendientes = new PanelTablasPendientes();
+        pestanas_pendientes.addTab("Inicio", pestanas_pendientes.generarPanelInicio());
+        pestanas_pendientes.anadirPestanaFinal();
     }
 
     private void iniciarListaSonando() {
@@ -226,7 +146,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         dialog.setVisible(true);
         String nombreLista = (String) pane.getInputValue();
         if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
-            addPestana(nombreLista);
+            pestanas_pendientes.addPestana(nombreLista);
         }
     }
 
@@ -241,26 +161,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
             log("Error al crear y conectar el socket: " + ex.toString());
             System.exit(0);
         }
-    }
-
-    public JPanel generarPanelInicio() {
-        JPanel panelVacio = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = GridBagConstraints.RELATIVE;
-        JLabel textoInicio = new JLabel("Presiona la pestaña ");
-        textoInicio.setFont(new Font("", Font.BOLD, 22));
-        JButton image = new JButton();
-        anularPintadoBotonParaImagen(image, "icons/anadirpestana.png", "icons/anadirpestana2.png", new Dimension(16, 16));
-        JLabel textoInicio2 = new JLabel(" para crear tu propia lista de socialDj");
-        textoInicio2.setFont(new Font("", Font.BOLD, 22));
-        panelVacio.add(textoInicio, gbc);
-        gbc.gridx++;
-        panelVacio.add(image, gbc);
-        gbc.gridx++;
-        panelVacio.add(textoInicio2, gbc);
-        panelVacio.setPreferredSize(ladoDerecho);
-        return panelVacio;
     }
 
     private void setMenus() {
@@ -285,8 +185,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!pestanasPendientes.getTitleAt(0).equals("Inicio")) {
-                    borrarPestana(pestanasPendientes.getSelectedIndex());
+                if (!pestanas_pendientes.getTitleAt(0).equals("Inicio")) {
+                    pestanas_pendientes.borrarPestana(pestanas_pendientes.getSelectedIndex());
                 } else {
                     JOptionPane pane = new JOptionPane("Debes tener al menos una lista creada", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
                     JDialog dialog = pane.createDialog(null, "Error");
@@ -300,7 +200,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.promocionarLista(pestanasPendientes.getSelectedIndex());
+                listas_manager.promocionarLista(pestanas_pendientes.getSelectedIndex());
             }
         });
         
@@ -316,8 +216,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!pestanasPendientes.getTitleAt(0).equals("Inicio")) {
-                    listas_manager.removeCancion(pestanasPendientes.getSelectedIndex());
+                if (!pestanas_pendientes.getTitleAt(0).equals("Inicio")) {
+                    listas_manager.removeCancion(pestanas_pendientes.getSelectedIndex());
                 } else {
                     JOptionPane pane = new JOptionPane("Debes tener al menos una lista con canciones creada", JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
                     JDialog dialog = pane.createDialog(null, "Error");
@@ -359,7 +259,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 System.exit(0);
             }
         });
-        anularPintadoBotonParaImagen(btnCerrar, "icons/cerrar.png", "icons/cerrar2.png", dimensionBotonesVentana);
+        Pintado.anularPintadoBotonParaImagen(btnCerrar, "icons/cerrar.png", "icons/cerrar2.png", dimensionBotonesVentana);
 
         final JButton btnMinimizar = new JButton(new AbstractAction() {
 
@@ -368,7 +268,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 setExtendedState(Cursor.CROSSHAIR_CURSOR);
             }
         });
-        anularPintadoBotonParaImagen(btnMinimizar, "icons/minimizar.png", "icons/minimizar2.png", dimensionBotonesVentana);
+        Pintado.anularPintadoBotonParaImagen(btnMinimizar, "icons/minimizar.png", "icons/minimizar2.png", dimensionBotonesVentana);
 
         JPanel panelIntermediario = new JPanel(new GridLayout(1, 2));
         panelIntermediario.add(btnMinimizar);
@@ -378,18 +278,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
         return panelBotonesVentana;
     }
 
-    private void anularPintadoBotonParaImagen(JButton boton, String botonSinRaton, String botonConRaton, Dimension tamano) {
-        boton.addMouseListener(new MyMouseListener(boton, Imagenes.getImagen(botonSinRaton), Imagenes.getImagen(botonConRaton)));
-        boton.setIcon(Imagenes.getImagen(botonSinRaton));
-        boton.setPreferredSize(tamano);
-        boton.setFocusPainted(false);
-        boton.setBorderPainted(false);
-        boton.setBackground(null);
-        boton.setContentAreaFilled(false);
-    }
-
     public void anadirCanciones() {
-        if (pestanasPendientes.getTitleAt(0).equals("Inicio")) {
+        if (pestanas_pendientes.getTitleAt(0).equals("Inicio")) {
             JOptionPane pane = new JOptionPane("Nombre Lista", JOptionPane.PLAIN_MESSAGE);
             pane.setWantsInput(true);
             JDialog dialog = pane.createDialog(null, "Lista Nueva");
@@ -397,34 +287,11 @@ public class FramePrincipal extends JFrame implements WindowListener {
             dialog.setVisible(true);
             String nombreLista = (String) pane.getInputValue();
             if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
-                addPestana(nombreLista);
-                listas_manager.addCanciones(pestanasPendientes.getSelectedIndex());
+                pestanas_pendientes.addPestana(nombreLista);
+                listas_manager.addCanciones(pestanas_pendientes.getSelectedIndex());
             }
         } else {
-            listas_manager.addCanciones(pestanasPendientes.getSelectedIndex());
-        }
-    }
-
-    public void borrarPestana(int pestanaBorrar) {
-        JOptionPane pane = new JOptionPane("¿Desea borrar la lista?", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
-        JDialog dialog = pane.createDialog(null, "Confirmar borrado");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
-        Integer opcion = (Integer) pane.getValue();
-        if (opcion != null && opcion == 0) {
-            botonesCerrar.remove(pestanaBorrar);
-            pestanasPendientes.remove(pestanaBorrar);
-            listas_manager.removeLista(pestanaBorrar);
-            nombresLista.remove(pestanaBorrar);
-            if (pestanasPendientes.getSelectedIndex() == pestanasPendientes.getTabCount() - 1) {
-                pestanasPendientes.setSelectedIndex(pestanasPendientes.getTabCount() - 2);
-            }
-            if (pestanasPendientes.getTabCount() == 1) {
-                nombresLista.add("Inicio");
-                pestanasPendientes.remove(pestanasPendientes.getTabCount() - 1);
-                pestanasPendientes.addTab(nombresLista.get(0), generarPanelInicio());
-                anadirPestanaFinal();
-            }
+            listas_manager.addCanciones(pestanas_pendientes.getSelectedIndex());
         }
     }
 

@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -49,7 +47,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
     private static ListaPromocionada lista_sonando;
     private ConnectionManager conection;
     private PlayerReproductor reproductor;
-    public static String path;
+    private String path;
     private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
     public static String[] nombresColumnaPendientes = {"Cancion", "Artista", "Album", "Duración"};
     private static boolean hay_lista_promocionada;
@@ -58,7 +56,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
     private ListasCancionesManager() {
 
         reproductor = new PlayerReproductor();
-        reproductor.getMediaPlayer().addMediaPlayerEventListener(this);
         listas_canciones = new ArrayList();
         tablasPendientes = new ArrayList();
         lista_sonando = new ListaPromocionada();
@@ -133,7 +130,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         ArrayList<Cancion> cancionesDuracion = new ArrayList();
 
         chooser.setMultiSelectionEnabled(true);
-        chooser.setCurrentDirectory(new File(path));
+        chooser.setCurrentDirectory(new File(getPath()));
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
@@ -152,7 +149,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         int eleccion = chooser.showOpenDialog(null);
         if (eleccion == 0) {
             File[] files = chooser.getSelectedFiles();
-            path = chooser.getCurrentDirectory().getPath();
+            setPath(chooser.getCurrentDirectory().getPath());
             listaFiles = (List<File>) Arrays.asList(files);
 
             if (!listaFiles.isEmpty()) {
@@ -167,11 +164,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                     if (f.exists()) {
 
                         String duracionFormateada;
-                        c = reproductor.getCancion(f.getAbsolutePath());
+                        c = getReproductor().getCancion(f.getAbsolutePath());
                         max_id++;
                         c.setId(max_id);
                         cancionesDuracion.add(c);
-                        duracionFormateada = reproductor.formatearDuracion(c.getDuracion());
+                        duracionFormateada = getReproductor().formatearDuracion(c.getDuracion());
                         listas_canciones.get(index).getCanciones().add(c);
                         if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
                             tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() + 1);
@@ -188,7 +185,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
 
                     }
                 }
-                ThreadGetDuraciones thread = new ThreadGetDuraciones(cancionesDuracion, reproductor.getMediaPlayer());
+                ThreadGetDuraciones thread = new ThreadGetDuraciones(cancionesDuracion, getReproductor().getIdentificadorMediaPlayer());
                 thread.start();
             }
         }
@@ -316,10 +313,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                 conection.getSocket().startListenBridge();
             }
         } catch (Exception ex) {
-            System.out.println("Error al loggearte");
-            ex.printStackTrace();
+            System.out.println("Error al loggearte: "+ex);
         }
-
     }
 
     public String getNombreServidor() {
@@ -330,12 +325,20 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         return manager;
     }
 
-    public static ListaPromocionada getLista_sonando() {
+    public ListaPromocionada getLista_sonando() {
         return lista_sonando;
     }
 
     public ConnectionManager getConector() {
         return conection;
+    }
+    
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String aPath) {
+        path = aPath;
     }
 
     @Override
@@ -523,7 +526,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                     break;
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.err.println("Error en la recepcion de mensaje: "+ex);
         }
     }
 
@@ -536,5 +539,12 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
 
     @Override
     public void onClientDisconnected(String ip) {
+    }
+
+    /**
+     * @return the reproductor
+     */
+    public PlayerReproductor getReproductor() {
+        return reproductor;
     }
 }

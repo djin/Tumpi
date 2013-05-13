@@ -1,7 +1,6 @@
 package elementosInterfaz;
 
 import java.awt.event.MouseEvent;
-import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.event.MouseInputListener;

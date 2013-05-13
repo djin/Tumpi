@@ -90,8 +90,8 @@ public class ReproductorPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(player.getMediaPlayer().isPlayable()){
-                    if(player.getMediaPlayer().isPlaying()){
+                if(player.getReproductorMediaPlayer().isPlayable()){
+                    if(player.getReproductorMediaPlayer().isPlaying()){
                        play.setIcon(playIcon);
                        play.setPressedIcon(playPress);
                     } else {

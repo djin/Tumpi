@@ -112,11 +112,11 @@ public class FicherosManager {
                 }
             }
 
-            listas_manager.path = propiedades.getProperty("selector");
+            listas_manager.setPath(propiedades.getProperty("selector"));
 
         } else {
 
-            listas_manager.path = "C:\\Users\\66785361\\Documents";
+            listas_manager.setPath("C:\\Users\\66785361\\Documents");
         }
     }
 
@@ -125,7 +125,7 @@ public class FicherosManager {
         fichSelector = new File("fich_selector");
         propiedades = new Properties();
               
-        propiedades.setProperty("selector", listas_manager.path);
+        propiedades.setProperty("selector", listas_manager.getPath());
         salidaDatos = null;
 
         try {
