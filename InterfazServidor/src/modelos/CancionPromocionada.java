@@ -23,7 +23,11 @@ public class CancionPromocionada extends Cancion {
     
     @Override
     public String toString() {
-        return getId() + "*" + getNombre() + "*" + getArtista() + "*" + getDisco() + "*" + getDuracion() + "*" + getReproducida();
+        String re = "0";
+        if(getReproducida()){
+            re = "1";
+        }
+        return getId() + "*" + getNombre() + "*" + getArtista() + "*" + getDisco() + "*" + getDuracion() + "*" + re;
     }
 
     /**

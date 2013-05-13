@@ -14,6 +14,7 @@ public class ListaPromocionada {
 
     private ArrayList<CancionPromocionada> canciones;
     private ArrayList<ListaPromocionadaListener> listeners;
+    private CancionPromocionada cancion_sonando;
 
     public ListaPromocionada() {
 
@@ -25,6 +26,10 @@ public class ListaPromocionada {
         if (!listeners.contains(listener)) {
             listeners.add(listener);
         }
+    }
+    
+    public CancionPromocionada getCancionSonando (){
+        return cancion_sonando;
     }
 
     public void NuevasCanciones(ListaCanciones lista_promocionada) {
@@ -83,7 +88,8 @@ public class ListaPromocionada {
         else {
             cancion_max_votos = 0;
         }
-        return canciones.get(cancion_max_votos);
+        cancion_sonando = canciones.get(cancion_max_votos);
+        return cancion_sonando;
     }
 
     @Override

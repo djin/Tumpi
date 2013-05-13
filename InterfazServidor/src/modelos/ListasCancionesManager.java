@@ -488,9 +488,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                         System.out.println("0|" + lista_sonando.toString());
                         conection.getSocket().enviarMensajeServer(ip, "0|" + lista_sonando.toString());
                     }
-//                    if (cancion_sonando != null) {
-//                        socket.enviarMensajeServer(ip, "4|" + listas_canciones.cancion_sonando.toString());
-//                    }
+                    if (lista_sonando.getCancionSonando() != null) {
+                        conection.getSocket().enviarMensajeServer(ip, "4|" + lista_sonando.getCancionSonando().toString());
+                    }
 //                    if (votos_cliente != null) {
 //                        for (int id_cancion : votos_cliente) {
 //                            socket.enviarMensajeServer(ip, "1|" + id_cancion);
