@@ -12,12 +12,15 @@ import modelos.ModeloTabla;
  * @author Juan
  */
 public class TablaPendiente extends JTable {
+    
     private ModeloTabla tabla;
+    public static String[] nombresColumnaPendientes = {"Cancion", "Artista", "Album", "Duración"};
+    private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, 
+            columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
+    
+    public TablaPendiente() {
 
-    public TablaPendiente(ModeloTabla modeloTabla) {
-
-        tabla = modeloTabla;
-
+        tabla = new ModeloTabla(nombresColumnaPendientes, 1);
         setModel(tabla);
         setRowHeight(20);
 

@@ -36,7 +36,7 @@ public class ListaPromocionada {
                     c.getArtista(), c.getDuracion(), c.getPath()));
         }
         for (ListaPromocionadaListener listener : listeners) {
-            listener.OnNewList(canciones);
+            listener.onNewListPromoted(canciones);
         }
     }
 
@@ -54,7 +54,7 @@ public class ListaPromocionada {
                     c.setVotos(c.getVotos() - 1);
                 }
                 for (ListaPromocionadaListener listener : listeners) {
-                    listener.OnSongVoted(x, tipo);
+                    listener.onSongVoted(x, tipo);
                 }
                 return true;
             }
@@ -77,7 +77,7 @@ public class ListaPromocionada {
 
             canciones.get(cancion_max_votos).setReproducida(true);
             for (ListaPromocionadaListener listener : listeners) {
-                listener.OnSongPlayed(cancion_max_votos);
+                listener.onSongPlayed(cancion_max_votos);
             }
         } 
         else {

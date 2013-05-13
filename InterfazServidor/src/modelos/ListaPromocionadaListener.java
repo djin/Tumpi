@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * @author Juan
  */
 public interface ListaPromocionadaListener {
-    public void OnNewList(ArrayList <CancionPromocionada> canciones);
-    public void OnSongVoted(int fila, boolean tipo);
-    public void OnSongPlayed(int fila);
+    public void onNewListPromoted(ArrayList <CancionPromocionada> canciones);
+    public void onSongVoted(int fila, boolean tipo);
+    public void onSongPlayed(int fila);
 }
 

@@ -50,7 +50,7 @@ public class TablaSonando extends JTable implements ListaPromocionadaListener {
     }
 
     @Override
-    public void OnNewList(ArrayList<CancionPromocionada> canciones) {
+    public void onNewListPromoted(ArrayList<CancionPromocionada> canciones) {
 
         int x = 0;
         tabla.setFilas(canciones.size());
@@ -64,7 +64,7 @@ public class TablaSonando extends JTable implements ListaPromocionadaListener {
     }
 
     @Override
-    public void OnSongVoted(int fila, boolean tipo) {
+    public void onSongVoted(int fila, boolean tipo) {
         
         int votos = (Integer)tabla.getValueAt(fila, columnaSonandoVotos);
         if(tipo){
@@ -75,7 +75,7 @@ public class TablaSonando extends JTable implements ListaPromocionadaListener {
         }
     }
     @Override
-    public void OnSongPlayed(int fila) {
+    public void onSongPlayed(int fila) {
         
         tabla.setValueAt("*", fila, columnaSonandoVotos);
     }

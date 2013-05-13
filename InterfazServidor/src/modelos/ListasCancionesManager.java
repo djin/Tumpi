@@ -38,15 +38,15 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 //Tres cuartas partes de lo mismo, hay que mirarselo muchisimo, demasidas cosas, habra que delegar.
 public class ListasCancionesManager implements MediaPlayerEventListener {
 
+    private static final ListasCancionesManager manager = new ListasCancionesManager();
     public static ArrayList<ListaCanciones> listas_canciones;
     public static ArrayList<Tabla> tablasPendientes;
-    public static ListaPromocionada lista_sonando;
+    private static ListaPromocionada lista_sonando;
     private ConnectionManager conection;
     private PlayerReproductor reproductor;
     public static String path;
     private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
     public static String[] nombresColumnaPendientes = {"Cancion", "Artista", "Album", "Duración"};
-    private static final ListasCancionesManager manager = new ListasCancionesManager();
     private static boolean hay_lista_promocionada;
 
     private ListasCancionesManager() {
@@ -59,23 +59,15 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         conection = new ConnectionManager();
         hay_lista_promocionada = false;
     }
-    
-    public ConnectionManager getConector (){
-        return conection;
-    }
-
-    public static ListasCancionesManager getInstance() {
-        return manager;
-    }
 
     public void promocionarLista(int id_lista) {
   
         if (!listas_canciones.isEmpty() && !listas_canciones.get(id_lista).getCanciones().isEmpty()) {
             
-            lista_sonando.NuevasCanciones(listas_canciones.get(id_lista));
+            getLista_sonando().NuevasCanciones(listas_canciones.get(id_lista));
             hay_lista_promocionada = true;
             try {
-                conection.getSocket().enviarMensajeServer("*", "0|" + lista_sonando);
+                conection.getSocket().enviarMensajeServer("*", "0|" + getLista_sonando());
             } catch (Exception ex) {
                 FramePrincipal.log("Error al enviar la lista: " + ex.toString());
             }
@@ -101,7 +93,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
         if (hay_lista_promocionada) {
 
-            CancionPromocionada cancion = lista_sonando.reproducirCancion();
+            CancionPromocionada cancion = getLista_sonando().reproducirCancion();
             
             if (!reproductor.reproducir(cancion.getPath())) {
                 FramePrincipal.log("Error al reproducir la cancion.");
@@ -317,6 +309,18 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             }
         }
         return "ggdfgfd";
+    }
+    
+    public static ListasCancionesManager getInstance() {
+        return manager;
+    }
+    
+    public static ListaPromocionada getLista_sonando() {
+        return lista_sonando;
+    }
+    
+    public ConnectionManager getConector (){
+        return conection;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package reproductor;
 
 import java.awt.image.BufferedImage;
-import javax.swing.SwingUtilities;
 import modelos.Cancion;
 import uk.co.caprica.vlcj.component.AudioMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaMeta;

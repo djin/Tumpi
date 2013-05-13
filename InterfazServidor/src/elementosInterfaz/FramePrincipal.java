@@ -133,7 +133,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void addPestana(String nombreLista) {
+    public void addPestana(String nombre_lista) {
 
         if (pestanasPendientes.getTitleAt(0).equals("Inicio")) {
             nombresLista.remove(0);
@@ -142,8 +142,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         
         int numListas = pestanasPendientes.getTabCount() - 1;
         pestanasPendientes.remove(numListas);
-        listas_manager.addLista(new ListaCanciones());
-        listas_manager.listas_canciones.get(numListas).nombreLista=nombreLista;
+        listas_manager.addLista(new ListaCanciones(nombre_lista));
         JScrollPane panelTabla = new JScrollPane(listas_manager.crearTabla());
         listas_manager.tablasPendientes.get(listas_manager.tablasPendientes.size() - 1).getActionMap().put("borrar", new AbstractAction() {
 
@@ -153,10 +152,10 @@ public class FramePrincipal extends JFrame implements WindowListener {
             }
         });
 
-        nombresLista.add(nombreLista);
-        pestanasPendientes.addTab(nombreLista, panelTabla);
+        nombresLista.add(nombre_lista);
+        pestanasPendientes.addTab(nombre_lista, panelTabla);
         GridBagConstraints gbc = new GridBagConstraints();
-        PanelPestana panelPestana = new PanelPestana(nombreLista, gbc);
+        PanelPestana panelPestana = new PanelPestana(nombre_lista, gbc);
         JButton botonCerrar = new JButton(new AbstractAction() {
 
             @Override
@@ -213,7 +212,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private void iniciarListaSonando() {
         
         tabla_sonando = new TablaSonando();
-        listas_manager.lista_sonando.addListaPromocionadaListener(tabla_sonando);
+        listas_manager.getLista_sonando().addListaPromocionadaListener(tabla_sonando);
         JScrollPane scrollSonando = new JScrollPane(tabla_sonando);
         scrollSonando.setPreferredSize(ladoIzquierdo);
         panel.add(scrollSonando, BorderLayout.WEST);

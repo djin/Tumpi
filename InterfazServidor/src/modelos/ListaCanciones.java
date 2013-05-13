@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class ListaCanciones {
 
     private ArrayList<Cancion> canciones;
-    public String nombreLista;
+    public String nombre_lista;
 
-    public ListaCanciones() {
+    public ListaCanciones(String _nombre_lista) {
         
-        nombreLista = null;
+        nombre_lista = nombre_lista;
         canciones = new ArrayList();
     }
 
