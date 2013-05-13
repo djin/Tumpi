@@ -129,10 +129,12 @@ public class SocketServidor {
                 while (thread_server != null && socket_server.isConnected()) {
                     String mensaje = "";
                     try {
+                        socket_server.setSoTimeout(0);
                         mensaje = input.readUTF();
                         mensajeRecivido(mensaje);
                     } catch (IOException ex) {
                         try {
+                            ex.printStackTrace();
                             closeSocket();
                         } catch (IOException ex1) {
                             ex.printStackTrace();

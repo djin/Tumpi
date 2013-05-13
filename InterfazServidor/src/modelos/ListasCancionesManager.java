@@ -5,6 +5,7 @@
 package modelos;
 
 import conexion.ConnectionManager;
+import conexion.ServerSocketListener;
 import elementosInterfaz.FramePrincipal;
 import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
@@ -14,9 +15,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -34,9 +38,8 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
  *
  * @author 66785270
  */
-
 //Tres cuartas partes de lo mismo, hay que mirarselo muchisimo, demasidas cosas, habra que delegar.
-public class ListasCancionesManager implements MediaPlayerEventListener {
+public class ListasCancionesManager implements MediaPlayerEventListener, ServerSocketListener {
 
     private static final ListasCancionesManager manager = new ListasCancionesManager();
     public static ArrayList<ListaCanciones> listas_canciones;
@@ -63,9 +66,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     }
 
     public void promocionarLista(int id_lista) {
-  
+
         if (!listas_canciones.isEmpty() && !listas_canciones.get(id_lista).getCanciones().isEmpty()) {
-            
+
             getLista_sonando().NuevasCanciones(listas_canciones.get(id_lista));
             hay_lista_promocionada = true;
             try {
@@ -80,13 +83,12 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             dialog.setVisible(true);
         }
     }
-    
+
     public boolean procesarVoto(int id_cancion, boolean tipo) {
-        
-        if(lista_sonando.añadirVoto(id_cancion, tipo)){
+
+        if (lista_sonando.añadirVoto(id_cancion, tipo)) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -96,7 +98,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         if (hay_lista_promocionada) {
 
             CancionPromocionada cancion = getLista_sonando().reproducirCancion();
-            
+
             if (!reproductor.reproducir(cancion.getPath())) {
                 FramePrincipal.log("Error al reproducir la cancion.");
             }
@@ -107,7 +109,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
             try {
                 conection.getSocket().enviarMensajeServer("*", "2|" + cancion.getId());
             } catch (Exception ex) {
-                FramePrincipal.log("Error al enviar la cancion a reproducir: "+ex);
+                FramePrincipal.log("Error al enviar la cancion a reproducir: " + ex);
             }
             return true;
         } else {
@@ -118,7 +120,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     public void addCanciones(int index) {
 
         JFileChooser chooser = new JFileChooser() {
-
             @Override
             protected JDialog createDialog(Component parent) throws HeadlessException {
                 JDialog dialog = super.createDialog(parent);
@@ -128,11 +129,10 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         };
         List<File> listaFiles;
         ArrayList<Cancion> cancionesDuracion = new ArrayList();
-        
+
         chooser.setMultiSelectionEnabled(true);
         chooser.setCurrentDirectory(new File(path));
         chooser.setFileFilter(new FileFilter() {
-
             @Override
             public boolean accept(File f) {
                 if (acabaEnMp3(f) || f.isDirectory()) {
@@ -173,7 +173,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                         listas_canciones.get(index).getCanciones().add(c);
                         if (!tablasPendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
                             tablasPendientes.get(index).getTabla().setFilas(tablasPendientes.get(index).getTabla().getFilas() + 1);
-                            
+
                         } else {
                             borrarMouseListener(index);
                         }
@@ -183,7 +183,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
                         tablasPendientes.get(index).getTabla().setValueAt(c.getDisco(), x + comienzo, columnaPendienteAlbum);
                         tablasPendientes.get(index).getTabla().setValueAt(duracionFormateada, x + comienzo, columnaPendienteDuracion);
                         x++;
-                        
+
                     }
                 }
                 ThreadGetDuraciones thread = new ThreadGetDuraciones(cancionesDuracion, reproductor.getMediaPlayer());
@@ -198,7 +198,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
 
     public void anadirMouseListener(final int index) {
         tablasPendientes.get(index).addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && tablasPendientes.get(index).getSelectedRow() == 0) {
@@ -301,30 +300,39 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
         tablasPendientes.remove(index);
 
     }
-    
-    public void setNombreServidor(){
-        
-        JOptionPane pane = new JOptionPane("Nombre del servidor", JOptionPane.PLAIN_MESSAGE);
-        pane.setWantsInput(true);
-        JDialog dialog = pane.createDialog(null, "Nombre Servidor");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
-        nombre_servidor = (String) pane.getInputValue();
+
+    public void setNombreServidor() {
+        try {
+            JOptionPane pane = new JOptionPane("Nombre del servidor", JOptionPane.PLAIN_MESSAGE);
+            pane.setWantsInput(true);
+            JDialog dialog = pane.createDialog(null, "Nombre Servidor");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+            nombre_servidor = (String) pane.getInputValue();
+            if (conection.getSocket().logIn(nombre_servidor)) {
+                conection.getSocket().addServerSocketListener(this);
+                conection.getSocket().startListenBridge();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error al loggearte");
+            ex.printStackTrace();
+        }
+
     }
-    
-    public String getNombreServidor(){
+
+    public String getNombreServidor() {
         return nombre_servidor;
     }
-    
+
     public static ListasCancionesManager getInstance() {
         return manager;
     }
-    
+
     public static ListaPromocionada getLista_sonando() {
         return lista_sonando;
     }
-    
-    public ConnectionManager getConector (){
+
+    public ConnectionManager getConector() {
         return conection;
     }
 
@@ -466,5 +474,66 @@ public class ListasCancionesManager implements MediaPlayerEventListener {
     @Override
     public void endOfSubItems(MediaPlayer mp) {
         //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void onMessageReceived(String ip, String message) {
+//        ArrayList<Integer> votos_cliente = votos_cliente.get(ip);
+        int tipo = Integer.parseInt(message.split("\\|")[0]);
+        message = message.split("\\|")[1];
+        try {
+            switch (tipo) {
+                case 0:
+                    if (lista_sonando != null) {
+                        System.out.println("0|" + lista_sonando.toString());
+                        conection.getSocket().enviarMensajeServer(ip, "0|" + lista_sonando.toString());
+                    }
+//                    if (cancion_sonando != null) {
+//                        socket.enviarMensajeServer(ip, "4|" + listas_canciones.cancion_sonando.toString());
+//                    }
+//                    if (votos_cliente != null) {
+//                        for (int id_cancion : votos_cliente) {
+//                            socket.enviarMensajeServer(ip, "1|" + id_cancion);
+//                        }
+//                    }
+                    break;
+                case 1:
+                    int id_cancion = Integer.parseInt(message);
+                    lista_sonando.añadirVoto(id_cancion, true);
+//                    if (votoCliente(id_cancion, true)) {
+//                        conex.socket.enviarMensajeServer(ip, "1|" + message);
+//                        if (_votos_cliente != null && !_votos_cliente.contains(id_cancion)) {
+//                            _votos_cliente.add(id_cancion);
+//                        }
+//                    } else {
+                    conection.getSocket().enviarMensajeServer(ip, "1|" + message);
+//                        conection.getSocket().enviarMensajeServer(ip, "1|0");
+//                    }
+                    break;
+                case 3:
+                    id_cancion = Integer.parseInt(message);
+                    lista_sonando.añadirVoto(id_cancion, false);
+//                    if (votoCliente(id_cancion, false)) {
+//                        conex.socket.enviarMensajeServer(ip, "3|" + message);
+//                        if (_votos_cliente != null) {
+//                            _votos_cliente.remove((Integer) id_cancion);
+//                        }
+//                    } else {
+                    conection.getSocket().enviarMensajeServer(ip, "3|" + message);
+//                        conection.getSocket().enviarMensajeServer(ip, "3|0");
+//                    }
+                    break;
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClientConnected(String ip) {
+    }
+
+    @Override
+    public void onClientDisconnected(String ip) {
     }
 }

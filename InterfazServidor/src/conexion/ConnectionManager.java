@@ -22,7 +22,8 @@ public class ConnectionManager implements ServerSocketListener {
         boolean creado;
         try {
             String ip = "";
-            ip = InetAddress.getByName("socialdj.no-ip.biz").getHostAddress();
+//            ip = InetAddress.getByName("socialdj.no-ip.biz").getHostAddress();
+            ip = "192.168.43.115";
             socket = new SocketServidor(ip, 2222);
             creado = true;
         } catch (Exception ex) {

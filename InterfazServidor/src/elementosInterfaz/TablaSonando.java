@@ -65,8 +65,7 @@ public class TablaSonando extends JTable implements ListaPromocionadaListener {
 
     @Override
     public void onSongVoted(int fila, boolean tipo) {
-        
-        int votos = (Integer)tabla.getValueAt(fila, columnaSonandoVotos);
+        int votos = Integer.parseInt(tabla.getValueAt(fila, columnaSonandoVotos).toString());
         if(tipo){
             tabla.setValueAt(votos+1, fila, columnaSonandoVotos);
         }

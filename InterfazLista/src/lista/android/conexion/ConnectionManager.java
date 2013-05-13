@@ -56,7 +56,8 @@ public class ConnectionManager {
         protected Boolean doInBackground(Void... params) {
             try {
                 String ip="";
-                ip=InetAddress.getByName("socialdj.no-ip.biz").getHostAddress();
+//                ip=InetAddress.getByName("socialdj.no-ip.biz").getHostAddress();
+                ip = "192.168.43.115";
                 conexion=new SocketConnector(ip,2222);
                 conexion.conectar();
                 return conexion.isConnected();
