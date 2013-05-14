@@ -6,17 +6,14 @@ package modelos;
 
 import elementosInterfaz.ReproductorPanel;
 import elementosInterfaz.Tabla;
-import java.io.File;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import reproductor.PlayerReproductor;
-import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
-import uk.co.caprica.vlcj.player.MediaPlayer;
 
 /**
  *
