@@ -10,6 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -19,9 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import modelos.CancionPromocionada;
+import modelos.Cancion;
 import modelos.ConjuntoListasListener;
-import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 
 /**
@@ -29,40 +30,40 @@ import modelos.ListasCancionesManager;
  * @author Juan
  */
 public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListasListener {
-    
-    ArrayList<TablaPendiente> tablas_pendientes;
+
+    private ArrayList<TablaPendiente> tablas_pendientes;
     ListasCancionesManager manager;
     private ArrayList<JButton> botonesCerrar = new ArrayList<JButton>();
     private Dimension screen, ladoDerecho;
     private ArrayList<String> nombresLista;
-    
-    public PanelTablasPendientes(){
-        
+    private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
+
+    public PanelTablasPendientes() {
+
         screen = Toolkit.getDefaultToolkit().getScreenSize();
         ladoDerecho = new Dimension(screen.width * 55 / 100, 300);
         tablas_pendientes = new ArrayList();
-        manager=ListasCancionesManager.getInstance();
+        manager = ListasCancionesManager.getInstance();
         nombresLista = new ArrayList();
         nombresLista.add("Inicio");
         setPreferredSize(ladoDerecho);
     }
-    
-    public void addPestana(String nombre_lista) {
+
+    public void anadirPestana(String nombre_lista) {
 
         if (getTitleAt(0).equals("Inicio")) {
             nombresLista.remove(0);
             remove(0);
         }
         
-        int numListas = getTabCount() - 1;
-        remove(numListas);
-        manager.addLista(new ListaCanciones(nombre_lista));
-        JScrollPane panelTabla = new JScrollPane(manager.crearTabla());
-        manager.tablasPendientes.get(manager.tablasPendientes.size() - 1).getActionMap().put("borrar", new AbstractAction() {
-
+        remove(getTabCount()-1);
+        JScrollPane panelTabla = new JScrollPane(new TablaPendiente());
+        tablas_pendientes.get(tablas_pendientes.size() - 1).getActionMap().put("borrar", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                manager.removeCancion(getSelectedIndex());
+                int pestana_selec = getSelectedIndex();
+                int[] filas_selec = tablas_pendientes.get(pestana_selec).getSelectedRows();
+                manager.removeCancion(pestana_selec, filas_selec);
             }
         });
 
@@ -71,10 +72,9 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         GridBagConstraints gbc = new GridBagConstraints();
         PanelPestana panelPestana = new PanelPestana(nombre_lista, gbc);
         JButton botonCerrar = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                borrarPestana(botonesCerrar.indexOf(e.getSource()));
+                manager.borrarLista(botonesCerrar.indexOf(e.getSource()));
             }
         });
         Pintado.anularPintadoBotonParaImagen(botonCerrar, "icons/borrarpestana.png", "icons/borrarpestana2.png", new Dimension(13, 13));
@@ -87,17 +87,11 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         setSelectedIndex(nombresLista.size() - 1);
         anadirPestanaFinal();
     }
-    
-    public void borrarPestana(int pestanaBorrar) {
-        JOptionPane pane = new JOptionPane("¿Desea borrar la lista?", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
-        JDialog dialog = pane.createDialog(null, "Confirmar borrado");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
-        Integer opcion = (Integer) pane.getValue();
-        if (opcion != null && opcion == 0) {
+
+    public void eliminarPestana(int pestanaBorrar) {
+        
             botonesCerrar.remove(pestanaBorrar);
             remove(pestanaBorrar);
-            manager.removeLista(pestanaBorrar);
             nombresLista.remove(pestanaBorrar);
             if (getSelectedIndex() == getTabCount() - 1) {
                 setSelectedIndex(getTabCount() - 2);
@@ -108,9 +102,73 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
                 addTab(nombresLista.get(0), generarPanelInicio());
                 anadirPestanaFinal();
             }
+        
+    }
+
+    @Override
+    public void onNewList(String nombre) {
+
+        tablas_pendientes.add(new TablaPendiente());
+        anadirPestana(nombre);
+        anadirMouseListener(tablas_pendientes.size() - 1);
+    }
+
+    @Override
+    public void onRemoveList(int index) {
+        eliminarPestana(index);
+        tablas_pendientes.remove(index);
+    }
+
+    @Override
+    public void onAddSong(int index, Cancion cancion) {
+
+        int duracion_no_calculada = 0;
+        int comienzo = 0;
+        if (!tablas_pendientes.get(index).getTabla().getValueAt(0, columnaPendienteCancion).equals("Añade Canciones")) {
+            comienzo = tablas_pendientes.get(index).getTabla().getFilas();
+            tablas_pendientes.get(index).getTabla().setFilas(tablas_pendientes.get(index).getTabla().getFilas() + 1);
+            
+        } else {
+            borrarMouseListener(index);
+        }
+        System.out.println(""+cancion.getNombre()+cancion.getArtista()+cancion.getDisco()+duracion_no_calculada);
+        tablas_pendientes.get(index).getTabla().setValueAt(cancion.getNombre(), comienzo, columnaPendienteCancion);
+        tablas_pendientes.get(index).getTabla().setValueAt(cancion.getArtista(), comienzo, columnaPendienteAutor);
+        tablas_pendientes.get(index).getTabla().setValueAt(cancion.getDisco(), comienzo, columnaPendienteAlbum);
+        tablas_pendientes.get(index).getTabla().setValueAt(duracion_no_calculada, comienzo, columnaPendienteDuracion);
+    }
+
+    @Override
+    public void onRemoveSongs(int index, int[] filas, boolean vacio) {
+
+        tablas_pendientes.get(index).clearSelection();
+        int tamaño = tablas_pendientes.get(index).getTabla().getFilas();
+        for (int x = filas[0]; x < tamaño; x++) {
+
+            tablas_pendientes.get(index).getTabla().setValueAt(tablas_pendientes.get(index).getTabla().getValueAt(x + 1, columnaPendienteCancion), x, columnaPendienteCancion);
+            tablas_pendientes.get(index).getTabla().setValueAt(tablas_pendientes.get(index).getTabla().getValueAt(x + 1, columnaPendienteAutor), x, columnaPendienteAutor);
+            tablas_pendientes.get(index).getTabla().setValueAt(tablas_pendientes.get(index).getTabla().getValueAt(x + 1, columnaPendienteAlbum), x, columnaPendienteAlbum);
+            tablas_pendientes.get(index).getTabla().setValueAt(tablas_pendientes.get(index).getTabla().getValueAt(x + 1, columnaPendienteDuracion), x, columnaPendienteDuracion);
+        }
+
+        if (!vacio) {
+            tamaño = tablas_pendientes.get(index).getTabla().getFilas()-1;
+            
+            tablas_pendientes.get(index).getTabla().setValueAt("", tamaño, columnaPendienteCancion);
+            tablas_pendientes.get(index).getTabla().setValueAt("", tamaño, columnaPendienteAutor);
+            tablas_pendientes.get(index).getTabla().setValueAt("", tamaño, columnaPendienteAlbum);
+            tablas_pendientes.get(index).getTabla().setValueAt("", tamaño, columnaPendienteDuracion);
+            tablas_pendientes.get(index).getTabla().setFilas(tablas_pendientes.get(index).getTabla().getFilas() - 1);
+
+        } else {
+            tablas_pendientes.get(index).setValueAt("Añade Canciones", 0, columnaPendienteCancion);
+            tablas_pendientes.get(index).setValueAt("", 0, columnaPendienteAlbum);
+            tablas_pendientes.get(index).setValueAt("", 0, columnaPendienteAutor);
+            tablas_pendientes.get(index).setValueAt("", 0, columnaPendienteDuracion);
+            anadirMouseListener(index);
         }
     }
-    
+
     public JPanel generarPanelInicio() {
         JPanel panelVacio = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -130,12 +188,11 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         panelVacio.setPreferredSize(ladoDerecho);
         return panelVacio;
     }
-    
+
     public void anadirPestanaFinal() {
         addTab("AnadirPestana", null);
         JButton anadirPestana;
         anadirPestana = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane pane = new JOptionPane("Nombre Lista", JOptionPane.PLAIN_MESSAGE);
@@ -145,7 +202,7 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
                 dialog.setVisible(true);
                 String nombreLista = (String) pane.getInputValue();
                 if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
-                    addPestana(nombreLista);
+                    manager.anadirLista(nombreLista);
                 }
             }
         });
@@ -153,20 +210,23 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         setTabComponentAt(getTabCount() - 1, anadirPestana);
         setEnabledAt(getTabCount() - 1, false);
     }
-    @Override
-    public void onNewList(ArrayList<CancionPromocionada> canciones) {
-        
-        tablas_pendientes.add(new TablaPendiente());
-        
+
+    public void borrarMouseListener(int index) {
+        tablas_pendientes.get(index).removeMouseListener(tablas_pendientes.get(index).getMouseListeners()[2]);
     }
 
-    @Override
-    public void onAddSongs(int fila, boolean tipo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void anadirMouseListener(final int index) {
+        tablas_pendientes.get(index).addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 && tablas_pendientes.get(index).getSelectedRow() == 0) {
+                    manager.addCanciones(index);
+                }
+            }
+        });
     }
 
-    @Override
-    public void onRemoveSongs(int fila) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public TablaPendiente getTabla_pendiente(int index) {
+        return tablas_pendientes.get(index);
     }
 }

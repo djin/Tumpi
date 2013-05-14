@@ -4,14 +4,13 @@
  */
 package modelos;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author 66786575
  */
 public interface ConjuntoListasListener {
-    public void onNewList(ArrayList <CancionPromocionada> canciones);
-    public void onAddSongs(int fila, boolean tipo);
-    public void onRemoveSongs(int fila);
+    public void onNewList(String nombre);
+    public void onRemoveList(int index);
+    public void onAddSong(int index, Cancion cancion);
+    public void onRemoveSongs(int index, int[] filas, boolean vacio);
 }

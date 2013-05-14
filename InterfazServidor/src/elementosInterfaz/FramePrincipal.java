@@ -33,7 +33,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
     int puerto_socket = 2222;
 
     public FramePrincipal() {
-        
+
         screen = Toolkit.getDefaultToolkit().getScreenSize();
         ladoIzquierdo = new Dimension(screen.width * 35 / 100, 50);
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
@@ -41,22 +41,21 @@ public class FramePrincipal extends JFrame implements WindowListener {
         setIconImage(icon);
         setTitle("socialDj");
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 5, 20));
-        
+
         listas_manager = ListasCancionesManager.getInstance();
         listas_manager.getReproductor().getReproductorMediaPlayer().addMediaPlayerEventListener(listas_manager);
         panelReproductor = new ReproductorPanel(listas_manager);
         ficheros_manager = new FicherosManager(listas_manager);
         ficheros_manager.cargarPreferencias();
-        
+
         iniciarListasCanciones();
         iniciarListaSonando();
         barramenus = new Menus();
         setMenus();
 
-        
+
 
         JButton botonPromocion = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.promocionarLista(pestanas_pendientes.getSelectedIndex());
@@ -73,7 +72,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
         JPanel pestanasBotones = new JPanel(new BorderLayout());
         JButton anadirCancion = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 anadirCanciones();
@@ -84,11 +82,12 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
 
         JButton borrarCancion = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!pestanas_pendientes.getTitleAt(0).equals("Inicio")) {
-                    listas_manager.removeCancion(pestanas_pendientes.getSelectedIndex());
+                    int pestana_selec = pestanas_pendientes.getSelectedIndex();
+                    int[] filas_selec = pestanas_pendientes.getTabla_pendiente(pestana_selec).getSelectedRows();
+                    listas_manager.removeCancion(pestana_selec, filas_selec);
                 } else {
                     JOptionPane pane = new JOptionPane("Debes tener al menos una lista con canciones creada", JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
                     JDialog dialog = pane.createDialog(null, "Error");
@@ -115,7 +114,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         panel.add(pestanasBotones, BorderLayout.EAST);
 
         panel.add(panelReproductor, BorderLayout.SOUTH);
-        
+
         //Se crea el manager de la conexion, despues se crea el socket
         iniciarConexion();
 
@@ -123,14 +122,15 @@ public class FramePrincipal extends JFrame implements WindowListener {
     }
 
     private void iniciarListasCanciones() {
-        
+
         pestanas_pendientes = new PanelTablasPendientes();
+        listas_manager.getListas_canciones().addConjuntoListasListener(pestanas_pendientes);
         pestanas_pendientes.addTab("Inicio", pestanas_pendientes.generarPanelInicio());
         pestanas_pendientes.anadirPestanaFinal();
     }
 
     private void iniciarListaSonando() {
-        
+
         tabla_sonando = new TablaSonando();
         listas_manager.getLista_sonando().addListaPromocionadaListener(tabla_sonando);
         JScrollPane scrollSonando = new JScrollPane(tabla_sonando);
@@ -146,7 +146,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         dialog.setVisible(true);
         String nombreLista = (String) pane.getInputValue();
         if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
-            pestanas_pendientes.addPestana(nombreLista);
+            listas_manager.anadirLista(nombreLista);
         }
     }
 
@@ -164,17 +164,15 @@ public class FramePrincipal extends JFrame implements WindowListener {
     }
 
     private void setMenus() {
-        
-        barramenus.menuItems.get(0).addActionListener(new ActionListener() {
 
+        barramenus.menuItems.get(0).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.setNombreServidor();
             }
         });
-        
-        barramenus.menuItems.get(1).addActionListener(new ActionListener() {
 
+        barramenus.menuItems.get(1).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 anadirLista();
@@ -182,11 +180,10 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
 
         barramenus.menuItems.get(2).addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!pestanas_pendientes.getTitleAt(0).equals("Inicio")) {
-                    pestanas_pendientes.borrarPestana(pestanas_pendientes.getSelectedIndex());
+                    listas_manager.borrarLista(pestanas_pendientes.getSelectedIndex());
                 } else {
                     JOptionPane pane = new JOptionPane("Debes tener al menos una lista creada", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
                     JDialog dialog = pane.createDialog(null, "Error");
@@ -197,27 +194,26 @@ public class FramePrincipal extends JFrame implements WindowListener {
         });
 
         barramenus.menuItems.get(3).addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 listas_manager.promocionarLista(pestanas_pendientes.getSelectedIndex());
             }
         });
-        
-        barramenus.menuItems.get(4).addActionListener(new ActionListener() {
 
+        barramenus.menuItems.get(4).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 anadirCanciones();
             }
         });
-        
-        barramenus.menuItems.get(5).addActionListener(new ActionListener() {
 
+        barramenus.menuItems.get(5).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!pestanas_pendientes.getTitleAt(0).equals("Inicio")) {
-                    listas_manager.removeCancion(pestanas_pendientes.getSelectedIndex());
+                    int pestana_selec = pestanas_pendientes.getSelectedIndex();
+                    int[] filas_selec = pestanas_pendientes.getTabla_pendiente(pestana_selec).getSelectedRows();
+                    listas_manager.removeCancion(pestana_selec, filas_selec);
                 } else {
                     JOptionPane pane = new JOptionPane("Debes tener al menos una lista con canciones creada", JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION);
                     JDialog dialog = pane.createDialog(null, "Error");
@@ -226,9 +222,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 }
             }
         });
-        
-        barramenus.menuItems.get(6).addActionListener(new ActionListener() {
 
+        barramenus.menuItems.get(6).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JDialog ventana = new JDialog();
@@ -252,7 +247,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
         JPanel panelBotonesVentana = new JPanel(new BorderLayout());
         Dimension dimensionBotonesVentana = new Dimension(25, 20);
         JButton btnCerrar = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarConexion();
@@ -262,7 +256,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
         Pintado.anularPintadoBotonParaImagen(btnCerrar, "icons/cerrar.png", "icons/cerrar2.png", dimensionBotonesVentana);
 
         final JButton btnMinimizar = new JButton(new AbstractAction() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 setExtendedState(Cursor.CROSSHAIR_CURSOR);
@@ -287,7 +280,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
             dialog.setVisible(true);
             String nombreLista = (String) pane.getInputValue();
             if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
-                pestanas_pendientes.addPestana(nombreLista);
+                listas_manager.anadirLista(nombreLista);
                 listas_manager.addCanciones(pestanas_pendientes.getSelectedIndex());
             }
         } else {

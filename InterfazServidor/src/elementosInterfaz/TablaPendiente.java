@@ -4,7 +4,11 @@
  */
 package elementosInterfaz;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableCellRenderer;
 import modelos.ModeloTabla;
 
 /**
@@ -23,7 +27,23 @@ public class TablaPendiente extends JTable {
         tabla = new ModeloTabla(nombresColumnaPendientes, 1);
         setModel(tabla);
         setRowHeight(20);
+        
+        setValueAt("Añade Canciones", 0, 0);
+        setValueAt("", 0, 1);
+        setValueAt("", 0, 2);
+        setValueAt("", 0, 3);
+        getColumnModel().getColumn(0).setMinWidth(160);
+        getColumnModel().getColumn(1).setMinWidth(160);
+        getColumnModel().getColumn(2).setMaxWidth(250);
+        getColumnModel().getColumn(2).setMinWidth(140);
+        getColumnModel().getColumn(3).setMaxWidth(60);
+        getColumnModel().getColumn(3).setMinWidth(60);
 
+        getTableHeader().setReorderingAllowed(false);
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "borrar");
     }
 
     /**

@@ -46,6 +46,19 @@ public class ListaCanciones {
         }
         return max_id;
     }
+    
+    public void addCancion(Cancion cancion){
+
+            canciones.add(cancion);
+        
+    }
+    
+    public void removeCanciones(int[] filas){
+        
+        for(int x=0; x<filas.length; x++) {
+            canciones.remove(filas[0]);
+        }
+    }
     /**
      * @return the canciones
      */
