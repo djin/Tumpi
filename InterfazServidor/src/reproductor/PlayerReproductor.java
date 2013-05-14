@@ -30,10 +30,6 @@ public class PlayerReproductor {
         reproductor.getMediaPlayer().pause();
     }
     
-    public MediaPlayer getIdentificadorMediaPlayer() {
-        return identificador.getMediaPlayer();
-    }
-    
     public MediaPlayer getReproductorMediaPlayer() {
         return reproductor.getMediaPlayer();
     }
@@ -52,16 +48,5 @@ public class PlayerReproductor {
         metadata = player.getMediaMeta();
         cancion = new Cancion(0, metadata.getTitle(), metadata.getAlbum(), metadata.getArtist(), player.getLength(), mrl);
         return cancion;
-    }
-
-    public String formatearDuracion(long duracion) {
-
-        String minutos = "" + duracion / 60000;
-        String segundos = "" + ((duracion - ((duracion / 60000) * 60000)) / 1000);
-        if (segundos.length() == 1) {
-            segundos = "0" + segundos;
-        }
-        String duracionFormateada = "" + minutos + ":" + segundos + " ";
-        return duracionFormateada;
     }
 }

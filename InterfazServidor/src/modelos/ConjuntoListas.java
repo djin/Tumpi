@@ -62,6 +62,15 @@ public class ConjuntoListas {
         }
     }
     
+    public void setDuracion(long duracion, int index, int fila) {
+        
+        listas.get(index).getCanciones().get(fila).setDuracion(duracion);
+        String duracion_formateada = formatearDuracion(duracion);
+        for(ConjuntoListasListener listener : listeners){
+            listener.onUpdatedLength(index, fila, duracion_formateada);
+        }
+    }
+    
     public ListaCanciones getLista(int index){
         return listas.get(index);
     }
@@ -75,5 +84,14 @@ public class ConjuntoListas {
         }
     }
     
-    
+    public String formatearDuracion(long duracion) {
+
+        String minutos = "" + duracion / 60000;
+        String segundos = "" + ((duracion - ((duracion / 60000) * 60000)) / 1000);
+        if (segundos.length() == 1) {
+            segundos = "0" + segundos;
+        }
+        String duracionFormateada = "" + minutos + ":" + segundos + " ";
+        return duracionFormateada;
+    }
 }

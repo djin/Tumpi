@@ -21,7 +21,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import reproductor.PlayerReproductor;
-import reproductor.ThreadGetDuraciones;
+import reproductor.ThreadGetDuracion;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
@@ -117,7 +117,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             }
         };
         List<File> listaFiles;
-        ArrayList<Cancion> cancionesDuracion = new ArrayList();
 
         chooser.setMultiSelectionEnabled(true);
         chooser.setCurrentDirectory(new File(getPath()));
@@ -145,23 +144,22 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             if (!listaFiles.isEmpty()) {
 
                 ListaCanciones lista = listas_canciones.getLista(index);
+                int fila = lista.getCanciones().size();
                 int max_id = lista.getMaxId();
                 Cancion c;
 
                 for (File f : listaFiles) {
                     if (f.exists()) {
 
-                        String duracionFormateada;
                         c = getReproductor().getCancion(f.getAbsolutePath());
                         max_id++;
                         c.setId(max_id);
-                        cancionesDuracion.add(c);
-                        duracionFormateada = getReproductor().formatearDuracion(c.getDuracion());
                         listas_canciones.addCancion(c, index);
+                        ThreadGetDuracion thread = new ThreadGetDuracion(listas_canciones, c, index, fila);
+                        thread.start();
+                        fila++;
                     }
                 }
-                ThreadGetDuraciones thread = new ThreadGetDuraciones(cancionesDuracion, getReproductor().getIdentificadorMediaPlayer());
-                thread.start();
             }
         }
     }
@@ -242,6 +240,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
     public ConjuntoListas getListas_canciones() {
         return listas_canciones;
     }
+
     public ConnectionManager getConector() {
         return conection;
     }

@@ -1,5 +1,7 @@
 package modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 66786575
@@ -12,7 +14,6 @@ public class Cancion {
     private String artista;
     private long duracion;
     private String path;
-    private int reproducida = 0;
 
     public Cancion(int _id, String name, String album, String artist, long length, String _path) {
 
@@ -22,7 +23,11 @@ public class Cancion {
         artista = artist;
         duracion = length;
         path = _path;
-
+    }
+    
+    public void setDuracion(long duracion) {
+        this.duracion = duracion;
+        
     }
 
     /**
@@ -95,6 +100,13 @@ public class Cancion {
         this.path = path;
     }
 
+    /**
+     * @return the duracion
+     */
+    public long getDuracion() {
+        return duracion;
+    }
+    
     @Override
     public String toString() {
         return getId() + "*" + getNombre() + "*" + getArtista() + "*" + getDisco() + "*" + getDuracion();
@@ -114,19 +126,4 @@ public class Cancion {
         }
         return false;
     }
-
-    /**
-     * @return the duracion
-     */
-    public long getDuracion() {
-        return duracion;
-    }
-
-    /**
-     * @param duracion the duracion to set
-     */
-    public void setDuracion(long duracion) {
-        this.duracion = duracion;
-    }
-
 }
