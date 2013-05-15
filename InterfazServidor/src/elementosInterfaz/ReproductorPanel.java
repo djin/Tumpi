@@ -104,7 +104,7 @@ public class ReproductorPanel extends JPanel {
                     try{
                         panelCaratula.cambiarCaratula(PlayerReproductor.getImage());
                     }catch(Exception ex){
-                        FramePrincipal.log("No se encontro imagen");
+                        System.err.println("No se encontro imagen: "+ex);
                     }
                     play.setIcon(pauseIcon);
                     play.setPressedIcon(pausePress);
@@ -120,7 +120,7 @@ public class ReproductorPanel extends JPanel {
                     try{
                         panelCaratula.cambiarCaratula(PlayerReproductor.getImage());
                     }catch(Exception ex){
-                        FramePrincipal.log("No se encontro imagen");
+                        System.err.println("No se encontro imagen: "+ex);
                     }
                     play.setIcon(pauseIcon);
                     play.setPressedIcon(pausePress);

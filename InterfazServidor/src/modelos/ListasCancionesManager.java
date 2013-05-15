@@ -6,7 +6,6 @@ package modelos;
 
 import conexion.ConnectionManager;
 import conexion.ServerSocketListener;
-import elementosInterfaz.FramePrincipal;
 import elementosInterfaz.ReproductorPanel;
 import java.awt.Component;
 import java.awt.HeadlessException;
@@ -30,19 +29,17 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
  *
  * @author 66785270
  */
-//Tres cuartas partes de lo mismo, hay que mirarselo muchisimo, demasidas cosas, habra que delegar.
 public class ListasCancionesManager implements MediaPlayerEventListener, ServerSocketListener {
 
-    private static final ListasCancionesManager manager = new ListasCancionesManager();
+    private static ListasCancionesManager manager;
     private HashMap<String, ArrayList> votos_cliente;
     private static ListaPromocionada lista_sonando;
     private static ConjuntoListas listas_canciones;
     private ConnectionManager conection;
     private PlayerReproductor reproductor;
-    private String path;
-    public static String[] nombresColumnaPendientes = {"Cancion", "Artista", "Album", "Duración"};
     private static boolean hay_lista_promocionada;
     private static String nombre_servidor;
+    private String path;
 
     private ListasCancionesManager() {
 
@@ -63,7 +60,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             try {
                 conection.getSocket().enviarMensajeServer("*", "0|" + getLista_sonando());
             } catch (Exception ex) {
-                FramePrincipal.log("Error al enviar la lista: " + ex.toString());
+                System.err.println("Error al enviar la lista: " + ex.toString());
             }
         } else {
             JOptionPane pane = new JOptionPane("Has promocionado una lista vacia", JOptionPane.DEFAULT_OPTION);
@@ -89,16 +86,15 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             CancionPromocionada cancion = getLista_sonando().reproducirCancion();
 
             if (!reproductor.reproducir(cancion.getPath())) {
-                FramePrincipal.log("Error al reproducir la cancion.");
+                System.err.println("Error al reproducir la cancion.");
             }
             ReproductorPanel.song.setText(cancion.getNombre());
             ReproductorPanel.artist.setText(cancion.getArtista());
 
-            FramePrincipal.log("Reproduciendo cancion: " + cancion.getNombre());
             try {
                 conection.getSocket().enviarMensajeServer("*", "2|" + cancion.getId());
             } catch (Exception ex) {
-                FramePrincipal.log("Error al enviar la cancion a reproducir: " + ex);
+                System.err.println("Error al enviar la cancion a reproducir: " + ex);
             }
             return true;
         } else {
@@ -108,6 +104,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
 
     public void addCanciones(int index) {
 
+        if (getListas_canciones().estaVacia()) {
+            anadirLista();
+        }
         JFileChooser chooser = new JFileChooser() {
             @Override
             protected JDialog createDialog(Component parent) throws HeadlessException {
@@ -116,14 +115,13 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                 return dialog;
             }
         };
-        List<File> listaFiles;
 
         chooser.setMultiSelectionEnabled(true);
         chooser.setCurrentDirectory(new File(getPath()));
         chooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                if (acabaEnMp3(f) || f.isDirectory()) {
+                if (f.getName().endsWith(".mp3") || f.isDirectory()) {
                     return true;
                 } else {
                     return false;
@@ -135,11 +133,12 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                 return "Filtro mp3";
             }
         });
+
         int eleccion = chooser.showOpenDialog(null);
         if (eleccion == 0) {
             File[] files = chooser.getSelectedFiles();
             setPath(chooser.getCurrentDirectory().getPath());
-            listaFiles = (List<File>) Arrays.asList(files);
+            List<File> listaFiles = (List<File>) Arrays.asList(files);
 
             if (!listaFiles.isEmpty()) {
 
@@ -164,10 +163,6 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         }
     }
 
-    public static boolean acabaEnMp3(File f) {
-        return f.getName().endsWith(".mp3");
-    }
-
     public void removeCancion(int index, int[] filas_selec) {
 
         if (filas_selec.length == 0 || listas_canciones.getLista(index).getCanciones().isEmpty()) {
@@ -190,10 +185,18 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         }
     }
 
-    public void anadirLista(String nombre) {
+    public void anadirLista() {
 
-
-        listas_canciones.addLista(nombre);
+        JOptionPane pane = new JOptionPane("Nombre Lista", JOptionPane.PLAIN_MESSAGE);
+        pane.setWantsInput(true);
+        JDialog dialog = pane.createDialog(null, "Lista Nueva");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+        String nombre = (String) pane.getInputValue();
+        
+        if (nombre != null && !nombre.equals("") && !nombre.equals("uninitializedValue")) {
+            listas_canciones.addLista(nombre);
+        }
     }
 
     public void borrarLista(int index) {
@@ -225,32 +228,11 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         }
     }
 
-    public String getNombreServidor() {
-        return nombre_servidor;
-    }
-
     public static ListasCancionesManager getInstance() {
+        if (manager == null) {
+            manager = new ListasCancionesManager();
+        }
         return manager;
-    }
-
-    public ListaPromocionada getLista_sonando() {
-        return lista_sonando;
-    }
-
-    public ConjuntoListas getListas_canciones() {
-        return listas_canciones;
-    }
-
-    public ConnectionManager getConector() {
-        return conection;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String aPath) {
-        path = aPath;
     }
 
     @Override
@@ -458,5 +440,29 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
      */
     public PlayerReproductor getReproductor() {
         return reproductor;
+    }
+
+    public String getNombreServidor() {
+        return nombre_servidor;
+    }
+
+    public ListaPromocionada getLista_sonando() {
+        return lista_sonando;
+    }
+
+    public ConjuntoListas getListas_canciones() {
+        return listas_canciones;
+    }
+
+    public ConnectionManager getConector() {
+        return conection;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String aPath) {
+        path = aPath;
     }
 }

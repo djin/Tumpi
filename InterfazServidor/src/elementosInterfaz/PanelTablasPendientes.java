@@ -15,9 +15,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -35,7 +33,6 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
     ListasCancionesManager manager;
     private ArrayList<JButton> botonesCerrar = new ArrayList<JButton>();
     private Dimension screen, ladoDerecho;
-    private ArrayList<String> nombresLista;
     private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
 
     public PanelTablasPendientes() {
@@ -44,15 +41,14 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         ladoDerecho = new Dimension(screen.width * 55 / 100, 300);
         tablas_pendientes = new ArrayList();
         manager = ListasCancionesManager.getInstance();
-        nombresLista = new ArrayList();
-        nombresLista.add("Inicio");
         setPreferredSize(ladoDerecho);
     }
+    
+    @Override
+    public void onNewList(String nombre) {
 
-    public void anadirPestana(String nombre_lista) {
-
+        tablas_pendientes.add(new TablaPendiente());
         if (getTitleAt(0).equals("Inicio")) {
-            nombresLista.remove(0);
             remove(0);
         }
 
@@ -67,10 +63,9 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
             }
         });
 
-        nombresLista.add(nombre_lista);
-        addTab(nombre_lista, panelTabla);
+        addTab(nombre, panelTabla);
         GridBagConstraints gbc = new GridBagConstraints();
-        PanelPestana panelPestana = new PanelPestana(nombre_lista, gbc);
+        PanelPestana panelPestana = new PanelPestana(nombre, gbc);
         JButton botonCerrar = new JButton(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,39 +78,25 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         gbc.ipady = 3;
         gbc.weightx = 0;
         panelPestana.add(botonCerrar, gbc);
-        setTabComponentAt(nombresLista.size() - 1, panelPestana);
-        setSelectedIndex(nombresLista.size() - 1);
+        setTabComponentAt(tablas_pendientes.size() - 1, panelPestana);
+        setSelectedIndex(tablas_pendientes.size() - 1);
         anadirPestanaFinal();
-    }
-
-    public void eliminarPestana(int pestanaBorrar) {
-
-        botonesCerrar.remove(pestanaBorrar);
-        remove(pestanaBorrar);
-        nombresLista.remove(pestanaBorrar);
-        if (getSelectedIndex() == getTabCount() - 1) {
-            setSelectedIndex(getTabCount() - 2);
-        }
-        if (getTabCount() == 1) {
-            nombresLista.add("Inicio");
-            remove(getTabCount() - 1);
-            addTab(nombresLista.get(0), generarPanelInicio());
-            anadirPestanaFinal();
-        }
-
-    }
-
-    @Override
-    public void onNewList(String nombre) {
-
-        tablas_pendientes.add(new TablaPendiente());
-        anadirPestana(nombre);
         anadirMouseListener(tablas_pendientes.size() - 1);
     }
 
     @Override
     public void onRemoveList(int index) {
-        eliminarPestana(index);
+        
+        botonesCerrar.remove(index);
+        remove(index);
+        if (getSelectedIndex() == getTabCount() - 1) {
+            setSelectedIndex(getTabCount() - 2);
+        }
+        if (getTabCount() == 1) {
+            remove(getTabCount() - 1);
+            addTab("Inicio", generarPanelInicio());
+            anadirPestanaFinal();
+        }
         tablas_pendientes.remove(index);
     }
 
@@ -198,15 +179,8 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         anadirPestana = new JButton(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane pane = new JOptionPane("Nombre Lista", JOptionPane.PLAIN_MESSAGE);
-                pane.setWantsInput(true);
-                JDialog dialog = pane.createDialog(null, "Lista Nueva");
-                dialog.setAlwaysOnTop(true);
-                dialog.setVisible(true);
-                String nombreLista = (String) pane.getInputValue();
-                if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
-                    manager.anadirLista(nombreLista);
-                }
+                    manager.anadirLista();
+                
             }
         });
         Pintado.anularPintadoBotonParaImagen(anadirPestana, "icons/anadirpestana.png", "icons/anadirpestana2.png", new Dimension(16, 16));

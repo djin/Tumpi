@@ -31,7 +31,7 @@ public class Main {
                     @Override
                     public void run() {
 //                        NativeDiscovery nd = new NativeDiscovery();
-                        String path, pathVlc = null;
+                        String path, pathVlc;
                         try {
                             path = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 //                            pathVlc = path.replace("InterfazServidor.jar", "VLC");
@@ -40,7 +40,7 @@ public class Main {
 //                            JOptionPane.showConfirmDialog(null, pathVlc);
 //                            pathVlc = path.replace("InterfazServidor.jar", "VLC");
                         } catch (URISyntaxException ex) {
-                            ex.printStackTrace();
+                            System.err.println("Error encontrando el path: "+ex);
                         }
 //                        NativeLibrary.addSearchPath("libvlc", pathVlc);
                         NativeLibrary.addSearchPath("libvlc", "VLC/");
@@ -58,13 +58,13 @@ public class Main {
                             interfaz.setVisible(true);
 
                         } catch (UnsupportedLookAndFeelException ex) {
-                            ex.printStackTrace();
+                            System.err.println("Error estableciendo LookAndFeel: "+ex);
                         } catch (ClassNotFoundException ex) {
-                            ex.printStackTrace();
+                            System.err.println("Error estableciendo LookAndFeel: "+ex);
                         } catch (InstantiationException ex) {
-                            ex.printStackTrace();
+                            System.err.println("Error estableciendo LookAndFeel: "+ex);
                         } catch (IllegalAccessException ex) {
-                            ex.printStackTrace();
+                            System.err.println("Error estableciendo LookAndFeel: "+ex);
                         }
                         interfaz.addWindowListener(interfaz);
 

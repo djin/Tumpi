@@ -42,7 +42,6 @@ public class MyMouseListener implements MouseInputListener {
     public void mouseExited(MouseEvent e) {
         
         btn.setIcon(botonSinRatonEncima);
-//        btn.setIcon(new ImageIcon(botonSinRatonEncima));
     }
 
     @Override

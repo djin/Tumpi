@@ -70,11 +70,12 @@ public class FramePrincipal extends JFrame implements WindowListener {
         panelBotonPromocion.add(botonPromocion, gbc);
         panel.add(panelBotonPromocion, BorderLayout.CENTER);
 
+        
         JPanel pestanasBotones = new JPanel(new BorderLayout());
         JButton anadirCancion = new JButton(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                anadirCanciones();
+                listas_manager.addCanciones(pestanas_pendientes.getSelectedIndex());
             }
         });
         anadirCancion.setToolTipText("Añadir canción");
@@ -96,7 +97,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 }
             }
         });
-
         borrarCancion.setToolTipText("Borrar canción");
         Pintado.anularPintadoBotonParaImagen(borrarCancion, "icons/borrarCancion1.png", "icons/borrarCancion1.png", new Dimension(31, 31));
 
@@ -115,7 +115,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
         panel.add(panelReproductor, BorderLayout.SOUTH);
 
-        //Se crea el manager de la conexion, despues se crea el socket
         iniciarConexion();
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -137,28 +136,16 @@ public class FramePrincipal extends JFrame implements WindowListener {
         scrollSonando.setPreferredSize(ladoIzquierdo);
         panel.add(scrollSonando, BorderLayout.WEST);
     }
-
-    public void anadirLista() {
-        JOptionPane pane = new JOptionPane("Nombre Lista", JOptionPane.PLAIN_MESSAGE);
-        pane.setWantsInput(true);
-        JDialog dialog = pane.createDialog(null, "Lista Nueva");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
-        String nombreLista = (String) pane.getInputValue();
-        if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
-            listas_manager.anadirLista(nombreLista);
-        }
-    }
-
+    
     private void iniciarConexion() {
 
         try {
             server = listas_manager.getConector();
             if (server.createSocket()) {
-                log("Socket creado con exito!!!");
+                System.out.println("Socket creado con exito!!!");
             }
         } catch (Exception ex) {
-            log("Error al crear y conectar el socket: " + ex.toString());
+            System.err.println("Error al crear y conectar el socket: " + ex.toString());
             System.exit(0);
         }
     }
@@ -175,7 +162,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         barramenus.menuItems.get(1).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                anadirLista();
+                listas_manager.anadirLista();
             }
         });
 
@@ -203,7 +190,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         barramenus.menuItems.get(4).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                anadirCanciones();
+                listas_manager.addCanciones(pestanas_pendientes.getSelectedIndex());
             }
         });
 
@@ -270,24 +257,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
         return panelBotonesVentana;
     }
-
-    public void anadirCanciones() {
-        if (pestanas_pendientes.getTitleAt(0).equals("Inicio")) {
-            JOptionPane pane = new JOptionPane("Nombre Lista", JOptionPane.PLAIN_MESSAGE);
-            pane.setWantsInput(true);
-            JDialog dialog = pane.createDialog(null, "Lista Nueva");
-            dialog.setAlwaysOnTop(true);
-            dialog.setVisible(true);
-            String nombreLista = (String) pane.getInputValue();
-            if (nombreLista != null && !nombreLista.equals("") && !nombreLista.equals("uninitializedValue")) {
-                listas_manager.anadirLista(nombreLista);
-                listas_manager.addCanciones(pestanas_pendientes.getSelectedIndex());
-            }
-        } else {
-            listas_manager.addCanciones(pestanas_pendientes.getSelectedIndex());
-        }
-    }
-
+    
     private void cerrarConexion() {
 
         ficheros_manager.guardarPreferencias();
@@ -295,9 +265,9 @@ public class FramePrincipal extends JFrame implements WindowListener {
         try {
             server.closeSocket();
         } catch (IOException ex) {
-            FramePrincipal.log("Error al intentar cerrar el socket: " + ex.toString());
+            System.err.println("Error al intentar cerrar el socket: " + ex.toString());
         } catch (Exception ex) {
-            FramePrincipal.log("Error al intentar cerrar el socket: " + ex.toString());
+            System.err.println("Error al intentar cerrar el socket: " + ex.toString());
         }
     }
 
@@ -330,10 +300,5 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
     @Override
     public void windowDeactivated(WindowEvent we) {
-    }
-
-    //Metodo para debug
-    public static void log(String cadena) {
-        System.out.println(cadena);
     }
 }
