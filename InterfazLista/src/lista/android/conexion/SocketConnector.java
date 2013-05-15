@@ -85,6 +85,7 @@ public class SocketConnector {
                     } catch (IOException ex) {
                         try {
                             cerrarConexion();
+                            fireMessageEvent("exit");
                         } catch (Exception ex1) {
                             Log.e("Conexion","Error al cerrar la conexion: "+ex);
                         }

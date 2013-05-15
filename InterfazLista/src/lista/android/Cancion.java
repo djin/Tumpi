@@ -15,6 +15,7 @@ public class Cancion {
     private String nombreAlbum;
     private long duracion;
     private int id;
+    public Boolean votando=false;
     private Boolean votado;
     private Boolean sonado;
 

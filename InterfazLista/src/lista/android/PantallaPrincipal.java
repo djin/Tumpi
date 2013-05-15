@@ -66,19 +66,23 @@ public class PantallaPrincipal extends Activity {
 //                    dialogBuilder.show();
 //                }
                 EditText nombre_server = (EditText) findViewById(R.id.txtNombreServer);
-                String nombre = nombre_server.getText().toString();
+                final String nombre = nombre_server.getText().toString();
                 if (!nombre.equals("")) {
-
-                    try {
+                    
                         pd = ProgressDialog.show(p, "Conectando", "Espere unos segundos...", true, false);
-                        conex = new ConnectionManager();
 
-                        if (conex.conectar() && conex.logInBridge(nombre)) {
+                        conex = new ConnectionManager();
+                        v.postDelayed(new Runnable(){
+
+                            public void run() {
+                    try {
+                                if (conex.conectar() && conex.logInBridge(nombre)) {
                             conex.conexion.startListeningServer();
                             Intent inte = new Intent(PantallaPrincipal.this, ListaCanciones.class);
                             startActivity(inte);
                         } else {
                             pd.dismiss();
+                            conex.conexion.cerrarConexion();
                             conex = null;
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(p);
                             dialogBuilder.setMessage("No existe un servidor publicado con este nombre o no tiene conexion con la central de socialDj");
@@ -90,12 +94,17 @@ public class PantallaPrincipal extends Activity {
                             });
                             dialogBuilder.show();
                         }
+                            
                     } catch (Exception ex) {
                         pd.dismiss();
                         conex = null;
                         Toast.makeText(p, "Ha ocurrido un error al intentar conectar, intentelo mas tarde: \n" + ex.toString(), Toast.LENGTH_LONG).show();
                     }
-                    pd.dismiss();
+                        pd.dismiss();
+                            }
+                                },100);
+                        
+                    //pd.dismiss();
 
                 } else {
                     Toast.makeText(p, "Introduce un nombre de servidor", Toast.LENGTH_SHORT).show();

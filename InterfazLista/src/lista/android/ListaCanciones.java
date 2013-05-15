@@ -128,6 +128,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
                                 for (Cancion c : listadoAdapter.getDatos()) {
                                     if (c.getId() == n) {
                                         c.setVotado(true);
+                                        c.votando=false;
                                         break;
                                     }
                                 }
@@ -156,6 +157,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
                                 for (Cancion c : listadoAdapter.getDatos()) {
                                     if (c.getId() == n) {
                                         c.setVotado(false);
+                                        c.votando=false;
                                         break;
                                     }
                                 }

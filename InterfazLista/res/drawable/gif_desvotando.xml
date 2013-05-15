@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" >
+    <item android:drawable="@raw/ico_small_star_focus" android:duration="200" />
+    <item android:drawable="@raw/estrella_casi_llena" android:duration="200" />
+    <item android:drawable="@raw/estrella_medio_llena" android:duration="200" />
+    <item android:drawable="@raw/estrella_poco_llena" android:duration="200" />
+    <item android:drawable="@raw/estrella_nada_llena" android:duration="200" />
+</animation-list>
+

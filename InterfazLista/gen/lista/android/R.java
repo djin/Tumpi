@@ -28,27 +28,29 @@ public final class R {
         public static final int cab_background_top_socialtheme=0x7f020009;
         public static final int estiloboton1=0x7f02000a;
         public static final int estiloboton2=0x7f02000b;
-        public static final int ic_launcher=0x7f02000c;
-        public static final int list_focused_socialtheme=0x7f02000d;
-        public static final int list_view_scroll_color=0x7f02000e;
-        public static final int menu_dropdown_panel_socialtheme=0x7f02000f;
-        public static final int pressed_background_socialtheme=0x7f020010;
-        public static final int progress_bg_socialtheme=0x7f020011;
-        public static final int progress_horizontal_socialtheme=0x7f020012;
-        public static final int progress_primary_socialtheme=0x7f020013;
-        public static final int progress_secondary_socialtheme=0x7f020014;
-        public static final int selectable_background_socialtheme=0x7f020015;
-        public static final int spinner_ab_default_socialtheme=0x7f020016;
-        public static final int spinner_ab_disabled_socialtheme=0x7f020017;
-        public static final int spinner_ab_focused_socialtheme=0x7f020018;
-        public static final int spinner_ab_pressed_socialtheme=0x7f020019;
-        public static final int spinner_background_ab_socialtheme=0x7f02001a;
-        public static final int tab_indicator_ab_socialtheme=0x7f02001b;
-        public static final int tab_selected_focused_socialtheme=0x7f02001c;
-        public static final int tab_selected_pressed_socialtheme=0x7f02001d;
-        public static final int tab_selected_socialtheme=0x7f02001e;
-        public static final int tab_unselected_focused_socialtheme=0x7f02001f;
-        public static final int tab_unselected_pressed_socialtheme=0x7f020020;
+        public static final int gif_desvotando=0x7f02000c;
+        public static final int gif_votando=0x7f02000d;
+        public static final int ic_launcher=0x7f02000e;
+        public static final int list_focused_socialtheme=0x7f02000f;
+        public static final int list_view_scroll_color=0x7f020010;
+        public static final int menu_dropdown_panel_socialtheme=0x7f020011;
+        public static final int pressed_background_socialtheme=0x7f020012;
+        public static final int progress_bg_socialtheme=0x7f020013;
+        public static final int progress_horizontal_socialtheme=0x7f020014;
+        public static final int progress_primary_socialtheme=0x7f020015;
+        public static final int progress_secondary_socialtheme=0x7f020016;
+        public static final int selectable_background_socialtheme=0x7f020017;
+        public static final int spinner_ab_default_socialtheme=0x7f020018;
+        public static final int spinner_ab_disabled_socialtheme=0x7f020019;
+        public static final int spinner_ab_focused_socialtheme=0x7f02001a;
+        public static final int spinner_ab_pressed_socialtheme=0x7f02001b;
+        public static final int spinner_background_ab_socialtheme=0x7f02001c;
+        public static final int tab_indicator_ab_socialtheme=0x7f02001d;
+        public static final int tab_selected_focused_socialtheme=0x7f02001e;
+        public static final int tab_selected_pressed_socialtheme=0x7f02001f;
+        public static final int tab_selected_socialtheme=0x7f020020;
+        public static final int tab_unselected_focused_socialtheme=0x7f020021;
+        public static final int tab_unselected_pressed_socialtheme=0x7f020022;
     }
     public static final class id {
         public static final int autorName=0x7f090005;
@@ -83,16 +85,20 @@ public final class R {
         public static final int menuactionbar=0x7f080001;
     }
     public static final class raw {
-        public static final int ico_medium_list=0x7f040000;
-        public static final int ico_medium_love=0x7f040001;
-        public static final int ico_medium_options=0x7f040002;
-        public static final int ico_medium_options_focus=0x7f040003;
-        public static final int ico_medium_star=0x7f040004;
-        public static final int ico_small_love=0x7f040005;
-        public static final int ico_small_options=0x7f040006;
-        public static final int ico_small_share=0x7f040007;
-        public static final int ico_small_star_focus=0x7f040008;
-        public static final int imgp=0x7f040009;
+        public static final int estrella_casi_llena=0x7f040000;
+        public static final int estrella_medio_llena=0x7f040001;
+        public static final int estrella_nada_llena=0x7f040002;
+        public static final int estrella_poco_llena=0x7f040003;
+        public static final int ico_medium_list=0x7f040004;
+        public static final int ico_medium_love=0x7f040005;
+        public static final int ico_medium_options=0x7f040006;
+        public static final int ico_medium_options_focus=0x7f040007;
+        public static final int ico_medium_star=0x7f040008;
+        public static final int ico_small_love=0x7f040009;
+        public static final int ico_small_options=0x7f04000a;
+        public static final int ico_small_share=0x7f04000b;
+        public static final int ico_small_star_focus=0x7f04000c;
+        public static final int imgp=0x7f04000d;
     }
     public static final class string {
         public static final int app_name=0x7f070000;

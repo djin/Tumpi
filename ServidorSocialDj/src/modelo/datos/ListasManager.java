@@ -257,8 +257,8 @@ public class ListasManager implements ServerSocketListener {
 
     public void onClientConnected(String ip) {
         if (votos_cliente.get(ip) == null) {
-            votos_cliente.put(ip, new ArrayList<Integer>());
-            Log.i("Modelo", "Hash de votos creado para el cliente " + ip);
+//            votos_cliente.put(ip, new ArrayList<Integer>());
+//            Log.i("Modelo", "Hash de votos creado para el cliente " + ip);
         }
     }
 

@@ -6,6 +6,7 @@ package lista.android;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,9 +85,10 @@ public class AdaptadorLista extends BaseAdapter {
             txtAutor.setTextColor(Color.parseColor("#ffe5e5e5"));
             if (getDatos().get(position).getVotado()) {
                 btn.setImageResource(R.raw.ico_small_star_focus);
-
-            } else {
-                btn.setImageResource(R.raw.ico_medium_star);
+                btn.setBackgroundColor(Color.BLACK);
+            } else {                
+                btn.setImageResource(R.raw.estrella_nada_llena);
+                btn.setBackgroundColor(Color.BLACK);
             }
             btn.setEnabled(true);
         }
@@ -104,12 +106,28 @@ public class AdaptadorLista extends BaseAdapter {
         public void onClick(View v) {
             if (getDatos().get(position).getVotado()) {
                 try {
-                    conex.conexion.enviarMensaje("3|" + Integer.toString(getDatos().get(position).getId()));
+                    if(!getDatos().get(position).votando){
+                        conex.conexion.enviarMensaje("3|" + Integer.toString(getDatos().get(position).getId()));
+                        ImageButton btn = (ImageButton)v;
+                        btn.setImageBitmap(null);
+                        btn.setBackgroundResource(R.drawable.gif_desvotando);
+                        AnimationDrawable frameAnimation = (AnimationDrawable) btn.getBackground();
+                        frameAnimation.start();
+                        getDatos().get(position).votando=true;
+                    }
                 } catch (Exception ex) {
                 }
             } else {
                 try {
-                    conex.conexion.enviarMensaje("1|" + Integer.toString(getDatos().get(position).getId()));
+                    if(!getDatos().get(position).votando){
+                        conex.conexion.enviarMensaje("1|" + Integer.toString(getDatos().get(position).getId()));
+                        ImageButton btn = (ImageButton)v;
+                        btn.setImageBitmap(null);
+                        btn.setBackgroundResource(R.drawable.gif_votando);
+                        AnimationDrawable frameAnimation = (AnimationDrawable) btn.getBackground();
+                        frameAnimation.start();
+                        getDatos().get(position).votando=true;
+                    }
                 } catch (Exception ex) {
                 }
             }
