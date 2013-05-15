@@ -22,10 +22,8 @@ public class ConnectionManager implements ServerSocketListener{
     //private DatagramSocket dsocket;
     //private Thread publicador;
     //private String ip_server=null;
-    private Context context;
     
-    public ConnectionManager(Context c){
-        context=c;
+    public ConnectionManager(){
         //listas_canciones=ListasCancionesManager.getInstance();
     }
     

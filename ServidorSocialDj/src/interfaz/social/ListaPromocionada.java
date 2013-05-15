@@ -56,7 +56,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         setContentView(R.layout.style_lista_promocionada);
         final ActionBar actionBar = getActionBar();
         manager = ListasManager.getInstance();
-        manager.abrirConexion(getApplicationContext());
+        //manager.abrirConexion(getApplicationContext());
         manager.addModeloChangedListener(this);
         manager.player.addPlayerListener(this);
         explorer = AudioExplorer.getInstance(getApplicationContext());
@@ -88,7 +88,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         for (Cancion c : datosListaPromocionada) {
             adapter.seleccionados.add(false);
         }
-        setListAdapter(adapter);
+        setListAdapter(adapter);//itemConectarServidor          
         ListView lista = (ListView) findViewById(android.R.id.list);
         lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -109,6 +109,8 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.menu_promocionada, menu);
         desapareceMenu();
+        if(manager.conectado)
+            menuApp.getItem(2).setIcon(R.drawable.conectado);  
         return true;
     }
 
@@ -146,7 +148,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemBorrarPromocionada:
                 borrarCanciones();
@@ -164,33 +166,41 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                 desapareceMenu();
                 return true;
             case R.id.itemConectarServidor:
-                final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                final View v = inflater.inflate(R.layout.style_view_nombre_servidor, this.getListView(), false);
-                alert.setView(v);
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        EditText input = (EditText) v.findViewById(R.id.txtInputNombreServidor);
-                        String value = input.getText().toString();
-                        if (!value.equals("")) {
-                            if(manager.logInBridge(value)){
-                                Toast.makeText(alert.getContext(), "Servidor conectado", Toast.LENGTH_SHORT).show();                                
+                if(!manager.conectado){
+                    final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    final View v = inflater.inflate(R.layout.style_view_nombre_servidor, this.getListView(), false);
+                    alert.setView(v);
+                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            EditText input = (EditText) v.findViewById(R.id.txtInputNombreServidor);
+                            String value = input.getText().toString();
+                            if (!value.equals("")) {
+                                if(manager.logInBridge(value)){
+                                    Toast.makeText(alert.getContext(), "Servidor conectado", Toast.LENGTH_SHORT).show();
+                                    manager.conectado=true;
+                                    item.setIcon(R.drawable.conectado);
+                                }
+                                else{
+                                    Toast.makeText(alert.getContext(), "Error al publicar el servidor", Toast.LENGTH_SHORT).show();
+                                    manager.cerrarConexion();
+                                }
+                            } else {
+                                Toast.makeText(alert.getContext(), "Escriba un nombre para el servidor", Toast.LENGTH_SHORT).show();
+                                //dialog.cancel();
                             }
-                            else
-                                Toast.makeText(alert.getContext(), "Error al publicar el servidor", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(alert.getContext(), "Escriba un nombre para el servidor", Toast.LENGTH_SHORT).show();
-                            //dialog.cancel();
                         }
-                    }
-                });
+                    });
 
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.cancel();
-                    }
-                });
-                alert.show();
+                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.cancel();
+                        }
+                    });
+                    alert.show();
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "El servidor ya esta publicado: "+manager.nick, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

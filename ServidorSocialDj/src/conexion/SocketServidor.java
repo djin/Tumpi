@@ -106,6 +106,7 @@ public class SocketServidor {
                     } catch (IOException ex) {
                         try {
                             closeSocket();
+                            fireMessageReceivedEvent("","exit");
                         } catch (IOException ex1) {
                             Log.e("Conexion","Error al cerrar la conexion con el bridge: "+ex);
                         }
