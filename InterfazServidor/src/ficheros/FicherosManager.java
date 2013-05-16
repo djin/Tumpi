@@ -4,11 +4,22 @@
  */
 package ficheros;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 
 /**
@@ -17,81 +28,99 @@ import modelos.ListasCancionesManager;
  */
 public class FicherosManager {
 
+    private static ArrayList<ListaCanciones> listas;
     private static ListasCancionesManager listas_manager;
-    private File fichSelector;
-    private File fichSesion;
-    private Properties propiedades;
-    private FileInputStream entradaDatos = null;
-    private FileOutputStream salidaDatos;
+    private static File fichSelector;
+    private static InputStream fichEntrada;
+    private static InputStream bufferEntrada;
+    private static OutputStream fichSalida;
+    private static OutputStream bufferSalida;
+    private static Properties propiedades;
+    private static FileInputStream entradaDatos;
+    private static FileOutputStream salidaDatos;
+    private static ObjectOutputStream sesion_out;
+    private static ObjectInputStream sesion_in;
 
-    public FicherosManager(ListasCancionesManager _listas_manager) {
+    public static ArrayList cargarSesion() {
+        try {
+            fichEntrada = new FileInputStream("fich_sesion");
+        } catch (FileNotFoundException ex) {
+            System.err.println("No se pudo abrir el fichero de sesion:" +ex);
+        }
+        listas = new ArrayList();
 
-        listas_manager = _listas_manager;
-    }
-    
-    public boolean cargarSesion() {
-                
-        fichSesion = new File("");
-        boolean i = false;
+        bufferEntrada = null;
+        sesion_in = null;
 
-        if (fichSesion.exists()) {
+        try {
 
-            entradaDatos = null;
+            bufferEntrada = new BufferedInputStream(fichEntrada);
+            sesion_in = new ObjectInputStream(bufferEntrada);
 
-            try {
-
-                i = false;
-                i = fichSesion.createNewFile();
-                entradaDatos = new FileInputStream(fichSesion);
-                
-
-            } catch (IOException ex) {
-                if (i == false) {
-                    System.err.println("Error al cargar el fichero de listas" + ex);
-                }
-            } finally {
+            while (sesion_in.available() != 0 && sesion_in != null) {
                 try {
-                    entradaDatos.close();
-                    return true;
-                } catch (IOException ex) {
-                    System.err.println("Error al cargar el fichero de listas++" + ex);
-                    return false;
+                    listas.add((ListaCanciones) sesion_in.readObject());
+                    System.out.println("hola2");
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("Objeto no encontrado: " + ex);
                 }
             }
+
+        } catch (IOException ex) {
+                System.err.println("Error al cargar el fichero de listas" + ex);
+        } finally {
+            try {
+                
+                sesion_in.close();
+                bufferEntrada.close();
+                fichEntrada.close();
+
+            } catch (IOException ex) {
+                System.err.println("Error al cargar el fichero de listas++" + ex);
+            }
         }
-        else{
-            return false;
-        }
+
+        return listas;
     }
-    
-    public void guardarSesion(){
-        
-        fichSesion = new File("fich_sesion");
-        
+
+    public static void guardarSesion(ArrayList _listas) {
+
+        listas = _listas;
         try {
-            salidaDatos = new FileOutputStream(fichSesion);
-            
+            fichSalida = new FileOutputStream("fich_sesion");
+        } catch (FileNotFoundException ex) {
+            System.err.println("No se pudo guardar el fichero de sesion:" +ex);
+        }
+        bufferSalida = null;
+        sesion_out = null;
+
+        try {
+            bufferSalida = new BufferedOutputStream(fichSalida);
+            sesion_out = new ObjectOutputStream(bufferSalida);
+            for (ListaCanciones l : listas) {
+                sesion_out.writeObject(l);
+            }
+
         } catch (IOException ex) {
             System.err.println("Error al guardar el fichero de sesion" + ex);
         } finally {
             try {
-                salidaDatos.close();
+                sesion_out.close();
             } catch (IOException ex) {
                 System.err.println("Error al guardar el fichero de sesion++" + ex);
             }
         }
     }
-    
-    public void cargarPreferencias() {
 
+    public static void cargarPreferencias() {
 
+        listas_manager = ListasCancionesManager.getInstance();
         fichSelector = new File("fich_selector");
         propiedades = new Properties();
+        entradaDatos = null;
         boolean i = false;
 
         if (fichSelector.exists()) {
-
-            entradaDatos = null;
 
             try {
 
@@ -120,11 +149,11 @@ public class FicherosManager {
         }
     }
 
-    public void guardarPreferencias() {
+    public static void guardarPreferencias() {
 
         fichSelector = new File("fich_selector");
         propiedades = new Properties();
-              
+
         propiedades.setProperty("selector", listas_manager.getPath());
         salidaDatos = null;
 

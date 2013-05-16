@@ -28,11 +28,14 @@ public class ConjuntoListas {
 
     public void inicializar(ArrayList _listas) {
         listas = _listas;
+        for (ConjuntoListasListener listener : listeners) {
+            listener.onInitialize(listas);
+        }
     }
 
     public void addLista(String nombre) {
         
-        listas.add(new ListaCanciones(nombre));
+        getListas().add(new ListaCanciones(nombre));
         for (ConjuntoListasListener listener : listeners) {
             listener.onNewList(nombre);
         }
@@ -40,7 +43,7 @@ public class ConjuntoListas {
 
     public void removeLista(int index) {
         
-        listas.remove(index);
+        getListas().remove(index);
         for (ConjuntoListasListener listener : listeners) {
             listener.onRemoveList(index);
         }
@@ -48,15 +51,15 @@ public class ConjuntoListas {
     
     public void addCancion(Cancion cancion, int index){
         
-        listas.get(index).addCancion(cancion);
+        getListas().get(index).addCancion(cancion);
         for (ConjuntoListasListener listener : listeners) {
             listener.onAddSong(index, cancion);
         }
     }
     public void removeCanciones(int[] filas, int index){
         
-        listas.get(index).removeCanciones(filas);
-        boolean vacio = listas.get(index).getCanciones().isEmpty();
+        getListas().get(index).removeCanciones(filas);
+        boolean vacio = getListas().get(index).getCanciones().isEmpty();
         for (ConjuntoListasListener listener : listeners) {
             listener.onRemoveSongs(index, filas, vacio);
         }
@@ -64,19 +67,20 @@ public class ConjuntoListas {
     
     public void setDuracion(long duracion, int index, int fila) {
         
-        listas.get(index).getCanciones().get(fila).setDuracion(duracion);
+        getListas().get(index).getCanciones().get(fila).setDuracion(duracion);
         String duracion_formateada = formatearDuracion(duracion);
+        getListas().get(index).getCanciones().get(fila).setDuracion_formateada(duracion_formateada);
         for(ConjuntoListasListener listener : listeners){
             listener.onUpdatedLength(index, fila, duracion_formateada);
         }
     }
     
     public ListaCanciones getLista(int index){
-        return listas.get(index);
+        return getListas().get(index);
     }
     
     public boolean estaVacia(){
-        if(listas.isEmpty()){
+        if(getListas().isEmpty()){
             return true;
         }
         else{
@@ -93,5 +97,9 @@ public class ConjuntoListas {
         }
         String duracionFormateada = "" + minutos + ":" + segundos + " ";
         return duracionFormateada;
+    }
+
+    public ArrayList<ListaCanciones> getListas() {
+        return listas;
     }
 }

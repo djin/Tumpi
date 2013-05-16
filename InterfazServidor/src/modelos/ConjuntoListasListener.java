@@ -4,6 +4,8 @@
  */
 package modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 66786575
@@ -14,4 +16,5 @@ public interface ConjuntoListasListener {
     public void onAddSong(int index, Cancion cancion);
     public void onRemoveSongs(int index, int[] filas, boolean vacio);
     public void onUpdatedLength(int index, int fila, String duracion);
+    public void onInitialize(ArrayList<ListaCanciones> listas);
 }

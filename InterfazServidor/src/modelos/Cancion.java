@@ -1,18 +1,19 @@
 package modelos;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  *
  * @author 66786575
  */
-public class Cancion {
+public class Cancion implements Serializable{
 
     private int id;
     private String nombre;
     private String disco;
     private String artista;
     private long duracion;
+    private String duracion_formateada;
     private String path;
 
     public Cancion(int _id, String name, String album, String artist, long length, String _path) {
@@ -125,5 +126,19 @@ public class Cancion {
             }
         }
         return false;
+    }
+
+    /**
+     * @return the duracion_formateada
+     */
+    public String getDuracion_formateada() {
+        return duracion_formateada;
+    }
+
+    /**
+     * @param duracion_formateada the duracion_formateada to set
+     */
+    public void setDuracion_formateada(String duracion_formateada) {
+        this.duracion_formateada = duracion_formateada;
     }
 }

@@ -4,6 +4,8 @@
  */
 package conexion;
 
+import java.net.InetAddress;
+
 /**
  *
  * @author 66785270
@@ -20,8 +22,7 @@ public class ConnectionManager implements ServerSocketListener {
         boolean creado;
         try {
             String ip;
-//            ip = InetAddress.getByName("socialdj.no-ip.biz").getHostAddress();
-            ip = "192.168.43.115";
+            ip = InetAddress.getByName("socialdj.no-ip.biz").getHostAddress();
             socket = new SocketServidor(ip, 2222);
             creado = true;
         } catch (Exception ex) {

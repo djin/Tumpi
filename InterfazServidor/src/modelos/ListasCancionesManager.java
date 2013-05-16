@@ -7,6 +7,7 @@ package modelos;
 import conexion.ConnectionManager;
 import conexion.ServerSocketListener;
 import elementosInterfaz.ReproductorPanel;
+import ficheros.FicherosManager;
 import java.awt.Component;
 import java.awt.HeadlessException;
 import java.io.File;
@@ -51,6 +52,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         nombre_servidor = "servidor";
     }
 
+    public void inicializarListas(){
+        listas_canciones.inicializar(FicherosManager.cargarSesion());
+    }
     public void promocionarLista(int id_lista) {
 
         if (!listas_canciones.estaVacia() && !listas_canciones.getLista(id_lista).getCanciones().isEmpty()) {
@@ -159,6 +163,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                         fila++;
                     }
                 }
+                FicherosManager.guardarSesion(listas_canciones.getListas());
             }
         }
     }
@@ -181,6 +186,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             Integer validacion = (Integer) pane.getValue();
             if (validacion != null && validacion == 0) {
                 listas_canciones.removeCanciones(filas_selec, index);
+                FicherosManager.guardarSesion(listas_canciones.getListas());
             }
         }
     }
@@ -196,6 +202,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         
         if (nombre != null && !nombre.equals("") && !nombre.equals("uninitializedValue")) {
             listas_canciones.addLista(nombre);
+            FicherosManager.guardarSesion(listas_canciones.getListas());
         }
     }
 
@@ -208,6 +215,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         Integer opcion = (Integer) pane.getValue();
         if (opcion != null && opcion == 0) {
             listas_canciones.removeLista(index);
+            FicherosManager.guardarSesion(listas_canciones.getListas());
         }
     }
 

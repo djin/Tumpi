@@ -23,7 +23,6 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
     private JPanel panel = (JPanel) this.getContentPane();
     private ListasCancionesManager listas_manager;
-    private FicherosManager ficheros_manager;
     private TablaSonando tabla_sonando;
     private PanelTablasPendientes pestanas_pendientes;
     private ReproductorPanel panelReproductor;
@@ -45,8 +44,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         listas_manager = ListasCancionesManager.getInstance();
         listas_manager.getReproductor().getReproductorMediaPlayer().addMediaPlayerEventListener(listas_manager);
         panelReproductor = new ReproductorPanel(listas_manager);
-        ficheros_manager = new FicherosManager(listas_manager);
-        ficheros_manager.cargarPreferencias();
+        FicherosManager.cargarPreferencias();
 
         iniciarListasCanciones();
         iniciarListaSonando();
@@ -126,6 +124,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         listas_manager.getListas_canciones().addConjuntoListasListener(pestanas_pendientes);
         pestanas_pendientes.addTab("Inicio", pestanas_pendientes.generarPanelInicio());
         pestanas_pendientes.anadirPestanaFinal();
+        listas_manager.inicializarListas();
     }
 
     private void iniciarListaSonando() {
@@ -260,7 +259,8 @@ public class FramePrincipal extends JFrame implements WindowListener {
     
     private void cerrarConexion() {
 
-        ficheros_manager.guardarPreferencias();
+        FicherosManager.guardarPreferencias();
+        FicherosManager.guardarSesion(listas_manager.getListas_canciones().getListas());
 
         try {
             server.closeSocket();

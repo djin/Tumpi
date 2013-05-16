@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import modelos.Cancion;
 import modelos.ConjuntoListasListener;
+import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 
 /**
@@ -30,7 +31,8 @@ import modelos.ListasCancionesManager;
 public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListasListener {
 
     private ArrayList<TablaPendiente> tablas_pendientes;
-    ListasCancionesManager manager;
+    private ArrayList<ListaCanciones> listas;
+    private ListasCancionesManager manager;
     private ArrayList<JButton> botonesCerrar = new ArrayList<JButton>();
     private Dimension screen, ladoDerecho;
     private static int columnaPendienteCancion = 0, columnaPendienteAutor = 1, columnaPendienteAlbum = 2, columnaPendienteDuracion = 3;
@@ -43,7 +45,22 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         manager = ListasCancionesManager.getInstance();
         setPreferredSize(ladoDerecho);
     }
-    
+
+    @Override
+    public void onInitialize(ArrayList _listas) {
+
+        listas = _listas;
+        int x = 0;
+        for (ListaCanciones l : listas) {
+
+            onNewList(l.nombre_lista);
+            for (Cancion c : l.getCanciones()) {
+                onAddSong(x,c);
+            }
+            x++;
+        }
+    }
+
     @Override
     public void onNewList(String nombre) {
 
@@ -86,7 +103,7 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
 
     @Override
     public void onRemoveList(int index) {
-        
+
         botonesCerrar.remove(index);
         remove(index);
         if (getSelectedIndex() == getTabCount() - 1) {
@@ -123,8 +140,8 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
     public void onRemoveSongs(int index, int[] filas, boolean vacio) {
 
         tablas_pendientes.get(index).clearSelection();
-        int tamano = tablas_pendientes.get(index).getTabla().getFilas()-1;
-        
+        int tamano = tablas_pendientes.get(index).getTabla().getFilas() - 1;
+
         for (int y = 0; y < filas.length; y++) {
             if (!vacio || (y != tamano)) {
                 for (int x = filas[0]; x < tamano; x++) {
@@ -179,8 +196,8 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         anadirPestana = new JButton(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    manager.anadirLista();
-                
+                manager.anadirLista();
+
             }
         });
         Pintado.anularPintadoBotonParaImagen(anadirPestana, "icons/anadirpestana.png", "icons/anadirpestana2.png", new Dimension(16, 16));
