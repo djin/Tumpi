@@ -17,8 +17,6 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelos.ListaCanciones;
 import modelos.ListasCancionesManager;
 
@@ -42,14 +40,19 @@ public class FicherosManager {
     private static ObjectInputStream sesion_in;
 
     public static ArrayList cargarSesion() {
+        
+        listas = new ArrayList();
+        boolean hay_fichero = true;
+        
         try {
             File file = new File("fich_sesion");
             String path = file.getAbsolutePath();
             fichEntrada = new FileInputStream(path);
         } catch (FileNotFoundException ex) {
-            System.err.println("No se pudo abrir el fichero de sesion:" +ex);
+            System.out.println("No hay fichero de sesion");
+            hay_fichero = false;
         }
-        listas = new ArrayList();
+        if(hay_fichero){
 
         bufferEntrada = null;
         sesion_in = null;
@@ -80,7 +83,7 @@ public class FicherosManager {
                 System.err.println("Error al cargar el fichero de listas++" + ex);
             }
         }
-
+        }
         return listas;
     }
 
