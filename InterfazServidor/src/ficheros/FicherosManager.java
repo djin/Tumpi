@@ -43,7 +43,9 @@ public class FicherosManager {
 
     public static ArrayList cargarSesion() {
         try {
-            fichEntrada = new FileInputStream("fich_sesion");
+            File file = new File("fich_sesion");
+            String path = file.getAbsolutePath();
+            fichEntrada = new FileInputStream(path);
         } catch (FileNotFoundException ex) {
             System.err.println("No se pudo abrir el fichero de sesion:" +ex);
         }
@@ -57,17 +59,16 @@ public class FicherosManager {
             bufferEntrada = new BufferedInputStream(fichEntrada);
             sesion_in = new ObjectInputStream(bufferEntrada);
 
-            while (sesion_in.available() != 0 && sesion_in != null) {
-                try {
-                    listas.add((ListaCanciones) sesion_in.readObject());
-                    System.out.println("hola2");
-                } catch (ClassNotFoundException ex) {
-                    System.err.println("Objeto no encontrado: " + ex);
-                }
+            Object obj;
+            while ((obj = sesion_in.readObject()) != null) {
+                
+                    listas.add((ListaCanciones) obj);
             }
 
+        } catch (ClassNotFoundException ex) {
+            System.err.println("No se encuentra la clase"+ex);
         } catch (IOException ex) {
-                System.err.println("Error al cargar el fichero de listas" + ex);
+                System.out.println("Alcanzado fin del fichero");
         } finally {
             try {
                 
@@ -87,7 +88,9 @@ public class FicherosManager {
 
         listas = _listas;
         try {
-            fichSalida = new FileOutputStream("fich_sesion");
+            File file = new File("fich_sesion");
+            String path = file.getAbsolutePath();
+            fichSalida = new FileOutputStream(path);
         } catch (FileNotFoundException ex) {
             System.err.println("No se pudo guardar el fichero de sesion:" +ex);
         }
