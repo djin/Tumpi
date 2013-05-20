@@ -44,6 +44,7 @@ public class SocketServidor {
     private SocketServidor instance;
     public SocketServidor(int port) throws IOException{
         socket_server = new ServerSocket(port);
+        //instanciamos el objeto websocket
         instance=this;
     }
     public boolean isBound(){
