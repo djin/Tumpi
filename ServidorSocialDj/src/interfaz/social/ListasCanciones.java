@@ -101,6 +101,7 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener 
 
     public void irPromocionada() {
         Intent inte = new Intent(ListasCanciones.this, ListaPromocionada.class);
+        inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(inte);
     }
 
