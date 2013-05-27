@@ -1,0 +1,60 @@
+#pagCompleta {
+	padding-top: 0
+}
+.contenedor {
+	padding-top: 0;
+}
+
+.varNav {
+	margin:0;
+}
+
+.itemNav {
+	border-radius: 0;
+	margin:0;
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+}
+
+.primeraLista {
+	border-bottom-left-radius: 6px;
+}
+
+.ultimaLista {
+	border-bottom-right-radius: 6px;
+}
+
+.inicio:hover{
+	background-color: #d9d8d9;
+}
+
+.cliente:hover{
+	background-color: green;
+}
+
+.serverMovil:hover{
+	background-color: orange;
+}
+
+.serverPc:hover{
+	background-color: gray;
+}
+
+.sobreNostros:hover{
+	background-color: #e55319;
+}
+
+.var {
+	margin:0;
+	padding: 0;
+}
+
+.datos {
+	position: absolute;
+	top: 100px;
+	left: 0;
+	right: 0;
+	bottom: 50px;
+	background-color: black;
+}
