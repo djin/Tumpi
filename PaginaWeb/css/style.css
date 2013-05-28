@@ -62,6 +62,70 @@
       margin-top: 10px;
     }
 
+    #clienteAndroid:hover {
+      background-image: linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 30%);
+      background-image: -o-linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 30%);
+      background-image: -moz-linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 30%);
+      background-image: -webkit-linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 30%);
+      background-image: -ms-linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 30%);
+    }
+
+    #clienteAndroid:active {
+      background-image: linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 70%);
+      background-image: -o-linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 70%);
+      background-image: -moz-linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 70%);
+      background-image: -webkit-linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 70%);
+      background-image: -ms-linear-gradient(bottom, rgb(27,125,31) 4%, rgba(29,117,20, 0) 70%);
+    }
+
+    #servidorAndroid:hover{
+      background-image: linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 30%);
+      background-image: -o-linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 30%);
+      background-image: -moz-linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 30%);
+      background-image: -webkit-linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 30%);
+      background-image: -ms-linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 30%);
+    }
+
+    #servidorAndroid:active{
+      background-image: linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 70%);
+      background-image: -o-linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 70%);
+      background-image: -moz-linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 70%);
+      background-image: -webkit-linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 70%);
+      background-image: -ms-linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 70%);
+    }
+
+
+    #servidorPC:hover{
+      background-image: linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 30%);
+      background-image: -o-linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 30%);
+      background-image: -moz-linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 30%);
+      background-image: -webkit-linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 30%);
+      background-image: -ms-linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 30%);
+    }
+
+    #servidorPC:active{
+      background-image: linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 70%);
+      background-image: -o-linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 70%);
+      background-image: -moz-linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 70%);
+      background-image: -webkit-linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 70%);
+      background-image: -ms-linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 70%);
+    }
+
+    #quienesSomos:hover{
+      background-image: linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 30%);
+      background-image: -o-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 30%);
+      background-image: -moz-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 30%);
+      background-image: -webkit-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 30%);
+      background-image: -ms-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 30%);
+    }
+
+    #quienesSomos:active{
+      background-image: linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 70%);
+      background-image: -o-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 70%);
+      background-image: -moz-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 70%);
+      background-image: -webkit-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 70%);
+      background-image: -ms-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 70%);
+    }
 
     /* CUSTOMIZE THE CAROUSEL
     -------------------------------------------------- */
