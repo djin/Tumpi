@@ -165,9 +165,9 @@
     .carousel-caption {
       background-color: transparent;
       position: static;
-      max-width: 550px;
+      max-width: 900px;
       padding: 0 20px;
-      margin-top: 100px;
+      margin-top: 50px;
     }
     .carousel-caption h1,
     .carousel-caption .lead {
@@ -175,6 +175,10 @@
       line-height: 1.25;
       color: #fff;
       text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+
+    .carousel-caption h1{
+      font-size: 65px;
     }
     .carousel-caption .btn {
       margin-top: 10px;
