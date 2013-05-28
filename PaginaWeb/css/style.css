@@ -94,7 +94,6 @@
       background-image: -ms-linear-gradient(bottom, rgb(228,170,10) 4%, rgba(173,128,16, 0) 70%);
     }
 
-
     #servidorPC:hover{
       background-image: linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 30%);
       background-image: -o-linear-gradient(bottom, rgb(170,170,170) 4%, rgba(125,125,125, 0) 30%);
@@ -167,7 +166,7 @@
       position: static;
       max-width: 900px;
       padding: 0 20px;
-      margin-top: 50px;
+      margin-top: 70px;
     }
     .carousel-caption h1,
     .carousel-caption .lead {
@@ -175,6 +174,10 @@
       line-height: 1.25;
       color: #fff;
       text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+
+    .lead{
+      padding-top: 30px;
     }
 
     .carousel-caption h1{
