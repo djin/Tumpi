@@ -112,19 +112,19 @@
     }
 
     #quienesSomos:hover{
-      background-image: linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 30%);
-      background-image: -o-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 30%);
-      background-image: -moz-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 30%);
+      background-image: linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 30%);
+      background-image: -o-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 30%);
+      background-image: -moz-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 30%);
       background-image: -webkit-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 30%);
-      background-image: -ms-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 30%);
+      background-image: -ms-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 30%);
     }
 
     #quienesSomos:active{
-      background-image: linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 70%);
-      background-image: -o-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 70%);
-      background-image: -moz-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 70%);
+      background-image: linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 70%);
+      background-image: -o-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 70%);
+      background-image: -moz-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 70%);
       background-image: -webkit-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 70%);
-      background-image: -ms-linear-gradient(bottom, rgb(74,10,10) 4%, rgba(138,18,18, 0) 70%);
+      background-image: -ms-linear-gradient(bottom, rgb(187,32,31) 4%, rgba(138,18,18, 0) 70%);
     }
 
     /* CUSTOMIZE THE CAROUSEL
