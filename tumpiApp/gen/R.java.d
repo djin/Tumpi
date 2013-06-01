@@ -36,9 +36,11 @@ C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-hdpi\tab_selec
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-hdpi\tab_selected_socialmanagertheme.9.png \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-hdpi\tab_unselected_focused_socialmanagertheme.9.png \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-hdpi\tab_unselected_pressed_socialmanagertheme.9.png \
+C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_boton_cliente.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_boton_empty.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_boton_menu.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_boton_reproductor.xml \
+C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_boton_server.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_fondo_inicio.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_list.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_panel_reproductor.xml \
