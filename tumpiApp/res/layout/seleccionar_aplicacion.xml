@@ -3,15 +3,51 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical"
+              android:background="@drawable/background_fondo_inicio"
 >
-    <Button android:layout_width="fill_parent"
+    <LinearLayout 
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:textColor="#fff"
+            android:text="¡Bienvenido a Tumpi!"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="#fff"
+            android:layout_weight="1"
+            android:text="pulsa una de las opciones para empezar"
+        />
+    </LinearLayout>
+    <LinearLayout 
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:layout_weight="1">
+        <Button 
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/botonIniciarServidor"
             android:text="servidor"
-    />
-    <Button android:layout_width="fill_parent"
+        />
+        <Button 
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/botonIniciarCliente"
             android:text="Cliente"
-    />
+        />
+    </LinearLayout>
 </LinearLayout>

@@ -25,6 +25,9 @@
     <color name="colorFondoItemMenuFinPulsado">#ffebb65f</color>
     <color name="colorFondoSpinnerFin">#ffe4e4e4</color>
     <color name="colorFondoSpinnerInicio">#ffe4e4e4</color>
-	<color name="color1">#ff78D570</color>
+    <color name="colorFondoInicioSeleccion">#ff3a3a3a</color>
+    <color name="colorFondoMedioSeleccion">#ff494949</color>
+    <color name="colorFondoFinSeleccion">#ff3a3a3a</color>
+    <color name="color1">#ff78D570</color>
     <color name="color2">#ff50A348</color>
 </resources>
