@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidConfiguredLogFilters">
+    <filters>
+      <filter>
+        <option name="logMessagePattern" value="" />
+        <option name="logTagPattern" value="" />
+        <option name="name" value="tumpifulter" />
+        <option name="packageNamePattern" value="" />
+        <option name="pid" value="" />
+      </filter>
+    </filters>
+  </component>
   <component name="AndroidLayoutPreviewToolWindow">
     <option name="state">
       <GlobalState />
@@ -10,20 +21,35 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="tumpifulter" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" name="Default" comment="" />
     <ignored path="TumpiOld.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/inicio_app.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370253269712" ignored="false" />
-    <file path="/Seleccionar.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370255021044" ignored="false" />
+    <file path="/Seleccionar.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370263213351" ignored="false" />
     <file path="/Settings.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370253573434" ignored="false" />
     <file path="/AdaptadorLista.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370253729668" ignored="false" />
     <file path="/main_cliente.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370254030570" ignored="false" />
     <file path="/settings.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370254060386" ignored="false" />
     <file path="/stylepantallainicial.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370254198446" ignored="false" />
     <file path="/ListaCanciones.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370254372900" ignored="false" />
-    <file path="/AndroidManifest.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370254550154" ignored="false" />
+    <file path="/AndroidManifest.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370269164398" ignored="false" />
     <file path="/menuactionbar.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370254623271" ignored="false" />
+    <file path="/ListasCanciones.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370272408915" ignored="false" />
+    <file path="/Dummy.txt" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370269234951" ignored="false" />
+    <file path="/listas_canciones.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370271851493" ignored="false" />
+    <file path="/adaptadorLista.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370270526090" ignored="false" />
+    <file path="/Cancion.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370264661108" ignored="false" />
+    <file path="/PlayerListener.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370264531836" ignored="false" />
+    <file path="/ListasManager.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370273047808" ignored="false" />
+    <file path="/RunnableGuardado.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370264931213" ignored="false" />
+    <file path="/CambiarListaListener.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370265012015" ignored="false" />
+    <file path="/ListenerListaCambio.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370265043130" ignored="false" />
+    <file path="/GuardarListas.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370265075731" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +57,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="Commander">
+    <leftPanel />
+    <rightPanel />
+    <splitter proportion="0.5" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -75,7 +106,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints>
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint url="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/ListaCanciones.java" line="0" class="ListaCanciones.java" package="">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
@@ -101,30 +132,110 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Seleccionar.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/Seleccionar.java">
+      <file leaf-file-name="ListasCanciones.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaces/ListasCanciones.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="51" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.0">
+            <state line="29" column="46" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#573#915#0" expanded="true" />
-                <element signature="e#904#905#0" expanded="true" />
-                <element signature="e#1033#1337#0" expanded="true" />
-                <element signature="e#1326#1327#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="inicio_app.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/inicio_app.xml">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="70" selection-start="608" selection-end="608" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style_row_spinner.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/style_row_spinner.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="34" selection-start="277" selection-end="277" vertical-scroll-proportion="-4.08">
+              <folding />
+            </state>
+          </provider>
           <provider editor-type-id="android-designer">
             <state />
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ListasManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/ListasManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="19" selection-start="1643" selection-end="1643" vertical-scroll-proportion="1.8510028">
+            <state line="21" column="47" selection-start="729" selection-end="729" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GuardarListas.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/GuardarListas.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="56" selection-start="790" selection-end="790" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RunnableGuardado.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/RunnableGuardado.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="58" column="44" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.68686867">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdaptadorLista.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/adaptadores/AdaptadorLista.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="31" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#AdaptadorLista#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="row_style_preparation.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/build/res/all/debug/layout/row_style_preparation.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="52" selection-start="1299" selection-end="1299" vertical-scroll-proportion="0.0">
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="color.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/values/color.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="56" selection-start="819" selection-end="819" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="listas_canciones.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/listas_canciones.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="40" selection-start="814" selection-end="814" vertical-scroll-proportion="-5.8">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -138,22 +249,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/PantallaPrincipal.java" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/PantallaDatosServidor.java" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/Cancion.java" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/AdaptadorLista.java" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/conexion/SocketConnector.java" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/conexion/ServicioCliente.java" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/conexion/ServerMessageListener.java" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/conexion/ConnectionManager.java" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/ListaCanciones.java" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/res/layout/main_cliente.xml" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/res/layout/settings.xml" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/res/layout/stylepantallaconexion.xml" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/res/layout/stylepantallainicial.xml" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/CancionPromocionada.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/ListaCanciones.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/ListaPromocionada.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/conexion/ConnectionManager.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/conexion/ServerSocketListener.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/conexion/SocketServidor.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/RunnableGuardado.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaz/CambiarListaListener.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaz/ListenerListaCambio.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/GuardarListas.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/res/values/color.xml" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/adaptadores/AdaptadorLista.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/res/layout/listas_canciones.xml" />
         <option value="$PROJECT_DIR$/TumpiOld/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/res/menu/menuactionbar.xml" />
-        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/Seleccionar.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaces/ListasCanciones.java" />
+        <option value="$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/ListasManager.java" />
       </list>
     </option>
   </component>
@@ -189,6 +300,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -322,11 +434,189 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOldProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOldProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="servidor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOldProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="servidor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modelos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOldProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="servidor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interfaces" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOldProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TumpiOld" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="servidor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="adaptadores" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -366,15 +656,18 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="preferences.pathVariables" />
     <property name="recentsLimit" value="5" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="001995e570847e" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -382,8 +675,8 @@
     <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RunManager" selected="Android Application.TumpiOld">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -517,41 +810,42 @@
       <created>1370252931509</created>
       <updated>1370252931509</updated>
       <workItem from="1370252953839" duration="3096000" />
+      <workItem from="1370261574589" duration="10494000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3096000" />
+    <option name="totallyTimeSpent" value="13590000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24848485" sideWeight="0.67001677" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.67001677" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.67001677" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24810319" sideWeight="0.67001677" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32998326" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998326" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998326" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998326" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29313233" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67001677" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24924242" sideWeight="0.7068677" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998326" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="554" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="554" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -615,155 +909,227 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/stylepantallaconexion.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/conexion/ServerSocketListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="41" selection-start="806" selection-end="806" vertical-scroll-proportion="0.9512894">
+        <state line="11" column="30" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/settings.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/conexion/SocketServidor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="452" selection-end="452" vertical-scroll-proportion="0.2922636">
+        <state line="0" column="30" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/rowstylesettings.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/multimedia/PlayerListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="35" selection-start="248" selection-end="248" vertical-scroll-proportion="0.24355301">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/rowstyle.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="42" selection-start="313" selection-end="313" vertical-scroll-proportion="0.3409742">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/main_cliente.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="69" selection-start="2585" selection-end="2585" vertical-scroll-proportion="-38.08">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/AdaptadorLista.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="52" selection-start="2940" selection-end="2940" vertical-scroll-proportion="0.0">
+        <state line="4" column="8" selection-start="108" selection-end="130" vertical-scroll-proportion="0.045454547">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/ListaCanciones.java">
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaz/CambiarListaListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="20" selection-start="2889" selection-end="2889" vertical-scroll-proportion="0.0">
+        <state line="11" column="4" selection-start="217" selection-end="244" vertical-scroll-proportion="0.36363637">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaz/ListenerListaCambio.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="27" selection-start="168" selection-end="168" vertical-scroll-proportion="0.13636364">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/build/res/all/debug/layout/row_style_preparation.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="52" selection-start="1299" selection-end="1299" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/values/color.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="56" selection-start="819" selection-end="819" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/adaptadores/AdaptadorLista.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="31" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#AdaptadorLista#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/ListaCanciones.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="5" selection-start="397" selection-end="397" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/cliente/lista/android/Settings.java">
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/listas_canciones.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="44" selection-start="545" selection-end="545" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="18" column="40" selection-start="814" selection-end="814" vertical-scroll-proportion="-5.8">
+          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/style_row_spinner.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="34" selection-start="277" selection-end="277" vertical-scroll-proportion="-4.08">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="19" selection-start="1490" selection-end="1490" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#405#423#0" expanded="true" />
-            <element signature="e#562#580#0" expanded="true" />
-            <element signature="e#936#954#0" expanded="true" />
-            <element signature="e#1100#1118#0" expanded="true" />
-            <element signature="e#1277#1295#0" expanded="true" />
-            <element signature="e#1450#1468#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/build/res/all/debug/menu/menuactionbar.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="18" selection-start="164" selection-end="164" vertical-scroll-proportion="0.0">
+        <state line="16" column="70" selection-start="608" selection-end="608" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/menu/action.xml">
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaces/ListasCanciones.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/menu/menuactionbar.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="7" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/menu/seleccionar.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="7" selection-start="243" selection-end="243" vertical-scroll-proportion="0.22727273">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/sdk/platforms/android-17/android.jar!/android/view/View.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1079" column="13" selection-start="48977" selection-end="48977" vertical-scroll-proportion="0.33240998">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/Seleccionar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="51" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.0">
+        <state line="29" column="46" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#573#915#0" expanded="true" />
-            <element signature="e#904#905#0" expanded="true" />
-            <element signature="e#1033#1337#0" expanded="true" />
-            <element signature="e#1326#1327#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/inicio_app.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/GuardarListas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="19" selection-start="1643" selection-end="1643" vertical-scroll-proportion="1.8510028">
-          <folding />
+        <state line="30" column="56" selection-start="790" selection-end="790" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/ListasManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="47" selection-start="729" selection-end="729" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/RunnableGuardado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="44" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.68686867">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Android</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>TumpiOld</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>Android 4.2.2</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>android-support-v4</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
 

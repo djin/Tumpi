@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import tumpiold.app.cliente.lista.android.PantallaPrincipal;
+import tumpiold.app.servidor.interfaces.ListasCanciones;
 
 public class Seleccionar extends Activity {
 
@@ -19,11 +20,9 @@ public class Seleccionar extends Activity {
         btnServer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                Intent inte = new Intent(Seleccionar.this, PantallaPrincipal.class);
+                Intent inte = new Intent(Seleccionar.this, ListasCanciones.class);
                 inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(inte);
-                */
             }
         });
         Button btnCliente = (Button) findViewById(R.id.botonIniciarCliente);

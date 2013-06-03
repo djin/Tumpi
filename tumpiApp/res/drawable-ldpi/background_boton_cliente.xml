@@ -8,8 +8,7 @@
             <corners
                 android:radius="12dp" />
             <gradient    
-                android:type="radial" 
-                android:gradientRadius="180"    
+                android:angle="270"    
                 android:endColor="@color/colorFondoBotonClienteFinPulsado"
                 android:startColor="@color/colorFondoBotonClienteInicioPulsado"
             /> 

@@ -11,4 +11,5 @@
     <color name="colorFondoBotonClienteInicioPulsado">#00494949</color>
     <color name="colorFondoBotonClienteInicio">#ff4ecb42</color>
     <color name="colorFondoBotonClienteFin">#74d66b</color>
+    <color name="colorLetraSecundaria">#ff909190</color>
 </resources>
