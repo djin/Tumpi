@@ -35,7 +35,7 @@
     <color name="colorFondoBotonClienteFinPulsado">#ff5dcf53</color>
     <color name="colorFondoBotonClienteInicioPulsado">#00494949</color>
     <color name="colorFondoBotonClienteInicio">#ff4ecb42</color>
-    <color name="colorFondoBotonClienteFin">#74d66b</color>
+    <color name="colorFondoBotonClienteFin">#74d66b</color> 
     <color name="color1">#ff78D570</color>
     <color name="color2">#ff50A348</color>
 </resources>
