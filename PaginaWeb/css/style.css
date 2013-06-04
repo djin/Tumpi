@@ -191,6 +191,10 @@
       margin-top: 10px;
     }
 
+    .target li:hover{
+      cursor: pointer;
+    }
+
 
 
     /* MARKETING CONTENT
