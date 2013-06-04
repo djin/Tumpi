@@ -40,7 +40,7 @@ public class Main {
 //                            JOptionPane.showConfirmDialog(null, pathVlc);
 //                            pathVlc = path.replace("InterfazServidor.jar", "VLC");
                         } catch (URISyntaxException ex) {
-                            System.err.println("Error encontrando el path: "+ex);
+                            System.err.println("Error encontrando el path: " + ex);
                         }
 //                        NativeLibrary.addSearchPath("libvlc", pathVlc);
                         NativeLibrary.addSearchPath("libvlc", "VLC/");
@@ -58,13 +58,13 @@ public class Main {
                             interfaz.setVisible(true);
 
                         } catch (UnsupportedLookAndFeelException ex) {
-                            System.err.println("Error estableciendo LookAndFeel: "+ex);
+                            System.err.println("Error estableciendo LookAndFeel: " + ex);
                         } catch (ClassNotFoundException ex) {
-                            System.err.println("Error estableciendo LookAndFeel: "+ex);
+                            System.err.println("Error estableciendo LookAndFeel: " + ex);
                         } catch (InstantiationException ex) {
-                            System.err.println("Error estableciendo LookAndFeel: "+ex);
+                            System.err.println("Error estableciendo LookAndFeel: " + ex);
                         } catch (IllegalAccessException ex) {
-                            System.err.println("Error estableciendo LookAndFeel: "+ex);
+                            System.err.println("Error estableciendo LookAndFeel: " + ex);
                         }
                         interfaz.addWindowListener(interfaz);
 
