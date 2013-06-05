@@ -49,7 +49,7 @@ public class Main {
                         try {
 
                             Properties props = new Properties();
-                            props.put("logoString", "socialDj");
+                            props.put("logoString", "Tumpi");
                             HiFiLookAndFeel.setCurrentTheme(props);
                             UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
                             SwingUtilities.updateComponentTreeUI(interfaz);

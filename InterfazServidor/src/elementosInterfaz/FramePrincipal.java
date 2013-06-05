@@ -38,7 +38,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         Image icon = Imagenes.getImagen("icons/socialDJ.png").getImage();
         setIconImage(icon);
-        setTitle("socialDj");
+        setTitle("Tumpi");
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 5, 20));
 
         listas_manager = ListasCancionesManager.getInstance();
