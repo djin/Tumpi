@@ -297,7 +297,8 @@ public class ListasManager implements ServerSocketListener {
     private void cargarDatos() {
         try {
             File ruta_sd = Environment.getExternalStorageDirectory();
-            File f = new File(ruta_sd.getAbsolutePath(), "ListasGuardadas.txt");
+            File carpeta = new File(ruta_sd.getAbsolutePath(), "Tumpi");
+            File f = new File(carpeta.getAbsolutePath(), "ListasGuardadas.txt");
             
             if (f.exists()) {
                 ObjectInputStream fin = new ObjectInputStream(new FileInputStream(f));

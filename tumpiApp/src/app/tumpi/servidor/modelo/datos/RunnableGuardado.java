@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +45,9 @@ public class RunnableGuardado implements Runnable {
         try {
             File ruta_sd = Environment.getExternalStorageDirectory();
             String rutaFichero = ruta_sd.getAbsolutePath();
+            File carpeta = new File(rutaFichero, "Tumpi");
+            carpeta.mkdir();
+            rutaFichero = carpeta.getAbsolutePath();
             File ficheroGuardarBorrar = new File(rutaFichero, "ListasGuardadas.txt");
             if (ficheroGuardarBorrar.exists()) {
                 ficheroGuardarBorrar.delete();
