@@ -13,7 +13,9 @@
   </component>
   <component name="AndroidLayoutPreviewToolWindow">
     <option name="state">
-      <GlobalState />
+      <GlobalState>
+        <option name="visible" value="false" />
+      </GlobalState>
     </option>
   </component>
   <component name="AndroidLayouts">
@@ -23,7 +25,6 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="tumpifulter" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" name="Default" comment="" />
@@ -40,7 +41,7 @@
     <file path="/AndroidManifest.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370269164398" ignored="false" />
     <file path="/menuactionbar.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370254623271" ignored="false" />
     <file path="/ListasCanciones.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370272408915" ignored="false" />
-    <file path="/Dummy.txt" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370269234951" ignored="false" />
+    <file path="/Dummy.txt" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370515846947" ignored="false" />
     <file path="/listas_canciones.xml" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370271851493" ignored="false" />
     <file path="/adaptadorLista.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370270526090" ignored="false" />
     <file path="/Cancion.java" changelist="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" time="1370264661108" ignored="false" />
@@ -69,7 +70,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -123,6 +123,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </line_breakpoints>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -136,9 +137,7 @@
         <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaces/ListasCanciones.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="29" column="46" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -152,10 +151,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style_row_spinner.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="style_row_spinner.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/style_row_spinner.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="34" selection-start="277" selection-end="277" vertical-scroll-proportion="-4.08">
+            <state line="12" column="26" selection-start="470" selection-end="470" vertical-scroll-proportion="0.37362638">
               <folding />
             </state>
           </provider>
@@ -168,9 +167,7 @@
         <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/ListasManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="21" column="47" selection-start="729" selection-end="729" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -179,17 +176,15 @@
         <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/GuardarListas.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="30" column="56" selection-start="790" selection-end="790" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RunnableGuardado.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="RunnableGuardado.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/RunnableGuardado.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="44" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.68686867">
+            <state line="58" column="44" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -201,10 +196,7 @@
         <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/adaptadores/AdaptadorLista.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="46" column="31" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#AdaptadorLista#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -230,7 +222,7 @@
       <file leaf-file-name="listas_canciones.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/listas_canciones.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="40" selection-start="814" selection-end="814" vertical-scroll-proportion="-5.8">
+            <state line="18" column="40" selection-start="814" selection-end="814" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -245,6 +237,14 @@
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="SYNC_SETTING" value="DONT" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
@@ -268,13 +268,16 @@
       </list>
     </option>
   </component>
+  <component name="MavenProjectNavigator">
+    <treeState />
+  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
     <option name="height" value="754" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -300,8 +303,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -656,6 +657,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -665,18 +668,19 @@
     <property name="OverrideImplement.combined" value="true" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="preferences.pathVariables" />
+    <property name="options.lastSelected" value="vcs.Git" />
     <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$USER_HOME$/My Documents/Titanium_Studio_Workspace/.metadata/.plugins/com.aptana.portablegit.win32/libexec/git-core/git.exe" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="001995e570847e" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Andorid40" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Android Application.TumpiOld">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -804,6 +808,24 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="true">C:\Users\66785320\AppData\Roaming\Subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="6ccf95d3-8928-4c61-8e08-c162fa6f6a83" name="Default" comment="" />
@@ -811,18 +833,17 @@
       <updated>1370252931509</updated>
       <workItem from="1370252953839" duration="3096000" />
       <workItem from="1370261574589" duration="10494000" />
+      <workItem from="1370514528729" duration="1318000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13590000" />
+    <option name="totallyTimeSpent" value="14908000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.67001677" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.67001677" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24810319" sideWeight="0.67001677" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -831,20 +852,22 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998326" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29313233" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2921536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24924242" sideWeight="0.7068677" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24962063" sideWeight="0.67001677" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998326" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="554" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.67001677" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.67001677" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998326" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -911,39 +934,27 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/conexion/ServerSocketListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="30" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="11" column="30" selection-start="555" selection-end="555" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/conexion/SocketServidor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="30" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="30" selection-start="30" selection-end="30" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/multimedia/PlayerListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="8" selection-start="108" selection-end="130" vertical-scroll-proportion="0.045454547">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="4" column="8" selection-start="108" selection-end="130" vertical-scroll-proportion="0.045454547" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaz/CambiarListaListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="4" selection-start="217" selection-end="244" vertical-scroll-proportion="0.36363637">
-          <folding />
-        </state>
+        <state line="11" column="4" selection-start="217" selection-end="244" vertical-scroll-proportion="0.36363637" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaz/ListenerListaCambio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="27" selection-start="168" selection-end="168" vertical-scroll-proportion="0.13636364">
-          <folding />
-        </state>
+        <state line="6" column="27" selection-start="168" selection-end="168" vertical-scroll-proportion="0.13636364" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TumpiOld/build/res/all/debug/layout/row_style_preparation.xml">
@@ -963,10 +974,7 @@
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/adaptadores/AdaptadorLista.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="31" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#AdaptadorLista#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -981,17 +989,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/listas_canciones.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="40" selection-start="814" selection-end="814" vertical-scroll-proportion="-5.8">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/style_row_spinner.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="34" selection-start="277" selection-end="277" vertical-scroll-proportion="-4.08">
+        <state line="18" column="40" selection-start="814" selection-end="814" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1009,37 +1007,41 @@
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/interfaces/ListasCanciones.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="46" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/GuardarListas.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="56" selection-start="790" selection-end="790" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/ListasManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="47" selection-start="729" selection-end="729" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/RunnableGuardado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="44" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/java/tumpiold/app/servidor/modelos/RunnableGuardado.java">
+    <entry file="file://$PROJECT_DIR$/TumpiOld/src/main/res/layout/style_row_spinner.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="44" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.68686867">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="12" column="26" selection-start="470" selection-end="470" vertical-scroll-proportion="0.37362638">
+          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>
