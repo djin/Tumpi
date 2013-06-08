@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorFondoInicioSeleccion">#ff3a3a3a</color>
+    <color name="colorFondoMedioSeleccion">#ff494949</color>
+    <color name="colorFondoFinSeleccion">#ff3a3a3a</color>
+    <color name="colorFondoBotonServerFinPulsado">#ffcf9e53</color>
+    <color name="colorFondoBotonServerInicioPulsado">#00494949</color>
+    <color name="colorFondoBotonServerInicio">#ffcba05b</color>
+    <color name="colorFondoBotonServerFin">#ffcb9542</color>
+    <color name="colorFondoBotonClienteFinPulsado">#ff5dcf53</color>
+    <color name="colorFondoBotonClienteInicioPulsado">#00494949</color>
+    <color name="colorFondoBotonClienteInicio">#ff4ecb42</color>
+    <color name="colorFondoBotonClienteFin">#74d66b</color>
+    <color name="colorLetraSecundaria">#ff909190</color>
+</resources>

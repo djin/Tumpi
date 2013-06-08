@@ -40,7 +40,7 @@ public class Main {
 //                            JOptionPane.showConfirmDialog(null, pathVlc);
 //                            pathVlc = path.replace("InterfazServidor.jar", "VLC");
                         } catch (URISyntaxException ex) {
-                            System.err.println("Error encontrando el path: "+ex);
+                            System.err.println("Error encontrando el path: " + ex);
                         }
 //                        NativeLibrary.addSearchPath("libvlc", pathVlc);
                         NativeLibrary.addSearchPath("libvlc", "VLC/");
@@ -49,7 +49,7 @@ public class Main {
                         try {
 
                             Properties props = new Properties();
-                            props.put("logoString", "socialDj");
+                            props.put("logoString", "Tumpi");
                             HiFiLookAndFeel.setCurrentTheme(props);
                             UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
                             SwingUtilities.updateComponentTreeUI(interfaz);
@@ -58,13 +58,13 @@ public class Main {
                             interfaz.setVisible(true);
 
                         } catch (UnsupportedLookAndFeelException ex) {
-                            System.err.println("Error estableciendo LookAndFeel: "+ex);
+                            System.err.println("Error estableciendo LookAndFeel: " + ex);
                         } catch (ClassNotFoundException ex) {
-                            System.err.println("Error estableciendo LookAndFeel: "+ex);
+                            System.err.println("Error estableciendo LookAndFeel: " + ex);
                         } catch (InstantiationException ex) {
-                            System.err.println("Error estableciendo LookAndFeel: "+ex);
+                            System.err.println("Error estableciendo LookAndFeel: " + ex);
                         } catch (IllegalAccessException ex) {
-                            System.err.println("Error estableciendo LookAndFeel: "+ex);
+                            System.err.println("Error estableciendo LookAndFeel: " + ex);
                         }
                         interfaz.addWindowListener(interfaz);
 

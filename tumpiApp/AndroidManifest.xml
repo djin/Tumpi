@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="app.tumpi"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <application android:label="@string/app_name" android:icon="@drawable/logo_tumpi" android:theme="@style/Theme.Socialmanagertheme">
+        <activity android:name="SeleccionAplicacion"
+                  android:label="@string/app_name"
+                  android:screenOrientation="nosensor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".servidor.interfaz.social.ListaPromocionada"
+                  android:label="@string/app_name"
+                  android:screenOrientation="nosensor">
+        </activity>
+        <activity android:name=".servidor.interfaz.social.ListasCanciones"
+            android:label="@string/app_name"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity android:name=".servidor.interfaz.social.SeleccionCanciones"
+            android:label="@string/app_name"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity android:name=".cliente.lista.android.PantallaPrincipal"
+                  android:label="@string/app_name">
+        </activity>
+        <activity android:name=".cliente.lista.android.ListaCanciones"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name=".cliente.lista.android.PantallaDatosServidor"
+            android:label="@string/datos">
+        </activity>
+        <activity android:name=".cliente.lista.android.Settings"
+            android:label="@string/settings">
+        </activity>
+        <service android:name=".cliente.lista.android.conexion.ServicioCliente" 
+                 android:exported="false"/>
+    </application>
+    <uses-sdk android:minSdkVersion="7" />
+    <uses-sdk android:targetSdkVersion="16" />
+</manifest>
