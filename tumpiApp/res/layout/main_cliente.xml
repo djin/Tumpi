@@ -8,6 +8,7 @@
         android:layout_weight="5"
         android:layout_height="fill_parent"
         android:divider="@color/colorLineaDivisoriaCliente"
+        android:background="@color/colorFondoListaCliente"
         android:dividerHeight="1px"
         android:padding="5dp"
         android:cacheColorHint="#00000000">

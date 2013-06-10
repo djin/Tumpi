@@ -45,6 +45,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
     private ListasCancionesManager() {
 
         reproductor = new PlayerReproductor();
+        votos_cliente = new HashMap<String, ArrayList>();
         listas_canciones = new ConjuntoListas();
         lista_sonando = new ListaPromocionada();
         conection = new ConnectionManager();
