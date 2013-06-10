@@ -16,8 +16,8 @@ public final class R {
         public static final int btnReproductorNormal=0x7f050009;
         public static final int btnReproductorPulsadoFin=0x7f050008;
         public static final int btnReproductorPulsadoInicio=0x7f050007;
-        public static final int color1=0x7f050033;
-        public static final int color2=0x7f050034;
+        public static final int color1=0x7f050038;
+        public static final int color2=0x7f050039;
         public static final int colorFondoBotonClienteFin=0x7f050023;
         public static final int colorFondoBotonClienteFinPulsado=0x7f050020;
         public static final int colorFondoBotonClienteInicio=0x7f050022;
@@ -41,6 +41,8 @@ public final class R {
         public static final int colorFondoReproductorFin=0x7f050004;
         public static final int colorFondoReproductorInicio=0x7f050003;
         public static final int colorFondoRowFinal=0x7f05000c;
+        public static final int colorFondoRowSeleccionada=0x7f050037;
+        public static final int colorFondoRowSinSeleccionar=0x7f050036;
         public static final int colorFondoSpinnerFin=0x7f050017;
         public static final int colorFondoSpinnerInicio=0x7f050018;
         public static final int colorFondolista=0x7f05000e;
@@ -59,10 +61,13 @@ public final class R {
         public static final int colorTextBotonCrearLista=0x7f05002e;
         public static final int colorTextCancionReproduciendoServidor=0x7f050030;
         public static final int colorTextCancionReproduciendoServidorSecundaria=0x7f050031;
+        public static final int colorTextNormalCancionCliente=0x7f050034;
+        public static final int colorTextRowSinListasCancionesServidor=0x7f050035;
+        public static final int colorTextSonadoCliente=0x7f050033;
         public static final int colorTextoColumnasPromocionadaServidor=0x7f05002d;
         public static final int colorTituloFin=0x7f050001;
         public static final int colorTituloInicio=0x7f050000;
-        public static final int pressed_socialmanagertheme=0x7f050035;
+        public static final int pressed_socialmanagertheme=0x7f05003a;
         public static final int rowNormal=0x7f050005;
         public static final int rowPulsado=0x7f050006;
     }

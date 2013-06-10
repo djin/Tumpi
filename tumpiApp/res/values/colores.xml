@@ -51,6 +51,11 @@
     <color name="colorTextCancionReproduciendoServidor">#fff</color>
     <color name="colorTextCancionReproduciendoServidorSecundaria">#fff</color>
     <color name="colorLineaDivisoriaNombreServidor">#ffe9aa43</color>
+    <color name="colorTextSonadoCliente">#ff848484</color>
+    <color name="colorTextNormalCancionCliente">#ffe5e5e5</color>
+    <color name="colorTextRowSinListasCancionesServidor">#ff8f5d0d</color>
+    <color name="colorFondoRowSinSeleccionar">#00000000</color>
+    <color name="colorFondoRowSeleccionada">#55fbb74b</color>
     <color name="color1">#ff78D570</color>
     <color name="color2">#ff50A348</color>
 </resources>
