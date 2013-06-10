@@ -1,2 +1,0 @@
-seguridad.Metodos
-seguridad.Seguridad
