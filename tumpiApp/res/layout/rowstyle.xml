@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:padding="3dp"
-            android:textColor="#ffE6E6E6"
+            android:textColor="@color/colorLetraRowCancionesCliente"
             android:singleLine="true"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:textSize="12dp"
             android:paddingLeft="3dp"
-            android:textColor="#ffE6E6E6"
+            android:textColor="@color/colorLetraRowCancionesClienteSecundaria"
         />
     </LinearLayout>
     <LinearLayout

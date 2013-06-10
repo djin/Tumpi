@@ -28,7 +28,7 @@
                   android:layout_gravity="center"
                   android:textStyle="bold"
                   android:textSize="18dp"
-                  android:textColor="#ff6D6D6D"
+                  android:textColor="@color/colorTextBotonCrearLista"
                   android:onClick="anadirCancion"
                   android:background="@drawable/background_boton_empty"
                   android:text="Añade canciones para comenzar"
@@ -38,7 +38,7 @@
                   android:layout_height="fill_parent"
                   android:minWidth="3dp"
                   android:layout_weight="300"
-                  android:background="#ffDBDBDB"
+                  android:background="@color/colorLineaDivisoriaListasServidor"
                   android:orientation="vertical"
     >
     </LinearLayout>

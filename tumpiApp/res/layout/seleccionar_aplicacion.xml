@@ -19,7 +19,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="30dp"
-            android:textColor="#fff"
+            android:textColor="@color/colorLetraPantallaInicial"
             android:text="¡Bienvenido a Tumpi!"
         />
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:textSize="20dp"
-            android:textColor="#fff"
+            android:textColor="@color/colorLetraPantallaInicial"
             android:layout_weight="1"
             android:text="pulsa una de las opciones para empezar"
         />

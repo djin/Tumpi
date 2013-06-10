@@ -16,8 +16,8 @@ public final class R {
         public static final int btnReproductorNormal=0x7f050009;
         public static final int btnReproductorPulsadoFin=0x7f050008;
         public static final int btnReproductorPulsadoInicio=0x7f050007;
-        public static final int color1=0x7f050024;
-        public static final int color2=0x7f050025;
+        public static final int color1=0x7f050033;
+        public static final int color2=0x7f050034;
         public static final int colorFondoBotonClienteFin=0x7f050023;
         public static final int colorFondoBotonClienteFinPulsado=0x7f050020;
         public static final int colorFondoBotonClienteInicio=0x7f050022;
@@ -30,6 +30,7 @@ public final class R {
         public static final int colorFondoBotonServerFinPulsado=0x7f05001c;
         public static final int colorFondoBotonServerInicio=0x7f05001e;
         public static final int colorFondoBotonServerInicioPulsado=0x7f05001d;
+        public static final int colorFondoCancionReproduciendoCliente=0x7f050025;
         public static final int colorFondoFinSeleccion=0x7f05001b;
         public static final int colorFondoInicioSeleccion=0x7f050019;
         public static final int colorFondoItemMenuFinNormal=0x7f050014;
@@ -44,10 +45,24 @@ public final class R {
         public static final int colorFondoSpinnerInicio=0x7f050018;
         public static final int colorFondolista=0x7f05000e;
         public static final int colorLetraMensaje=0x7f05000d;
+        public static final int colorLetraPantallaInicial=0x7f05002b;
+        public static final int colorLetraRowCancionesCliente=0x7f050029;
+        public static final int colorLetraRowCancionesClienteSecundaria=0x7f05002a;
         public static final int colorLetraSecundaria=0x7f050002;
+        public static final int colorLetraVotos=0x7f050028;
+        public static final int colorLineaDivisoriaCliente=0x7f050024;
+        public static final int colorLineaDivisoriaListaReproduciendoCliente=0x7f050026;
+        public static final int colorLineaDivisoriaListasServidor=0x7f05002f;
+        public static final int colorLineaDivisoriaMensajeCrearLista=0x7f05002c;
+        public static final int colorLineaDivisoriaNombreServidor=0x7f050032;
+        public static final int colorLineaDivisoriaVotosServidor=0x7f050027;
+        public static final int colorTextBotonCrearLista=0x7f05002e;
+        public static final int colorTextCancionReproduciendoServidor=0x7f050030;
+        public static final int colorTextCancionReproduciendoServidorSecundaria=0x7f050031;
+        public static final int colorTextoColumnasPromocionadaServidor=0x7f05002d;
         public static final int colorTituloFin=0x7f050001;
         public static final int colorTituloInicio=0x7f050000;
-        public static final int pressed_socialmanagertheme=0x7f050026;
+        public static final int pressed_socialmanagertheme=0x7f050035;
         public static final int rowNormal=0x7f050005;
         public static final int rowPulsado=0x7f050006;
     }
