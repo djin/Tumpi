@@ -41,6 +41,7 @@ C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\backgroun
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_boton_menu.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_boton_reproductor.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_boton_server.xml \
+C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_fondo_cancion_reproduciendo.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_fondo_inicio.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_list.xml \
 C:\Users\66785320\Documents\GitHub\socialDj\tumpiApp\res\drawable-ldpi\background_panel_reproductor.xml \

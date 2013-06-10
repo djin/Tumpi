@@ -32,12 +32,13 @@
     <color name="colorFondoBotonServerInicioPulsado">#ffffffff</color>
     <color name="colorFondoBotonServerInicio">#ffffffff</color>
     <color name="colorFondoBotonServerFin">#ffffffff</color>
-    <color name="colorFondoBotonClienteFinPulsado">#ff5dcf53</color>
+    <color name="colorFondoBotonClienteFinPulsado">#ffcf9e53</color>
     <color name="colorFondoBotonClienteInicioPulsado">#ffffffff</color>
     <color name="colorFondoBotonClienteInicio">#ffffffff</color>
     <color name="colorFondoBotonClienteFin">#ffffffff</color> 
     <color name="colorLineaDivisoriaCliente">#FF33cb48</color>
-    <color name="colorFondoCancionReproduciendoCliente">#bb0b270b</color>
+    <color name="colorFondoCancionReproduciendoClienteInicio">#bb0b270b</color>
+    <color name="colorFondoCancionReproduciendoClienteFin">#bb0b270b</color>
     <color name="colorLineaDivisoriaListaReproduciendoCliente">#FF43fe42</color>
     <color name="colorLineaDivisoriaVotosServidor">#ffDBDBDB</color>
     <color name="colorLetraVotos">#909190</color>
