@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <color name="colorTituloInicio">#1fa25e</color>
-    <color name="colorTituloFin">#18804a</color>
+    <color name="colorTituloInicio">#f88e06</color>
+    <color name="colorTituloFin">#f88e06</color>
     <color name="colorLetraSecundaria">#ff909190</color>
-    <color name="colorFondoReproductorInicio">#13663b</color>
-    <color name="colorFondoReproductorFin">#0f4c2c</color>
+    <color name="colorFondoReproductorInicio">#353535</color>
+    <color name="colorFondoReproductorFin">#111111</color>
     <color name="rowNormal">#00000000</color>
-    <color name="rowPulsado">#31d781</color>
+    <color name="rowPulsado">#f88e06</color>
     <color name="btnReproductorPulsadoInicio">#77b7760f</color>
     <color name="btnReproductorPulsadoFin">#776e5735</color>
     <color name="btnReproductorNormal">#00000000</color>
@@ -14,7 +14,7 @@
     <color name="btnMenuPulsado">#776e5735</color>
     <color name="colorFondoRowFinal">#00000000</color>
     <color name="colorLetraMensaje">#ff3f225c</color>
-    <color name="colorFondolista">#edfbf4</color>
+    <color name="colorFondolista">#fff</color>
     <color name="colorFondoBotonInicioNormal">#ffffffff</color>
     <color name="colorFondoBotonFinNormal">#ffffffff</color>
     <color name="colorFondoBotonInicioPulsado">#fffbf0de</color>
@@ -36,9 +36,9 @@
     <color name="colorFondoBotonClienteInicioPulsado">#ffffffff</color>
     <color name="colorFondoBotonClienteInicio">#ffffffff</color>
     <color name="colorFondoBotonClienteFin">#ffffffff</color> 
-    <color name="colorLineaDivisoriaCliente">#27cd76</color>
-    <color name="colorFondoCancionReproduciendoClienteInicio">#13663b</color>
-    <color name="colorFondoCancionReproduciendoClienteFin">#0f4c2c</color>
+    <color name="colorLineaDivisoriaCliente">#f88e06</color>
+    <color name="colorFondoCancionReproduciendoClienteInicio">#353535</color>
+    <color name="colorFondoCancionReproduciendoClienteFin">#111111</color>
     <color name="colorLineaDivisoriaListaReproduciendoCliente">#fff</color>
     <color name="colorLineaDivisoriaVotosServidor">#ff9b6ec9</color>
     <color name="colorLetraVotos">#909190</color>
@@ -56,8 +56,8 @@
     <color name="colorTextNormalCancionCliente">#636363</color>
     <color name="colorTextRowSinListasCancionesServidor">#ff583082</color>
     <color name="colorFondoRowSinSeleccionar">#00000000</color>
-    <color name="colorFondoRowSeleccionada">#5531d781</color>
-    <color name="colorFondoListaCliente">#edfbf4</color>
+    <color name="colorFondoRowSeleccionada">#55f88e06</color>
+    <color name="colorFondoListaCliente">#fff</color>
     <color name="color1">#ff78D570</color>
     <color name="color2">#ff50A348</color>
 </resources>
