@@ -7,7 +7,8 @@
         android:layout_width="fill_parent"
         android:layout_weight="5"
         android:layout_height="fill_parent"
-        android:divider="#FF33cb48"
+        android:divider="@color/colorLineaDivisoriaCliente"
+        android:background="@color/colorFondoListaCliente"
         android:dividerHeight="1px"
         android:padding="5dp"
         android:cacheColorHint="#00000000">
@@ -16,13 +17,13 @@
     
     <LinearLayout android:layout_width="fill_parent"
     android:layout_height="3dp"
-    android:background="#FF43fe42"
+    android:background="@color/colorLineaDivisoriaListaReproduciendoCliente"
     android:orientation="vertical"
     ></LinearLayout>
     <LinearLayout android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:padding="0dp"
-        android:background="#bb0b270b"
+        android:background="@drawable/background_fondo_cancion_reproduciendo"
         android:layout_weight="1"
         android:orientation="horizontal">
             <LinearLayout android:layout_width="fill_parent"

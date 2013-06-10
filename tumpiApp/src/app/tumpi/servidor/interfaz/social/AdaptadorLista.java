@@ -79,16 +79,16 @@ public class AdaptadorLista extends BaseAdapter {
         txtNombreCancion.setSelected(true);
         if (estilo) {
             txtNombreCancion.setTextSize(15);
-            txtNombreCancion.setTextColor(Color.parseColor("#ff8f5d0d"));
+            txtNombreCancion.setTextColor(mContext.getResources().getColor(R.color.colorTextRowSinListasCancionesServidor));
             txtNombreCancion.setTypeface(txtNombreCancion.getTypeface(), Typeface.BOLD);
             txtNombreArtista.setTextSize(13);
-            txtNombreArtista.setTextColor(Color.parseColor("#ff8f5d0d"));
+            txtNombreArtista.setTextColor(mContext.getResources().getColor(R.color.colorTextRowSinListasCancionesServidor));
             txtDuracion.setText("");
         }
         if(!seleccionados.get(position)){
-            v.setBackgroundColor(Color.parseColor("#00000000"));
+            v.setBackgroundColor(mContext.getResources().getColor(R.color.colorFondoRowSinSeleccionar));
         } else {
-            v.setBackgroundColor(Color.parseColor("#55fbb74b"));
+            v.setBackgroundColor(mContext.getResources().getColor(R.color.colorFondoRowSeleccionada));
         }
         return v;
     }

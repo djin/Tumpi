@@ -107,7 +107,7 @@ public class AdaptadorListaSeleccionar extends BaseAdapter {
         if (!isExist(datos.get(position))) {
             rootView.setBackgroundResource(R.drawable.background_row_seleccionar);
         } else {
-            rootView.setBackgroundColor(Color.parseColor("#55fbb74b"));
+            rootView.setBackgroundColor(mContext.getResources().getColor(R.color.colorFondoRowSeleccionada));
         }
         return rootView;
     }

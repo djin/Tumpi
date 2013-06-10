@@ -77,19 +77,19 @@ public class AdaptadorLista extends BaseAdapter {
         btn.setOnClickListener(new ClickListener(position));
 
         if (getDatos().get(position).getSonado()) {
-            txt.setTextColor(Color.parseColor("#ff848484"));
-            txtAutor.setTextColor(Color.parseColor("#ff848484"));
+            txt.setTextColor(mContext.getResources().getColor(R.color.colorTextSonadoCliente));
+            txtAutor.setTextColor(mContext.getResources().getColor(R.color.colorTextSonadoCliente));
             btn.setImageDrawable(null);
             btn.setEnabled(false);
         } else {
-            txt.setTextColor(Color.parseColor("#ffe5e5e5"));
-            txtAutor.setTextColor(Color.parseColor("#ffe5e5e5"));
+            txt.setTextColor(mContext.getResources().getColor(R.color.colorTextNormalCancionCliente));
+            txtAutor.setTextColor(mContext.getResources().getColor(R.color.colorTextNormalCancionCliente));
             if (getDatos().get(position).getVotado()) {
                 btn.setImageResource(R.raw.ico_small_star_focus);
-                btn.setBackgroundColor(Color.BLACK);
+//                btn.setBackgroundColor(Color.BLACK);
             } else {                
                 btn.setImageResource(R.raw.estrella_nada_llena);
-                btn.setBackgroundColor(Color.BLACK);
+//                btn.setBackgroundColor(Color.BLACK);
             }
             btn.setEnabled(true);
         }

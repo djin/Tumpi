@@ -42,7 +42,7 @@
     <LinearLayout android:orientation="vertical"
                   android:layout_width="1px"
                   android:layout_height="fill_parent"
-                  android:background="#ffDBDBDB"
+                  android:background="@color/colorLineaDivisoriaVotosServidor"
     >
     </LinearLayout>
     <TextView android:id="@+id/txtNumeroVotos"
@@ -50,7 +50,7 @@
               android:layout_height="fill_parent"
               android:layout_weight="9"
               android:textSize="25dp"
-              android:textColor="#909190"
+              android:textColor="@color/colorLetraVotos"
               android:gravity="center"
               android:text="0"
     />

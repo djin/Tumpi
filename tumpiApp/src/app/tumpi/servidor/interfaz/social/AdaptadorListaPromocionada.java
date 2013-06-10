@@ -77,9 +77,9 @@ public class AdaptadorListaPromocionada extends BaseAdapter{
         }
         txtNombreCancionPromocionada.setSelected(true);
         if(!seleccionados.get(position)){
-            rootView.setBackgroundColor(Color.parseColor("#00000000"));
+            rootView.setBackgroundColor(mContext.getResources().getColor(R.color.colorFondoRowSinSeleccionar));
         } else {
-            rootView.setBackgroundColor(Color.parseColor("#55fbb74b"));
+            rootView.setBackgroundColor(mContext.getResources().getColor(R.color.colorFondoRowSeleccionada));
         }
         return rootView;
     }

@@ -31,7 +31,7 @@ public class ConnectionManager implements ServerSocketListener{
             protected Boolean doInBackground(Void... params) {
                 try {
                     String ip="";
-                    ip=InetAddress.getByName("socialdj.no-ip.biz").getHostAddress();
+                    ip=InetAddress.getByName("tumpi.no-ip.biz").getHostAddress();
                     socket=new SocketServidor(ip,2222);
                 } catch (Exception ex) {
                     Log.e("Conexion", "Error al crear el socket: "+ex.toString());
