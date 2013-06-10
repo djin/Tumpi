@@ -27,86 +27,99 @@
  * - close: Cierra la conexion con el cliente.
  */
 package conexion;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 /**
  *
  * @author 66785270
  */
 public class SocketServidor {
-    private ServerSocket socket_server=null;
-    private int puerto=0;
-    private Thread thread_buscar_clientes=null;
-    public HashMap<String,Cliente> clientes=new HashMap();
-    private ArrayList<ServerSocketListener> listeners=new ArrayList();
+
+    private ServerSocket socket_server = null;
+    private int puerto = 0;
+    private Thread thread_buscar_clientes = null;
+    public HashMap<String, Cliente> clientes = new HashMap<>();
+    private ArrayList<ServerSocketListener> listeners = new ArrayList();
     private SocketServidor instance;
-    public SocketServidor(int port) throws IOException{
+
+    public SocketServidor(int port) throws IOException {
         socket_server = new ServerSocket(port);
         //instanciamos el objeto websocket
-        instance=this;
+        instance = this;
     }
-    public boolean isBound(){
+
+    public boolean isBound() {
         return socket_server.isBound();
     }
-    public void startSearchClients(){
-        thread_buscar_clientes=new Thread(){
+
+    public void startSearchClients() {
+        thread_buscar_clientes = new Thread() {
             @Override
-            public void run(){
-                while(!socket_server.isClosed())
-                {
+            public void run() {
+                while (!socket_server.isClosed()) {
                     try {
-                        Cliente cliente=null;
-                        cliente=new Cliente(socket_server.accept(),instance);
-                        clientes.put(cliente.id,cliente);
+                        Cliente cliente = null;
+                        cliente = new Cliente(socket_server.accept(), instance);
+                        clientes.put(cliente.id, cliente);
                         cliente.startListenClient();
                         fireClientConnectedEvent(cliente.id);
                     } catch (IOException ex) {
-                    }                    
+                    }
                 }
             }
         };
         thread_buscar_clientes.start();
     }
-    public void finishSearchClients(){
+
+    public void finishSearchClients() {
         thread_buscar_clientes.interrupt();
     }
-    public void enviarMensajeServer(String id_cliente,String mensaje) throws IOException{
+
+    public void enviarMensajeServer(String id_cliente, String mensaje) throws IOException {
         clientes.get(id_cliente).enviarMensaje(mensaje);
-        System.out.println("Mensaje enviado a "+id_cliente+" : "+mensaje);;
+        System.out.println("Mensaje enviado a " + id_cliente + " : " + mensaje);;
     }
-    public int getClientsCount(){
+
+    public int getClientsCount() {
         return clientes.size();
     }
-    public void closeSocket() throws IOException{
+
+    public void closeSocket() throws IOException {
         finishSearchClients();
-        for(Cliente cliente : clientes.values()){
+        for (Cliente cliente : clientes.values()) {
             cliente.enviarMensaje("exit");
             cliente.finishListenClient();
         }
         socket_server.close();
     }
-    public void addServerSocketListener(ServerSocketListener listener){
+
+    public void addServerSocketListener(ServerSocketListener listener) {
         listeners.add(listener);
     }
-    public void removeServerSocketListener(ServerSocketListener listener){
+
+    public void removeServerSocketListener(ServerSocketListener listener) {
         listeners.remove(listener);
     }
-    public void fireClientConnectedEvent(String ip){
-        for(ServerSocketListener listener : listeners){
+
+    public void fireClientConnectedEvent(String ip) {
+        for (ServerSocketListener listener : listeners) {
             listener.onClientConnected(ip);
         }
     }
-    public void fireClientDisconnectedEvent(String ip){
-        for(ServerSocketListener listener : listeners){
+
+    public void fireClientDisconnectedEvent(String ip) {
+        for (ServerSocketListener listener : listeners) {
             listener.onClientDisconnected(ip);
         }
     }
-    public void fireMessageReceivedEvent(String ip,String message){
-        for(ServerSocketListener listener : listeners){
+
+    public void fireMessageReceivedEvent(String ip, String message) {
+        for (ServerSocketListener listener : listeners) {
             listener.onMessageReceived(ip, message);
         }
     }
-    
 }
