@@ -2,45 +2,48 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package bridgesocialdj;
+package net.tumpi.bridge.main;
 
-import Conexion.WebSocketServer;
+import net.tumpi.bridge.conexion.WebSocketServer;
+import net.tumpi.bridge.config.Config;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import Managers.ServerManager;
+import net.tumpi.bridge.managers.ServerManager;
 
 /**
  *
  * @author 66785270
  */
-public class BridgeSocialDj {
+public class TumpiBridge {
 
-    public static int port = 2223;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        // TODO code application logic here
-        
-        ServerManager bridge=new ServerManager();
-        if(bridge.arrancarBridge())
+
+        Config config = Config.instance();
+        config.loadProperties();
+
+        ServerManager bridge = new ServerManager();
+        if (bridge.arrancarBridge()) {
             System.out.println("BridgeSocialDj arrancado correctamente. A disfrutar!");
-        
+        }
+
         //////////////////////////////////////////////////////////////////////////////////////
-        
+
         //PRUEBAS WEBSOCKETS
-        Server server = new Server(port);
- 
+        Server server = new Server(config.getPuerto());
+
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         server.setHandler(context);
- 
+
         context.addServlet(new ServletHolder(new WebSocketServer()), "/*");
- 
+
         server.start();
-        System.out.println("Escuchando en el puerto " + port);
-        server.join();     
+        System.out.println("Escuchando en el puerto " + config.getPuerto());
+        server.join();
     }
 }

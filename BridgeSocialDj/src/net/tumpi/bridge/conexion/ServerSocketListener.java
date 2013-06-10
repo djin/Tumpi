@@ -9,14 +9,17 @@
  * - onClientDisconnected: Se lanza con la desconexion de un cliente ya 
  *                         conectado indicando la ip.
  */
-package conexion;
+package net.tumpi.bridge.conexion;
 
 /**
  *
  * @author 66785270
  */
 public interface ServerSocketListener {
-    public void onMessageReceived(String id,String message);
+
+    public void onMessageReceived(String id, String message);
+
     public void onClientConnected(String id);
+
     public void onClientDisconnected(String id);
 }

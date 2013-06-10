@@ -12,8 +12,7 @@
  * dientemente de la colección usada.
  * 
  */
-
-package Modelos;
+package net.tumpi.bridge.modelos;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -66,5 +65,4 @@ public class TumpiServer implements Iterable<TumpiClient> {
     public Iterator<TumpiClient> iterator() {
         return clientes.values().iterator();
     }
-
 }

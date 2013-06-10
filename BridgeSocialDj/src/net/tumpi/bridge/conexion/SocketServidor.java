@@ -26,7 +26,7 @@
  * - enviarMensaje: envia un mensaje al cliente.
  * - close: Cierra la conexion con el cliente.
  */
-package conexion;
+package net.tumpi.bridge.conexion;
 
 import java.io.*;
 import java.net.*;
@@ -39,34 +39,32 @@ import java.util.HashMap;
  */
 public class SocketServidor {
 
-    private ServerSocket socket_server = null;
+    private ServerSocket serverSocket = null;
     private int puerto = 0;
     private Thread thread_buscar_clientes = null;
     public HashMap<String, Cliente> clientes = new HashMap<>();
     private ArrayList<ServerSocketListener> listeners = new ArrayList();
-    private SocketServidor instance;
 
     public SocketServidor(int port) throws IOException {
-        socket_server = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
         //instanciamos el objeto websocket
-        instance = this;
     }
 
     public boolean isBound() {
-        return socket_server.isBound();
+        return serverSocket.isBound();
     }
 
     public void startSearchClients() {
         thread_buscar_clientes = new Thread() {
             @Override
             public void run() {
-                while (!socket_server.isClosed()) {
+                while (!serverSocket.isClosed()) {
                     try {
-                        Cliente cliente = null;
-                        cliente = new Cliente(socket_server.accept(), instance);
-                        clientes.put(cliente.id, cliente);
-                        cliente.startListenClient();
-                        fireClientConnectedEvent(cliente.id);
+                        Cliente cliente;
+                        cliente = new Cliente(serverSocket.accept(), SocketServidor.this);
+                        clientes.put(cliente.getId(), cliente);
+                        cliente.startListeningClient();
+                        fireClientConnectedEvent(cliente.getId());
                     } catch (IOException ex) {
                     }
                 }
@@ -92,9 +90,9 @@ public class SocketServidor {
         finishSearchClients();
         for (Cliente cliente : clientes.values()) {
             cliente.enviarMensaje("exit");
-            cliente.finishListenClient();
+            cliente.finishListeningClient();
         }
-        socket_server.close();
+        serverSocket.close();
     }
 
     public void addServerSocketListener(ServerSocketListener listener) {

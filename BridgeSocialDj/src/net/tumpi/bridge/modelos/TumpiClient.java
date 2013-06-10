@@ -1,4 +1,4 @@
-package Modelos;
+package net.tumpi.bridge.modelos;
 
 import java.util.Objects;
 

@@ -1,18 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package Managers;
+package net.tumpi.bridge.managers;
 
-import Modelos.TumpiClient;
-import Modelos.TumpiServer;
-import conexion.Cliente;
-import conexion.ServerSocketListener;
-import conexion.SocketServidor;
+import net.tumpi.bridge.modelos.TumpiClient;
+import net.tumpi.bridge.modelos.TumpiServer;
+import net.tumpi.bridge.conexion.Cliente;
+import net.tumpi.bridge.conexion.ServerSocketListener;
+import net.tumpi.bridge.conexion.SocketServidor;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import net.tumpi.bridge.config.Config;
 
 /**
  *
@@ -20,17 +18,18 @@ import java.util.Set;
  */
 public class ServerManager implements ServerSocketListener {
 
-    private ArrayList<TumpiServer> servidores;
+    private ConcurrentHashMap<String, TumpiServer> servidores;
     private SocketServidor socket;
+    private Config config;
 
     public ServerManager() {
-        servidores = new ArrayList();
-
+        servidores = new ConcurrentHashMap<>();
+        config = Config.instance();
     }
 
     public boolean arrancarBridge() {
         try {
-            socket = new SocketServidor(2222);
+            socket = new SocketServidor(config.getPuerto());
             socket.addServerSocketListener(this);
             socket.startSearchClients();
 
@@ -57,7 +56,7 @@ public class ServerManager implements ServerSocketListener {
                 break;
             case "s":
                 if (!isServer(nick)) {
-                    servidores.add(new TumpiServer(nick, id));
+                    servidores.put(id, new TumpiServer(nick, id));
                     sendLoginResponse(id, 1);
                 } else {
                     sendLoginResponse(id, 0);
@@ -102,9 +101,9 @@ public class ServerManager implements ServerSocketListener {
         }
     }
 
-    private void sendClientNotification(String id_server, String id_cliente, String estado) {
+    private void sendClientNotification(String idServer, String idCliente, String estado) {
         try {
-            socket.enviarMensajeServer(id_server, "b:client_" + estado + "|" + id_cliente);
+            socket.enviarMensajeServer(idServer, "b:client_" + estado + "|" + idCliente);
         } catch (IOException ex) {
             System.out.println("Error al enviar la notificacion de nuevo cliente: " + ex);
         }
@@ -122,8 +121,8 @@ public class ServerManager implements ServerSocketListener {
     public void onMessageReceived(String id, String message) {
         System.out.println("Mensaje recibido de " + id + " : " + message);
         String tipo = getType(message);
-        String id_dest = getId(message);
-        switch (id_dest) {
+        String idDest = getId(message);
+        switch (idDest) {
             case "log":
                 procesarLogIn(id, tipo, getMessage(message));
                 break;
@@ -131,7 +130,7 @@ public class ServerManager implements ServerSocketListener {
                 procesarExit(id);
                 break;
             default:
-                procesarMessage(id, tipo, id_dest, getMessage(message));
+                procesarMessage(id, tipo, idDest, getMessage(message));
                 break;
         }
     }
@@ -157,9 +156,10 @@ public class ServerManager implements ServerSocketListener {
             } catch (IOException ex) {
                 System.out.println("Error al desconectar al cliente");
             }
-            servidores.remove(server);
+            servidores.remove(id);
         } else {
-            for (TumpiServer server : servidores) {
+            Collection<TumpiServer> values = servidores.values();
+            for (TumpiServer server : values) {
                 if (server.isClient(id)) {
                     server.removeCliente(id);
                     sendClientNotification(server.id, id, "off");
@@ -171,21 +171,11 @@ public class ServerManager implements ServerSocketListener {
     }
 
     private boolean isServer(String id) {
-        for (TumpiServer server : servidores) {
-            if (server.nombre.equals(id) || server.id.equals(id)) {
-                return true;
-            }
-        }
-        return false;
+        return servidores.contains(id);
     }
 
     private TumpiServer getServer(String id) {
-        for (TumpiServer server : servidores) {
-            if (server.nombre.equals(id) || server.id.equals(id)) {
-                return server;
-            }
-        }
-        return null;
+        return servidores.get(id);
     }
 
     private String getMessage(String men) {
