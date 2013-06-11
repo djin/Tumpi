@@ -9,6 +9,8 @@
     <color name="rowPulsado">#f88e06</color>
     <color name="btnReproductorPulsadoInicio">#77b7760f</color>
     <color name="btnReproductorPulsadoFin">#776e5735</color>
+	<color name="colorTextNombreListas">#fff</color>
+    <color name="colorLetraPrincipal">#232323</color>
     <color name="btnReproductorNormal">#00000000</color>
     <color name="btnMenuNormal">#00000000</color>
     <color name="btnMenuPulsado">#776e5735</color>

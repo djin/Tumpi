@@ -82,8 +82,8 @@ public class AdaptadorLista extends BaseAdapter {
             btn.setImageDrawable(null);
             btn.setEnabled(false);
         } else {
-            txt.setTextColor(mContext.getResources().getColor(R.color.colorTextNormalCancionCliente));
-            txtAutor.setTextColor(mContext.getResources().getColor(R.color.colorTextNormalCancionCliente));
+            txt.setTextColor(mContext.getResources().getColor(R.color.colorLetraRowCancionesCliente));
+            txtAutor.setTextColor(mContext.getResources().getColor(R.color.colorLetraRowCancionesClienteSecundaria));
             if (getDatos().get(position).getVotado()) {
                 btn.setImageResource(R.raw.ico_small_star_focus);
 //                btn.setBackgroundColor(Color.BLACK);

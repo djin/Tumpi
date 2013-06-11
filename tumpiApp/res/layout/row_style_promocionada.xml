@@ -17,6 +17,7 @@
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:textSize="15dp"
+                  android:textColor="@color/colorLetraPrincipal"
                   android:text="HUEAEA"
                   android:singleLine="true"
                   android:ellipsize="marquee"

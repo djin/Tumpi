@@ -1,65 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <color name="colorTituloInicio">#aa84d1</color>
-    <color name="colorTituloFin">#9b6ec8</color>
-    <color name="colorLetraSecundaria">#ff909190</color>
-    <color name="colorFondoReproductorInicio">#ff995ad7</color>
-    <color name="colorFondoReproductorFin">#ff61259c</color>
+    <color name="colorTituloInicio">#24f400</color>
+    <color name="colorTituloFin">#24f400</color>
+    
+    <color name="colorLetraPrincipal">#fff</color>
+    <color name="colorLetraSecundaria">#d1d1d1</color>
+    
+    <color name="colorFondoReproductorInicio">#000000</color>
+    <color name="colorFondoReproductorFin">#000000</color>
+    
     <color name="rowNormal">#00000000</color>
-    <color name="rowPulsado">#ff723ea7</color>
+    <color name="rowPulsado">#0ab623</color>
+    
     <color name="btnReproductorPulsadoInicio">#77b7760f</color>
     <color name="btnReproductorPulsadoFin">#776e5735</color>
     <color name="btnReproductorNormal">#00000000</color>
+    
     <color name="btnMenuNormal">#00000000</color>
-	<color name="colorTextNombreListas">#fff</color>
-    <color name="colorLetraPrincipal">#232323</color>
     <color name="btnMenuPulsado">#776e5735</color>
+    
     <color name="colorFondoRowFinal">#00000000</color>
+    
     <color name="colorLetraMensaje">#ff3f225c</color>
-    <color name="colorFondolista">#ffd8c7ea</color>
+    
+    <color name="colorFondolista">#000000</color>
+    
     <color name="colorFondoBotonInicioNormal">#ffffffff</color>
     <color name="colorFondoBotonFinNormal">#ffffffff</color>
     <color name="colorFondoBotonInicioPulsado">#fffbf0de</color>
     <color name="colorFondoBotonFinPulsado">#fff6dfba</color>
+    
     <color name="colorFondoItemMenuInicioNormal">#00000000</color>
     <color name="colorFondoItemMenuFinNormal">#00000000</color>
     <color name="colorFondoItemMenuInicioPulsado">#ffebb65f</color>
     <color name="colorFondoItemMenuFinPulsado">#ffebb65f</color>
+    
     <color name="colorFondoSpinnerFin">#ffe4e4e4</color>
     <color name="colorFondoSpinnerInicio">#ffe4e4e4</color>
+    
     <color name="colorFondoInicioSeleccion">#ff3a3a3a</color>
     <color name="colorFondoMedioSeleccion">#ff494949</color>
     <color name="colorFondoFinSeleccion">#ff3a3a3a</color>
+    
     <color name="colorFondoBotonServerFinPulsado">#ffcf9e53</color>
     <color name="colorFondoBotonServerInicioPulsado">#ffffffff</color>
     <color name="colorFondoBotonServerInicio">#ffffffff</color>
     <color name="colorFondoBotonServerFin">#ffffffff</color>
+    
     <color name="colorFondoBotonClienteFinPulsado">#ffcf9e53</color>
     <color name="colorFondoBotonClienteInicioPulsado">#ffffffff</color>
     <color name="colorFondoBotonClienteInicio">#ffffffff</color>
     <color name="colorFondoBotonClienteFin">#ffffffff</color> 
-    <color name="colorLineaDivisoriaCliente">#ff9b6ec9</color>
-    <color name="colorFondoCancionReproduciendoClienteInicio">#ff995ad7</color>
-    <color name="colorFondoCancionReproduciendoClienteFin">#ff61259c</color>
-    <color name="colorLineaDivisoriaListaReproduciendoCliente">#ffd8c7ea</color>
-    <color name="colorLineaDivisoriaVotosServidor">#ff9b6ec9</color>
-    <color name="colorLetraVotos">#909190</color>
-    <color name="colorLetraRowCancionesCliente">#ffE6E6E6</color>
-    <color name="colorLetraRowCancionesClienteSecundaria">#ffE6E6E6</color>
+    
+    <!--linea entre rows de la lista del cliente-->
+    <color name="colorLineaDivisoriaCliente">#000</color>
+    
+    <color name="colorFondoCancionReproduciendoClienteInicio">#000000</color>
+    <color name="colorFondoCancionReproduciendoClienteFin">#000000</color>
+    
+    <color name="colorLineaDivisoriaListaReproduciendoCliente">#24f400</color>
+    
+    <color name="colorLineaDivisoriaVotosServidor">#000</color>
+    
+    <color name="colorLetraVotos">#fff</color>
+    
+    <color name="colorLetraRowCancionesCliente">#fff</color>
+    <color name="colorLetraRowCancionesClienteSecundaria">#d1d1d1</color>
+    
     <color name="colorLetraPantallaInicial">#fff</color>
+    
+    <!--linea del alert para crear listas-->
     <color name="colorLineaDivisoriaMensajeCrearLista">#ff9b6ec9</color>
-    <color name="colorTextoColumnasPromocionadaServidor">#fff</color>
+    
+    <color name="colorTextoColumnasPromocionadaServidor">#000</color>
+    <color name="colorTextNombreListas">#000</color>
+    
     <color name="colorTextBotonCrearLista">#ff6D6D6D</color>
-    <color name="colorLineaDivisoriaListasServidor">#ff9b6ec9</color>
+    
+    <!--linea entre listas del servidor-->
+    <color name="colorLineaDivisoriaListasServidor">#000</color>
+    
     <color name="colorTextCancionReproduciendoServidor">#fff</color>
     <color name="colorTextCancionReproduciendoServidorSecundaria">#fff</color>
+    
+    <!--linea del alert para crear poner el nombre del servidor-->
     <color name="colorLineaDivisoriaNombreServidor">#ff9b6ec9</color>
+    
     <color name="colorTextSonadoCliente">#ffe5e5e5</color>
     <color name="colorTextNormalCancionCliente">#636363</color>
+    
     <color name="colorTextRowSinListasCancionesServidor">#ff583082</color>
+    
     <color name="colorFondoRowSinSeleccionar">#00000000</color>
-    <color name="colorFondoRowSeleccionada">#55723ea7</color>
-    <color name="colorFondoListaCliente">#ffd8c7ea</color>
+    <color name="colorFondoRowSeleccionada">#550ab623</color>
+    
+    <color name="colorFondoListaCliente">#000</color>
+    
+    <!--estos botones realmente no sirven de nada, dejarlos asi, ya los quitaremos-->
     <color name="color1">#ff78D570</color>
     <color name="color2">#ff50A348</color>
 </resources>

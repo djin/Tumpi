@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:background="@drawable/background_panel_titulo"
-            android:textColor="#fff"
+            android:textColor="@color/colorTextNombreListas"
             android:paddingTop="4dp"
             android:paddingBottom="4dp" />
 
