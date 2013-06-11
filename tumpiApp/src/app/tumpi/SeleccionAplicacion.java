@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import app.tumpi.cliente.lista.android.ListaCanciones;
-import app.tumpi.cliente.lista.android.PantallaPrincipal;
-import static app.tumpi.cliente.lista.android.PantallaPrincipal.pd;
 import app.tumpi.cliente.lista.android.conexion.ConnectionManager;
 import app.tumpi.servidor.interfaz.social.ListaPromocionada;
 
@@ -25,10 +23,6 @@ import app.tumpi.servidor.interfaz.social.ListaPromocionada;
  */
 public class SeleccionAplicacion extends Activity {
 
-    public SeleccionAplicacion() {
-        ConnectionManager conex;
-    }
-    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +36,13 @@ public class SeleccionAplicacion extends Activity {
                 LayoutInflater inflater = (LayoutInflater) SeleccionAplicacion.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View vi = inflater.inflate(R.layout.style_view_nombre_servidor, null, false);
                 alert.setView(vi);
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     private ConnectionManager conex;
                     public void onClick(DialogInterface dialog, int whichButton) {
                         EditText input = (EditText) vi.findViewById(R.id.txtInputNombreServidor);
                         final String value = input.getText().toString();
                         if (!value.equals("")) {
-                            pd = ProgressDialog.show(SeleccionAplicacion.this, "Conectando", "Espere unos segundos...", true, false);
+                            final ProgressDialog pd = ProgressDialog.show(SeleccionAplicacion.this, "Conectando", "Espere unos segundos...", true, false);
                             conex = new ConnectionManager();
                             v.postDelayed(new Runnable() {
                                 public void run() {
@@ -87,7 +81,7 @@ public class SeleccionAplicacion extends Activity {
                     }
                 });
 
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.cancel();
                     }
