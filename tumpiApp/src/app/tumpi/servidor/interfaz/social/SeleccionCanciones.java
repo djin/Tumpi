@@ -47,8 +47,8 @@ public class SeleccionCanciones extends ListActivity {
         explorer = AudioExplorer.getInstance(this.getApplicationContext());
         ArrayList<HashMap> canciones = explorer.searchAudio();
         for (HashMap cancion : canciones) {
-            datos.add(new Cancion(0, (String) cancion.get("name"), (String) cancion.get("album"), (Integer) cancion.get("album_id"),
-                    (String) cancion.get("artist"), Integer.parseInt((String) cancion.get("length")), (String) cancion.get("path")));
+            datos.add(new Cancion(0, parsearDato((String) cancion.get("name")), parsearDato((String) cancion.get("album")), (Integer) cancion.get("album_id"),
+                    parsearDato((String) cancion.get("artist")), Integer.parseInt((String) cancion.get("length")), (String) cancion.get("path")));
         }
         adapter = new AdaptadorListaSeleccionar(this, datos, R.layout.row_style_seleccion);
         setListAdapter(adapter);
@@ -87,7 +87,7 @@ public class SeleccionCanciones extends ListActivity {
         });
         return true;
     }
-    
+
     public void buscarQuery(String query) {
         ArrayList<Cancion> cancionesEncontradas = new ArrayList<Cancion>();
         query = query.toUpperCase();
@@ -108,6 +108,14 @@ public class SeleccionCanciones extends ListActivity {
             }
         }
         return canciones;
+    }
+
+    private String parsearDato(String dato) {
+        if (dato != null) {
+            String resultado = dato.replaceAll("[;:\\*\\|]", " ");
+            return resultado;
+        }
+        return null;
     }
 
     @Override
@@ -131,5 +139,6 @@ public class SeleccionCanciones extends ListActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
     }
 }

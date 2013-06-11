@@ -46,7 +46,16 @@ public class PlayerReproductor {
         player.prepareMedia(mrl);
         player.parseMedia();
         metadata = player.getMediaMeta();
-        cancion = new Cancion(0, metadata.getTitle(), metadata.getAlbum(), metadata.getArtist(), player.getLength(), mrl);
+        cancion = new Cancion(0,parsearDato(metadata.getTitle()), parsearDato(metadata.getAlbum()), 
+                parsearDato(metadata.getArtist()), player.getLength(), mrl);
         return cancion;
+    }
+    
+    private String parsearDato (String dato){
+        if(dato != null){
+            String resultado = dato.replaceAll("[;:\\*\\|]", " ");
+            return resultado;
+        }
+        return null;
     }
 }
