@@ -170,7 +170,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                     LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     final View v = inflater.inflate(R.layout.style_view_nombre_servidor, this.getListView(), false);
                     alert.setView(v);
-                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             EditText input = (EditText) v.findViewById(R.id.txtInputNombreServidor);
                             String value = input.getText().toString();
@@ -191,7 +191,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                         }
                     });
 
-                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             dialog.cancel();
                         }
@@ -199,7 +199,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                     alert.show();
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "El servidor ya esta publicado: "+manager.nick, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Nombre del Tumpi: "+manager.nick, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
