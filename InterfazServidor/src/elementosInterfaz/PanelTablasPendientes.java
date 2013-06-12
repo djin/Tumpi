@@ -179,7 +179,7 @@ public class PanelTablasPendientes extends JTabbedPane implements ConjuntoListas
         textoInicio.setFont(new Font("", Font.BOLD, 22));
         JButton image = new JButton();
         Pintado.anularPintadoBotonParaImagen(image, "icons/anadirpestana.png", "icons/anadirpestana2.png", new Dimension(16, 16));
-        JLabel textoInicio2 = new JLabel(" para crear tu propia lista de socialDj");
+        JLabel textoInicio2 = new JLabel(" para crear tu propia lista de Tumpi");
         textoInicio2.setFont(new Font("", Font.BOLD, 22));
         panelVacio.add(textoInicio, gbc);
         gbc.gridx++;

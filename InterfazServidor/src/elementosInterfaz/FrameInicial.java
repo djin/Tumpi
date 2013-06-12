@@ -17,7 +17,7 @@ public class FrameInicial extends JFrame {
         setUndecorated(true);
         Image icon = Imagenes.getImagen("icons/socialDJ.png").getImage();
         setIconImage(icon);
-        setTitle("socialDj Loader");
+        setTitle("Tumpi Loader");
         setLocation(500, 300);
         getContentPane().add(new PanelInicial());
         setVisible(true);
