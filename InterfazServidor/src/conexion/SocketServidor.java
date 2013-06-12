@@ -96,13 +96,13 @@ public class SocketServidor {
                 logIn = false;
             }
         } catch (IOException ex) {
-            System.err.println("El logIn no funciono: "+ex);
+            System.err.println("El logIn no funciono: " + ex);
             logIn = false;
         }
         return logIn;
     }
 
-    private void mensajeRecivido(String mensaje) {
+    private void mensajeRecibido(String mensaje) {
         if ("b".equals(mensaje.split("\\:")[0])) {
             String tipo = mensaje.substring(mensaje.indexOf(":") + 1, mensaje.indexOf("|"));
             System.out.println("Bridge: " + mensaje);
@@ -130,13 +130,13 @@ public class SocketServidor {
                     try {
                         socket_server.setSoTimeout(0);
                         mensaje = input.readUTF();
-                        mensajeRecivido(mensaje);
+                        mensajeRecibido(mensaje);
                     } catch (IOException ex) {
                         try {
-                            System.err.println("Error al escuchar al bridge 1: "+ex);
+                            System.err.println("Error al escuchar al bridge 1: " + ex);
                             closeSocket();
                         } catch (IOException ex1) {
-                            System.err.println("Error al escuchar al bridge 2: "+ex1);
+                            System.err.println("Error al escuchar al bridge 2: " + ex1);
                         }
                         thread_server = null;
                     }

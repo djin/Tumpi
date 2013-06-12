@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import conexion.BridgeListener;
 import conexion.ConnectionManager;
 import conexion.ServerSocketListener;
 import elementosInterfaz.ReproductorPanel;
@@ -36,11 +37,12 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
     private HashMap<String, ArrayList> votos_cliente;
     private static ListaPromocionada lista_sonando;
     private static ConjuntoListas listas_canciones;
-    private ConnectionManager conection;
+    private ConnectionManager connection;
     private PlayerReproductor reproductor;
     private static boolean hay_lista_promocionada;
     private static String nombre_servidor;
     private String path;
+    private ArrayList<BridgeListener> listeners = new ArrayList();
 
     private ListasCancionesManager() {
 
@@ -48,14 +50,15 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         votos_cliente = new HashMap<String, ArrayList>();
         listas_canciones = new ConjuntoListas();
         lista_sonando = new ListaPromocionada();
-        conection = new ConnectionManager();
+        connection = new ConnectionManager();
         hay_lista_promocionada = false;
         nombre_servidor = "servidor";
     }
 
-    public void inicializarListas(){
+    public void inicializarListas() {
         listas_canciones.inicializar(FicherosManager.cargarSesion());
     }
+
     public void promocionarLista(int id_lista) {
 
         if (!listas_canciones.estaVacia() && !listas_canciones.getLista(id_lista).getCanciones().isEmpty()) {
@@ -63,7 +66,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             getLista_sonando().NuevasCanciones(listas_canciones.getLista(id_lista));
             hay_lista_promocionada = true;
             try {
-                conection.getSocket().enviarMensajeServer("*", "0|" + getLista_sonando());
+                connection.getSocket().enviarMensajeServer("*", "0|" + getLista_sonando());
             } catch (Exception ex) {
                 System.err.println("Error al enviar la lista: " + ex.toString());
             }
@@ -97,7 +100,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             ReproductorPanel.artist.setText(cancion.getArtista());
 
             try {
-                conection.getSocket().enviarMensajeServer("*", "2|" + cancion.getId());
+                connection.getSocket().enviarMensajeServer("*", "2|" + cancion.getId());
             } catch (Exception ex) {
                 System.err.println("Error al enviar la cancion a reproducir: " + ex);
             }
@@ -200,7 +203,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
         String nombre = (String) pane.getInputValue();
-        
+
         if (nombre != null && !nombre.equals("") && !nombre.equals("uninitializedValue")) {
             listas_canciones.addLista(nombre);
             FicherosManager.guardarSesion(listas_canciones.getListas());
@@ -228,9 +231,10 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
             nombre_servidor = (String) pane.getInputValue();
-            if (conection.getSocket().logIn(nombre_servidor)) {
-                conection.getSocket().addServerSocketListener(this);
-                conection.getSocket().startListenBridge();
+            if (connection.getSocket().logIn(nombre_servidor)) {
+                connection.getSocket().addServerSocketListener(this);
+                connection.getSocket().startListenBridge();
+                fireBridgeConnectedEvent(nombre_servidor);
             }
         } catch (Exception ex) {
             System.out.println("Error al loggearte: " + ex);
@@ -394,37 +398,37 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                 case 0:
                     if (lista_sonando != null) {
                         System.out.println("0|" + lista_sonando.toString());
-                        conection.getSocket().enviarMensajeServer(ip, "0|" + lista_sonando.toString());
+                        connection.getSocket().enviarMensajeServer(ip, "0|" + lista_sonando.toString());
                     }
                     if (lista_sonando.getCancionSonando() != null) {
-                        conection.getSocket().enviarMensajeServer(ip, "4|" + lista_sonando.getCancionSonando().toString());
+                        connection.getSocket().enviarMensajeServer(ip, "4|" + lista_sonando.getCancionSonando().toString());
                     }
                     if (_votos_cliente != null) {
                         for (int id_cancion : _votos_cliente) {
-                            conection.getSocket().enviarMensajeServer(ip, "1|" + id_cancion);
+                            connection.getSocket().enviarMensajeServer(ip, "1|" + id_cancion);
                         }
                     }
                     break;
                 case 1:
                     int id_cancion = Integer.parseInt(message);
                     if (lista_sonando.añadirVoto(id_cancion, true)) {
-                        conection.getSocket().enviarMensajeServer(ip, "1|" + message);
+                        connection.getSocket().enviarMensajeServer(ip, "1|" + message);
                         if (_votos_cliente != null && !_votos_cliente.contains(id_cancion)) {
                             _votos_cliente.add(id_cancion);
                         }
                     } else {
-                        conection.getSocket().enviarMensajeServer(ip, "1|0");
+                        connection.getSocket().enviarMensajeServer(ip, "1|0");
                     }
                     break;
                 case 3:
                     id_cancion = Integer.parseInt(message);
                     if (lista_sonando.añadirVoto(id_cancion, false)) {
-                        conection.getSocket().enviarMensajeServer(ip, "3|" + message);
+                        connection.getSocket().enviarMensajeServer(ip, "3|" + message);
                         if (_votos_cliente != null) {
                             _votos_cliente.remove((Integer) id_cancion);
                         }
                     } else {
-                        conection.getSocket().enviarMensajeServer(ip, "3|0");
+                        connection.getSocket().enviarMensajeServer(ip, "3|0");
                     }
                     break;
             }
@@ -464,7 +468,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
     }
 
     public ConnectionManager getConector() {
-        return conection;
+        return connection;
     }
 
     public String getPath() {
@@ -473,5 +477,19 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
 
     public void setPath(String aPath) {
         path = aPath;
+    }
+
+    public void addBridgeListener(BridgeListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeBridgeListener(BridgeListener listener) {
+        listeners.remove(listener);
+    }
+
+    public void fireBridgeConnectedEvent(String nombre) {
+        for (BridgeListener listener : listeners) {
+            listener.onBridgeConnected(nombre);
+        }
     }
 }

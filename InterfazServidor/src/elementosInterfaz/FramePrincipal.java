@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package elementosInterfaz;
 
+import conexion.BridgeListener;
 import conexion.ConnectionManager;
 import ficheros.FicherosManager;
 import java.awt.*;
@@ -19,7 +16,7 @@ import modelos.ListasCancionesManager;
  *
  * @author 66786575
  */
-public class FramePrincipal extends JFrame implements WindowListener {
+public class FramePrincipal extends JFrame implements WindowListener, BridgeListener {
 
     private JPanel panel = (JPanel) this.getContentPane();
     private ListasCancionesManager listas_manager;
@@ -28,6 +25,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
     private ReproductorPanel panelReproductor;
     private Menus barramenus;
     private Dimension screen, ladoIzquierdo;
+    private JLabel estadoConexion ;
     ConnectionManager server = null;
     int puerto_socket = 2222;
 
@@ -68,7 +66,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         panelBotonPromocion.add(botonPromocion, gbc);
         panel.add(panelBotonPromocion, BorderLayout.CENTER);
 
-        
+
         JPanel pestanasBotones = new JPanel(new BorderLayout());
         JButton anadirCancion = new JButton(new AbstractAction() {
             @Override
@@ -135,7 +133,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
         scrollSonando.setPreferredSize(ladoIzquierdo);
         panel.add(scrollSonando, BorderLayout.WEST);
     }
-    
+
     private void iniciarConexion() {
 
         try {
@@ -224,6 +222,15 @@ public class FramePrincipal extends JFrame implements WindowListener {
                 ventana.setVisible(true);
             }
         });
+        
+        JPanel panelEstadoConexion = new JPanel(new BorderLayout());
+        estadoConexion = new JLabel("No has creado ningún Tumpi.");
+        
+        listas_manager.addBridgeListener(this);
+
+        panelEstadoConexion.add(estadoConexion, BorderLayout.LINE_END);
+
+        barramenus.add(panelEstadoConexion);
         barramenus.add(botonesVentana());
         setJMenuBar(barramenus);
 
@@ -256,7 +263,7 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
         return panelBotonesVentana;
     }
-    
+
     private void cerrarConexion() {
 
         FicherosManager.guardarPreferencias();
@@ -300,5 +307,10 @@ public class FramePrincipal extends JFrame implements WindowListener {
 
     @Override
     public void windowDeactivated(WindowEvent we) {
+    }
+
+    @Override
+    public void onBridgeConnected(String nombre) {
+        estadoConexion.setText("Conectado al Tumpi:  "+nombre);
     }
 }
