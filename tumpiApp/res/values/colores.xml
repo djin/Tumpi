@@ -7,8 +7,8 @@
     <color name="colorFondoReproductorFin">#0c909c</color>
     <color name="rowNormal">#00000000</color>
     <color name="rowPulsado">#15dcee</color>
-    <color name="btnReproductorPulsadoInicio">#77b7760f</color>
-    <color name="btnReproductorPulsadoFin">#776e5735</color>
+    <color name="btnReproductorPulsadoInicio">#770d6067</color>
+    <color name="btnReproductorPulsadoFin">#770a474c</color>
     <color name="btnReproductorNormal">#00000000</color>
     <color name="btnMenuNormal">#00000000</color>
     <color name="colorTextNombreListas">#fff</color>
@@ -19,8 +19,8 @@
     <color name="colorFondolista">#f0fcfd</color>
     <color name="colorFondoBotonInicioNormal">#ffffffff</color>
     <color name="colorFondoBotonFinNormal">#ffffffff</color>
-    <color name="colorFondoBotonInicioPulsado">#fffbf0de</color>
-    <color name="colorFondoBotonFinPulsado">#fff6dfba</color>
+    <color name="colorFondoBotonInicioPulsado">#f0fcfd</color>
+    <color name="colorFondoBotonFinPulsado">#d6f6f9</color>
     <color name="colorFondoItemMenuInicioNormal">#00000000</color>
     <color name="colorFondoItemMenuFinNormal">#00000000</color>
     <color name="colorFondoItemMenuInicioPulsado">#ffebb65f</color>
