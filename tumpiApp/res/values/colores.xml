@@ -44,8 +44,8 @@
     <color name="colorLineaDivisoriaListaReproduciendoCliente">#fffbf0de</color>
     <color name="colorLineaDivisoriaVotosServidor">#ffDBDBDB</color>
     <color name="colorLetraVotos">#909190</color>
-    <color name="colorLetraRowCancionesCliente">#ffE6E6E6</color>
-    <color name="colorLetraRowCancionesClienteSecundaria">#ffE6E6E6</color>
+    <color name="colorLetraRowCancionesCliente">#ff707070</color>
+    <color name="colorLetraRowCancionesClienteSecundaria">#ffa8a8a8</color>
     <color name="colorLetraPantallaInicial">#fff</color>
     <color name="colorLineaDivisoriaMensajeCrearLista">#ffe9aa43</color>
     <color name="colorTextoColumnasPromocionadaServidor">#fff</color>
