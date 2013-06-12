@@ -128,8 +128,6 @@ C:\Users\66785320\Documents\GitHub\Tumpi\tumpiApp\res\layout\row_style_promocion
 C:\Users\66785320\Documents\GitHub\Tumpi\tumpiApp\res\layout\row_style_seleccion.xml \
 C:\Users\66785320\Documents\GitHub\Tumpi\tumpiApp\res\layout\seleccionar_aplicacion.xml \
 C:\Users\66785320\Documents\GitHub\Tumpi\tumpiApp\res\layout\settings.xml \
-C:\Users\66785320\Documents\GitHub\Tumpi\tumpiApp\res\layout\stylepantallaconexion.xml \
-C:\Users\66785320\Documents\GitHub\Tumpi\tumpiApp\res\layout\stylepantallainicial.xml \
 C:\Users\66785320\Documents\GitHub\Tumpi\tumpiApp\res\layout\style_alert_crear_lista.xml \
 C:\Users\66785320\Documents\GitHub\Tumpi\tumpiApp\res\layout\style_listas_preparacion.xml \
 C:\Users\66785320\Documents\GitHub\Tumpi\tumpiApp\res\layout\style_lista_promocionada.xml \

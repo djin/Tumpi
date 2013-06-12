@@ -146,18 +146,13 @@ public final class R {
         public static final int autorName=0x7f090020;
         public static final int botonIniciarCliente=0x7f090024;
         public static final int botonIniciarServidor=0x7f090023;
-        public static final int btnAntiguaConexion=0x7f090036;
-        public static final int btnConectar=0x7f090030;
         public static final int btnFav=0x7f090004;
         public static final int btnNext=0x7f09002b;
         public static final int btnPlay=0x7f09002a;
-        public static final int btnSettings=0x7f090037;
+        public static final int btnSettings=0x7f09002e;
         public static final int btnVotar=0x7f090021;
         public static final int btnshare=0x7f090005;
         public static final int caratulaDisco=0x7f090027;
-        public static final int fieldIp=0x7f09002e;
-        public static final int fieldPort=0x7f09002f;
-        public static final int img=0x7f090033;
         public static final int itemAceptarSeleccion=0x7f09000a;
         public static final int itemBorrar=0x7f090010;
         public static final int itemBorrarLista=0x7f090012;
@@ -174,9 +169,6 @@ public final class R {
         public static final int pager=0x7f090000;
         public static final int pager_title_strip=0x7f090001;
         public static final int songName=0x7f09001f;
-        public static final int stngBtn=0x7f090031;
-        public static final int text=0x7f090032;
-        public static final int text2=0x7f090034;
         public static final int textNombreAlbum=0x7f090015;
         public static final int textNombreAlbumPromocionada=0x7f090019;
         public static final int textNombreAlbumSeleccion=0x7f09001d;
@@ -193,7 +185,6 @@ public final class R {
         public static final int txtInputNombreServidor=0x7f09002d;
         public static final int txtNombreAlbumReproduciendo=0x7f090029;
         public static final int txtNombreCancionReproduciendo=0x7f090028;
-        public static final int txtNombreServer=0x7f090035;
         public static final int txtNumeroVotos=0x7f09001a;
         public static final int txtPlaying=0x7f090002;
         public static final int txtPlayingAutor=0x7f090003;
@@ -221,8 +212,6 @@ public final class R {
         public static final int style_row_spinner=0x7f030011;
         public static final int style_seleccionar_canciones=0x7f030012;
         public static final int style_view_nombre_servidor=0x7f030013;
-        public static final int stylepantallaconexion=0x7f030014;
-        public static final int stylepantallainicial=0x7f030015;
     }
     public static final class menu {
         public static final int action=0x7f080000;
