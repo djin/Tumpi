@@ -116,11 +116,13 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
     public void desapareceMenu() {
         menuApp.getItem(0).setVisible(false);
         menuApp.getItem(1).setVisible(false);
+        menuApp.getItem(2).setVisible(true);
     }
 
     public void apareceMenu() {
         menuApp.getItem(0).setVisible(true);
         menuApp.getItem(1).setVisible(true);
+        menuApp.getItem(2).setVisible(false);
     }
 
     public void borrarCanciones() {
