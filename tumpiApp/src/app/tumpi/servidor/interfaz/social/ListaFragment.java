@@ -87,6 +87,10 @@ public class ListaFragment extends ListFragment {
             if (modoSeleccion) {
                 if (adapter.seleccionados.get(position)) {
                     adapter.seleccionados.set(position, false);
+                    if(!adapter.seleccionados.contains(true)){
+                    modoSeleccion = false;
+                    manejador.finModoSeleccion();
+                }
                 } else {
                     adapter.seleccionados.set(position, true);
                 }

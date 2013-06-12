@@ -214,6 +214,10 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         if (modoSeleccion) {
             if (adapter.seleccionados.get(position)) {
                 adapter.seleccionados.set(position, false);
+                if(!adapter.seleccionados.contains(true)){
+                    modoSeleccion = false;
+                    desapareceMenu();
+                }
             } else {
                 adapter.seleccionados.set(position, true);
             }
