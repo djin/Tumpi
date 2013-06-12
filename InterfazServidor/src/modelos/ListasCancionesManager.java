@@ -489,7 +489,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
 
     public void fireBridgeConnectedEvent(String nombre) {
         for (BridgeListener listener : listeners) {
-            listener.onBridgeConnected(nombre);
+            listener.onBridgeLogIn(nombre);
         }
     }
 }

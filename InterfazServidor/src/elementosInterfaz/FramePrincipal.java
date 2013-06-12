@@ -310,7 +310,7 @@ public class FramePrincipal extends JFrame implements WindowListener, BridgeList
     }
 
     @Override
-    public void onBridgeConnected(String nombre) {
+    public void onBridgeLogIn(String nombre) {
         estadoConexion.setText("Conectado al Tumpi:  "+nombre);
     }
 }
