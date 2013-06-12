@@ -103,44 +103,42 @@ public final class R {
         public static final int caratula_default_old=0x7f020018;
         public static final int conectado=0x7f020019;
         public static final int estilo_item_action_bar=0x7f02001a;
-        public static final int estiloboton1=0x7f02001b;
-        public static final int estiloboton2=0x7f02001c;
-        public static final int gif_desvotando=0x7f02001d;
-        public static final int gif_votando=0x7f02001e;
-        public static final int ic_launcher=0x7f02001f;
-        public static final int image_aceptar=0x7f020020;
-        public static final int image_add=0x7f020021;
-        public static final int image_cancel=0x7f020022;
-        public static final int image_conectar=0x7f020023;
-        public static final int image_delete=0x7f020024;
-        public static final int image_menu=0x7f020025;
-        public static final int image_next=0x7f020026;
-        public static final int image_pause=0x7f020027;
-        public static final int image_play=0x7f020028;
-        public static final int image_search=0x7f020029;
-        public static final int image_search_list=0x7f02002a;
-        public static final int image_select_all=0x7f02002b;
-        public static final int image_spinner=0x7f02002c;
-        public static final int list_focused_socialmanagertheme=0x7f02002d;
-        public static final int logo_tumpi=0x7f02002e;
-        public static final int menu_dropdown_panel_socialmanagertheme=0x7f02002f;
-        public static final int pressed_background_socialmanagertheme=0x7f020030;
-        public static final int progress_bg_socialmanagertheme=0x7f020031;
-        public static final int progress_horizontal_socialmanagertheme=0x7f020032;
-        public static final int progress_primary_socialmanagertheme=0x7f020033;
-        public static final int progress_secondary_socialmanagertheme=0x7f020034;
-        public static final int selectable_background_socialmanagertheme=0x7f020035;
-        public static final int spinner_ab_default_socialmanagertheme=0x7f020036;
-        public static final int spinner_ab_disabled_socialmanagertheme=0x7f020037;
-        public static final int spinner_ab_focused_socialmanagertheme=0x7f020038;
-        public static final int spinner_ab_pressed_socialmanagertheme=0x7f020039;
-        public static final int spinner_background_ab_socialmanagertheme=0x7f02003a;
-        public static final int tab_indicator_ab_socialmanagertheme=0x7f02003b;
-        public static final int tab_selected_focused_socialmanagertheme=0x7f02003c;
-        public static final int tab_selected_pressed_socialmanagertheme=0x7f02003d;
-        public static final int tab_selected_socialmanagertheme=0x7f02003e;
-        public static final int tab_unselected_focused_socialmanagertheme=0x7f02003f;
-        public static final int tab_unselected_pressed_socialmanagertheme=0x7f020040;
+        public static final int gif_desvotando=0x7f02001b;
+        public static final int gif_votando=0x7f02001c;
+        public static final int ic_launcher=0x7f02001d;
+        public static final int image_aceptar=0x7f02001e;
+        public static final int image_add=0x7f02001f;
+        public static final int image_cancel=0x7f020020;
+        public static final int image_conectar=0x7f020021;
+        public static final int image_delete=0x7f020022;
+        public static final int image_menu=0x7f020023;
+        public static final int image_next=0x7f020024;
+        public static final int image_pause=0x7f020025;
+        public static final int image_play=0x7f020026;
+        public static final int image_search=0x7f020027;
+        public static final int image_search_list=0x7f020028;
+        public static final int image_select_all=0x7f020029;
+        public static final int image_spinner=0x7f02002a;
+        public static final int list_focused_socialmanagertheme=0x7f02002b;
+        public static final int logo_tumpi=0x7f02002c;
+        public static final int menu_dropdown_panel_socialmanagertheme=0x7f02002d;
+        public static final int pressed_background_socialmanagertheme=0x7f02002e;
+        public static final int progress_bg_socialmanagertheme=0x7f02002f;
+        public static final int progress_horizontal_socialmanagertheme=0x7f020030;
+        public static final int progress_primary_socialmanagertheme=0x7f020031;
+        public static final int progress_secondary_socialmanagertheme=0x7f020032;
+        public static final int selectable_background_socialmanagertheme=0x7f020033;
+        public static final int spinner_ab_default_socialmanagertheme=0x7f020034;
+        public static final int spinner_ab_disabled_socialmanagertheme=0x7f020035;
+        public static final int spinner_ab_focused_socialmanagertheme=0x7f020036;
+        public static final int spinner_ab_pressed_socialmanagertheme=0x7f020037;
+        public static final int spinner_background_ab_socialmanagertheme=0x7f020038;
+        public static final int tab_indicator_ab_socialmanagertheme=0x7f020039;
+        public static final int tab_selected_focused_socialmanagertheme=0x7f02003a;
+        public static final int tab_selected_pressed_socialmanagertheme=0x7f02003b;
+        public static final int tab_selected_socialmanagertheme=0x7f02003c;
+        public static final int tab_unselected_focused_socialmanagertheme=0x7f02003d;
+        public static final int tab_unselected_pressed_socialmanagertheme=0x7f02003e;
     }
     public static final class id {
         public static final int autorName=0x7f090020;
@@ -234,29 +232,27 @@ public final class R {
         public static final int imgp=0x7f04000d;
     }
     public static final class string {
-        public static final int app_name=0x7f070000;
-        public static final int datos=0x7f070002;
-        public static final int entrar=0x7f070003;
-        public static final int settings=0x7f070001;
+        public static final int app_name=0x7f060000;
+        public static final int datos=0x7f060002;
+        public static final int entrar=0x7f060003;
+        public static final int settings=0x7f060001;
     }
     public static final class style {
-        public static final int ActionBar_Solid_Socialmanagertheme=0x7f060005;
-        public static final int ActionBar_Transparent_Socialmanagertheme=0x7f060006;
-        public static final int ActionBarTabStyle_Socialmanagertheme=0x7f060009;
-        public static final int ActionButton_CloseMode_Socialmanagertheme=0x7f06000c;
-        public static final int DropDownListView_Socialmanagertheme=0x7f060008;
-        public static final int DropDownNav_Socialmanagertheme=0x7f06000a;
-        public static final int PopupMenu_Socialmanagertheme=0x7f060007;
-        public static final int ProgressBar_Socialmanagertheme=0x7f06000b;
-        public static final int Theme_Socialmanagertheme=0x7f060004;
+        public static final int ActionBar_Solid_Socialmanagertheme=0x7f070003;
+        public static final int ActionBar_Transparent_Socialmanagertheme=0x7f070004;
+        public static final int ActionBarTabStyle_Socialmanagertheme=0x7f070007;
+        public static final int ActionButton_CloseMode_Socialmanagertheme=0x7f07000a;
+        public static final int DropDownListView_Socialmanagertheme=0x7f070006;
+        public static final int DropDownNav_Socialmanagertheme=0x7f070008;
+        public static final int PopupMenu_Socialmanagertheme=0x7f070005;
+        public static final int ProgressBar_Socialmanagertheme=0x7f070009;
+        public static final int Theme_Socialmanagertheme=0x7f070002;
         /**  this style is only referenced in a Light.DarkActionBar based theme 
          */
-        public static final int Theme_Socialmanagertheme_Widget=0x7f06000d;
-        public static final int boton1=0x7f060000;
-        public static final int boton2=0x7f060001;
-        public static final int buttonActionBar=0x7f060003;
+        public static final int Theme_Socialmanagertheme_Widget=0x7f07000b;
+        public static final int buttonActionBar=0x7f070001;
         /**    <item name="android:actionDropDownStyle">@style/mySpinner</item> 
          */
-        public static final int textStyle=0x7f060002;
+        public static final int textStyle=0x7f070000;
     }
 }
