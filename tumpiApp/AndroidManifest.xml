@@ -29,14 +29,8 @@
             android:label="@string/app_name"
             android:screenOrientation="nosensor">
         </activity>
-        <activity android:name=".cliente.lista.android.PantallaPrincipal"
-                  android:label="@string/app_name">
-        </activity>
         <activity android:name=".cliente.lista.android.ListaCanciones"
             android:label="@string/app_name">
-        </activity>
-        <activity android:name=".cliente.lista.android.PantallaDatosServidor"
-            android:label="@string/datos">
         </activity>
         <activity android:name=".cliente.lista.android.Settings"
             android:label="@string/settings">
