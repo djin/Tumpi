@@ -108,8 +108,9 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.menu_promocionada, menu);
         desapareceMenu();
-        if(manager.conectado)
-            menuApp.getItem(2).setIcon(R.drawable.conectado);  
+        if (manager.conectado) {
+            menuApp.getItem(2).setIcon(R.drawable.conectado);
+        }
         return true;
     }
 
@@ -167,7 +168,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                 desapareceMenu();
                 return true;
             case R.id.itemConectarServidor:
-                if(!manager.conectado){
+                if (!manager.conectado) {
                     final AlertDialog.Builder alert = new AlertDialog.Builder(this);
                     LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     final View v = inflater.inflate(R.layout.style_view_nombre_servidor, this.getListView(), false);
@@ -177,12 +178,11 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                             EditText input = (EditText) v.findViewById(R.id.txtInputNombreServidor);
                             String value = input.getText().toString();
                             if (!value.equals("")) {
-                                if(manager.logInBridge(value)){
+                                if (manager.logInBridge(value)) {
                                     Toast.makeText(alert.getContext(), "Servidor conectado", Toast.LENGTH_SHORT).show();
-                                    manager.conectado=true;
+                                    manager.conectado = true;
                                     item.setIcon(R.drawable.conectado);
-                                }
-                                else{
+                                } else {
                                     Toast.makeText(alert.getContext(), "Error al publicar el servidor", Toast.LENGTH_SHORT).show();
                                     manager.cerrarConexion();
                                 }
@@ -199,9 +199,9 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                         }
                     });
                     alert.show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Nombre del Tumpi: " + manager.nick, Toast.LENGTH_SHORT).show();
                 }
-                else
-                    Toast.makeText(getApplicationContext(), "Nombre del Tumpi: "+manager.nick, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -214,7 +214,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         if (modoSeleccion) {
             if (adapter.seleccionados.get(position)) {
                 adapter.seleccionados.set(position, false);
-                if(!adapter.seleccionados.contains(true)){
+                if (!adapter.seleccionados.contains(true)) {
                     modoSeleccion = false;
                     desapareceMenu();
                 }
