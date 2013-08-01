@@ -342,14 +342,15 @@
         margin-left: -20px;
         margin-right: -20px;
       }
+
       .carousel .container {
 
       }
       .carousel .item {
-        height: 300px;
+        height: 450px;
       }
       .carousel img {
-        height: 300px;
+        height: 450px;
       }
       .carousel-caption {
         width: 65%;
