@@ -34,16 +34,16 @@ public class TumpiBridge {
         //////////////////////////////////////////////////////////////////////////////////////
 
         //PRUEBAS WEBSOCKETS
-        Server server = new Server(config.getPuerto());
-
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath("/");
-        server.setHandler(context);
-
-        context.addServlet(new ServletHolder(new WebSocketServer()), "/*");
-
-        server.start();
-        System.out.println("Escuchando en el puerto " + config.getPuerto());
-        server.join();
+//        Server server = new Server(config.getPuerto());
+//
+//        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+//        context.setContextPath("/");
+//        server.setHandler(context);
+//
+//        context.addServlet(new ServletHolder(new WebSocketServer()), "/*");
+//
+//        server.start();
+//        System.out.println("Escuchando en el puerto " + config.getPuerto());
+//        server.join();
     }
 }
