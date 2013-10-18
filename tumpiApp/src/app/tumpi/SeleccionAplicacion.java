@@ -56,7 +56,7 @@ public class SeleccionAplicacion extends Activity {
                                             conex.conexion.cerrarConexion();
                                             conex = null;
                                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SeleccionAplicacion.this);
-                                            dialogBuilder.setMessage("No existe un servidor publicado con este nombre o no tiene conexion con la central de socialDj");
+                                            dialogBuilder.setMessage("No existe un Tumpi con este nombre");
                                             dialogBuilder.setTitle("Error de conexion");
                                             dialogBuilder.setPositiveButton("Aceptar", new android.content.DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -97,5 +97,8 @@ public class SeleccionAplicacion extends Activity {
                 startActivity(inte);
             }
         });
+        /*btnServer.setEnabled(false);
+        btnServer.setBackground(null);
+        btnServer.setText("");*/
     }
 }
