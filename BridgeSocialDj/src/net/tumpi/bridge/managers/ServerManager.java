@@ -43,8 +43,9 @@ public class ServerManager implements ServerSocketListener {
     private void procesarLogIn(String id, String tipo, String nick) {
         switch (tipo) {
             case "c":
-                if (isServer(nick)) {
-                    TumpiServer server = getServer(nick);
+                String id_server=getServerIdByNick(nick);
+                if (id_server!=null) {
+                    TumpiServer server = getServer(id_server);
                     if (!server.isClient(id)) {
                         server.putClient(new TumpiClient(id));
                         sendClientNotification(server.id, id, "on");
@@ -81,9 +82,10 @@ public class ServerManager implements ServerSocketListener {
                     }
                     break;
                 case "s":
-                    if (isServer(destino)) {
-                        if (getServer(destino).isClient(origen)) {
-                            socket.enviarMensajeServer(getServer(destino).id, origen + "|" + message);
+                    String id_server=getServerIdByNick(destino);
+                    if (id_server!=null) {
+                        if (getServer(id_server).isClient(origen)) {
+                            socket.enviarMensajeServer(getServer(id_server).id, origen + "|" + message);
                         }
                     }
                     break;
@@ -170,8 +172,17 @@ public class ServerManager implements ServerSocketListener {
 
     }
 
+    private String getServerIdByNick(String nick){
+        Collection<TumpiServer> values = servidores.values();
+        for (TumpiServer server : values) {
+            if (server.nombre.equals(nick))
+                return server.id;
+        }
+        return null;
+    }    
+    
     private boolean isServer(String id) {
-        return servidores.contains(id);
+        return servidores.containsKey(id);
     }
 
     private TumpiServer getServer(String id) {

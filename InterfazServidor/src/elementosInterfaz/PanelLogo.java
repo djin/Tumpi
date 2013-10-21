@@ -14,7 +14,7 @@ public class PanelLogo extends JPanel {
 
     PanelLogo() {
         image = new BufferedImage(1024, 768, BufferedImage.TYPE_INT_ARGB_PRE);
-        image.createGraphics().drawImage(Imagenes.getImagen("icons/socialDj2.png").getImage(), 0, 0, 250, 60, null);
+        image.createGraphics().drawImage(Imagenes.getImagen("icons/TUMPIPC2.png").getImage(), 0, 0, 250, 40, null);
     }
 
     @Override
