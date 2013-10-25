@@ -29,7 +29,7 @@ public class TumpiServer implements Iterable<TumpiClient> {
 
     public TumpiServer(String name, String id) {
         clientes = new HashMap<>();
-        nombre = name;
+        this.nombre = name;
         this.id = id;
     }
 
