@@ -228,7 +228,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         }
     }
 
-    public void setNombreServidor() {
+    public Boolean setNombreServidor() {
+        Boolean conectado = false;
         try {
             JOptionPane pane = new JOptionPane("Nombre del servidor", JOptionPane.PLAIN_MESSAGE);
             pane.setWantsInput(true);
@@ -240,9 +241,12 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                 connection.getSocket().addServerSocketListener(this);
                 connection.getSocket().startListenBridge();
                 fireBridgeConnectedEvent(nombre_servidor);
+                conectado =  true;
             }
         } catch (Exception ex) {
             System.out.println("Error al loggearte: " + ex);
+        } finally {
+            return conectado;
         }
     }
 

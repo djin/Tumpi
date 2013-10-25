@@ -152,7 +152,10 @@ public class FramePrincipal extends JFrame implements WindowListener, BridgeList
         barramenus.menuItems.get(0).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listas_manager.setNombreServidor();
+               Boolean conectado = listas_manager.setNombreServidor();
+               if(conectado){
+                   ((JMenuItem)e.getSource()).setEnabled(false);
+               }
             }
         });
 
