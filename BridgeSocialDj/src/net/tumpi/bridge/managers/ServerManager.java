@@ -56,11 +56,8 @@ public class ServerManager implements ServerSocketListener {
                 }
                 break;
             case "s":
-<<<<<<< HEAD
-                if (!isServer(nick)) {
-=======
-                if (!serverAlreadyExists(nick)) {
->>>>>>> 9624ffefbb909cc00901a3e070a30217a8141f8f
+                String id_server_log=getServerIdByNick(nick);
+                if (id_server_log==null) {
                     servidores.put(nick, new TumpiServer(nick, id));
                     sendLoginResponse(id, 1);
                 } else {
