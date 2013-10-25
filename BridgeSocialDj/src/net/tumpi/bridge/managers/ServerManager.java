@@ -58,7 +58,7 @@ public class ServerManager implements ServerSocketListener {
             case "s":
                 String id_server_log=getServerIdByNick(nick);
                 if (id_server_log==null) {
-                    servidores.put(nick, new TumpiServer(nick, id));
+                    servidores.put(id, new TumpiServer(nick, id));
                     sendLoginResponse(id, 1);
                 } else {
                     sendLoginResponse(id, 0);
