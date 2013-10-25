@@ -60,6 +60,7 @@ public class ServerManager implements ServerSocketListener {
                 String id_server_log=getServerIdByNick(nick);
                 if (id_server_log==null) {
                     servidores.put(id, new TumpiServer(nick, id));
+                    System.out.println("Registrado servidor con nick: "+nick+" y id: "+id);
                     sendLoginResponse(id, 1);
                 } else {
                     sendLoginResponse(id, 0);
