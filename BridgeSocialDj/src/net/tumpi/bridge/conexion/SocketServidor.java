@@ -40,14 +40,12 @@ import java.util.HashMap;
 public class SocketServidor {
 
     private ServerSocket serverSocket = null;
-    private int puerto = 0;
     private Thread thread_buscar_clientes = null;
     public HashMap<String, Cliente> clientes = new HashMap<>();
     private ArrayList<ServerSocketListener> listeners = new ArrayList();
 
     public SocketServidor(int port) throws IOException {
         serverSocket = new ServerSocket(port);
-        //instanciamos el objeto websocket
     }
 
     public boolean isBound() {
@@ -79,7 +77,7 @@ public class SocketServidor {
 
     public void enviarMensajeServer(String id_cliente, String mensaje) throws IOException {
         clientes.get(id_cliente).enviarMensaje(mensaje);
-        System.out.println("Mensaje enviado a " + id_cliente + " : " + mensaje);;
+        System.out.println("Mensaje enviado a " + id_cliente + " : " + mensaje);
     }
 
     public int getClientsCount() {
