@@ -57,7 +57,7 @@ public class ServerManager implements ServerSocketListener {
                 break;
             case "s":
                 if (!isServer(nick)) {
-                    servidores.put(id, new TumpiServer(nick, id));
+                    servidores.put(nick, new TumpiServer(nick, id));
                     sendLoginResponse(id, 1);
                 } else {
                     sendLoginResponse(id, 0);
