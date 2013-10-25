@@ -46,6 +46,7 @@ public class ServerManager implements ServerSocketListener {
                 String id_server=getServerIdByNick(nick);
                 if (id_server!=null) {
                     TumpiServer server = getServer(id_server);
+                    System.out.println(id_server);
                     if (!server.isClient(id)) {
                         server.putClient(new TumpiClient(id));
                         sendClientNotification(server.id, id, "on");
