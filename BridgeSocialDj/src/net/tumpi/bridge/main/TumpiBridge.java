@@ -1,14 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.tumpi.bridge.main;
 
-import net.tumpi.bridge.conexion.WebSocketServer;
 import net.tumpi.bridge.config.Config;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 
 import net.tumpi.bridge.managers.ServerManager;
 

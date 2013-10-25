@@ -56,7 +56,11 @@ public class ServerManager implements ServerSocketListener {
                 }
                 break;
             case "s":
+<<<<<<< HEAD
                 if (!isServer(nick)) {
+=======
+                if (!serverAlreadyExists(nick)) {
+>>>>>>> 9624ffefbb909cc00901a3e070a30217a8141f8f
                     servidores.put(nick, new TumpiServer(nick, id));
                     sendLoginResponse(id, 1);
                 } else {
@@ -70,7 +74,7 @@ public class ServerManager implements ServerSocketListener {
         try {
             switch (tipo) {
                 case "c":
-                    if (isServer(origen)) {
+                    if (serverAlreadyExists(origen)) {
                         TumpiServer server = getServer(origen);
                         if ("*".equals(destino)) {
                             for (TumpiClient cliente : server) {
@@ -144,7 +148,7 @@ public class ServerManager implements ServerSocketListener {
 
     @Override
     public void onClientDisconnected(String id) {
-        if (isServer(id)) {
+        if (serverAlreadyExists(id)) {
             TumpiServer server = getServer(id);
             try {
                 Map<String, Cliente> clientes = socket.clientes;
@@ -181,7 +185,7 @@ public class ServerManager implements ServerSocketListener {
         return null;
     }    
     
-    private boolean isServer(String id) {
+    private boolean serverAlreadyExists(String id) {
         return servidores.containsKey(id);
     }
 

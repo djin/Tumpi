@@ -111,63 +111,65 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
     }
 
     public void addCanciones(int index) {
-
+        Boolean listaCreada = true;
         if (getListas_canciones().estaVacia()) {
-            anadirLista();
+            listaCreada = anadirLista();
         }
-        JFileChooser chooser = new JFileChooser() {
-            @Override
-            protected JDialog createDialog(Component parent) throws HeadlessException {
-                JDialog dialog = super.createDialog(parent);
-                dialog.setAlwaysOnTop(true);
-                return dialog;
-            }
-        };
-
-        chooser.setMultiSelectionEnabled(true);
-        chooser.setCurrentDirectory(new File(getPath()));
-        chooser.setFileFilter(new FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                if (f.getName().endsWith(".mp3") || f.isDirectory()) {
-                    return true;
-                } else {
-                    return false;
+        if (listaCreada) {
+            JFileChooser chooser = new JFileChooser() {
+                @Override
+                protected JDialog createDialog(Component parent) throws HeadlessException {
+                    JDialog dialog = super.createDialog(parent);
+                    dialog.setAlwaysOnTop(true);
+                    return dialog;
                 }
-            }
+            };
 
-            @Override
-            public String getDescription() {
-                return "Filtro mp3";
-            }
-        });
-
-        int eleccion = chooser.showOpenDialog(null);
-        if (eleccion == 0) {
-            File[] files = chooser.getSelectedFiles();
-            setPath(chooser.getCurrentDirectory().getPath());
-            List<File> listaFiles = (List<File>) Arrays.asList(files);
-
-            if (!listaFiles.isEmpty()) {
-
-                ListaCanciones lista = listas_canciones.getLista(index);
-                int fila = lista.getCanciones().size();
-                int max_id = lista.getMaxId();
-                Cancion c;
-
-                for (File f : listaFiles) {
-                    if (f.exists()) {
-
-                        c = getReproductor().getCancion(f.getAbsolutePath());
-                        max_id++;
-                        c.setId(max_id);
-                        listas_canciones.addCancion(c, index);
-                        ThreadGetDuracion thread = new ThreadGetDuracion(listas_canciones, c, index, fila);
-                        thread.start();
-                        fila++;
+            chooser.setMultiSelectionEnabled(true);
+            chooser.setCurrentDirectory(new File(getPath()));
+            chooser.setFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    if (f.getName().endsWith(".mp3") || f.isDirectory()) {
+                        return true;
+                    } else {
+                        return false;
                     }
                 }
-                FicherosManager.guardarSesion(listas_canciones.getListas());
+
+                @Override
+                public String getDescription() {
+                    return "Filtro mp3";
+                }
+            });
+
+            int eleccion = chooser.showOpenDialog(null);
+            if (eleccion == 0) {
+                File[] files = chooser.getSelectedFiles();
+                setPath(chooser.getCurrentDirectory().getPath());
+                List<File> listaFiles = (List<File>) Arrays.asList(files);
+
+                if (!listaFiles.isEmpty()) {
+
+                    ListaCanciones lista = listas_canciones.getLista(index);
+                    int fila = lista.getCanciones().size();
+                    int max_id = lista.getMaxId();
+                    Cancion c;
+
+                    for (File f : listaFiles) {
+                        if (f.exists()) {
+
+                            c = getReproductor().getCancion(f.getAbsolutePath());
+                            max_id++;
+                            c.setId(max_id);
+                            listas_canciones.addCancion(c, index);
+                            ThreadGetDuracion thread = new ThreadGetDuracion(listas_canciones, c, index, fila);
+                            thread.start();
+                            fila++;
+                        }
+                    }
+                    FicherosManager.guardarSesion(listas_canciones.getListas());
+                }
             }
         }
     }
@@ -195,7 +197,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         }
     }
 
-    public void anadirLista() {
+    public Boolean anadirLista() {
 
         JOptionPane pane = new JOptionPane("Nombre Lista", JOptionPane.PLAIN_MESSAGE);
         pane.setWantsInput(true);
@@ -207,6 +209,9 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         if (nombre != null && !nombre.equals("") && !nombre.equals("uninitializedValue")) {
             listas_canciones.addLista(nombre);
             FicherosManager.guardarSesion(listas_canciones.getListas());
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -223,7 +228,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         }
     }
 
-    public void setNombreServidor() {
+    public Boolean setNombreServidor() {
+        Boolean conectado = false;
         try {
             JOptionPane pane = new JOptionPane("Nombre del servidor", JOptionPane.PLAIN_MESSAGE);
             pane.setWantsInput(true);
@@ -235,9 +241,12 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                 connection.getSocket().addServerSocketListener(this);
                 connection.getSocket().startListenBridge();
                 fireBridgeConnectedEvent(nombre_servidor);
+                conectado =  true;
             }
         } catch (Exception ex) {
             System.out.println("Error al loggearte: " + ex);
+        } finally {
+            return conectado;
         }
     }
 

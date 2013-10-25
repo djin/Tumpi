@@ -59,7 +59,9 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         refrescarCancionSonando();
         p = this;
     }
-
+    
+    // QUITO EL MENU, PORQUE NO QUEREMOS MENU DE OPCIONES POR AHORA
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -75,7 +77,9 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         });
         return true;
     }
-
+*/
+    
+    ///////////////////////////////////////////////////////////////////////
     private void refrescarCancionSonando() {
         text_playing.post(new Runnable() {
             public void run() {

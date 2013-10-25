@@ -143,7 +143,7 @@ public class PanelInicial extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         tamanio = getSize();
-        ImageIcon imagenFondo = Imagenes.getImagen("icons/socialDj2.png");
+        ImageIcon imagenFondo = Imagenes.getImagen("icons/TUMPIPC2.png");
         if (imagenFondo != null) {
             g.setColor(Color.DARK_GRAY);
             g.fillRect(0, 0, tamanio.width, tamanio.height);
@@ -156,7 +156,7 @@ public class PanelInicial extends JPanel {
             g.fillRect(tamanoVolumen * 5, tamanio.height - columna6, tamanoVolumen, columna6);
             g.fillRect(tamanoVolumen * 6, tamanio.height - columna7, tamanoVolumen, columna7);
             g.fillRect(tamanoVolumen * 7, tamanio.height - columna8, tamanoVolumen, columna8);
-            g.drawImage(imagenFondo.getImage(), 50, 65, tamanio.width - 110, tamanio.height - 130, null);
+            g.drawImage(imagenFondo.getImage(), 50, 72, tamanio.width - 110, tamanio.height - 145, null);
             setOpaque(false);
         } else {
             setOpaque(true);
