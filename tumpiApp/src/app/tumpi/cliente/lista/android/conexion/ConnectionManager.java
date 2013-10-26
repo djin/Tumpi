@@ -44,8 +44,8 @@ public class ConnectionManager {
         protected Boolean doInBackground(Void... params) {
             try {
                 String ip="";
-                ip=InetAddress.getByName("tumpi.no-ip.biz").getHostAddress();
-                conexion=new SocketConnector(ip,2222);
+                ip=InetAddress.getByName("tumpi.net").getHostAddress();
+                conexion=new SocketConnector(ip,2244);
                 conexion.conectar();
                 return conexion.isConnected();
             }catch (Exception ex){

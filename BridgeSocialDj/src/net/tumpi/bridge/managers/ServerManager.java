@@ -150,11 +150,10 @@ public class ServerManager implements ServerSocketListener {
         if (serverAlreadyExists(id)) {
             TumpiServer server = getServer(id);
             try {
-                Map<String, Cliente> clientes = socket.clientes;
-                Set<String> clavesClientes = clientes.keySet();
-                for (String clientId : clavesClientes) {
-                    Cliente cliente = clientes.get(clientId);
-                    cliente.close();
+                Map<String, Cliente> clientes_socket = socket.clientes;
+                for (TumpiClient cliente_tumpi: server) {
+                    Cliente cliente_socket = clientes_socket.get(cliente_tumpi.id);
+                    cliente_socket.close();
                 }
                 server.removeAllClients();
 

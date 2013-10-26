@@ -18,8 +18,8 @@ public class ConnectionManager implements ServerSocketListener {
         boolean creado;
         try {
             String ip;
-            ip = InetAddress.getByName("tumpi.no-ip.biz").getHostAddress();
-            socket = new SocketServidor(ip, 2222);
+            ip = InetAddress.getByName("tumpi.net").getHostAddress();
+            socket = new SocketServidor(ip, 2244);
             creado = true;
         } catch (Exception ex) {
             System.out.println("Error al crear el socket: " + ex.toString());
