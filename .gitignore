@@ -142,7 +142,7 @@ Desktop.ini
 build
 eggs
 parts
-bin
+binr
 var
 sdist
 develop-eggs
@@ -180,10 +180,11 @@ pip-log.txt
 /ServidorSocialDj/ServidorSocialDj/nbandroid/
 /PruebaFragment/gen/
 /A-Star/nbproject/private/
-<<<<<<< HEAD
+/BridgeSocialDj/nbproject/*
+/BridgeSocialDj/build/*
+/BridgeSocialDj/build.xml
+/BridgeSocialDj/dist/*
 /BridgeSocialDj/nbproject/private/
-=======
 /Reproductor/nbproject/private/
->>>>>>> 	modified:   InterfazReproductorBasico/nbproject/genfiles.properties
 /tumpiApp/nbandroid/
 /tumpiApp/gen/
