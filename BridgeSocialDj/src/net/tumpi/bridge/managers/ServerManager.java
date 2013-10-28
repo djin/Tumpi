@@ -8,9 +8,9 @@ import net.tumpi.bridge.conexion.SocketServidor;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import net.tumpi.bridge.config.Config;
+import net.tumpi.bridge.log.Log;
 
 /**
  *
@@ -35,7 +35,7 @@ public class ServerManager implements ServerSocketListener {
 
             return socket.isBound();
         } catch (Exception ex) {
-            System.out.println("Error al arrancar el BridgeSocialDj: " + ex.toString());
+            Log.$.error("Error al arrancar el BridgeSocialDj", ex);
             return false;
         }
     }
@@ -46,7 +46,6 @@ public class ServerManager implements ServerSocketListener {
                 String idServer = getServerIdByNick(nick);
                 if (idServer != null) {
                     TumpiServer server = getServer(idServer);
-                    System.out.println(idServer);
                     if (!server.isClient(id)) {
                         server.putClient(new TumpiClient(id));
                         sendClientNotification(server.id, id, "on");
@@ -94,7 +93,7 @@ public class ServerManager implements ServerSocketListener {
                     break;
             }
         } catch (Exception ex) {
-            System.out.println("Error al procesar el mensaje recivido: " + ex);
+            Log.$.error("Error al procesar el mensaje recibido", ex);
         }
     }
 
@@ -102,7 +101,7 @@ public class ServerManager implements ServerSocketListener {
         try {
             socket.clientes.get(id).close();
         } catch (IOException ex) {
-            System.out.println("Error al desconectar al cliente " + id + " : " + ex);
+            Log.$.error("Error al desconectar al cliente", ex);
         }
     }
 
@@ -110,7 +109,7 @@ public class ServerManager implements ServerSocketListener {
         try {
             socket.enviarMensajeServer(idServer, "b:client_" + estado + "|" + idCliente);
         } catch (IOException ex) {
-            System.out.println("Error al enviar la notificacion de nuevo cliente: " + ex);
+            Log.$.error("Error al enviar la notificacion de nuevo cliente", ex);
         }
     }
 
@@ -118,13 +117,13 @@ public class ServerManager implements ServerSocketListener {
         try {
             socket.enviarMensajeServer(id, "b:log|" + tipo);
         } catch (IOException ex) {
-            System.out.println("Error al enviar respuesta al logIn: " + ex);
+            Log.$.error("Error al enviar respuesta al Log-In", ex);
         }
     }
 
     @Override
     public void onMessageReceived(String id, String message) {
-        System.out.println("Mensaje recibido de " + id + " : " + message);
+        Log.$.info("Mensaje recibido de " + id + " : " + message);
         String tipo = getType(message);
         String idDest = getId(message);
         switch (idDest) {
@@ -142,7 +141,7 @@ public class ServerManager implements ServerSocketListener {
 
     @Override
     public void onClientConnected(String id) {
-        System.out.println("Conexion abierta >> " + id);
+        Log.$.info("Conexion abierta >> " + id);
     }
 
     @Override
@@ -158,7 +157,7 @@ public class ServerManager implements ServerSocketListener {
                 server.removeAllClients();
 
             } catch (IOException ex) {
-                System.out.println("Error al desconectar al cliente");
+                Log.$.error("Error al desconectar al cliente");
             }
             servidores.remove(id);
         } else {
@@ -170,16 +169,13 @@ public class ServerManager implements ServerSocketListener {
                 }
             }
         }
-        System.out.println("Cliente desconectado >> " + id);
-
+        Log.$.info("Cliente desconectado >> " + id);
     }
 
     private String getServerIdByNick(String nick) {
-        System.out.println(nick);
         Collection<TumpiServer> values = servidores.values();
         for (TumpiServer server : values) {
             System.out.println("Nombre del servidor de la coleccion: " + server.nombre);
-            
             if (server.nombre.equals(nick)) {
                 return server.id;
             }

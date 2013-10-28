@@ -1,6 +1,7 @@
 package net.tumpi.bridge.main;
 
 import net.tumpi.bridge.config.Config;
+import net.tumpi.bridge.log.Log;
 
 import net.tumpi.bridge.managers.ServerManager;
 
@@ -20,7 +21,7 @@ public class TumpiBridge {
 
         ServerManager bridge = new ServerManager();
         if (bridge.arrancarBridge()) {
-            System.out.println("BridgeSocialDj arrancado correctamente. A disfrutar!");
+            Log.$.info("Tumpi-Bridge arrancado correctamente. A disfrutar!");
         }
 
         //////////////////////////////////////////////////////////////////////////////////////
