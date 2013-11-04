@@ -87,7 +87,7 @@ public class AdaptadorLista extends BaseAdapter {
             if (getDatos().get(position).getVotado()) {
                 btn.setImageResource(R.raw.ico_small_star_focus);
 //                btn.setBackgroundColor(Color.BLACK);
-            } else {                
+            } else {
                 btn.setImageResource(R.raw.estrella_nada_llena);
 //                btn.setBackgroundColor(Color.BLACK);
             }
