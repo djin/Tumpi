@@ -27,8 +27,8 @@ public class ConnectionManager implements ServerSocketListener {
 			@Override
 			protected Boolean doInBackground(Void... params) {
 				try {
-					String ip = "192.168.1.38";
-//					ip = InetAddress.getByName("tumpi.net").getHostAddress();
+					String ip = "";
+					ip = InetAddress.getByName("tumpi.net").getHostAddress();
 					socket = new SocketServidor(ip, 2244);
 				} catch (Exception ex) {
 					Log.e("Conexion",
