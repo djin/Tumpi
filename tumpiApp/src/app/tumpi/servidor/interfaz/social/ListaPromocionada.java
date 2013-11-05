@@ -4,6 +4,7 @@
  */
 package app.tumpi.servidor.interfaz.social;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -34,6 +35,7 @@ import app.tumpi.servidor.modelo.datos.CancionPromocionada;
 import app.tumpi.servidor.modelo.datos.ListasManager;
 import app.tumpi.servidor.multimedia.AudioExplorer;
 import app.tumpi.servidor.multimedia.PlayerListener;
+import app.tumpi.util.Installation;
 
 /**
  *
@@ -48,7 +50,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
     private Menu menuApp;
     private AudioExplorer explorer;
 
-    @Override
+	@Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -82,7 +84,7 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
         });
         actionBar.setDisplayShowTitleEnabled(false);
 
-        datosListaPromocionada = manager.lista_promocionada.getCanciones();
+        datosListaPromocionada = manager.promotedList.getCanciones();
         adapter = new AdaptadorListaPromocionada(this, datosListaPromocionada, R.layout.row_style_promocionada);
         for (Cancion c : datosListaPromocionada) {
             adapter.seleccionados.add(false);
@@ -176,9 +178,10 @@ public class ListaPromocionada extends ListActivity implements CambiarListaListe
                     alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             EditText input = (EditText) v.findViewById(R.id.txtInputNombreServidor);
+                            final String uuid = Installation.id(getApplicationContext());
                             String value = input.getText().toString();
                             if (!value.equals("")) {
-                                if (manager.logInBridge(value)) {
+                                if (manager.logInBridge(value, uuid)) {
                                     Toast.makeText(alert.getContext(), "Servidor conectado", Toast.LENGTH_SHORT).show();
                                     manager.conectado = true;
                                     item.setIcon(R.drawable.conectado);

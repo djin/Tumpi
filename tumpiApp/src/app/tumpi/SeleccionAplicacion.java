@@ -29,17 +29,17 @@ public class SeleccionAplicacion extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seleccionar_aplicacion);
-        
+
         ActionBar action = getActionBar();
         action.hide();
-        
+
         Button btnClient = (Button) findViewById(R.id.botonIniciarCliente);
         btnClient.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View btnTumpiConectar) {
             	showTumpiDialog(btnTumpiConectar);
             }
         });
-        
+
         Button btnServer = (Button) findViewById(R.id.botonIniciarServidor);
         btnServer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -53,20 +53,19 @@ public class SeleccionAplicacion extends Activity {
         btnServer.setBackground(null);
         btnServer.setText("");*/
     }
-    
+
     private void showTumpiDialog(final View btnConectarTumpi){
         final String uuid = Installation.id(btnConectarTumpi.getContext());
 
         LayoutInflater inflater = getInflater();
         final View decoratedTumpiDialog = inflater.inflate(R.layout.style_view_nombre_servidor, null, false);
         final AlertDialog.Builder tumpiDialog = prepareTumpiDialog(inflater,decoratedTumpiDialog);
-      
+
         tumpiDialog.setView(decoratedTumpiDialog);
         tumpiDialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             private ConnectionManager conex;
             public void onClick(DialogInterface dialog, int whichButton) {
                 final String uuid = Installation.id(btnConectarTumpi.getContext());
-                Log.e("UUID", uuid);
                 EditText input = (EditText) decoratedTumpiDialog.findViewById(R.id.txtInputNombreServidor);
                 final String value = input.getText().toString();
                 if (!value.equals("")) {
@@ -116,13 +115,13 @@ public class SeleccionAplicacion extends Activity {
         });
         tumpiDialog.show();
     }
-    
+
     private AlertDialog.Builder prepareTumpiDialog(LayoutInflater inflater, View decoratedTumpiDialog){
     	AlertDialog.Builder tumpiDialog = new AlertDialog.Builder(SeleccionAplicacion.this);
         tumpiDialog.setView(decoratedTumpiDialog);
         return tumpiDialog;
     }
-    
+
     private LayoutInflater getInflater(){
     	return (LayoutInflater) SeleccionAplicacion.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

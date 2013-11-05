@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import android.util.Log;
 
 /**
- * 
+ *
  * @author 66785270
  */
 public class SocketConnector {

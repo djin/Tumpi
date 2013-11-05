@@ -10,8 +10,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.tumpi.R;
+
 import java.util.ArrayList;
+import java.util.HashSet;
+
 import app.tumpi.cliente.lista.android.conexion.*;
+import app.tumpi.util.Installation;
 
 public class ListaCanciones extends ListActivity implements ServerMessageListener {
 
@@ -50,7 +54,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
             text_playing.post(new Runnable() {
                 public void run() {
                     try {
-                        conex.conexion.enviarMensaje("0|0");
+                        conex.conexion.enviarMensaje("0|" + Installation.id(getApplicationContext()) + "&" + 0);
                     } catch (Exception ex) {
                     }
                 }
@@ -107,6 +111,20 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
             }
         }
     }
+    
+    private void voteSongs(HashSet<Integer> votedSongs){
+    	for(Integer songId : votedSongs){
+    		// TO DO, usar un mapa!
+            for (Cancion c : listadoAdapter.getDatos()) {
+                if (c.getId() == songId) {
+                    c.setVotado(true);
+                    c.votando=false;
+                    break;
+                }
+            }
+    	}
+    	listadoAdapter.notifyDataSetChanged();
+    }
 
     public void onMessageReceive(final String men) {
 
@@ -119,9 +137,14 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
                     int n = 0;
                     switch (tipo) {
                         case 0:
+                        	final int delimiterIndex = message.indexOf("&");
+                            final String votedSongsData = message.substring(0, delimiterIndex);
+                            final String promotedListData = message.substring(delimiterIndex + 1);
                             listadoAdapter.limpiarDatos();
-                            String[] canciones = message.split("\\;");
+                            HashSet<Integer> votedSongs = parseVotedSongs(votedSongsData);
+                            String[] canciones = promotedListData.split("\\;");
                             interpretarLista(canciones);
+                            voteSongs(votedSongs);
                             listadoAdapter.notifyDataSetChanged();
                             break;
                         case 1:
@@ -184,6 +207,21 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
                     }
                 }
             }
+
+			private HashSet<Integer> parseVotedSongs(String votedSongsString) {
+				HashSet<Integer> votedSongsSet = new HashSet<Integer>();
+				if(thereAreVotedSongs(votedSongsString)){
+					String[] votedSongsIds = votedSongsString.split("\\,");
+					for(String songId : votedSongsIds){
+						votedSongsSet.add(Integer.parseInt(songId));
+					}
+				}
+				return votedSongsSet;
+			}
+			
+			private boolean thereAreVotedSongs(String votedSongsString){
+				return votedSongsString != null && !votedSongsString.isEmpty();
+			}
         });
 
     }

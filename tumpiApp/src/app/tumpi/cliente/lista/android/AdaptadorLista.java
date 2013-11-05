@@ -14,8 +14,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import app.tumpi.R;
+
 import java.util.ArrayList;
+
 import app.tumpi.cliente.lista.android.conexion.ConnectionManager;
+import app.tumpi.util.Installation;
 
 /**
  *
@@ -105,10 +108,11 @@ public class AdaptadorLista extends BaseAdapter {
         }
 
         public void onClick(View v) {
+        	final String uuid = Installation.id(mContext);
             if (getDatos().get(position).getVotado()) {
                 try {
                     if(!getDatos().get(position).votando){
-                        conex.conexion.enviarMensaje("3|" + Integer.toString(getDatos().get(position).getId()));
+                        conex.conexion.enviarMensaje("3|" + uuid + "&" + Integer.toString(getDatos().get(position).getId()));
                         ImageButton btn = (ImageButton)v;
                         btn.setImageBitmap(null);
                         btn.setBackgroundResource(R.drawable.gif_desvotando);
@@ -121,7 +125,8 @@ public class AdaptadorLista extends BaseAdapter {
             } else {
                 try {
                     if(!getDatos().get(position).votando){
-                        conex.conexion.enviarMensaje("1|" + Integer.toString(getDatos().get(position).getId()));
+                    	
+                        conex.conexion.enviarMensaje("1|" + uuid + "&" + Integer.toString(getDatos().get(position).getId()));
                         ImageButton btn = (ImageButton)v;
                         btn.setImageBitmap(null);
                         btn.setBackgroundResource(R.drawable.gif_votando);

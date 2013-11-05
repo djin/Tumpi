@@ -6,10 +6,12 @@ package app.tumpi.servidor.modelo.datos;
 
 import android.os.Environment;
 import android.util.Log;
+import app.tumpi.model.TumpiClient;
 import app.tumpi.servidor.conexion.ConnectionManager;
 import app.tumpi.servidor.conexion.ServerSocketListener;
 import app.tumpi.servidor.interfaces.CambiarListaListener;
 import app.tumpi.servidor.interfaces.ListenerListaCambio;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,6 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
 import app.tumpi.servidor.multimedia.Player;
 
 /**
@@ -30,12 +33,12 @@ public class ListasManager implements ServerSocketListener {
     private static ListasManager INSTANCE = new ListasManager();
     public ArrayList<String> nombreLista;
     public ArrayList<ListaCanciones> listasCanciones;
-    public ListaPromocionada lista_promocionada;
+    public ListaPromocionada promotedList;
     private CancionPromocionada cancionReproduciendo;
     List<CambiarListaListener> listeners = new LinkedList();
     List<ListenerListaCambio> listenersLista = new LinkedList();
-    private ConnectionManager conex;
-    private HashMap<String, ArrayList> votos_cliente;
+    private ConnectionManager connectionManager;
+    private HashMap<String, TumpiClient> clientMap;
     public Player player;
     public boolean conectado=false;
     public String nick="";
@@ -43,9 +46,9 @@ public class ListasManager implements ServerSocketListener {
     private ListasManager() {
         nombreLista = new ArrayList<String>();
         listasCanciones = new ArrayList<ListaCanciones>();
-        lista_promocionada = new ListaPromocionada(new ListaCanciones());
+        promotedList = new ListaPromocionada(new ListaCanciones());
         cancionReproduciendo = new CancionPromocionada(0, "", "", 1, "", 1234, "");
-        votos_cliente = new HashMap();
+        clientMap = new HashMap<String, TumpiClient>();
         player = Player.getInstance();
         GuardarListas guardar = new GuardarListas(this);
         cargarDatos();
@@ -59,17 +62,17 @@ public class ListasManager implements ServerSocketListener {
     }
 
     public boolean abrirConexion() {
-        if (conex == null) {
-            conex = new ConnectionManager();
+        if (connectionManager == null) {
+            connectionManager = new ConnectionManager();
             try {
-                if (conex.createSocket()) {
-                    conex.socket.addServerSocketListener(this);
+                if (connectionManager.createSocket()) {
+                    connectionManager.socket.addServerSocketListener(this);
                     Log.i("Conexion", "Socket creado con éxito");
                     return true;
                 }
             } catch (Exception ex) {
                 Log.e("Conexion", "Error al crear el socket: " + ex.toString());
-                conex = null;
+                connectionManager = null;
                 return false;
             }
             return false;
@@ -78,9 +81,9 @@ public class ListasManager implements ServerSocketListener {
     }
     public boolean cerrarConexion(){
         try{
-            if(conex!=null){
-                conex.socket.removeServerSocketListener(this);
-                conex.closeSocket();
+            if(connectionManager!=null){
+                connectionManager.socket.removeServerSocketListener(this);
+                connectionManager.closeSocket();
                 return true;
             }
             throw new Exception("No esta abierta ninguna conexion");
@@ -89,11 +92,11 @@ public class ListasManager implements ServerSocketListener {
             return false;
         }
     }
-    public boolean logInBridge(String nick){
+    public boolean logInBridge(String nick, String uuid){
         if(abrirConexion()){
             try {
-                if(conex.socket.logIn(nick)){
-                    conex.socket.startListenBridge();
+                if(connectionManager.socket.logIn(nick, uuid)){
+                    connectionManager.socket.startListenBridge();
                     this.nick=nick;
                     return true;
                 }
@@ -106,29 +109,23 @@ public class ListasManager implements ServerSocketListener {
         return false;
     }
     public void procesarVotos() {
-        CancionPromocionada cancionASonar = lista_promocionada.getMaxVoto();
+        CancionPromocionada cancionASonar = promotedList.getMaxVoto();
         cancionReproduciendo = cancionASonar;
         if (cancionReproduciendo != null) {
             try {
                 player.playSong(cancionReproduciendo.path);
-                if(conex!=null)
-                    conex.socket.enviarMensajeServer("*", "2|" + cancionReproduciendo.id);
+                if(connectionManager!=null)
+                    connectionManager.socket.enviarMensajeServer("*", "2|" + cancionReproduciendo.id);
             } catch (Exception ex) {
                 Log.e("Multimedia", "Error al reproducir cancion " + cancionReproduciendo.nombreCancion);
             }
             fireModeloChanged();
         } else {
-            if (lista_promocionada.getCanciones().size() > 0) {
+            if (promotedList.getCanciones().size() > 0) {
                 try {
-                    Collection<ArrayList> clientes = votos_cliente.values();
-                    for (ArrayList<Integer> votos : clientes) {
-                        int n = votos.size();
-                        for (int i = 0; i < n; i++) {
-                            votos.remove(0);
-                        }
-                    }
-                    if(conex!=null)
-                        conex.socket.enviarMensajeServer("*", "0|" + lista_promocionada.toString());
+                    clientMap.clear();
+                    if(connectionManager!=null)
+                        connectionManager.socket.enviarMensajeServer("*", "0|" + promotedList.toString());
                     procesarVotos();
                 } catch (IOException ex) {
                     Log.e("Conexion", "Error al actualizar lista: " + ex.toString());
@@ -169,17 +166,17 @@ public class ListasManager implements ServerSocketListener {
     }
 
     public void promocionar(int posicion) {
-        lista_promocionada = new ListaPromocionada(listasCanciones.get(posicion));
+        promotedList = new ListaPromocionada(listasCanciones.get(posicion));
         try {
-            if(conex!=null)
-                conex.socket.enviarMensajeServer("*", "0|" + lista_promocionada.toString());
+            if(connectionManager!=null)
+                connectionManager.socket.enviarMensajeServer("*", "0|" + promotedList.toString());
         } catch (IOException ex) {
             Log.e("Conexion", "Error al enviar la lista promocionada a los clientes: " + ex.toString());
         }
     }
 
     private boolean votoCliente(int id_cancion, boolean tipo) {
-        CancionPromocionada cancion = lista_promocionada.getCancionById(id_cancion);
+        CancionPromocionada cancion = promotedList.getCancionById(id_cancion);
         if (cancion != null) {
             if (tipo) {
                 cancion.setVotos(cancion.getVotos() + 1);
@@ -223,54 +220,48 @@ public class ListasManager implements ServerSocketListener {
     public void onMessageReceived(String ip, String message) {
         try {
             String men = message;
-            int id_cancion;
+            int songId;
             Log.i("Conexion", "Mensaje de " + ip + " : " + men);
             if(!"exit".equals(men)){
-                ArrayList<Integer> _votos_cliente = votos_cliente.get(ip);
                 int tipo = Integer.parseInt(message.split("\\|")[0]);
                 message = message.split("\\|")[1];
+            	final int delimiterIndex = message.indexOf("&");
+                final String uuid = message.substring(0, delimiterIndex);
+                message = message.substring(delimiterIndex + 1);
+            	TumpiClient tumpiClient = clientMap.get(uuid);
                 switch (tipo) {
                     case 0:
-                        //conex.socket.enviarMensajeServer(ip,"0|empty");
-                        if (lista_promocionada != null) {
-                            Log.i("Conexion", "0|" + lista_promocionada.toString());
-                            if(conex!=null)
-                                conex.socket.enviarMensajeServer(ip, "0|" + lista_promocionada.toString());
-                        }
+                    	sendPromotedList(uuid, ip);
                         if (cancionReproduciendo != null) {
-                            if(conex!=null)
-                                conex.socket.enviarMensajeServer(ip, "4|" + cancionReproduciendo.toString());
+                            if(connectionManager!=null)
+                                connectionManager.socket.enviarMensajeServer(ip, "4|" + cancionReproduciendo.toString());
                         }
-                        if (_votos_cliente != null) {
-                            for (int id : _votos_cliente) {
-                                conex.socket.enviarMensajeServer(ip, "1|" + id);
-                            }
-                        }
+                        
                         break;
                     case 1:
-                        id_cancion = Integer.parseInt(message);
-                        if (votoCliente(id_cancion, true)) {
-                            if(conex!=null)
-                                conex.socket.enviarMensajeServer(ip, "1|" + message);
-                            if (_votos_cliente != null && !_votos_cliente.contains(id_cancion)) {
-                                _votos_cliente.add(id_cancion);
+                        songId = Integer.parseInt(message);
+                        if (votoCliente(songId, true)) {
+                            if(connectionManager!=null)
+                                connectionManager.socket.enviarMensajeServer(ip, "1|" + message);
+                            if (tumpiClient != null && !tumpiClient.contains(songId)) {
+                                tumpiClient.add(songId);
                             }
                         } else {
-                            if(conex!=null)
-                                conex.socket.enviarMensajeServer(ip, "1|0");
+                            if(connectionManager!=null)
+                                connectionManager.socket.enviarMensajeServer(ip, "1|0");
                         }
                         break;
                     case 3:
-                        id_cancion = Integer.parseInt(message);
-                        if (votoCliente(id_cancion, false)) {
-                            if(conex!=null)
-                                conex.socket.enviarMensajeServer(ip, "3|" + message);
-                            if (_votos_cliente != null) {
-                                _votos_cliente.remove((Integer) id_cancion);
+                        songId = Integer.parseInt(message);
+                        if (votoCliente(songId, false)) {
+                            if(connectionManager!=null)
+                                connectionManager.socket.enviarMensajeServer(ip, "3|" + message);
+                            if (tumpiClient != null) {
+                                tumpiClient.remove((Integer) songId);
                             }
                         } else {
-                            if(conex!=null)
-                                conex.socket.enviarMensajeServer(ip, "3|0");
+                            if(connectionManager!=null)
+                                connectionManager.socket.enviarMensajeServer(ip, "3|0");
                         }
                         break;
                 }
@@ -283,14 +274,29 @@ public class ListasManager implements ServerSocketListener {
             Log.e("Conexion", "Error al procesar mensaje recivido: " + ex.toString());
         }
     }
-
-    public void onClientConnected(String ip) {
-        if (votos_cliente.get(ip) == null) {
-//            votos_cliente.put(ip, new ArrayList<Integer>());
-//            Log.i("Modelo", "Hash de votos creado para el cliente " + ip);
+    
+    private void sendPromotedList(String uuid, String ip) throws IOException{
+        if (promotedList != null) {
+            if(connectionManager!=null){
+            	TumpiClient tumpiClient = clientMap.get(uuid);
+            	
+            	final String votedSongsString = tumpiClient.votedSongsAsString();
+                Log.i("Conexion", "0|" + votedSongsString + 
+                		"&" + promotedList.toString());
+                connectionManager.socket.enviarMensajeServer(ip, "0|" + votedSongsString + 
+                		"&" + promotedList.toString());
+            }
         }
     }
 
+    @Override
+    public void onClientConnected(String uuid) {
+        if (clientMap.get(uuid) == null) {
+        	clientMap.put(uuid, new TumpiClient(uuid));
+        }
+    }
+
+    @Override
     public void onClientDisconnected(String ip) {
     }
 
