@@ -18,7 +18,11 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:text="¡Bienvenido a Tumpi!"
+            android:shadowColor="@color/textShadowDark"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="Bienvenido a Tumpi"
             android:textColor="@color/colorLetraPantallaInicial"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -28,9 +32,13 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Pulsa una de las opciones para empezar"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
+            android:shadowColor="@color/textShadowDark"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="¡Pulsa una de las opciones para empezar!"
             android:textColor="@color/colorLetraPantallaInicial"
             android:textSize="20dp" />
     </LinearLayout>
@@ -51,13 +59,13 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="30dp"
             android:layout_weight="1"
-            android:background="@drawable/background_boton_server"
+            android:background="@drawable/background_boton_cliente"
             android:shadowColor="@color/textShadowDark"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="1"
-            android:textColor="@color/colorTextBotonCrearLista"
             android:text="Crea un Tumpi"
+            android:textColor="@color/colorTextBotonCrearLista"
             android:textSize="25sp" />
 
         <Button
@@ -74,8 +82,8 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"
-            android:textColor="@color/colorTextBotonCrearLista"
             android:text="Únete a un Tumpi"
+            android:textColor="@color/colorTextBotonCrearLista"
             android:textSize="25sp" />
     </LinearLayout>
 

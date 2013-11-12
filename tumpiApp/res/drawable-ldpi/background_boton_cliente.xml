@@ -21,12 +21,17 @@
     </item>
     <item>
         <shape>
+            <stroke android:width="3dp" 
+    			android:color="#55c6c6c6" />
             <corners
-                android:radius="8dp" />
-            <gradient    
-                android:endColor="@color/colorFondoBotonClienteInicio"
-                android:startColor="@color/colorFondoBotonClienteFin"
-                android:angle="270" /> 
+                android:radius="8dp" 
+                />
+            <gradient 
+                android:centerColor="@color/colorFondoBotonInicioNormal"
+                android:endColor="@color/colorFondoBotonInicioNormal"
+                android:startColor="#c6c6c6"
+                android:centerY="0.12"
+                android:angle="90" /> 
             <padding
                 android:left="10dp"
                 android:top="10dp"
