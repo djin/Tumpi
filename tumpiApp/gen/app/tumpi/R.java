@@ -11,6 +11,7 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int actionTitleListas=0x7f05003e;
         public static final int btnMenuNormal=0x7f05000a;
         public static final int btnMenuPulsado=0x7f05000d;
         public static final int btnReproductorNormal=0x7f050009;
@@ -71,9 +72,10 @@ public final class R {
         public static final int colorTextoColumnasPromocionadaServidor=0x7f050030;
         public static final int colorTituloFin=0x7f050001;
         public static final int colorTituloInicio=0x7f050000;
-        public static final int pressed_socialmanagertheme=0x7f05003e;
+        public static final int pressed_socialmanagertheme=0x7f050040;
         public static final int rowNormal=0x7f050005;
         public static final int rowPulsado=0x7f050006;
+        public static final int textShadowDark=0x7f05003f;
     }
     public static final class drawable {
         public static final int ab_bottom_solid_socialmanagertheme=0x7f020000;
@@ -121,73 +123,76 @@ public final class R {
         public static final int image_spinner=0x7f02002a;
         public static final int list_focused_socialmanagertheme=0x7f02002b;
         public static final int logo_tumpi=0x7f02002c;
-        public static final int menu_dropdown_panel_socialmanagertheme=0x7f02002d;
-        public static final int pressed_background_socialmanagertheme=0x7f02002e;
-        public static final int progress_bg_socialmanagertheme=0x7f02002f;
-        public static final int progress_horizontal_socialmanagertheme=0x7f020030;
-        public static final int progress_primary_socialmanagertheme=0x7f020031;
-        public static final int progress_secondary_socialmanagertheme=0x7f020032;
-        public static final int selectable_background_socialmanagertheme=0x7f020033;
-        public static final int spinner_ab_default_socialmanagertheme=0x7f020034;
-        public static final int spinner_ab_disabled_socialmanagertheme=0x7f020035;
-        public static final int spinner_ab_focused_socialmanagertheme=0x7f020036;
-        public static final int spinner_ab_pressed_socialmanagertheme=0x7f020037;
-        public static final int spinner_background_ab_socialmanagertheme=0x7f020038;
-        public static final int tab_indicator_ab_socialmanagertheme=0x7f020039;
-        public static final int tab_selected_focused_socialmanagertheme=0x7f02003a;
-        public static final int tab_selected_pressed_socialmanagertheme=0x7f02003b;
-        public static final int tab_selected_socialmanagertheme=0x7f02003c;
-        public static final int tab_unselected_focused_socialmanagertheme=0x7f02003d;
-        public static final int tab_unselected_pressed_socialmanagertheme=0x7f02003e;
+        public static final int logout=0x7f02002d;
+        public static final int menu_dropdown_panel_socialmanagertheme=0x7f02002e;
+        public static final int pressed_background_socialmanagertheme=0x7f02002f;
+        public static final int progress_bg_socialmanagertheme=0x7f020030;
+        public static final int progress_horizontal_socialmanagertheme=0x7f020031;
+        public static final int progress_primary_socialmanagertheme=0x7f020032;
+        public static final int progress_secondary_socialmanagertheme=0x7f020033;
+        public static final int selectable_background_socialmanagertheme=0x7f020034;
+        public static final int spinner_ab_default_socialmanagertheme=0x7f020035;
+        public static final int spinner_ab_disabled_socialmanagertheme=0x7f020036;
+        public static final int spinner_ab_focused_socialmanagertheme=0x7f020037;
+        public static final int spinner_ab_pressed_socialmanagertheme=0x7f020038;
+        public static final int spinner_background_ab_socialmanagertheme=0x7f020039;
+        public static final int tab_indicator_ab_socialmanagertheme=0x7f02003a;
+        public static final int tab_selected_focused_socialmanagertheme=0x7f02003b;
+        public static final int tab_selected_pressed_socialmanagertheme=0x7f02003c;
+        public static final int tab_selected_socialmanagertheme=0x7f02003d;
+        public static final int tab_unselected_focused_socialmanagertheme=0x7f02003e;
+        public static final int tab_unselected_pressed_socialmanagertheme=0x7f02003f;
     }
     public static final class id {
-        public static final int autorName=0x7f090020;
-        public static final int botonIniciarCliente=0x7f090024;
-        public static final int botonIniciarServidor=0x7f090023;
+        public static final int autorName=0x7f090021;
+        public static final int botonIniciarCliente=0x7f090025;
+        public static final int botonIniciarServidor=0x7f090024;
         public static final int btnFav=0x7f090004;
-        public static final int btnNext=0x7f09002b;
-        public static final int btnPlay=0x7f09002a;
-        public static final int btnSettings=0x7f09002e;
-        public static final int btnVotar=0x7f090021;
+        public static final int btnNext=0x7f09002d;
+        public static final int btnPlay=0x7f09002c;
+        public static final int btnSettings=0x7f090030;
+        public static final int btnVotar=0x7f090022;
         public static final int btnshare=0x7f090005;
-        public static final int caratulaDisco=0x7f090027;
-        public static final int itemAceptarSeleccion=0x7f09000a;
-        public static final int itemBorrar=0x7f090010;
-        public static final int itemBorrarLista=0x7f090012;
+        public static final int caratulaDisco=0x7f090029;
+        public static final int go_to_listas_btn=0x7f090027;
+        public static final int itemAceptarSeleccion=0x7f09000b;
+        public static final int itemBorrar=0x7f090011;
+        public static final int itemBorrarLista=0x7f090013;
         public static final int itemBorrarPromocionada=0x7f090006;
-        public static final int itemBuscarLista=0x7f09000d;
-        public static final int itemBuscarSeleccion=0x7f090009;
-        public static final int itemCancelar=0x7f090011;
+        public static final int itemBuscarLista=0x7f09000e;
+        public static final int itemBuscarSeleccion=0x7f09000a;
+        public static final int itemCancelar=0x7f090012;
         public static final int itemCancelarPromocionada=0x7f090007;
-        public static final int itemCancelarSeleccion=0x7f09000b;
-        public static final int itemConectarServidor=0x7f090008;
-        public static final int itemCrearLista=0x7f09000f;
-        public static final int itemSeleccionarTodo=0x7f09000c;
-        public static final int lista1=0x7f09000e;
+        public static final int itemCancelarSeleccion=0x7f09000c;
+        public static final int itemConectarServidor=0x7f090009;
+        public static final int itemCrearLista=0x7f090010;
+        public static final int itemLogout=0x7f090008;
+        public static final int itemSeleccionarTodo=0x7f09000d;
+        public static final int lista1=0x7f09000f;
         public static final int pager=0x7f090000;
         public static final int pager_title_strip=0x7f090001;
-        public static final int songName=0x7f09001f;
-        public static final int textNombreAlbum=0x7f090015;
-        public static final int textNombreAlbumPromocionada=0x7f090019;
-        public static final int textNombreAlbumSeleccion=0x7f09001d;
-        public static final int textNombreArtista=0x7f090014;
-        public static final int textNombreArtistaPromocionada=0x7f090018;
-        public static final int textNombreArtistaSeleccion=0x7f09001c;
-        public static final int textNombreCancion=0x7f090013;
-        public static final int textNombreCancionPromocionada=0x7f090017;
-        public static final int textNombreCancionSeleccion=0x7f09001b;
-        public static final int textSpinner=0x7f09002c;
-        public static final int txtDuracion=0x7f090016;
-        public static final int txtDuracionSeleccion=0x7f09001e;
-        public static final int txtInputNombreLista=0x7f090025;
-        public static final int txtInputNombreServidor=0x7f09002d;
-        public static final int txtNombreAlbumReproduciendo=0x7f090029;
-        public static final int txtNombreCancionReproduciendo=0x7f090028;
-        public static final int txtNumeroVotos=0x7f09001a;
+        public static final int songName=0x7f090020;
+        public static final int textNombreAlbum=0x7f090016;
+        public static final int textNombreAlbumPromocionada=0x7f09001a;
+        public static final int textNombreAlbumSeleccion=0x7f09001e;
+        public static final int textNombreArtista=0x7f090015;
+        public static final int textNombreArtistaPromocionada=0x7f090019;
+        public static final int textNombreArtistaSeleccion=0x7f09001d;
+        public static final int textNombreCancion=0x7f090014;
+        public static final int textNombreCancionPromocionada=0x7f090018;
+        public static final int textNombreCancionSeleccion=0x7f09001c;
+        public static final int textSpinner=0x7f09002e;
+        public static final int txtDuracion=0x7f090017;
+        public static final int txtDuracionSeleccion=0x7f09001f;
+        public static final int txtInputNombreLista=0x7f090026;
+        public static final int txtInputNombreServidor=0x7f09002f;
+        public static final int txtNombreAlbumReproduciendo=0x7f09002b;
+        public static final int txtNombreCancionReproduciendo=0x7f09002a;
+        public static final int txtNumeroVotos=0x7f09001b;
         public static final int txtPlaying=0x7f090002;
         public static final int txtPlayingAutor=0x7f090003;
-        public static final int txtPrimeraPantalla=0x7f090026;
-        public static final int txtSetting=0x7f090022;
+        public static final int txtPrimeraPantalla=0x7f090028;
+        public static final int txtSetting=0x7f090023;
     }
     public static final class layout {
         public static final int main=0x7f030000;
@@ -239,17 +244,18 @@ public final class R {
     }
     public static final class style {
         public static final int ActionBar_Solid_Socialmanagertheme=0x7f070003;
-        public static final int ActionBar_Transparent_Socialmanagertheme=0x7f070004;
-        public static final int ActionBarTabStyle_Socialmanagertheme=0x7f070007;
-        public static final int ActionButton_CloseMode_Socialmanagertheme=0x7f07000a;
-        public static final int DropDownListView_Socialmanagertheme=0x7f070006;
-        public static final int DropDownNav_Socialmanagertheme=0x7f070008;
-        public static final int PopupMenu_Socialmanagertheme=0x7f070005;
-        public static final int ProgressBar_Socialmanagertheme=0x7f070009;
+        public static final int ActionBar_TitleTextStyle_Socialmanagertheme=0x7f070004;
+        public static final int ActionBar_Transparent_Socialmanagertheme=0x7f070005;
+        public static final int ActionBarTabStyle_Socialmanagertheme=0x7f070008;
+        public static final int ActionButton_CloseMode_Socialmanagertheme=0x7f07000b;
+        public static final int DropDownListView_Socialmanagertheme=0x7f070007;
+        public static final int DropDownNav_Socialmanagertheme=0x7f070009;
+        public static final int PopupMenu_Socialmanagertheme=0x7f070006;
+        public static final int ProgressBar_Socialmanagertheme=0x7f07000a;
         public static final int Theme_Socialmanagertheme=0x7f070002;
         /**  this style is only referenced in a Light.DarkActionBar based theme 
          */
-        public static final int Theme_Socialmanagertheme_Widget=0x7f07000b;
+        public static final int Theme_Socialmanagertheme_Widget=0x7f07000c;
         public static final int buttonActionBar=0x7f070001;
         /**    <item name="android:actionDropDownStyle">@style/mySpinner</item> 
          */

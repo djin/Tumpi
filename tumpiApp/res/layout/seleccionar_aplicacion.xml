@@ -1,66 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="vertical"
-              android:background="@drawable/background_fondo_inicio"
->
-    <LinearLayout 
-        android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorTituloFin"
+    android:orientation="vertical" >
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_weight="1"
         android:gravity="center"
-        android:layout_weight="1">
+        android:orientation="vertical" >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:textColor="@color/colorLetraPantallaInicial"
             android:text="¡Bienvenido a Tumpi!"
-        />
+            android:textColor="@color/colorLetraPantallaInicial"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:textColor="@color/colorLetraPantallaInicial"
             android:layout_weight="1"
-            android:text="pulsa una de las opciones para empezar"
-        />
+            android:gravity="center"
+            android:text="Pulsa una de las opciones para empezar"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/colorLetraPantallaInicial"
+            android:textSize="20dp" />
     </LinearLayout>
-    <LinearLayout 
-        android:orientation="vertical"
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_weight="1"
         android:gravity="center"
-        android:layout_weight="1">
-        <Button 
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/botonIniciarServidor"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
-            android:id="@+id/botonIniciarServidor"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
             android:background="@drawable/background_boton_server"
+            android:shadowColor="@color/textShadowDark"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textColor="@color/colorTextBotonCrearLista"
             android:text="Crea un Tumpi"
-        />
-        <Button 
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/botonIniciarCliente"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="15dp"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:id="@+id/botonIniciarCliente"
-            android:text="Únete al Tumpi de un amigo"
             android:background="@drawable/background_boton_cliente"
-        />
+            android:shadowColor="@color/textShadowDark"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:textColor="@color/colorTextBotonCrearLista"
+            android:text="Únete a un Tumpi"
+            android:textSize="25sp" />
     </LinearLayout>
+
 </LinearLayout>

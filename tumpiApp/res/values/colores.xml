@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+
     <color name="colorTituloInicio">#efc784</color>
     <color name="colorTituloFin">#ffecba68</color>
     <color name="colorLetraSecundaria">#ff909190</color>
@@ -37,7 +38,7 @@
     <color name="colorFondoBotonClienteFinPulsado">#ffcf9e53</color>
     <color name="colorFondoBotonClienteInicioPulsado">#ffffffff</color>
     <color name="colorFondoBotonClienteInicio">#ffffffff</color>
-    <color name="colorFondoBotonClienteFin">#ffffffff</color> 
+    <color name="colorFondoBotonClienteFin">#ffffffff</color>
     <color name="colorLineaDivisoriaCliente">#ffffc54a</color>
     <color name="colorFondoCancionReproduciendoClienteInicio">#ffea8f00</color>
     <color name="colorFondoCancionReproduciendoClienteFin">#ffb7760f</color>
@@ -62,4 +63,7 @@
     <color name="colorFondoListaCliente">#fffbf0de</color>
     <color name="color1">#ff78D570</color>
     <color name="color2">#ff50A348</color>
+    <color name="actionTitleListas">#99000000</color>
+    <color name="textShadowDark">#000000</color>
+
 </resources>

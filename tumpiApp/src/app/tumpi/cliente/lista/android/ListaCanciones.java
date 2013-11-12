@@ -225,22 +225,6 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         });
 
     }
-    /*@Override
-     public void onConfigurationChanged (Configuration newConfig){
-     super.onConfigurationChanged(newConfig);
-     super.onBackPressed();
-     }*/
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        try {
-            cancion_sonando = null;
-            conex.conexion.removeServerMessageListener(this);
-            conex.conexion.cerrarConexion();
-        } catch (Exception ex) {
-        }
-    }
 
     @Override
     protected void onDestroy() {

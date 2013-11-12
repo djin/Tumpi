@@ -63,6 +63,7 @@ public class ListasManager implements ServerSocketListener {
 
     public boolean abrirConexion() {
         if (connectionManager == null) {
+        	conectado = true;
             connectionManager = new ConnectionManager();
             try {
                 if (connectionManager.createSocket()) {
@@ -84,6 +85,8 @@ public class ListasManager implements ServerSocketListener {
             if(connectionManager!=null){
                 connectionManager.socket.removeServerSocketListener(this);
                 connectionManager.closeSocket();
+                connectionManager = null;
+                conectado = false;
                 return true;
             }
             throw new Exception("No esta abierta ninguna conexion");
@@ -97,6 +100,7 @@ public class ListasManager implements ServerSocketListener {
             try {
                 if(connectionManager.socket.logIn(nick, uuid)){
                     connectionManager.socket.startListenBridge();
+                    conectado = true;
                     this.nick=nick;
                     return true;
                 }
@@ -187,6 +191,10 @@ public class ListasManager implements ServerSocketListener {
             return true;
         }
         return false;
+    }
+    
+    public boolean noListsAvailable(){
+    	return listasCanciones.isEmpty();
     }
 
     public void addModeloChangedListener(CambiarListaListener l) {

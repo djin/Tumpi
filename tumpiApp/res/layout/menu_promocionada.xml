@@ -11,6 +11,12 @@
           android:icon="@drawable/image_cancel"
           android:showAsAction="ifRoom"
     />
+    <item android:id="@+id/itemLogout"
+        android:text="Desconectar"
+        android:title="Desconectar"
+        android:icon="@drawable/logout"
+        android:showAsAction="always"/>
+    
     <item android:id="@+id/itemConectarServidor"
           android:text="Conectar"
           android:title="Conectar"
