@@ -104,7 +104,7 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void borrarLista(ViewGroup container, int position) {
-        if (nombresListas.size() > 1) {
+        if (hasLists()) {
             nombresListas.remove(position);
             Fragment aBorrar = (Fragment) listasCreadas.get(position);
             listasCreadas.remove(aBorrar);
@@ -116,6 +116,10 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
         }
         manager.listasCanciones.remove(position);
         manager.guardar();
+    }
+    
+    private boolean hasLists() {
+    	return nombresListas.size() > 1;
     }
     
     @Override

@@ -229,6 +229,5 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 }

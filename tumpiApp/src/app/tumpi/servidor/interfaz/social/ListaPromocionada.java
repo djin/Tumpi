@@ -1,20 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.tumpi.servidor.interfaz.social;
 
-import android.annotation.SuppressLint;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,8 +26,6 @@ import app.tumpi.R;
 import app.tumpi.SeleccionAplicacion;
 import android.widget.TextView;
 import android.widget.Toast;
-import app.tumpi.cliente.lista.android.ListaCanciones;
-import app.tumpi.cliente.lista.android.conexion.ConnectionManager;
 import app.tumpi.servidor.interfaces.CambiarListaListener;
 
 import java.util.ArrayList;
@@ -400,5 +394,9 @@ public class ListaPromocionada extends ListActivity implements
 					}
 				}).show();
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		irSeleccionApp();
+	}
 }
