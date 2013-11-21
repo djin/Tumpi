@@ -194,7 +194,11 @@ public class ListasManager implements ServerSocketListener {
     }
     
     public boolean noListsAvailable(){
-    	return listasCanciones.isEmpty();
+    	if(listasCanciones.isEmpty() || (listasCanciones.size()<=1 && listasCanciones.get(0).getCanciones().size()<=1)){
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     public void addModeloChangedListener(CambiarListaListener l) {
