@@ -27,7 +27,7 @@ import app.tumpi.servidor.modelo.datos.ListasManager;
  */
 public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private int numeroListas = 1;
+    private int numeroListas;
     private ArrayList<String> nombresListas;
     private ListaFragment primerFragment;
     private ArrayList<Object> listasCreadas;
@@ -41,6 +41,7 @@ public class SwipeViewPagerAdapter extends FragmentStatePagerAdapter {
         listasCreadas = new ArrayList<Object>();
         manejador = ManejadorAcciones.getInstance();
         manager.listasCanciones.add(new ListaCanciones());
+        numeroListas = nombresListas.size();
     }
 
     @Override
