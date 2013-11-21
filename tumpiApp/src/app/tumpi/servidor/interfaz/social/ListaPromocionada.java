@@ -1,6 +1,5 @@
 package app.tumpi.servidor.interfaz.social;
 
-
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -70,7 +69,7 @@ public class ListaPromocionada extends ListActivity implements
 		manager.player.addPlayerListener(this);
 		explorer = AudioExplorer.getInstance(getApplicationContext());
 		// Specify that a dropdown list should be displayed in the action bar.
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		/*actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
 		actionBar.setListNavigationCallbacks(
 		// Specify a SpinnerAdapter to populate the dropdown list.
@@ -93,7 +92,8 @@ public class ListaPromocionada extends ListActivity implements
 						return true;
 					}
 				});
-		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(false);*/
+		actionBar.setTitle("Promocionada");
 
 		datosListaPromocionada = manager.promotedList.getCanciones();
 		adapter = new AdaptadorListaPromocionada(this, datosListaPromocionada,
@@ -147,6 +147,7 @@ public class ListaPromocionada extends ListActivity implements
 	public void mostrarMenuSeleccionCanciones() {
 		menuApp.findItem(R.id.itemCancelarPromocionada).setVisible(false);
 		menuApp.findItem(R.id.itemBorrarPromocionada).setVisible(false);
+		menuApp.findItem(R.id.itemIrTusListas).setVisible(true);
 		logoutItem.setVisible(true);
 		conectarItem.setVisible(true);
 	}
@@ -154,6 +155,7 @@ public class ListaPromocionada extends ListActivity implements
 	public void ocultarMenuSeleccionCanciones() {
 		conectarItem.setVisible(false);
 		logoutItem.setVisible(false);
+		menuApp.findItem(R.id.itemIrTusListas).setVisible(false);
 		menuApp.findItem(R.id.itemCancelarPromocionada).setVisible(true);
 		menuApp.findItem(R.id.itemBorrarPromocionada).setVisible(true);
 
@@ -205,6 +207,13 @@ public class ListaPromocionada extends ListActivity implements
 			if (manager.conectado) {
 				showLogoutDialog();
 			}
+			return true;
+
+		case R.id.itemIrTusListas:
+			Intent inte = new Intent(ListaPromocionada.this,
+					ListasCanciones.class);
+			inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(inte);
 			return true;
 		case R.id.itemConectarServidor:
 			if (!manager.conectado) {
@@ -394,7 +403,7 @@ public class ListaPromocionada extends ListActivity implements
 					}
 				}).show();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		irSeleccionApp();

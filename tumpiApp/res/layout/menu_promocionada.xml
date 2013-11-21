@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/itemIrTusListas"
+          android:icon="@drawable/image_search_list"
+          android:title="Ir a tus listas"
+          android:showAsAction="always"
+    />
     <item android:id="@+id/itemBorrarPromocionada"
           android:icon="@drawable/image_delete"
           android:title="Cancelar"
