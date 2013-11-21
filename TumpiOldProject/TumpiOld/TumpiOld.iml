@@ -14,8 +14,6 @@
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
         <option name="GRADLE_PROJECT_PATH" value=":TumpiOld" />
-        <option name="PROJECT_ABSOLUTE_PATH" value="C:\Users\66785320\Documents\GitHub\socialDj\TumpiOldProject" />
-        <option name="GRADLE_HOME_DIR_PATH" />
       </configuration>
     </facet>
   </component>
