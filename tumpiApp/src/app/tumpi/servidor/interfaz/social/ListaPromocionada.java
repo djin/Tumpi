@@ -63,36 +63,12 @@ public class ListaPromocionada extends ListActivity implements
 		manager = ListasManager.getInstance();
 
 		alertBuilder = new AlertDialog.Builder(this);
+		
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		// manager.abrirConexion(getApplicationContext());
 		manager.addModeloChangedListener(this);
 		manager.player.addPlayerListener(this);
 		explorer = AudioExplorer.getInstance(getApplicationContext());
-		// Specify that a dropdown list should be displayed in the action bar.
-		/*actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-		actionBar.setListNavigationCallbacks(
-		// Specify a SpinnerAdapter to populate the dropdown list.
-				new ArrayAdapter(actionBar.getThemedContext(),
-						R.layout.style_row_spinner, R.id.textSpinner,
-						new String[] { "Promocionada", "Tus Listas" }),
-				// Provide a listener to be called when an item is selected.
-				new ActionBar.OnNavigationListener() {
-					public boolean onNavigationItemSelected(int position,
-							long id) {
-						// Take action here, e.g. switching to the
-						// corresponding fragment.
-						if (position == 1) {
-							actionBar.setSelectedNavigationItem(0);
-							Intent inte = new Intent(ListaPromocionada.this,
-									ListasCanciones.class);
-							inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-							startActivity(inte);
-						}
-						return true;
-					}
-				});
-		actionBar.setDisplayShowTitleEnabled(false);*/
 		actionBar.setTitle("Promocionada");
 
 		datosListaPromocionada = manager.promotedList.getCanciones();
@@ -187,6 +163,9 @@ public class ListaPromocionada extends ListActivity implements
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			return true;
 		case R.id.itemBorrarPromocionada:
 			borrarCanciones();
 			Toast.makeText(this, "Canciones Borradas", Toast.LENGTH_SHORT)
