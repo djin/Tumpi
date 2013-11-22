@@ -42,6 +42,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         btn1.setImageDrawable(null);
         btn1.setEnabled(false);
         //////////////////////////////////////////////////////////////////////////////////////
+        lista.clear();
         listadoAdapter = new AdaptadorLista(this, lista, R.layout.rowstyle);
         setListAdapter(listadoAdapter);
         text_playing = (TextView) findViewById(R.id.txtPlaying);
