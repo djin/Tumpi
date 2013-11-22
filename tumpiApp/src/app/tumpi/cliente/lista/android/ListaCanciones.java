@@ -3,10 +3,12 @@ package app.tumpi.cliente.lista.android;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.tumpi.R;
@@ -17,7 +19,7 @@ import java.util.HashSet;
 import app.tumpi.cliente.lista.android.conexion.*;
 import app.tumpi.util.Installation;
 
-public class ListaCanciones extends ListActivity implements ServerMessageListener {
+public class ListaCanciones extends ActionBarActivity implements ServerMessageListener {
 
     static ArrayList<Cancion> lista = new ArrayList<Cancion>();
     AdaptadorLista listadoAdapter;
@@ -27,6 +29,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
     static Cancion cancion_sonando;
     public static TextView text_playing;
     public static TextView text_autorPlaying;
+    private ListView mListView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,8 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
         //////////////////////////////////////////////////////////////////////////////////////
         lista.clear();
         listadoAdapter = new AdaptadorLista(this, lista, R.layout.rowstyle);
-        setListAdapter(listadoAdapter);
+        mListView = (ListView) findViewById(android.R.id.list);
+        mListView.setAdapter(listadoAdapter);
         text_playing = (TextView) findViewById(R.id.txtPlaying);
         text_playing.setSelected(true);
         text_autorPlaying = (TextView) findViewById(R.id.txtPlayingAutor);
@@ -129,7 +133,7 @@ public class ListaCanciones extends ListActivity implements ServerMessageListene
 
     public void onMessageReceive(final String men) {
 
-        this.getListView().post(new Runnable() {
+    	text_playing.post(new Runnable() {
             public void run() {
                 String message = men;
                 if (!"exit".equals(message)) {

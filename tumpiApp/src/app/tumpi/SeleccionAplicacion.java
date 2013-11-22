@@ -1,13 +1,13 @@
 package app.tumpi;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +20,7 @@ import app.tumpi.servidor.modelo.datos.ListasManager;
  *
  * @author Sergio Redondo
  */
-public class SeleccionAplicacion extends Activity {
+public class SeleccionAplicacion extends ActionBarActivity {
 
 	private View.OnClickListener btnServerListener;
 	
@@ -32,7 +32,7 @@ public class SeleccionAplicacion extends Activity {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancel(1);
 
-        ActionBar action = getActionBar();
+        ActionBar action = getSupportActionBar();
         action.hide();
 
         Button btnClient = (Button) findViewById(R.id.botonIniciarCliente);

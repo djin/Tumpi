@@ -261,6 +261,7 @@ public class ListaPromocionada extends ListActivity implements
 				NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 				mNotificationManager.notify(1, mBuilder.build());
+				
 			}
 			return true;
 		default:

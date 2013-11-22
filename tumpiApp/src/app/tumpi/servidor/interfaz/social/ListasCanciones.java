@@ -1,12 +1,13 @@
 package app.tumpi.servidor.interfaz.social;
 
 import app.tumpi.servidor.Manejador.ManejadorAcciones;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,9 +27,8 @@ import app.tumpi.servidor.modelo.datos.ListasManager;
 import app.tumpi.servidor.multimedia.AudioExplorer;
 import app.tumpi.servidor.multimedia.PlayerListener;
 
-public class ListasCanciones extends FragmentActivity implements PlayerListener {
+public class ListasCanciones extends ActionBarActivity implements PlayerListener {
 
-	ActionBar.TabListener tabListener;
 	// When requested, this adapter returns a DemoObjectFragment,
 	// representing an object in the collection.
 	SwipeViewPagerAdapter mSwipeViewPagerAdapter;
@@ -45,7 +45,7 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener 
 		setContentView(R.layout.main);
 		manejador = ManejadorAcciones.getInstance();
 		manejador.setListaCanciones(this);
-		final ActionBar actionBar = getActionBar();
+		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setTitle("Tus listas");
 		// ViewPager and its adapters use support library
@@ -68,7 +68,6 @@ public class ListasCanciones extends FragmentActivity implements PlayerListener 
 		mViewPager
 				.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 					public void onPageScrolled(int i, float f, int i1) {
-						cancelarSeleccion();
 					}
 
 					public void onPageSelected(int i) {

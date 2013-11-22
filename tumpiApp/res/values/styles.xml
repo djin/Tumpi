@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <style name="textStyle" parent="android:Theme.Holo.Light">
+    <style name="textStyle" parent="@style/Theme.AppCompat.Light">
         <item name="android:actionButtonStyle">@style/buttonActionBar</item>
         <item name="android:itemBackground">@drawable/estilo_item_action_bar</item>
      <!--   <item name="android:actionDropDownStyle">@style/mySpinner</item> -->
