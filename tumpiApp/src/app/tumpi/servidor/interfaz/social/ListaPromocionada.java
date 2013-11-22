@@ -3,11 +3,15 @@ package app.tumpi.servidor.interfaz.social;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -63,7 +67,7 @@ public class ListaPromocionada extends ListActivity implements
 		manager = ListasManager.getInstance();
 
 		alertBuilder = new AlertDialog.Builder(this);
-		
+
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		manager.addModeloChangedListener(this);
@@ -236,6 +240,27 @@ public class ListaPromocionada extends ListActivity implements
 				Toast.makeText(getApplicationContext(),
 						"Nombre del Tumpi: " + manager.nick, Toast.LENGTH_SHORT)
 						.show();
+				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+						ListaPromocionada.this)
+						.setSmallIcon(R.drawable.logo_tumpi)
+						.setLargeIcon(
+								(((BitmapDrawable) ListaPromocionada.this.getResources().getDrawable(
+										R.drawable.logo_tumpi)).getBitmap()))
+						.setContentTitle("Nueva lista de reproducción")
+						.setContentText("Pulsa aqui aqui entrar a votar!")
+						.setTicker("El dj ha publicado una nueva lista!");
+
+				Intent notIntent = new Intent(ListaPromocionada.this,
+						SeleccionAplicacion.class);
+
+				PendingIntent contIntent = PendingIntent.getActivity(
+						ListaPromocionada.this, 0, notIntent, 0);
+
+				mBuilder.setContentIntent(contIntent);
+
+				NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+				mNotificationManager.notify(1, mBuilder.build());
 			}
 			return true;
 		default:
