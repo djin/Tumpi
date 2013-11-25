@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/itemIrTusListas"
-          android:icon="@drawable/image_search_list"
-          android:title="Ir a tus listas"
-          android:showAsAction="always"
-    />
-    <item android:id="@+id/itemBorrarPromocionada"
-          android:icon="@drawable/image_delete"
-          android:title="Cancelar"
-          android:showAsAction="ifRoom"
-    />
-    <item android:id="@+id/itemCancelarPromocionada"
-          android:text="Borrar"
-          android:title="Borrar"
-          android:icon="@drawable/image_cancel"
-          android:showAsAction="ifRoom"
-    />
-    <item android:id="@+id/itemLogout"
-        android:text="Desconectar"
-        android:title="Desconectar"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/itemIrTusListas"
+        android:icon="@drawable/image_search_list"
+        app:showAsAction="always"
+        android:title="Ir a tus listas"/>
+
+    <item
+        android:id="@+id/itemBorrarPromocionada"
+        android:icon="@drawable/image_delete"
+        app:showAsAction="ifRoom"
+        android:title="Cancelar"/>
+
+    <item
+        android:id="@+id/itemCancelarPromocionada"
+        android:icon="@drawable/image_cancel"
+        app:showAsAction="ifRoom"
+        android:text="Borrar"
+        android:title="Borrar"/>
+
+    <item
+        android:id="@+id/itemLogout"
         android:icon="@drawable/logout"
-        android:showAsAction="always"/>
-    
-    <item android:id="@+id/itemConectarServidor"
-          android:text="Conectar"
-          android:title="Conectar"
-          android:icon="@drawable/image_conectar"
-          android:showAsAction="always"
-    />
+        app:showAsAction="always"
+        android:text="Desconectar"
+        android:title="Desconectar"/>
+
+    <item
+        android:id="@+id/itemConectarServidor"
+        android:icon="@drawable/image_conectar"
+        app:showAsAction="always"
+        android:text="Conectar"
+        android:title="Conectar"/>
+
 </menu>

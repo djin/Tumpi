@@ -1,6 +1,5 @@
 package app.tumpi.servidor.interfaz.social;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.NotificationManager;
@@ -12,6 +11,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -44,7 +46,7 @@ import app.tumpi.util.Installation;
  * 
  * @author Zellyalgo
  */
-public class ListaPromocionada extends ListActivity implements
+public class ListaPromocionada extends ActionBarActivity implements
 		CambiarListaListener, PlayerListener {
 
 	private ArrayList<CancionPromocionada> datosListaPromocionada;
@@ -57,13 +59,14 @@ public class ListaPromocionada extends ListActivity implements
 	private AlertDialog.Builder alertBuilder;
 	private MenuItem conectarItem;
 	private MenuItem logoutItem;
+	private ListView lista;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.style_lista_promocionada);
-		final ActionBar actionBar = getActionBar();
+		final ActionBar actionBar = getSupportActionBar();
 		manager = ListasManager.getInstance();
 
 		alertBuilder = new AlertDialog.Builder(this);
@@ -81,8 +84,8 @@ public class ListaPromocionada extends ListActivity implements
 		for (Cancion c : datosListaPromocionada) {
 			adapter.seleccionados.add(false);
 		}
-		setListAdapter(adapter);// itemConectarServidor
-		ListView lista = (ListView) findViewById(android.R.id.list);
+		lista = (ListView) findViewById(android.R.id.list);
+		lista.setAdapter(adapter);// itemConectarServidor
 		lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -92,6 +95,26 @@ public class ListaPromocionada extends ListActivity implements
 				modoSeleccion = true;
 				ocultarMenuSeleccionCanciones();
 				return true;
+			}
+		});
+
+		lista.setOnItemClickListener(new OnItemClickListener() {
+			
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View v, int position,
+					long id) {
+				if (modoSeleccion) {
+					if (adapter.seleccionados.get(position)) {
+						adapter.seleccionados.set(position, false);
+						if (!adapter.seleccionados.contains(true)) {
+							modoSeleccion = false;
+							mostrarMenuSeleccionCanciones();
+						}
+					} else {
+						adapter.seleccionados.set(position, true);
+					}
+					adapter.notifyDataSetChanged();
+				}
 			}
 		});
 		checkNoListsAvailable();
@@ -205,7 +228,7 @@ public class ListaPromocionada extends ListActivity implements
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				final View v = inflater.inflate(
 						R.layout.style_view_nombre_servidor,
-						this.getListView(), false);
+						lista, false);
 				alertBuilder.setView(v);
 				alertBuilder.setPositiveButton("Aceptar",
 						new DialogInterface.OnClickListener() {
@@ -244,8 +267,10 @@ public class ListaPromocionada extends ListActivity implements
 						ListaPromocionada.this)
 						.setSmallIcon(R.drawable.logo_tumpi)
 						.setLargeIcon(
-								(((BitmapDrawable) ListaPromocionada.this.getResources().getDrawable(
-										R.drawable.logo_tumpi)).getBitmap()))
+								(((BitmapDrawable) ListaPromocionada.this
+										.getResources().getDrawable(
+												R.drawable.logo_tumpi))
+										.getBitmap()))
 						.setContentTitle("Nueva lista de reproducción")
 						.setContentText("Pulsa aqui aqui entrar a votar!")
 						.setTicker("El dj ha publicado una nueva lista!");
@@ -261,7 +286,7 @@ public class ListaPromocionada extends ListActivity implements
 				NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 				mNotificationManager.notify(1, mBuilder.build());
-				
+
 			}
 			return true;
 		default:
@@ -298,25 +323,9 @@ public class ListaPromocionada extends ListActivity implements
 		startActivity(inte);
 	}
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		if (modoSeleccion) {
-			if (adapter.seleccionados.get(position)) {
-				adapter.seleccionados.set(position, false);
-				if (!adapter.seleccionados.contains(true)) {
-					modoSeleccion = false;
-					mostrarMenuSeleccionCanciones();
-				}
-			} else {
-				adapter.seleccionados.set(position, true);
-			}
-			adapter.notifyDataSetChanged();
-		}
-	}
-
 	public void modeloCambio() {
-		getListView().post(new Runnable() {
+		TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
+		txtNombreCancionReproduciendo.post(new Runnable() {
 			public void run() {
 				adapter.notifyDataSetChanged();
 			}
@@ -357,7 +366,8 @@ public class ListaPromocionada extends ListActivity implements
 
 	public void clickNext(View v) {
 		manager.procesarVotos();
-		getListView().post(new Runnable() {
+		TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
+		txtNombreCancionReproduciendo.post(new Runnable() {
 			public void run() {
 				updatePlayer();
 			}
