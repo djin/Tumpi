@@ -117,14 +117,16 @@ public class ListaPromocionada extends ActionBarActivity implements
 				}
 			}
 		});
+		View v = findViewById(android.R.id.empty);
+		lista.setEmptyView(v);
 		checkNoListsAvailable();
 		updatePlayer();
 	}
 
 	private void checkNoListsAvailable() {
 		if (datosListaPromocionada.isEmpty() && manager.noListsAvailable()) {
-			TextView goToListasBtn = (TextView) findViewById(R.id.go_to_listas_btn);
-			goToListasBtn.setText("¡Crea tus listas para empezar!");
+	//		TextView goToListasBtn = (TextView) findViewById(R.id.go_to_listas_btn);
+	//		goToListasBtn.setText("¡Crea tus listas para empezar!");
 			showCreateListaDialog = true;
 		}
 	}
@@ -243,7 +245,7 @@ public class ListaPromocionada extends ActionBarActivity implements
 									login(value, uuid);
 								} else {
 									Toast.makeText(
-											alertBuilder.getContext(),
+											lista.getContext(),
 											"Escriba un nombre para el servidor",
 											Toast.LENGTH_SHORT).show();
 									// dialog.cancel();
@@ -298,19 +300,19 @@ public class ListaPromocionada extends ActionBarActivity implements
 		if (manager.cerrarConexion()) {
 			irSeleccionApp();
 		} else {
-			Toast.makeText(alertBuilder.getContext(),
+			Toast.makeText(lista.getContext(),
 					"Error al salir del Tumpi", Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	private void login(String value, String uuid) {
 		if (manager.logInBridge(value, uuid)) {
-			Toast.makeText(alertBuilder.getContext(), "Servidor conectado",
+			Toast.makeText(lista.getContext(), "Servidor conectado",
 					Toast.LENGTH_SHORT).show();
 			conectarItem.setIcon(R.drawable.conectado);
 			logoutItem.setVisible(true);
 		} else {
-			Toast.makeText(alertBuilder.getContext(),
+			Toast.makeText(lista.getContext(),
 					"Error al publicar el servidor", Toast.LENGTH_SHORT).show();
 			manager.cerrarConexion();
 		}

@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -67,6 +68,8 @@ public class ListaCanciones extends ActionBarActivity implements ServerMessageLi
         }
         refrescarCancionSonando();
         p = this;
+        View v = findViewById(android.R.id.empty);
+        mListView.setEmptyView(v);
     }
     
     // QUITO EL MENU, PORQUE NO QUEREMOS MENU DE OPCIONES POR AHORA
@@ -102,7 +105,7 @@ public class ListaCanciones extends ActionBarActivity implements ServerMessageLi
         if (canciones[0].equals("empty")) {
             lista.add(new Cancion("El Dj no ha propuesto canciones", "En breves minutos aparecerá", " ", 0, 100, false, true));
         } else {
-            ArrayList<Cancion> lista_aux = new ArrayList();
+            ArrayList<Cancion> lista_aux = new ArrayList<Cancion>();
             for (String cancion : canciones) {
                 String[] datos_cancion = cancion.split("\\*");
                 if (!"1".equals(datos_cancion[5])) {
@@ -225,7 +228,7 @@ public class ListaCanciones extends ActionBarActivity implements ServerMessageLi
 			}
 			
 			private boolean thereAreVotedSongs(String votedSongsString){
-				return votedSongsString != null && !votedSongsString.isEmpty();
+				return votedSongsString != null && votedSongsString.length()!=0;
 			}
         });
 

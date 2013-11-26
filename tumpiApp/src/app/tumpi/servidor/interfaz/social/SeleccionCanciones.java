@@ -83,7 +83,8 @@ public class SeleccionCanciones extends ActionBarActivity {
 			}
 
 		});
-
+		View v = findViewById(android.R.id.empty);
+		lista.setEmptyView(v);
 	}
 
 	@Override
