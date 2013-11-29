@@ -12,7 +12,6 @@ import app.tumpi.servidor.interfaz.social.ListaPromocionada;
 import app.tumpi.servidor.modelo.datos.ListasManager;
 import app.tumpi.util.Installation;
 
-
 public class ConectarServidorRunnable implements ValueInterface {
 	private ListasManager manager = ListasManager.getInstance();
 	private String value, uuid;
@@ -30,12 +29,11 @@ public class ConectarServidorRunnable implements ValueInterface {
 			pd = ProgressDialog.show(context, "Conectando",
 					"Espere unos segundos...", true, false);
 			if (manager.logInBridge(value, uuid)) {
-				Intent inte = new Intent(context, ListaPromocionada.class);
-				inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				context.startActivity(inte);
+				irAPromocionada();
 			} else {
 				pd.dismiss();
 				manager.cerrarConexion();
+				irAPromocionada();
 				manager = null;
 				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(
 						context);
@@ -60,6 +58,12 @@ public class ConectarServidorRunnable implements ValueInterface {
 							+ ex.toString(), Toast.LENGTH_LONG).show();
 		}
 		pd.dismiss();
+	}
+
+	private void irAPromocionada() {
+		Intent inte = new Intent(context, ListaPromocionada.class);
+		inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		context.startActivity(inte);
 	}
 
 	public void setValue(String value) {
