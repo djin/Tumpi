@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -99,7 +100,7 @@ public class ListaPromocionada extends ActionBarActivity implements
 		});
 
 		lista.setOnItemClickListener(new OnItemClickListener() {
-			
+
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
 					long id) {
@@ -125,8 +126,9 @@ public class ListaPromocionada extends ActionBarActivity implements
 
 	private void checkNoListsAvailable() {
 		if (datosListaPromocionada.isEmpty() && manager.noListsAvailable()) {
-	//		TextView goToListasBtn = (TextView) findViewById(R.id.go_to_listas_btn);
-	//		goToListasBtn.setText("¡Crea tus listas para empezar!");
+			// TextView goToListasBtn = (TextView)
+			// findViewById(R.id.go_to_listas_btn);
+			// goToListasBtn.setText("¡Crea tus listas para empezar!");
 			showCreateListaDialog = true;
 		}
 	}
@@ -229,8 +231,7 @@ public class ListaPromocionada extends ActionBarActivity implements
 				LayoutInflater inflater = (LayoutInflater) this
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				final View v = inflater.inflate(
-						R.layout.style_view_nombre_servidor,
-						lista, false);
+						R.layout.style_view_nombre_servidor, lista, false);
 				alertBuilder.setView(v);
 				alertBuilder.setPositiveButton("Aceptar",
 						new DialogInterface.OnClickListener() {
@@ -265,14 +266,13 @@ public class ListaPromocionada extends ActionBarActivity implements
 				Toast.makeText(getApplicationContext(),
 						"Nombre del Tumpi: " + manager.nick, Toast.LENGTH_SHORT)
 						.show();
+				BitmapDrawable bitmap = ((BitmapDrawable) ListaPromocionada.this
+						.getResources().getDrawable(R.drawable.logo_tumpi));
+				
 				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 						ListaPromocionada.this)
 						.setSmallIcon(R.drawable.logo_tumpi)
-						.setLargeIcon(
-								(((BitmapDrawable) ListaPromocionada.this
-										.getResources().getDrawable(
-												R.drawable.logo_tumpi))
-										.getBitmap()))
+						.setLargeIcon(bitmap.getBitmap())
 						.setContentTitle("Nueva lista de reproducción")
 						.setContentText("Pulsa aqui aqui entrar a votar!")
 						.setTicker("El dj ha publicado una nueva lista!");
@@ -300,8 +300,8 @@ public class ListaPromocionada extends ActionBarActivity implements
 		if (manager.cerrarConexion()) {
 			irSeleccionApp();
 		} else {
-			Toast.makeText(lista.getContext(),
-					"Error al salir del Tumpi", Toast.LENGTH_SHORT).show();
+			Toast.makeText(lista.getContext(), "Error al salir del Tumpi",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -312,8 +312,8 @@ public class ListaPromocionada extends ActionBarActivity implements
 			conectarItem.setIcon(R.drawable.conectado);
 			logoutItem.setVisible(true);
 		} else {
-			Toast.makeText(lista.getContext(),
-					"Error al publicar el servidor", Toast.LENGTH_SHORT).show();
+			Toast.makeText(lista.getContext(), "Error al publicar el servidor",
+					Toast.LENGTH_SHORT).show();
 			manager.cerrarConexion();
 		}
 	}
