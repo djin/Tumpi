@@ -1,15 +1,19 @@
 package app.tumpi.servidor.interfaz.social;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Notification.Style;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
@@ -28,14 +32,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import app.tumpi.R;
 import app.tumpi.SeleccionAplicacion;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.tumpi.servidor.interfaces.CambiarListaListener;
-
 import java.util.ArrayList;
-
 import app.tumpi.servidor.modelo.datos.Cancion;
 import app.tumpi.servidor.modelo.datos.CancionPromocionada;
 import app.tumpi.servidor.modelo.datos.ListasManager;
@@ -268,7 +271,7 @@ public class ListaPromocionada extends ActionBarActivity implements
 						.show();
 				BitmapDrawable bitmap = ((BitmapDrawable) ListaPromocionada.this
 						.getResources().getDrawable(R.drawable.logo_tumpi));
-				
+
 				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 						ListaPromocionada.this)
 						.setSmallIcon(R.drawable.logo_tumpi)
@@ -355,7 +358,8 @@ public class ListaPromocionada extends ActionBarActivity implements
 			}
 		}
 	}
-
+//HAY QUE CAMBIARLO OBLIGATORIAMENTE, LO SUYO ES SACARLOS A UNA FUNCION PARA PONERLO
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	public void clickPlay(View v) {
 		manager.player.pause();
 		ImageButton boton = (ImageButton) v;
@@ -364,6 +368,48 @@ public class ListaPromocionada extends ActionBarActivity implements
 		} else {
 			boton.setImageResource(R.drawable.image_play);
 		}
+		Toast.makeText(this, "PUEBAAAA", Toast.LENGTH_LONG).show();
+		BitmapDrawable bitmap = ((BitmapDrawable) ListaPromocionada.this
+				.getResources().getDrawable(R.drawable.caratula_default));
+		RemoteViews mRemoteView = new RemoteViews(this.getPackageName(),
+				R.layout.notification_player);
+		
+		RemoteViews mRemoteViewBig = new RemoteViews(this.getPackageName(),
+				R.layout.notification_player_big);
+		
+/*		Notification nf = new Notification();
+		nf.tickerText = "REPRODUCTOR";
+		nf.icon = R.drawable.logo_tumpi;
+		nf.contentView = mRemoteView;
+		nf.bigContentView = mRemoteViewBig;
+		nf.flags = Notification.FLAG_ONGOING_EVENT;
+*/		
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+				ListaPromocionada.this).setSmallIcon(R.drawable.logo_tumpi)
+				.setLargeIcon(bitmap.getBitmap())
+				.setOngoing(true)
+				.setContentText("Pulsa aqui aqui entrar a votar!")
+				.setTicker("El dj ha publicado una nueva lista!");
+		
+		View view = mRemoteView.apply(this, null);
+		//aqui se pueden coger todas as vistas (findViewByID)
+		
+		mBuilder.setContent(mRemoteView);
+		
+
+		Intent notIntent = new Intent(ListaPromocionada.this,
+				SeleccionAplicacion.class);
+
+		PendingIntent contIntent = PendingIntent.getActivity(
+				ListaPromocionada.this, 0, notIntent, 0);
+
+		mBuilder.setContentIntent(contIntent);
+		
+		Notification nf = mBuilder.build();
+		nf.bigContentView = mRemoteViewBig;
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+		mNotificationManager.notify(1, nf);
 	}
 
 	public void clickNext(View v) {
