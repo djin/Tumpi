@@ -31,6 +31,17 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_socialmanagertheme</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_socialmanagertheme</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Socialmanagertheme</item>
+        <!-- bloque <2.3 -->
+        <item name="actionBarItemBackground">@drawable/selectable_background_socialmanagertheme</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Socialmanagertheme</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Socialmanagertheme</item>
+        <!-- <item name="itemBackground">@drawable/estilo_item_action_bar</item> -->
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Socialmanagertheme</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Socialmanagertheme</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Socialmanagertheme</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_socialmanagertheme</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_socialmanagertheme</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Socialmanagertheme</item>
     </style>
 
     <style name="ActionBar.Solid.Socialmanagertheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
@@ -38,45 +49,65 @@
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_socialmanagertheme</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_socialmanagertheme</item>
         <item name="android:titleTextStyle">@style/ActionBar.TitleTextStyle.Socialmanagertheme</item>
+        <!-- asd -->
+        <item name="background">@drawable/background_actionbar</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_socialmanagertheme</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_socialmanagertheme</item>
+        <item name="titleTextStyle">@style/ActionBar.TitleTextStyle.Socialmanagertheme</item>
     </style>
 
     <style name="ActionBar.TitleTextStyle.Socialmanagertheme" parent="@style/TextAppearance.AppCompat.Base.SearchResult.Title">
         <item name="android:textColor">@color/actionTitleListas</item>
         <item name="android:textSize">16sp</item>
         <item name="android:paddingLeft">15dp</item>
+        <!-- asd -->
+<!--         <item name="textColor">@color/actionTitleListas</item> -->
+<!--         <item name="textSize">16sp</item> -->
+<!--         <item name="paddingLeft">15dp</item> -->
     </style>
 
     <style name="ActionBar.Transparent.Socialmanagertheme" parent="@style/Widget.AppCompat.Light.ActionBar">
         <item name="android:background">@drawable/ab_transparent_socialmanagertheme</item>
+        <item name="background">@drawable/ab_transparent_socialmanagertheme</item>
     </style>
 
     <style name="PopupMenu.Socialmanagertheme" parent="@style/Widget.AppCompat.Light.ListPopupWindow">
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_socialmanagertheme</item>
+<!--         <item name="popupBackground">@drawable/menu_dropdown_panel_socialmanagertheme</item> -->
     </style>
 
     <style name="DropDownListView.Socialmanagertheme" parent="@style/Widget.AppCompat.Light.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_socialmanagertheme</item>
+<!--         <item name="listSelector">@drawable/selectable_background_socialmanagertheme</item> -->
     </style>
 
     <style name="ActionBarTabStyle.Socialmanagertheme" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_socialmanagertheme</item>
+        <item name="background">@drawable/tab_indicator_ab_socialmanagertheme</item>
     </style>
 
     <style name="DropDownNav.Socialmanagertheme" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
         <item name="android:background">@drawable/spinner_background_ab_socialmanagertheme</item>
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_socialmanagertheme</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_socialmanagertheme</item>
+        <!-- a -->
+        <item name="background">@drawable/spinner_background_ab_socialmanagertheme</item>
+<!--         <item name="popupBackground">@drawable/menu_dropdown_panel_socialmanagertheme</item> -->
+<!--         <item name="dropDownSelector">@drawable/selectable_background_socialmanagertheme</item> -->
     </style>
 
     <style name="ActionButton.CloseMode.Socialmanagertheme" parent="@style/Widget.AppCompat.Light.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_socialmanagertheme</item>
+        <item name="background">@drawable/btn_cab_done_socialmanagertheme</item>
     </style>
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
     <style name="Theme.Socialmanagertheme.Widget" parent="@style/Theme.AppCompat">
         <item name="android:popupMenuStyle">@style/PopupMenu.Socialmanagertheme</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Socialmanagertheme</item>
+        <!-- asd -->
+        <item name="popupMenuStyle">@style/PopupMenu.Socialmanagertheme</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Socialmanagertheme</item>
     </style>
-
 
 </resources>

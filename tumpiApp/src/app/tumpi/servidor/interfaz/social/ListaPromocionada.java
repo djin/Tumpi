@@ -269,29 +269,6 @@ public class ListaPromocionada extends ActionBarActivity implements
 				Toast.makeText(getApplicationContext(),
 						"Nombre del Tumpi: " + manager.nick, Toast.LENGTH_SHORT)
 						.show();
-				BitmapDrawable bitmap = ((BitmapDrawable) ListaPromocionada.this
-						.getResources().getDrawable(R.drawable.logo_tumpi));
-
-				NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-						ListaPromocionada.this)
-						.setSmallIcon(R.drawable.logo_tumpi)
-						.setLargeIcon(bitmap.getBitmap())
-						.setContentTitle("Nueva lista de reproducción")
-						.setContentText("Pulsa aqui aqui entrar a votar!")
-						.setTicker("El dj ha publicado una nueva lista!");
-
-				Intent notIntent = new Intent(ListaPromocionada.this,
-						SeleccionAplicacion.class);
-
-				PendingIntent contIntent = PendingIntent.getActivity(
-						ListaPromocionada.this, 0, notIntent, 0);
-
-				mBuilder.setContentIntent(contIntent);
-
-				NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-				mNotificationManager.notify(1, mBuilder.build());
-
 			}
 			return true;
 		default:
@@ -359,7 +336,7 @@ public class ListaPromocionada extends ActionBarActivity implements
 		}
 	}
 //HAY QUE CAMBIARLO OBLIGATORIAMENTE, LO SUYO ES SACARLOS A UNA FUNCION PARA PONERLO
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+//	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	public void clickPlay(View v) {
 		manager.player.pause();
 		ImageButton boton = (ImageButton) v;
@@ -368,48 +345,40 @@ public class ListaPromocionada extends ActionBarActivity implements
 		} else {
 			boton.setImageResource(R.drawable.image_play);
 		}
-		Toast.makeText(this, "PUEBAAAA", Toast.LENGTH_LONG).show();
-		BitmapDrawable bitmap = ((BitmapDrawable) ListaPromocionada.this
-				.getResources().getDrawable(R.drawable.caratula_default));
-		RemoteViews mRemoteView = new RemoteViews(this.getPackageName(),
-				R.layout.notification_player);
-		
-		RemoteViews mRemoteViewBig = new RemoteViews(this.getPackageName(),
-				R.layout.notification_player_big);
-		
-/*		Notification nf = new Notification();
-		nf.tickerText = "REPRODUCTOR";
-		nf.icon = R.drawable.logo_tumpi;
-		nf.contentView = mRemoteView;
-		nf.bigContentView = mRemoteViewBig;
-		nf.flags = Notification.FLAG_ONGOING_EVENT;
-*/		
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-				ListaPromocionada.this).setSmallIcon(R.drawable.logo_tumpi)
-				.setLargeIcon(bitmap.getBitmap())
-				.setOngoing(true)
-				.setContentText("Pulsa aqui aqui entrar a votar!")
-				.setTicker("El dj ha publicado una nueva lista!");
-		
-		View view = mRemoteView.apply(this, null);
-		//aqui se pueden coger todas as vistas (findViewByID)
-		
-		mBuilder.setContent(mRemoteView);
-		
-
-		Intent notIntent = new Intent(ListaPromocionada.this,
-				SeleccionAplicacion.class);
-
-		PendingIntent contIntent = PendingIntent.getActivity(
-				ListaPromocionada.this, 0, notIntent, 0);
-
-		mBuilder.setContentIntent(contIntent);
-		
-		Notification nf = mBuilder.build();
-		nf.bigContentView = mRemoteViewBig;
-		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-		mNotificationManager.notify(1, nf);
+//		BitmapDrawable bitmap = ((BitmapDrawable) ListaPromocionada.this
+//				.getResources().getDrawable(R.drawable.caratula_default));
+//		RemoteViews mRemoteView = new RemoteViews(this.getPackageName(),
+//				R.layout.notification_player);
+//		
+//		RemoteViews mRemoteViewBig = new RemoteViews(this.getPackageName(),
+//				R.layout.notification_player_big);
+//		
+//		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+//				ListaPromocionada.this).setSmallIcon(R.drawable.logo_tumpi)
+//				.setLargeIcon(bitmap.getBitmap())
+//				.setOngoing(true)
+//				.setContentText("Pulsa aqui aqui entrar a votar!")
+//				.setTicker("El dj ha publicado una nueva lista!");
+//		
+//		View view = mRemoteView.apply(this, null);
+//		//aqui se pueden coger todas as vistas (findViewByID)
+//		
+//		mBuilder.setContent(mRemoteView);
+//		
+//
+//		Intent notIntent = new Intent(ListaPromocionada.this,
+//				SeleccionAplicacion.class);
+//
+//		PendingIntent contIntent = PendingIntent.getActivity(
+//				ListaPromocionada.this, 0, notIntent, 0);
+//
+//		mBuilder.setContentIntent(contIntent);
+//		
+//		Notification nf = mBuilder.build();
+//		nf.bigContentView = mRemoteViewBig;
+//		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//		mNotificationManager.notify(1, nf);
 	}
 
 	public void clickNext(View v) {
