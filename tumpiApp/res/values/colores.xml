@@ -65,5 +65,6 @@
     <color name="color2">#ff50A348</color>
     <color name="actionTitleListas">#99000000</color>
     <color name="textShadowDark">#000000</color>
+    <color name="colorFondoBotonNotificacionPulsado">#aa707070</color>
 
 </resources>

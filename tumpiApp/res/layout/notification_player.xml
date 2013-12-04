@@ -50,21 +50,21 @@
                 android:id="@+id/btn_play_notificacion"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="#00000000"
+                android:background="@drawable/background_boton_notificacion"
                 android:src="@drawable/image_play_white" />
 
             <ImageButton
                 android:id="@+id/btn_next_notificacion"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="#00000000"
+                android:background="@drawable/background_boton_notificacion"
                 android:src="@drawable/image_next_white" />
 
             <ImageButton
                 android:id="@+id/btn_close_notificacion"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="#00000000"
+                android:background="@drawable/background_boton_notificacion"
                 android:src="@drawable/image_cancel" />
         </LinearLayout>
     </LinearLayout>
