@@ -16,6 +16,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -38,7 +39,9 @@ import app.tumpi.SeleccionAplicacion;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.tumpi.servidor.interfaces.CambiarListaListener;
+
 import java.util.ArrayList;
+
 import app.tumpi.servidor.modelo.datos.Cancion;
 import app.tumpi.servidor.modelo.datos.CancionPromocionada;
 import app.tumpi.servidor.modelo.datos.ListasManager;
@@ -371,6 +374,19 @@ public class ListaPromocionada extends ActionBarActivity implements
 				.getCancionReproduciendo().nombreAutor);
 		mRemoteView.setImageViewBitmap(R.id.img_reproductor_notificacion, explorer.getAlbumImage(manager
 				.getCancionReproduciendo().album_id));
+		
+//		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//		Intent resultIntent = new Intent(this, SeleccionAplicacion.class);
+//		stackBuilder.addNextIntent(resultIntent);
+//		
+//		PendingIntent resultPendingIntent =
+//		        stackBuilder.getPendingIntent(
+//		                0,
+//		                PendingIntent.FLAG_UPDATE_CURRENT
+//		            );
+//		
+//		resultPendingIntent.
+//		mRemoteView.setOnClickPendingIntent(R.id.btn_next_notificacion, resultPendingIntent);
 		
 		mRemoteViewBig.setTextViewText(R.id.texto_cancion_notificacion_big, manager
 				.getCancionReproduciendo().nombreCancion);
