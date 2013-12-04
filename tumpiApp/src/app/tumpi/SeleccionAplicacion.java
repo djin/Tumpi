@@ -90,7 +90,7 @@ public class SeleccionAplicacion extends ActionBarActivity {
                 	choice.setValue(value);
                     btnConectarTumpi.postDelayed(choice, 100);
                 } else {
-                    Toast.makeText(tumpiDialog.getContext(), "Escriba un nombre para el servidor", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SeleccionAplicacion.this, "Escriba un nombre para el servidor", Toast.LENGTH_SHORT).show();
                     //dialog.cancel();
                 }
             }

@@ -105,7 +105,7 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.layout.menulistas, menu);
 		menu.getItem(0).getSubMenu().clear();
-		menu.add(13, 58, 6, "Promocionar");
+//		menu.add(13, 58, 6, "Promocionar");
 		menu.add(12, 57, 5, "Añadir Canciones");
 		desapareceMenuSeleccion();
 		return true;
@@ -157,9 +157,9 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 		case R.id.itemBorrarLista:
 			borrarListaSeleccionada();
 			break;
-		case 58:
-			promocionarListaSeleccionada();
-			break;
+//		case 58:
+//			promocionarListaSeleccionada();
+//			break;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -271,6 +271,10 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 				updatePlayer();
 			}
 		});
+	}
+	
+	public void promocionar(View v){
+		promocionarListaSeleccionada();
 	}
 
 	public void onPrepared(MediaPlayer mp) {
