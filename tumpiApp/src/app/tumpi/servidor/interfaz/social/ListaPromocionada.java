@@ -336,15 +336,20 @@ public class ListaPromocionada extends ActionBarActivity implements
 		}
 	}
 //HAY QUE CAMBIARLO OBLIGATORIAMENTE, LO SUYO ES SACARLOS A UNA FUNCION PARA PONERLO
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	
 	public void clickPlay(View v) {
 		manager.player.pause();
 		ImageButton boton = (ImageButton) v;
 		if (manager.player.isPlaying()) {
 			boton.setImageResource(R.drawable.image_pause);
+			sacarNotificacion();
 		} else {
 			boton.setImageResource(R.drawable.image_play);
 		}
+	}
+
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	public void sacarNotificacion(){
 		BitmapDrawable bitmap = ((BitmapDrawable) ListaPromocionada.this
 				.getResources().getDrawable(R.drawable.caratula_default));
 		RemoteViews mRemoteView = new RemoteViews(this.getPackageName(),
@@ -360,8 +365,21 @@ public class ListaPromocionada extends ActionBarActivity implements
 				.setContentText("Pulsa aqui aqui entrar a votar!")
 				.setTicker("El dj ha publicado una nueva lista!");
 		
-		View view = mRemoteView.apply(this, null);
-		//aqui se pueden coger todas as vistas (findViewByID)
+		mRemoteView.setTextViewText(R.id.texto_cancion_notificacion, manager
+				.getCancionReproduciendo().nombreCancion);
+		mRemoteView.setTextViewText(R.id.texto_autor_notificacion, manager
+				.getCancionReproduciendo().nombreAutor);
+		mRemoteView.setImageViewBitmap(R.id.img_reproductor_notificacion, explorer.getAlbumImage(manager
+				.getCancionReproduciendo().album_id));
+		
+		mRemoteViewBig.setTextViewText(R.id.texto_cancion_notificacion_big, manager
+				.getCancionReproduciendo().nombreCancion);
+		mRemoteViewBig.setTextViewText(R.id.texto_autor_notificacion_big, manager
+				.getCancionReproduciendo().nombreAutor);
+		mRemoteViewBig.setTextViewText(R.id.texto_autor_notificacion_big, manager
+				.getCancionReproduciendo().nombreAlbum);
+		mRemoteViewBig.setImageViewBitmap(R.id.img_reproductor_notificacion_big, explorer.getAlbumImage(manager
+				.getCancionReproduciendo().album_id));
 		
 		mBuilder.setContent(mRemoteView);
 		
@@ -380,13 +398,13 @@ public class ListaPromocionada extends ActionBarActivity implements
 
 		mNotificationManager.notify(1, nf);
 	}
-
 	public void clickNext(View v) {
 		manager.procesarVotos();
 		TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
 		txtNombreCancionReproduciendo.post(new Runnable() {
 			public void run() {
 				updatePlayer();
+				sacarNotificacion();
 			}
 		});
 	}
