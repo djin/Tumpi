@@ -23,5 +23,5 @@
 
 
     </android.support.v4.view.ViewPager>
-    <include layout="@layout/style_reproductor" />
+    <include layout="@layout/style_reproductor_listas" />
 </LinearLayout>

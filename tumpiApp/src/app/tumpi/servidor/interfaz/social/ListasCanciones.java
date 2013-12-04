@@ -230,18 +230,18 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 
 	public void updatePlayer() {
 		if (modelo.getCancionReproduciendo() != null) {
-			TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
+			/*TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
 			txtNombreCancionReproduciendo.setText(modelo
 					.getCancionReproduciendo().nombreCancion);
 			TextView txtNombreAlbumReproduciendo = (TextView) findViewById(R.id.txtNombreAlbumReproduciendo);
 			txtNombreAlbumReproduciendo.setText(modelo
-					.getCancionReproduciendo().nombreAutor);
-			ImageView imagen = (ImageView) findViewById(R.id.caratulaDisco);
+					.getCancionReproduciendo().nombreAutor);*/
+			ImageView imagen = (ImageView) findViewById(R.id.caratulaDisco_listas);
 			imagen.setImageBitmap(explorer.getAlbumImage(modelo
 					.getCancionReproduciendo().album_id));
-			ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
-			txtNombreCancionReproduciendo.setSelected(true);
-			txtNombreAlbumReproduciendo.setSelectAllOnFocus(true);
+			ImageButton boton = (ImageButton) findViewById(R.id.btnPlay_listas);
+//			txtNombreCancionReproduciendo.setSelected(true);
+//			txtNombreAlbumReproduciendo.setSelectAllOnFocus(true);
 			if (modelo.player.isPlaying()) {
 				boton.setImageResource(R.drawable.image_pause);
 			} else {
@@ -266,7 +266,7 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 
 	public void clickNext(View v) {
 		modelo.procesarVotos();
-		findViewById(R.id.btnPlay).post(new Runnable() {
+		findViewById(R.id.btnPlay_listas).post(new Runnable() {
 			public void run() {
 				updatePlayer();
 			}
@@ -274,7 +274,7 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 	}
 
 	public void onPrepared(MediaPlayer mp) {
-		ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
+		ImageButton boton = (ImageButton) findViewById(R.id.btnPlay_listas);
 		boton.setImageResource(R.drawable.image_pause);
 	}
 
