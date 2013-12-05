@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import app.tumpi.services.MyService;
 import app.tumpi.servidor.interfaz.social.ListaPromocionada;
 import app.tumpi.servidor.interfaz.social.Notificacion;
 import app.tumpi.servidor.modelo.datos.ListasManager;
@@ -70,6 +71,8 @@ public class SeleccionAplicacion extends ActionBarActivity {
         
         manager.notificacion = new Notificacion(this);
         registerReceiver(manager.notificacion.getReceiver(), manager.notificacion.getFilter());
+        Intent service = new Intent(this, MyService.class);
+        startService(service);
     }
     
     private void showTumpiDialog(final View btnConectarTumpi,final ValueInterface choice){

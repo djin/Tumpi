@@ -31,6 +31,9 @@ public class Notificacion {
 	private PendingIntent closePendingIntent;
 	private Activity activity;
 	
+	public Notificacion() {
+		// TODO Auto-generated constructor stub
+	}
 	public Notificacion(Activity activity) {
 		// TODO Auto-generated constructor stub
 		manager = ListasManager.getInstance();
