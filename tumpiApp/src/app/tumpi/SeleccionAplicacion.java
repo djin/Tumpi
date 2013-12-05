@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import app.tumpi.servidor.interfaz.social.ListaPromocionada;
+import app.tumpi.servidor.interfaz.social.Notificacion;
 import app.tumpi.servidor.modelo.datos.ListasManager;
 
 /**
@@ -29,9 +30,6 @@ public class SeleccionAplicacion extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seleccionar_aplicacion);
         
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.cancel(1);
-
         ActionBar action = getSupportActionBar();
         action.hide();
 
@@ -70,10 +68,8 @@ public class SeleccionAplicacion extends ActionBarActivity {
         }
         btnServer.setOnClickListener(btnServerListener);
         
-        // DO NOT REMOVE
-        /*btnServer.setEnabled(false);
-        btnServer.setBackground(null);
-        btnServer.setText("");*/
+        manager.notificacion = new Notificacion(this);
+        registerReceiver(manager.notificacion.getReceiver(), manager.notificacion.getFilter());
     }
     
     private void showTumpiDialog(final View btnConectarTumpi,final ValueInterface choice){

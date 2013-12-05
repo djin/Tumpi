@@ -37,6 +37,7 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 	private ManejadorAcciones manejador;
 	private ListasManager modelo = ListasManager.getInstance();
 	private AudioExplorer explorer;
+	private ListasManager manager = ListasManager.getInstance();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -259,6 +260,7 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 		ImageButton boton = (ImageButton) v;
 		if (modelo.player.isPlaying()) {
 			boton.setImageResource(R.drawable.image_pause);
+			manager.notificacion.sacarNotificacion();
 		} else {
 			boton.setImageResource(R.drawable.image_play);
 		}
@@ -269,6 +271,7 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 		findViewById(R.id.btnPlay_listas).post(new Runnable() {
 			public void run() {
 				updatePlayer();
+				manager.notificacion.sacarNotificacion();
 			}
 		});
 	}

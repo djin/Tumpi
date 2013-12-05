@@ -6,7 +6,7 @@
         android:id="@+id/itemBuscarSeleccion"
         android:actionViewClass="android.widget.SearchView"
         android:icon="@drawable/image_search"
-        app:showAsAction="always"
+        app:showAsAction="collapseActionView|always"
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:title="Buscar Cancion"/>
 
@@ -20,7 +20,7 @@
     <item
         android:id="@+id/itemCancelarSeleccion"
         android:icon="@drawable/image_cancel"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:text="Cancelar"
         android:title="Cancelar"/>
 

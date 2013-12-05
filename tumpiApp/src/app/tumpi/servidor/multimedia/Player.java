@@ -55,4 +55,7 @@ public class Player {
         }
         return false;
     }
+    public void resetPlayer(){
+    	player.reset();
+    }
 }

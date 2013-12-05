@@ -7,9 +7,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Notification.Style;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
@@ -67,6 +69,11 @@ public class ListaPromocionada extends ActionBarActivity implements
 	private MenuItem conectarItem;
 	private MenuItem logoutItem;
 	private ListView lista;
+//	private BroadcastReceiver receiver;
+//	private PendingIntent nextPendingIntent;
+//	private PendingIntent playPendingIntent;
+//	private PendingIntent closePendingIntent;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -128,6 +135,35 @@ public class ListaPromocionada extends ActionBarActivity implements
 		lista.setEmptyView(v);
 		checkNoListsAvailable();
 		updatePlayer();
+		
+//		Intent nextIntent = new Intent("next");
+//		nextPendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, 0);
+//		Intent playIntent = new Intent("play");
+//		playPendingIntent = PendingIntent.getBroadcast(this, 0, playIntent, 0);
+//		Intent closeIntent = new Intent("close");
+//		closePendingIntent = PendingIntent.getBroadcast(this, 0, closeIntent, 0);
+//		IntentFilter filter = new IntentFilter();
+//		filter.addAction("next");
+//		filter.addAction("play");
+//		filter.addAction("close");
+//		// Add other actions as needed
+//
+//		receiver = new BroadcastReceiver() {
+//		    @Override
+//		    public void onReceive(Context context, Intent intent) {
+//		        if (intent.getAction().equals("next")) {
+//		        	clickNext(null);
+//		        }
+//		        if(intent.getAction().equals("play")){
+//		        	clickPlay(null);
+//		        }
+//		        if(intent.getAction().equals("close")){
+//		        	logout();
+//		        }
+//		    }
+//		};
+//
+//		registerReceiver(receiver, filter);
 	}
 
 	private void checkNoListsAvailable() {
@@ -280,12 +316,19 @@ public class ListaPromocionada extends ActionBarActivity implements
 	}
 
 	private void logout() {
-		if (manager.cerrarConexion()) {
-			irSeleccionApp();
-		} else {
+		if (!manager.cerrarConexion()) {
 			Toast.makeText(lista.getContext(), "Error al salir del Tumpi",
 					Toast.LENGTH_SHORT).show();
 		}
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(1);
+        manager.promotedList.getCanciones().clear();
+        if(manager.player.isPlaying()){
+        	manager.player.pause();
+        }
+        manager.player.resetPlayer();
+        manager.setCancionReproduciendo(null);
+		irSeleccionApp();
 	}
 
 	private void login(String value, String uuid) {
@@ -338,91 +381,116 @@ public class ListaPromocionada extends ActionBarActivity implements
 			}
 		}
 	}
-//HAY QUE CAMBIARLO OBLIGATORIAMENTE, LO SUYO ES SACARLOS A UNA FUNCION PARA PONERLO
 	
 	public void clickPlay(View v) {
-		manager.player.pause();
-		ImageButton boton = (ImageButton) v;
-		if (manager.player.isPlaying()) {
-			boton.setImageResource(R.drawable.image_pause);
+		if(!manager.promotedList.getCanciones().isEmpty()){
+			manager.player.pause();
+			ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
+			if (manager.player.isPlaying()) {
+				boton.setImageResource(R.drawable.image_pause);
+				manager.notificacion.sacarNotificacion();
+			} else {
+				boton.setImageResource(R.drawable.image_play);
+			}
 			sacarNotificacion();
-		} else {
-			boton.setImageResource(R.drawable.image_play);
 		}
 	}
-
+	
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public void sacarNotificacion(){
-		BitmapDrawable bitmap = ((BitmapDrawable) ListaPromocionada.this
-				.getResources().getDrawable(R.drawable.caratula_default));
-		RemoteViews mRemoteView = new RemoteViews(this.getPackageName(),
-				R.layout.notification_player);
-		
-		RemoteViews mRemoteViewBig = new RemoteViews(this.getPackageName(),
-				R.layout.notification_player_big);
-		
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-				ListaPromocionada.this).setSmallIcon(R.drawable.logo_tumpi)
-				.setLargeIcon(bitmap.getBitmap())
-				.setOngoing(true)
-				.setContentText("Pulsa aqui aqui entrar a votar!")
-				.setTicker("El dj ha publicado una nueva lista!");
-		
-		mRemoteView.setTextViewText(R.id.texto_cancion_notificacion, manager
-				.getCancionReproduciendo().nombreCancion);
-		mRemoteView.setTextViewText(R.id.texto_autor_notificacion, manager
-				.getCancionReproduciendo().nombreAutor);
-		mRemoteView.setImageViewBitmap(R.id.img_reproductor_notificacion, explorer.getAlbumImage(manager
-				.getCancionReproduciendo().album_id));
-		
-//		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-//		Intent resultIntent = new Intent(this, SeleccionAplicacion.class);
-//		stackBuilder.addNextIntent(resultIntent);
-//		
-//		PendingIntent resultPendingIntent =
-//		        stackBuilder.getPendingIntent(
-//		                0,
-//		                PendingIntent.FLAG_UPDATE_CURRENT
-//		            );
-//		
-//		resultPendingIntent.
-//		mRemoteView.setOnClickPendingIntent(R.id.btn_next_notificacion, resultPendingIntent);
-		
-		mRemoteViewBig.setTextViewText(R.id.texto_cancion_notificacion_big, manager
-				.getCancionReproduciendo().nombreCancion);
-		mRemoteViewBig.setTextViewText(R.id.texto_autor_notificacion_big, manager
-				.getCancionReproduciendo().nombreAutor);
-		mRemoteViewBig.setTextViewText(R.id.texto_autor_notificacion_big, manager
-				.getCancionReproduciendo().nombreAlbum);
-		mRemoteViewBig.setImageViewBitmap(R.id.img_reproductor_notificacion_big, explorer.getAlbumImage(manager
-				.getCancionReproduciendo().album_id));
-		
-		mBuilder.setContent(mRemoteView);
-		
-
-		Intent notIntent = new Intent(ListaPromocionada.this,
-				SeleccionAplicacion.class);
-
-		PendingIntent contIntent = PendingIntent.getActivity(
-				ListaPromocionada.this, 0, notIntent, 0);
-
-		mBuilder.setContentIntent(contIntent);
-		
-		Notification nf = mBuilder.build();
-		nf.bigContentView = mRemoteViewBig;
-		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-		mNotificationManager.notify(1, nf);
+	public void sacarNotificacion() {
+//		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+//			BitmapDrawable bitmap = ((BitmapDrawable) ListaPromocionada.this
+//					.getResources().getDrawable(R.drawable.caratula_default));
+//			RemoteViews mRemoteView = new RemoteViews(this.getPackageName(),
+//					R.layout.notification_player);
+//
+//			RemoteViews mRemoteViewBig = new RemoteViews(this.getPackageName(),
+//					R.layout.notification_player_big);
+//
+//			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+//					ListaPromocionada.this).setSmallIcon(R.drawable.logo_tumpi)
+//					.setLargeIcon(bitmap.getBitmap()).setOngoing(true)
+//					.setContentText("Pulsa aqui aqui entrar a votar!")
+//					.setTicker("El dj ha publicado una nueva lista!");
+//			
+//			Bitmap imgDefault = explorer.getAlbumImage(manager
+//					.getCancionReproduciendo().album_id);
+//			if(imgDefault == null){
+//					imgDefault = ((BitmapDrawable) ListaPromocionada.this
+//							.getResources().getDrawable(R.drawable.caratula_default)).getBitmap();
+//			}
+//
+//			mRemoteView.setTextViewText(R.id.texto_cancion_notificacion,
+//					manager.getCancionReproduciendo().nombreCancion);
+//			mRemoteView.setTextViewText(R.id.texto_autor_notificacion,
+//					manager.getCancionReproduciendo().nombreAutor);
+//			mRemoteView
+//					.setImageViewBitmap(R.id.img_reproductor_notificacion,
+//							imgDefault);
+//
+//			
+//			mRemoteView.setOnClickPendingIntent(R.id.btn_next_notificacion,
+//					nextPendingIntent);
+//			mRemoteView.setOnClickPendingIntent(R.id.btn_play_notificacion,
+//					playPendingIntent);
+//			mRemoteView.setOnClickPendingIntent(R.id.btn_close_notificacion,
+//					closePendingIntent);
+//
+//			mRemoteViewBig.setTextViewText(R.id.texto_cancion_notificacion_big,
+//					manager.getCancionReproduciendo().nombreCancion);
+//			mRemoteViewBig.setTextViewText(R.id.texto_autor_notificacion_big,
+//					manager.getCancionReproduciendo().nombreAutor);
+//			mRemoteViewBig.setTextViewText(R.id.texto_album_notificacion_big,
+//					manager.getCancionReproduciendo().nombreAlbum);
+//			mRemoteViewBig
+//					.setImageViewBitmap(R.id.img_reproductor_notificacion_big,
+//							imgDefault);
+//			
+//			mRemoteViewBig.setOnClickPendingIntent(R.id.btn_next_notificacion_big,
+//					nextPendingIntent);
+//			mRemoteViewBig.setOnClickPendingIntent(R.id.btn_play_notificacion_big,
+//					playPendingIntent);
+//			mRemoteViewBig.setOnClickPendingIntent(R.id.btn_close_notificacion_big,
+//					closePendingIntent);
+//
+//			if(manager.player.isPlaying()){
+//				mRemoteView.setImageViewResource(R.id.btn_play_notificacion, R.drawable.image_pause_white);
+//				mRemoteViewBig.setImageViewResource(R.id.btn_play_notificacion_big, R.drawable.image_pause_white);
+//			} else {
+//				mRemoteView.setImageViewResource(R.id.btn_play_notificacion, R.drawable.image_play_white);
+//				mRemoteViewBig.setImageViewResource(R.id.btn_play_notificacion_big, R.drawable.image_play_white);
+//			}
+//			mBuilder.setContent(mRemoteView);
+//
+//			Intent notIntent = new Intent(ListaPromocionada.this,
+//					SeleccionAplicacion.class);
+//
+//			PendingIntent contIntent = PendingIntent.getActivity(
+//					ListaPromocionada.this, 0, notIntent, 0);
+//			
+//
+//			mBuilder.setContentIntent(contIntent);
+//
+//			Notification nf = mBuilder.build();
+//
+//			nf.bigContentView = mRemoteViewBig;
+//			NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//			mNotificationManager.notify(1, nf);
+//		}
 	}
+
 	public void clickNext(View v) {
-		manager.procesarVotos();
-		TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
-		txtNombreCancionReproduciendo.post(new Runnable() {
-			public void run() {
-				updatePlayer();
-				sacarNotificacion();
-			}
-		});
+		if(!manager.promotedList.getCanciones().isEmpty()){
+			manager.procesarVotos();
+			TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
+			txtNombreCancionReproduciendo.post(new Runnable() {
+				public void run() {
+					updatePlayer();
+					manager.notificacion.sacarNotificacion();
+				}
+			});
+		}
 	}
 
 	public void crearLista(View v) {

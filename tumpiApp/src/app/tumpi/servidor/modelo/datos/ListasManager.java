@@ -11,6 +11,7 @@ import app.tumpi.servidor.conexion.ConnectionManager;
 import app.tumpi.servidor.conexion.ServerSocketListener;
 import app.tumpi.servidor.interfaces.CambiarListaListener;
 import app.tumpi.servidor.interfaces.ListenerListaCambio;
+import app.tumpi.servidor.interfaz.social.Notificacion;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,19 +36,19 @@ public class ListasManager implements ServerSocketListener {
     public ArrayList<ListaCanciones> listasCanciones;
     public ListaPromocionada promotedList;
     private CancionPromocionada cancionReproduciendo;
-    List<CambiarListaListener> listeners = new LinkedList();
-    List<ListenerListaCambio> listenersLista = new LinkedList();
+    List<CambiarListaListener> listeners = new LinkedList<CambiarListaListener>();
+    List<ListenerListaCambio> listenersLista = new LinkedList<ListenerListaCambio>();
     private ConnectionManager connectionManager;
     private HashMap<String, TumpiClient> clientMap;
     public Player player;
     public boolean conectado=false;
     public String nick="";
+    public Notificacion notificacion;
 
     private ListasManager() {
         nombreLista = new ArrayList<String>();
         listasCanciones = new ArrayList<ListaCanciones>();
         promotedList = new ListaPromocionada(new ListaCanciones());
-        cancionReproduciendo = new CancionPromocionada(0, "", "", 1, "", 1234, "");
         clientMap = new HashMap<String, TumpiClient>();
         player = Player.getInstance();
         GuardarListas guardar = new GuardarListas(this);
@@ -136,6 +137,7 @@ public class ListasManager implements ServerSocketListener {
                 }
             }
         }
+        notificacion.sacarNotificacion();
     }
     
     public void guardar (){
@@ -148,6 +150,9 @@ public class ListasManager implements ServerSocketListener {
     }
 
     public Cancion getCancionReproduciendo() {
+    	if(cancionReproduciendo == null){
+    		cancionReproduciendo = new CancionPromocionada(0, "", "", 1, "", 1234, "");
+    	}
         return cancionReproduciendo;
     }
 

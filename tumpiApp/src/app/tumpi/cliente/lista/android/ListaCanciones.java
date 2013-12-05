@@ -276,7 +276,7 @@ public class ListaCanciones extends ActionBarActivity implements
 
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-		mNotificationManager.notify(1, mBuilder.build());
+		mNotificationManager.notify(2, mBuilder.build());
 	}
 
 	@Override

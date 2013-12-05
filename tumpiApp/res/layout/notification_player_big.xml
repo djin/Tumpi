@@ -33,6 +33,11 @@
                     android:id="@+id/texto_cancion_notificacion_big"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
+                    android:fontFamily="sans-serif-light"
+                	android:textSize="18sp"
+                	android:maxLines="1"
+               	 	android:ellipsize="end"
                     android:text="Nombre Cancion" />
 
                 <TextView
@@ -41,7 +46,9 @@
                     android:layout_height="wrap_content"
                     android:text="Nombre Artista"
                     android:textColor="#99ffffff"
-                    android:textSize="12sp" />
+                    android:maxLines="1"
+               	 	android:ellipsize="end"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/texto_album_notificacion_big"
@@ -49,7 +56,9 @@
                     android:layout_height="wrap_content"
                     android:text="Nombre Album"
                     android:textColor="#99ffffff"
-                    android:textSize="12sp" />
+                    android:maxLines="1"
+               	 	android:ellipsize="end"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <ImageButton
