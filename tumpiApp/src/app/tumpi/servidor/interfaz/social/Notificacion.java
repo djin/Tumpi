@@ -44,20 +44,20 @@ public class Notificacion {
 		playPendingIntent = PendingIntent.getBroadcast(activity, 0, playIntent, 0);
 		Intent closeIntent = new Intent("close");
 		closePendingIntent = PendingIntent.getBroadcast(activity, 0, closeIntent, 0);
-		receiver = new BroadcastReceiver() {
-		    @Override
-		    public void onReceive(Context context, Intent intent) {
-		        if (intent.getAction().equals("next")) {
-		        	next();
-		        }
-		        if(intent.getAction().equals("play")){
-		        	play();
-		        }
-		        if(intent.getAction().equals("close")){
-		        	close();
-		        }
-		    }
-		};
+		receiver = new MyReciever();
+//		    @Override
+//		    public void onReceive(Context context, Intent intent) {
+//		        if (intent.getAction().equals("next")) {
+//		        	next();
+//		        }
+//		        if(intent.getAction().equals("play")){
+//		        	play();
+//		        }
+//		        if(intent.getAction().equals("close")){
+//		        	close();
+//		        }
+//		    }
+//		};
 		
 		filter = new IntentFilter();
 		filter.addAction("next");
@@ -67,17 +67,17 @@ public class Notificacion {
 
 	}
 	
-	private void next(){
+	public void next(){
 		manager.procesarVotos();
 		sacarNotificacion();
 	}
 	
-	private void play(){
+	public void play(){
 		manager.player.pause();
 		sacarNotificacion();
 	}
 	
-	private void close(){
+	public void close(){
 //		if (!manager.cerrarConexion()) {
 //			Toast.makeText(activity, "Error al salir del Tumpi",
 //					Toast.LENGTH_SHORT).show();

@@ -70,7 +70,7 @@ public class SeleccionAplicacion extends ActionBarActivity {
         btnServer.setOnClickListener(btnServerListener);
         
         manager.notificacion = new Notificacion(this);
-        registerReceiver(manager.notificacion.getReceiver(), manager.notificacion.getFilter());
+//        registerReceiver(manager.notificacion.getReceiver(), manager.notificacion.getFilter());
         Intent service = new Intent(this, MyService.class);
         startService(service);
     }

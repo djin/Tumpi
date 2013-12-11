@@ -36,6 +36,13 @@
         <activity android:name=".cliente.lista.android.Settings"
             android:label="@string/settings">
         </activity>
+        <receiver android:name=".servidor.interfaz.social.MyReciever" >
+            <intent-filter>
+                <action android:name="play" ></action>
+                <action android:name="next" ></action>
+                <action android:name="close" ></action>
+            </intent-filter>
+        </receiver>
         <service android:name=".cliente.lista.android.conexion.ServicioCliente" 
                  android:exported="false"/>
     </application>
