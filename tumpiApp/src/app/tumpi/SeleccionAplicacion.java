@@ -44,7 +44,8 @@ public class SeleccionAplicacion extends ActionBarActivity {
 
         Button btnServer = (Button) findViewById(R.id.botonIniciarServidor);
         
-        
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(2);
         
         ListasManager manager = ListasManager.getInstance();
         if(manager.conectado) {

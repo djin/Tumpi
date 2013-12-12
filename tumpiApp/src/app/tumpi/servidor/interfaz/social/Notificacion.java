@@ -17,6 +17,7 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 import app.tumpi.R;
 import app.tumpi.SeleccionAplicacion;
+import app.tumpi.services.MyService;
 import app.tumpi.servidor.modelo.datos.ListasManager;
 import app.tumpi.servidor.multimedia.AudioExplorer;
 
@@ -76,6 +77,8 @@ public class Notificacion {
         }
         manager.player.resetPlayer();
         manager.setCancionReproduciendo(null);
+        Intent service = new Intent(activity, MyService.class);
+        activity.stopService(service);
 	}
 
 	public BroadcastReceiver getReceiver() {

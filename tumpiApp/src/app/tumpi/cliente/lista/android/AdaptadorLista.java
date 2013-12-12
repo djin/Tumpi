@@ -83,6 +83,8 @@ public class AdaptadorLista extends BaseAdapter {
             txt.setTextColor(mContext.getResources().getColor(R.color.colorTextSonadoCliente));
             txtAutor.setTextColor(mContext.getResources().getColor(R.color.colorTextSonadoCliente));
             btn.setImageDrawable(null);
+            //No lo puedo probar, pero deberia ser algo asi para eliminar la animacion.
+            btn.setBackgroundColor(Color.argb(0, 0, 0, 0));
             btn.setEnabled(false);
         } else {
             txt.setTextColor(mContext.getResources().getColor(R.color.colorLetraRowCancionesCliente));
