@@ -45,20 +45,6 @@ public class Notificacion {
 		Intent closeIntent = new Intent("close");
 		closePendingIntent = PendingIntent.getBroadcast(activity, 0, closeIntent, 0);
 		receiver = new MyReciever();
-//		    @Override
-//		    public void onReceive(Context context, Intent intent) {
-//		        if (intent.getAction().equals("next")) {
-//		        	next();
-//		        }
-//		        if(intent.getAction().equals("play")){
-//		        	play();
-//		        }
-//		        if(intent.getAction().equals("close")){
-//		        	close();
-//		        }
-//		    }
-//		};
-		
 		filter = new IntentFilter();
 		filter.addAction("next");
 		filter.addAction("play");
@@ -78,18 +64,18 @@ public class Notificacion {
 	}
 	
 	public void close(){
-//		if (!manager.cerrarConexion()) {
-//			Toast.makeText(activity, "Error al salir del Tumpi",
-//					Toast.LENGTH_SHORT).show();
-//		}
-//		NotificationManager mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-//        mNotificationManager.cancel(1);
-//        manager.promotedList.getCanciones().clear();
-//        if(manager.player.isPlaying()){
-//        	manager.player.pause();
-//        }
-//        manager.player.resetPlayer();
-//        manager.setCancionReproduciendo(null);
+		if (!manager.cerrarConexion()) {
+			Toast.makeText(activity, "Error al salir del Tumpi",
+					Toast.LENGTH_SHORT).show();
+		}
+		NotificationManager mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(1);
+        manager.promotedList.getCanciones().clear();
+        if(manager.player.isPlaying()){
+        	manager.player.pause();
+        }
+        manager.player.resetPlayer();
+        manager.setCancionReproduciendo(null);
 	}
 
 	public BroadcastReceiver getReceiver() {
@@ -114,8 +100,7 @@ public class Notificacion {
 			NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 					activity).setSmallIcon(R.drawable.logo_tumpi)
 					.setLargeIcon(bitmap.getBitmap()).setOngoing(true)
-					.setContentText("Pulsa aqui aqui entrar a votar!")
-					.setTicker("El dj ha publicado una nueva lista!");
+					.setTicker(manager.getCancionReproduciendo().nombreCancion);
 			
 			Bitmap imgDefault = explorer.getAlbumImage(manager
 					.getCancionReproduciendo().album_id);
@@ -168,6 +153,7 @@ public class Notificacion {
 
 			Intent notIntent = new Intent(activity,
 					SeleccionAplicacion.class);
+			notIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 			PendingIntent contIntent = PendingIntent.getActivity(
 					activity, 0, notIntent, 0);
