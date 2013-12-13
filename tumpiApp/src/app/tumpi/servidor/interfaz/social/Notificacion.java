@@ -1,5 +1,7 @@
 package app.tumpi.servidor.interfaz.social;
 
+import java.util.ArrayList;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Notification;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import app.tumpi.R;
 import app.tumpi.SeleccionAplicacion;
 import app.tumpi.services.MyService;
+import app.tumpi.servidor.interfaces.NotificationListener;
 import app.tumpi.servidor.modelo.datos.ListasManager;
 import app.tumpi.servidor.multimedia.AudioExplorer;
 
@@ -31,6 +34,7 @@ public class Notificacion {
 	private PendingIntent playPendingIntent;
 	private PendingIntent closePendingIntent;
 	private Activity activity;
+	private ArrayList<NotificationListener> listeners;
 	
 	public Notificacion() {
 		// TODO Auto-generated constructor stub
@@ -51,6 +55,7 @@ public class Notificacion {
 		filter.addAction("play");
 		filter.addAction("close");
 		explorer = AudioExplorer.getInstance(activity.getApplicationContext());
+		listeners = new ArrayList<NotificationListener>();
 
 	}
 	
@@ -62,6 +67,7 @@ public class Notificacion {
 	public void play(){
 		manager.player.pause();
 		sacarNotificacion();
+		fireOnClickPlayNotification();
 	}
 	
 	public void close(){
@@ -79,6 +85,7 @@ public class Notificacion {
         manager.setCancionReproduciendo(null);
         Intent service = new Intent(activity, MyService.class);
         activity.stopService(service);
+        fireOnCloseNotification();
 	}
 
 	public BroadcastReceiver getReceiver() {
@@ -170,6 +177,24 @@ public class Notificacion {
 			NotificationManager mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
 
 			mNotificationManager.notify(1, nf);
+		}
+	}
+	
+	public void addNotificationListener (NotificationListener listener){
+		if(!listeners.contains(listener)){
+			listeners.add(listener);
+		}
+	}
+	
+	public void fireOnClickPlayNotification(){
+		for (NotificationListener e: listeners){
+			e.onClickPlayNotification();
+		}
+	}
+	
+	public void fireOnCloseNotification(){
+		for(NotificationListener e: listeners){
+			e.onCloseNotification();
 		}
 	}
 //

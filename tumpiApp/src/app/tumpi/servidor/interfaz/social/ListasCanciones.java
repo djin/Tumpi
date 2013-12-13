@@ -23,11 +23,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import app.tumpi.R;
+import app.tumpi.servidor.interfaces.NotificationListener;
 import app.tumpi.servidor.modelo.datos.ListasManager;
 import app.tumpi.servidor.multimedia.AudioExplorer;
 import app.tumpi.servidor.multimedia.PlayerListener;
 
-public class ListasCanciones extends ActionBarActivity implements PlayerListener {
+public class ListasCanciones extends ActionBarActivity implements PlayerListener, NotificationListener {
 
 	// When requested, this adapter returns a DemoObjectFragment,
 	// representing an object in the collection.
@@ -82,6 +83,7 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 		explorer = AudioExplorer.getInstance(getApplicationContext());
 		modelo.player.addPlayerListener(this);
 		updatePlayer();
+		manager.notificacion.addNotificationListener(this);
 	}
 
 	public void irPromocionada() {
@@ -252,28 +254,48 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 	}
 
 	public void clickPlay(View v) {
-		try {
-			modelo.player.pause();
-		} catch (Exception ex) {
-			clickNext(null);
+		if(!manager.promotedList.getCanciones().isEmpty()){
+			manager.player.pause();
+			ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
+			if (manager.player.isPlaying()) {
+				boton.setImageResource(R.drawable.image_pause);
+				manager.notificacion.sacarNotificacion();
+			} else {
+				boton.setImageResource(R.drawable.image_play);
+			}
 		}
-		ImageButton boton = (ImageButton) v;
-		if (modelo.player.isPlaying()) {
-			boton.setImageResource(R.drawable.image_pause);
-			manager.notificacion.sacarNotificacion();
-		} else {
-			boton.setImageResource(R.drawable.image_play);
-		}
+//		try {
+//			modelo.player.pause();
+//		} catch (Exception ex) {
+//			clickNext(null);
+//		}
+//		ImageButton boton = (ImageButton) v;
+//		if (modelo.player.isPlaying()) {
+//			boton.setImageResource(R.drawable.image_pause);
+//			manager.notificacion.sacarNotificacion();
+//		} else {
+//			boton.setImageResource(R.drawable.image_play);
+//		}
 	}
 
 	public void clickNext(View v) {
-		modelo.procesarVotos();
-		findViewById(R.id.btnPlay_listas).post(new Runnable() {
-			public void run() {
-				updatePlayer();
-				manager.notificacion.sacarNotificacion();
-			}
-		});
+		if(!manager.promotedList.getCanciones().isEmpty()){
+			manager.procesarVotos();
+			TextView txtNombreCancionReproduciendo = (TextView) findViewById(R.id.txtNombreCancionReproduciendo);
+			txtNombreCancionReproduciendo.post(new Runnable() {
+				public void run() {
+					updatePlayer();
+					manager.notificacion.sacarNotificacion();
+				}
+			});
+		}
+//		modelo.procesarVotos();
+//		findViewById(R.id.btnPlay_listas).post(new Runnable() {
+//			public void run() {
+//				updatePlayer();
+//				manager.notificacion.sacarNotificacion();
+//			}
+//		});
 	}
 	
 	public void promocionar(View v){
@@ -302,5 +324,17 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 	@Override
 	public void onBackPressed() {
 		irPromocionada();
+	}
+
+	@Override
+	public void onCloseNotification() {
+		updatePlayer();
+		
+	}
+
+	@Override
+	public void onClickPlayNotification() {
+		updatePlayer();
+		
 	}
 }
