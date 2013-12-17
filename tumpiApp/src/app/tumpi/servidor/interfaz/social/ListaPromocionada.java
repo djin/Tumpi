@@ -183,6 +183,16 @@ public class ListaPromocionada extends ActionBarActivity implements
 
 	}
 
+	public void actualizarActionBar() {
+		if (manager.conectado) {
+			conectarItem.setIcon(R.drawable.conectado);
+			logoutItem.setVisible(true);
+		} else {
+			logoutItem.setVisible(false);
+			conectarItem.setIcon(R.drawable.image_conectar);
+		}
+	}
+
 	public void borrarCanciones() {
 		ArrayList<CancionPromocionada> nuevaLista = new ArrayList<CancionPromocionada>();
 		int buscarBorrados = 0;
@@ -525,6 +535,7 @@ public class ListaPromocionada extends ActionBarActivity implements
 	public void onCloseNotification() {
 		adapter.notifyDataSetChanged();
 		updatePlayer();
+		actualizarActionBar();
 	}
 
 	@Override
