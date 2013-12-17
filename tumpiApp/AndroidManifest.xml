@@ -31,10 +31,12 @@
             android:screenOrientation="nosensor">
         </activity>
         <activity android:name=".cliente.lista.android.ListaCanciones"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="nosensor">
         </activity>
         <activity android:name=".cliente.lista.android.Settings"
-            android:label="@string/settings">
+            android:label="@string/settings"
+            android:screenOrientation="nosensor">
         </activity>
         <receiver android:name=".servidor.interfaz.social.MyReciever" >
             <intent-filter>

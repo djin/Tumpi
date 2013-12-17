@@ -256,7 +256,7 @@ public class ListasCanciones extends ActionBarActivity implements PlayerListener
 	public void clickPlay(View v) {
 		if(!manager.promotedList.getCanciones().isEmpty()){
 			manager.player.pause();
-			ImageButton boton = (ImageButton) findViewById(R.id.btnPlay);
+			ImageButton boton = (ImageButton) findViewById(R.id.btnPlay_listas);
 			if (manager.player.isPlaying()) {
 				boton.setImageResource(R.drawable.image_pause);
 				manager.notificacion.sacarNotificacion();
