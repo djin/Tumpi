@@ -172,7 +172,7 @@ public class Notificacion {
 			mBuilder.setContentIntent(contIntent);
 
 			Notification nf = mBuilder.build();
-
+			
 			nf.bigContentView = mRemoteViewBig;
 			NotificationManager mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
 
