@@ -21,6 +21,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
+import model.TumpiClient;
 import reproductor.PlayerReproductor;
 import reproductor.ThreadGetDuracion;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
@@ -38,6 +39,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
     private HashMap<String, ArrayList> votos_cliente;
     private static ListaPromocionada lista_sonando;
     private static ConjuntoListas listas_canciones;
+    private HashMap<String, TumpiClient> clientMap;
     private ConnectionManager connection;
     private PlayerReproductor reproductor;
     private static boolean hay_lista_promocionada;
@@ -49,6 +51,7 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
 
         reproductor = new PlayerReproductor();
         votos_cliente = new HashMap<String, ArrayList>();
+        clientMap = new HashMap<String, TumpiClient>();
         listas_canciones = new ConjuntoListas();
         lista_sonando = new ListaPromocionada();
         connection = new ConnectionManager();
@@ -67,7 +70,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             getLista_sonando().NuevasCanciones(listas_canciones.getLista(id_lista));
             hay_lista_promocionada = true;
             try {
-                connection.getSocket().enviarMensajeServer("*", "0|" + getLista_sonando());
+                connection.getSocket().enviarMensajeServer("*", "0|" + getLista_sonando().toString());
+                System.out.println("0|" + getLista_sonando().toString());
             } catch (Exception ex) {
                 System.err.println("Error al enviar la lista: " + ex.toString());
             }
@@ -404,20 +408,16 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
         ArrayList<Integer> _votos_cliente = votos_cliente.get(ip);
         int tipo = Integer.parseInt(message.split("\\|")[0]);
         message = message.split("\\|")[1];
+        final int delimiterIndex = message.indexOf("&");
+        final String uuid = message.substring(0, delimiterIndex);
+        message = message.substring(delimiterIndex + 1);
+        TumpiClient tumpiClient = clientMap.get(uuid);
         try {
             switch (tipo) {
                 case 0:
-                    if (lista_sonando != null) {
-                        System.out.println("0|" + lista_sonando.toString());
-                        connection.getSocket().enviarMensajeServer(ip, "0|" + lista_sonando.toString());
-                    }
+                    sendPromotedList(uuid, ip);
                     if (lista_sonando.getCancionSonando() != null) {
                         connection.getSocket().enviarMensajeServer(ip, "4|" + lista_sonando.getCancionSonando().toString());
-                    }
-                    if (_votos_cliente != null) {
-                        for (int id_cancion : _votos_cliente) {
-                            connection.getSocket().enviarMensajeServer(ip, "1|" + id_cancion);
-                        }
                     }
                     break;
                 case 1:
@@ -434,12 +434,14 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
                 case 3:
                     id_cancion = Integer.parseInt(message);
                     if (lista_sonando.añadirVoto(id_cancion, false)) {
-                        connection.getSocket().enviarMensajeServer(ip, "3|" + message);
-                        if (_votos_cliente != null) {
-                            _votos_cliente.remove((Integer) id_cancion);
+                        if(connection!=null)
+                            connection.socket.enviarMensajeServer(ip, "3|" + message);
+                        if (tumpiClient != null) {
+                            tumpiClient.remove((Integer) id_cancion);
                         }
                     } else {
-                        connection.getSocket().enviarMensajeServer(ip, "3|0");
+                        if(connection!=null)
+                            connection.socket.enviarMensajeServer(ip, "3|0");
                     }
                     break;
             }
@@ -447,11 +449,25 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             System.err.println("Error en la recepcion de mensaje: " + ex);
         }
     }
+    
+        private void sendPromotedList(String uuid, String ip) throws IOException{
+        if (lista_sonando != null) {
+            if(connection!=null){
+            	TumpiClient tumpiClient = clientMap.get(uuid);
+            	
+            	final String votedSongsString = tumpiClient.votedSongsAsString();
+                System.out.println("0|" + votedSongsString + 
+                		"&" + lista_sonando.toString());
+                connection.socket.enviarMensajeServer(ip, "0|" + votedSongsString + 
+                		"&" + lista_sonando.toString());
+            }
+        }
+    }
 
     @Override
-    public void onClientConnected(String ip) {
-        if (votos_cliente.get(ip) == null) {
-            votos_cliente.put(ip, new ArrayList<Integer>());
+    public void onClientConnected(String uuid) {
+        if (clientMap.get(uuid) == null) {
+        	clientMap.put(uuid, new TumpiClient(uuid));
         }
     }
 
