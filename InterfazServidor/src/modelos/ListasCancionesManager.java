@@ -26,6 +26,7 @@ import reproductor.ThreadGetDuracion;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
+import util.Installation;
 
 /**
  *
@@ -237,7 +238,8 @@ public class ListasCancionesManager implements MediaPlayerEventListener, ServerS
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
             nombre_servidor = (String) pane.getInputValue();
-            if (connection.getSocket().logIn(nombre_servidor)) {
+            String uuid = Installation.id();
+            if (connection.getSocket().logIn(nombre_servidor, uuid)) {
                 connection.getSocket().addServerSocketListener(this);
                 connection.getSocket().startListenBridge();
                 fireBridgeConnectedEvent(nombre_servidor);

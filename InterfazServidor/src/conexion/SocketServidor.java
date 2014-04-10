@@ -82,10 +82,10 @@ public class SocketServidor {
         return clientes.size();
     }
 
-    public boolean logIn(String _nick) throws Exception {
+    public boolean logIn(String _nick, final String uuid) throws Exception {
         boolean logIn;
         try {
-            output.writeUTF("s:log|" + _nick);
+            output.writeUTF("s:log|" + _nick + "|" + uuid);
             socket_server.setSoTimeout(5000);
             String resp = input.readUTF();
             System.out.println("Server: " + resp);
