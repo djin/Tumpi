@@ -61,6 +61,7 @@ public class ListaCanciones extends ActionBarActivity implements
 		mListView.setAdapter(listadoAdapter);
 		text_playing = (TextView) findViewById(R.id.txtPlaying);
 		text_playing.setSelected(true);
+		cancion_sonando = null;
 		text_autorPlaying = (TextView) findViewById(R.id.txtPlayingAutor);
 		conex = new ConnectionManager();
 		conex.conexion.addServerMessageListener(this);
@@ -157,16 +158,23 @@ public class ListaCanciones extends ActionBarActivity implements
 					int n = 0;
 					switch (tipo) {
 					case 0:
+						String promotedListData = message;
+						HashSet<Integer> votedSongs = null;
 						final int delimiterIndex = message.indexOf("&");
-						final String votedSongsData = message.substring(0,
-								delimiterIndex);
-						final String promotedListData = message
-								.substring(delimiterIndex + 1);
+						if (delimiterIndex != -1) {
+							final String votedSongsData = message.substring(0,
+									delimiterIndex);
+							promotedListData = message
+									.substring(delimiterIndex + 1);
+							votedSongs = parseVotedSongs(votedSongsData);
+						}
 						listadoAdapter.limpiarDatos();
-						HashSet<Integer> votedSongs = parseVotedSongs(votedSongsData);
+
 						String[] canciones = promotedListData.split("\\;");
 						interpretarLista(canciones);
-						voteSongs(votedSongs);
+						if(delimiterIndex != -1){
+							voteSongs(votedSongs);
+						}
 						listadoAdapter.notifyDataSetChanged();
 						sacarNotificacion();
 						break;
