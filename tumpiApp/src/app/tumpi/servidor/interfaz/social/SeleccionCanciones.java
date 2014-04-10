@@ -133,7 +133,7 @@ public class SeleccionCanciones extends ActionBarActivity {
 
 	private String parsearDato(String dato) {
 		if (dato != null) {
-			String resultado = dato.replaceAll("[;:\\*\\|]", " ");
+			String resultado = dato.replaceAll("[;:\\*\\|&]", " ");
 			return resultado;
 		}
 		return null;
